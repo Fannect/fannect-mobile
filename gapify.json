@@ -1,0 +1,64 @@
+{
+   "output": "./src",
+   "assets": [
+      {
+         "from":"work/js/tree.coffee",
+         "to":"{out}/js/tree.js"
+      },
+      {
+         "from":"work/css/skin.styl",
+         "to":"{out}/css/skin.css"
+      },
+      {
+         "from":"work/css/lib/fannect.css",
+         "to":"{out}/css/lib/fannect.css"
+      },
+      {
+         "from":"work/css/lib/jquerymobile.css",
+         "to":"{out}/css/lib/jquerymobile.css"
+      },
+      {
+         "from":"work/css/lib/normalize.css",
+         "to":"{out}/css/lib/normalize.css"
+      },
+      {
+         "from":"work/images",
+         "to":"{out}/images"
+      },
+      {
+         "from":"work/fonts",
+         "to":"{out}/fonts"
+      },
+      {
+         "from":"work/res",
+         "to":"{out}/res"
+      }
+   ],
+   "views": {
+      "directory":"work/views",
+      "ignore":["layout.jade"]
+   },
+   "default_command": null,
+   "commands": {
+      "web": [
+         {
+            "command": "cd ../; forge build web",
+            "on_error": "stop"
+         },
+         {
+            "command": "cd ../; forge run web",
+            "on_error": "stop"
+         }
+      ],
+      "android": [
+         {
+            "command": "cd ../; forge build android",
+            "on_error": "stop"
+         },
+         {
+            "command": "cd ../; forge run android",
+            "on_error": "stop"
+         }
+      ]
+   }
+}

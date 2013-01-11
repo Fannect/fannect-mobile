@@ -1,0 +1,1311 @@
+@font-face {
+  font-family: JerseyM54;
+  src: url("../fonts/JerseyM54.ttf");
+}
+@font-face {
+  font-family: Journal;
+  src: url("../fonts/Journal.ttf");
+}
+.clear {
+  clear: both;
+  height: 1px;
+}
+.header {
+  -moz-box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+  z-index: 3000;
+}
+.header h1 {
+  text-transform: uppercase;
+}
+.header .ui-btn-left,
+.header .ui-btn-right {
+  top: 5px;
+}
+.header .ui-title {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-family: JerseyM54, Helvetica, Arial, sans-serif;
+  font-size: 1.2em;
+  text-transform: uppercase;
+}
+.ui-page {
+  background: url("../images/Tilable-Background.png") 50% 0;
+  background-size: 50px 50px;
+  overflow: hidden;
+}
+.ui-popup h1 {
+  margin: 0.5em 0 !important;
+}
+.ui-content {
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+.background-highlight {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: url("../images/Lighting-Background.png") 50% 0 no-repeat;
+  background-size: 320px 480px;
+}
+.footer .ui-navbar {
+  position: relative;
+  -moz-box-shadow: 0 -2px 3px rgba(0,0,0,0.6);
+  -webkit-box-shadow: 0 -2px 3px rgba(0,0,0,0.6);
+  box-shadow: 0 -2px 3px rgba(0,0,0,0.6);
+  z-index: 500;
+}
+.footer .ui-btn-inner {
+  padding-top: 38px;
+}
+.footer .ui-btn-text {
+  font-size: 0.7em;
+  top: 7px;
+}
+.footer .ui-icon.ui-icon-custom {
+  width: 48px;
+  height: 32px;
+  background: url("../images/icons/icons-tab.png") no-repeat;
+  background-size: 260px 32px;
+  margin-left: -24px;
+}
+.footer .profile-menu .ui-icon {
+  background-position: -159px 0;
+}
+.footer .games-menu .ui-icon {
+  background-position: -106px 0;
+}
+.footer .leaderboard-menu .ui-icon {
+  background-position: -53px 0;
+}
+.footer .connect-menu .ui-icon {
+  background-position: 0 0;
+}
+.footer .settings-menu .ui-icon {
+  background-position: -212px 0;
+}
+.team-glass {
+  font-size: 0.7em;
+  background: url("../images/games/Overlay_TeamGlass_iPhone.png");
+  background-size: 134px 43px;
+  width: 110px;
+  height: 25px;
+  padding: 8px 12px 10px 12px;
+  text-align: center;
+}
+.team-glass .team {
+  margin-bottom: 2px;
+}
+.team-glass .record {
+  color: #c0c0c0;
+  font-size: 0.9em;
+}
+.scrolling-text {
+  position: relative;
+  width: 280px;
+  height: 24px;
+  margin: 4px auto;
+  background: url("../images/Overlay_ScrollBarBase.png") repeat-x 0% 50%;
+  background-size: 2px 20px;
+}
+.scrolling-text .text-wrap {
+  position: absolute;
+  left: 18px;
+  right: -2px;
+  height: 24px;
+  overflow: hidden;
+}
+.scrolling-text .text-wrap .text {
+  position: absolute;
+  left: 10px;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  line-height: 24px;
+  white-space: nowrap;
+}
+.scrolling-text .cover {
+  position: absolute;
+  left: -5px;
+  width: 290px;
+  height: 24px;
+  background: url("../images/Overlay_ScrollBarFrame_iPhone.png");
+  background-size: 290px 24px;
+  -moz-box-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  z-index: 50;
+}
+.pattern-bg li.ui-li {
+  background: url("../images/Pattern_FabricKnit.png");
+  background-size: 4px 4px;
+}
+.pattern-bg li.ui-li .ui-btn-inner {
+  background: -moz-linear-gradient(top, rgba(255,242,242,0.4) 0%, rgba(242,232,232,0) 24%, rgba(221,216,216,0) 62%, rgba(200,200,200,0.4) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,242,242,0.4)), color-stop(24%, rgba(242,232,232,0)), color-stop(62%, rgba(221,216,216,0)), color-stop(100%, rgba(200,200,200,0.4)));
+  background: -webkit-linear-gradient(top, rgba(255,242,242,0.4) 0%, rgba(242,232,232,0) 24%, rgba(221,216,216,0) 62%, rgba(200,200,200,0.4) 100%);
+  background: -o-linear-gradient(top, rgba(255,242,242,0.4) 0%, rgba(242,232,232,0) 24%, rgba(221,216,216,0) 62%, rgba(200,200,200,0.4) 100%);
+  background: -ms-linear-gradient(top, rgba(255,242,242,0.4) 0%, rgba(242,232,232,0) 24%, rgba(221,216,216,0) 62%, rgba(200,200,200,0.4) 100%);
+  background: linear-gradient(to bottom, rgba(255,242,242,0.4) 0%, rgba(242,232,232,0) 24%, rgba(221,216,216,0) 62%, rgba(200,200,200,0.4) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=rgba(102,255,242,0.949), endColorstr=rgba(102,200,200,0.784),GradientType=0);
+}
+.pattern-bg li.ui-li.ui-btn-active {
+  border-color: #ccc;
+}
+.pattern-bg li.ui-li.ui-btn-active .ui-btn-inner {
+  background: rgba(0,0,0,0.2);
+}
+.pattern-bg li.ui-li .ui-icon-arrow-r {
+  background: url("../images/icons/TableCell_TableNext.png") 50% 50% no-repeat;
+  background-size: 10px 14px;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.fans .fan .image-wrap {
+  position: relative;
+  width: 43px;
+  height: 43px;
+  float: left;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.fans .fan .image-wrap .profile-image {
+  width: 43px;
+  height: 43px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.fans .fan .image-wrap .cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 43px;
+  height: 43px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: inset 1px 2px 3px rgba(0,0,0,0.6), 0 1px 2px rgba(255,255,255,0.8), 0 -1px 1px rgba(0,0,0,0.8);
+  -webkit-box-shadow: inset 1px 2px 3px rgba(0,0,0,0.6), 0 1px 2px rgba(255,255,255,0.8), 0 -1px 1px rgba(0,0,0,0.8);
+  box-shadow: inset 1px 2px 3px rgba(0,0,0,0.6), 0 1px 2px rgba(255,255,255,0.8), 0 -1px 1px rgba(0,0,0,0.8);
+}
+.fans .fan .fan-info {
+  margin: -2px 0 0 12px;
+  float: left;
+}
+.fans .fan .fan-info .name {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.fans .fan .fan-info .team {
+  font-size: 0.9em;
+  font-weight: lighter;
+  margin: 3px 0 4px 0;
+  color: #c5171e;
+}
+.fans .fan .left-icon {
+  width: 38px;
+  height: 43px;
+  float: left;
+  margin: 0 2px 0 -12px;
+}
+.fans .fan .left-icon.cancel {
+  background: url("../images/icons/Button_Delete.png") 50% 50% no-repeat;
+  background-size: 19px 19px;
+}
+.fans .fan .right-icon {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  width: 34px;
+  height: 63px;
+}
+.fans .fan .right-icon.rank {
+  background: url("../images/leaderboard/Overlay_LeaderboardRank.png") 50% 50% no-repeat;
+  background-size: 27px 28px;
+  font-family: JerseyM54, Helvetica, Arial, sans-serif;
+  text-align: center;
+  font-size: 1.1em;
+  line-height: 63px;
+  color: #971418;
+  padding-left: 2px;
+}
+.fans .fan .right-icon.accept {
+  background: url("../images/icons/Button_Delete.png") 50% 50% no-repeat;
+  background-size: 19px 19px;
+}
+.tutorial-link .ui-icon.ui-icon-custom {
+  background: url("../images/tutorial/InfoButton@2x.png") no-repeat;
+  background-size: 18px 18px;
+}
+.tutorial {
+  font-family: Journal, Helvetica, Arial, sans-serif;
+  position: fixed;
+  padding-top: 60px;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2000;
+  background: rgba(0,0,0,0.5);
+  display: none;
+}
+.tutorial .tutorial-slider {
+  height: 344px;
+}
+.tutorial .tutorial-slider.one {
+  width: 100%;
+}
+.tutorial .tutorial-slider.one .tutorial-item {
+  width: 100%;
+}
+.tutorial .tutorial-slider.two {
+  width: 200%;
+}
+.tutorial .tutorial-slider.two .tutorial-item {
+  width: 50%;
+}
+.tutorial .tutorial-slider.three {
+  width: 300%;
+}
+.tutorial .tutorial-slider.three .tutorial-item {
+  width: 33.33333333%;
+}
+.tutorial .tutorial-slider.four {
+  width: 400%;
+}
+.tutorial .tutorial-slider.four .tutorial-item {
+  width: 25%;
+}
+.tutorial .tutorial-slider.five {
+  width: 500%;
+}
+.tutorial .tutorial-slider.five .tutorial-item {
+  width: 20%;
+}
+.tutorial .tutorial-item {
+  float: left;
+  height: 100%;
+  background: url("../images/tutorial/Tutorial_chalkboard.png") 50% 0 no-repeat;
+  background-size: 304px 344px;
+  font-size: 1.3em;
+  line-height: 1.1em;
+  text-align: center;
+}
+.tutorial .tutorial-content {
+  position: relative;
+  margin: 0 auto;
+  padding: 22px 16px 22px;
+  width: 258px;
+  height: 307px;
+}
+.tutorial .tutorial-close {
+  position: absolute;
+  background: url("../images/tutorial/Tutorial_exitButton.png") 50% 50% no-repeat;
+  background-size: 27px 31px;
+  top: 4px;
+  right: 0px;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+}
+.tutorial .tutorial-close:active {
+  background-image: url("../images/tutorial/tutorial_redX.png");
+}
+.tutorial .tutorial-title {
+  font-size: 1.3em;
+  text-align: center;
+}
+.tutorial .tutorial-next,
+.tutorial .tutorial-prev {
+  position: absolute;
+  bottom: 25px;
+  width: 30px;
+  height: 21px;
+  background-size: 30px 21px;
+  cursor: pointer;
+}
+.tutorial .tutorial-next {
+  right: 10px;
+  background-image: url("../images/tutorial/Tutorial_nextArrow.png");
+}
+.tutorial .tutorial-prev {
+  left: 10px;
+  background-image: url("../images/tutorial/Tutorial_backArrow.png");
+}
+.tutorial .tutorial-pos-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 96px;
+  height: 67px;
+  margin-left: -52.5px;
+  background: url("../images/tutorial/Tutorial_dotShelf.png") 0 0 no-repeat;
+  background-size: 105px 67px;
+}
+.tutorial .tutorial-pos-indicator .dot {
+  display: inline-block;
+  position: relative;
+  top: 15px;
+  width: 12px;
+  height: 12px;
+  background: url("../images/tutorial/Tutorial_openPageIndicator.png") 50% 50% no-repeat;
+  background-size: 12px 12px;
+}
+.tutorial .tutorial-pos-indicator .dot.active {
+  background-image: url("../images/tutorial/Tutorial_currentPageIndicator.png");
+  background-size: 9px 9px;
+}
+.tutorial p.medium {
+  font-size: 1.2em;
+  line-height: 1.1em;
+  margin-bottom: 2px;
+}
+.tutorial p.large {
+  font-size: 1.4em;
+  line-height: 1.3em;
+  margin-bottom: 4px;
+}
+.tutorial ol {
+  position: relative;
+  left: 30px;
+  list-style: decimal outside;
+  text-align: left;
+}
+.tutorial .tutorial-submit-button {
+  height: 55px;
+  background: url("../images/tutorial/Tutorial_submitButton.png") 50% 0 no-repeat;
+  background-size: 225px 55px;
+  margin-top: 8px;
+}
+.icon.settings {
+  width: 29px;
+  height: 29px;
+  background: url("../images/icons/icons-settings.png") no-repeat;
+  background-size: 301px 29px;
+}
+.icon.settings.full-tilt-ventures {
+  background-position: 0 0;
+}
+.icon.settings.rade-eecles {
+  background-position: -34px 0;
+}
+.icon.settings.fannect {
+  background-position: -68px 0;
+}
+.icon.settings.account {
+  background-position: -102px 0;
+}
+.icon.settings.more-apps {
+  background-position: -136px 0;
+}
+.icon.settings.privacy {
+  background-position: -170px 0;
+}
+.icon.settings.rate-it {
+  background-position: -204px 0;
+}
+.icon.settings.technical-support {
+  background-position: -238px 0;
+}
+.icon.settings.tell-friend {
+  background-position: -204px 0;
+}
+.icon-gamecell {
+  width: 72px;
+  height: 72px;
+  background: url("../images/icons/icons-gamecell.png") no-repeat;
+  background-size: 303px 72px;
+}
+.icon-gamecell.attendence-streak {
+  background-position: 0 0;
+}
+.icon-gamecell.game-face {
+  background-position: -77px 0;
+}
+.icon-gamecell.guess-the-score {
+  background-position: -154px 0;
+}
+.icon-gamecell.locked {
+  background-position: -231px 0;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+  .ui-page {
+    background-image: url("../images/Tilable-Background@2x.png");
+  }
+  .background-highlight {
+    background-image: url("../images/Lighting-Background@2x.png");
+  }
+  .team-glass {
+    background-image: url("../images/games/Overlay_TeamGlass_iPhone@2x.png");
+  }
+  .footer .ui-icon.ui-icon-custom {
+    background-image: url("../images/icons/icons-tab@2x.png");
+  }
+  .scrolling-text {
+    background-image: url("../images/Overlay_ScrollBarBase@2x.png");
+  }
+  .scrolling-text .cover {
+    background-image: url("../images/Overlay_ScrollBarFrame_iPhone@2x.png");
+  }
+  .pattern-bg li.ui-li {
+    background-image: url("../images/Pattern_FabricKnit@2x.png");
+  }
+  .pattern-bg li.ui-li .ui-icon-arrow-r {
+    background-image: url("../images/icons/TableCell_TableNext@2x.png");
+  }
+  .icon.gamecell {
+    background-image: url("../images/icons/icons-gamecell@2x.png");
+  }
+  .fans .cancel {
+    background-image: url("../images/icons/Button_Delete@2x.png") !important;
+  }
+  .fans .accept {
+    background-image: url("../images/icons/Button_Delete@2x.png") !important;
+  }
+  .fans .rank {
+    background-image: url("../images/leaderboard/Overlay_LeaderboardRank@2x.png") !important;
+  }
+  .tutorial-link .ui-icon.ui-icon-custom {
+    background-image: url("../images/tutorial/InfoButton@2x.png");
+  }
+  .tutorial-item {
+    background-image: url("../images/tutorial/Tutorial_chalkboard@2x.png") !important;
+  }
+  .tutorial-close {
+    background-image: url("../images/tutorial/Tutorial_exitButton@2x.png") !important;
+  }
+  .tutorial-close:active {
+    background-image: url("../images/tutorial/tutorial_redX@2x.png") !important;
+  }
+  .tutorial-next {
+    background-image: url("../images/tutorial/Tutorial_nextArrow@2x.png") !important;
+  }
+  .tutorial-prev {
+    background-image: url("../images/tutorial/Tutorial_backArrow@2x.png") !important;
+  }
+  .tutorial-pos-indicator {
+    background-image: url("../images/tutorial/Tutorial_dotShelf@2x.png") !important;
+  }
+  .tutorial-pos-indicator .dot {
+    background-image: url("../images/tutorial/Tutorial_openPageIndicator@2x.png") !important;
+  }
+  .tutorial-pos-indicator .dot.active {
+    background-image: url("../images/tutorial/Tutorial_currentPageIndicator@2x.png") !important;
+  }
+  .tutorial-submit-button {
+    background-image: url("../images/tutorial/Tutorial_submitButton@2x.png") !important;
+  }
+}
+#profile-page .profile-images,
+#connect-addToRosterProfile-page .profile-images,
+#profile-invitationProfile-page .profile-images,
+#leaderboard-rosterProfile-page .profile-images {
+  position: relative;
+  height: 250px;
+  width: 320px;
+  margin: 0 auto;
+}
+#profile-page .profile-images .team-wrap,
+#connect-addToRosterProfile-page .profile-images .team-wrap,
+#profile-invitationProfile-page .profile-images .team-wrap,
+#leaderboard-rosterProfile-page .profile-images .team-wrap {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 210px;
+  height: 210px;
+  cursor: pointer;
+}
+#profile-page .profile-images .team-wrap .cover,
+#connect-addToRosterProfile-page .profile-images .team-wrap .cover,
+#profile-invitationProfile-page .profile-images .team-wrap .cover,
+#leaderboard-rosterProfile-page .profile-images .team-wrap .cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  width: 210px;
+  height: 210px;
+}
+#profile-page .profile-images .team-wrap img,
+#connect-addToRosterProfile-page .profile-images .team-wrap img,
+#profile-invitationProfile-page .profile-images .team-wrap img,
+#leaderboard-rosterProfile-page .profile-images .team-wrap img {
+  position: absolute;
+  top: 7px;
+  left: 4px;
+  width: 190px;
+  height: 190px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  z-index: 10;
+}
+#profile-page .profile-images .user-wrap,
+#connect-addToRosterProfile-page .profile-images .user-wrap,
+#profile-invitationProfile-page .profile-images .user-wrap,
+#leaderboard-rosterProfile-page .profile-images .user-wrap {
+  z-index: 300;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 162px;
+  height: 162px;
+  cursor: pointer;
+}
+#profile-page .profile-images .user-wrap .cover,
+#connect-addToRosterProfile-page .profile-images .user-wrap .cover,
+#profile-invitationProfile-page .profile-images .user-wrap .cover,
+#leaderboard-rosterProfile-page .profile-images .user-wrap .cover {
+  position: absolute;
+  z-index: 400;
+  width: 162px;
+  height: 162px;
+  background: url("../images/profile/Overlay_ProfilePictureFrame.png");
+  background-size: 162px 162px;
+}
+#profile-page .profile-images .user-wrap img,
+#connect-addToRosterProfile-page .profile-images .user-wrap img,
+#profile-invitationProfile-page .profile-images .user-wrap img,
+#leaderboard-rosterProfile-page .profile-images .user-wrap img {
+  position: absolute;
+  top: 7px;
+  left: 11px;
+  width: 140px;
+  height: 140px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  z-index: 10;
+}
+#profile-page .profile-images .team-hint,
+#connect-addToRosterProfile-page .profile-images .team-hint,
+#profile-invitationProfile-page .profile-images .team-hint,
+#leaderboard-rosterProfile-page .profile-images .team-hint {
+  position: absolute;
+  width: 194px;
+  height: 186px;
+  top: 10px;
+  left: 0px;
+  background: url("../images/profile/Profile_tapToAddTeamPhoto.png");
+  background-size: 194px 186px;
+}
+#profile-page .profile-images .user-hint,
+#connect-addToRosterProfile-page .profile-images .user-hint,
+#profile-invitationProfile-page .profile-images .user-hint,
+#leaderboard-rosterProfile-page .profile-images .user-hint {
+  position: absolute;
+  width: 136px;
+  height: 136px;
+  top: 9px;
+  left: 13px;
+  background: url("../images/profile/Profile_tapToAddProfilePhoto.png");
+  background-size: 136px 136px;
+}
+#profile-page .name,
+#connect-addToRosterProfile-page .name,
+#profile-invitationProfile-page .name,
+#leaderboard-rosterProfile-page .name {
+  font-size: 1.8em;
+  font-weight: bold;
+  text-align: center;
+}
+#profile-page .team-name-wrap,
+#connect-addToRosterProfile-page .team-name-wrap,
+#profile-invitationProfile-page .team-name-wrap,
+#leaderboard-rosterProfile-page .team-name-wrap {
+  position: relative;
+  width: 302px;
+  height: 66px;
+  margin: 8px auto;
+  background: url("../images/profile/Profile_GlassMarquee.png");
+  background-size: 302px 66px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+#profile-page .team-name-wrap .team,
+#connect-addToRosterProfile-page .team-name-wrap .team,
+#profile-invitationProfile-page .team-name-wrap .team,
+#leaderboard-rosterProfile-page .team-name-wrap .team {
+  display: block;
+  width: 222px;
+  height: 55px;
+  color: #c0c0c0;
+  text-align: center;
+  line-height: 55px;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 5px 40px 0;
+  text-overflow: ellipsis;
+}
+#profile-page .team-name-wrap .icon,
+#connect-addToRosterProfile-page .team-name-wrap .icon,
+#profile-invitationProfile-page .team-name-wrap .icon,
+#leaderboard-rosterProfile-page .team-name-wrap .icon {
+  position: absolute;
+  top: 24px;
+  right: 18px;
+  width: 13px;
+  height: 15px;
+  background: url("../images/profile/Profile_TeamArrows.png") no-repeat;
+  background-size: 31px 15px;
+}
+#profile-page .score-wrap,
+#connect-addToRosterProfile-page .score-wrap,
+#profile-invitationProfile-page .score-wrap,
+#leaderboard-rosterProfile-page .score-wrap {
+  position: relative;
+  width: 302px;
+  height: 36px;
+  margin: 8px auto;
+  background: url("../images/profile/Profile_ScoreDisplay-iPhone.png");
+  background-size: 302px 36px;
+}
+#profile-page .score-wrap .score,
+#connect-addToRosterProfile-page .score-wrap .score,
+#profile-invitationProfile-page .score-wrap .score,
+#leaderboard-rosterProfile-page .score-wrap .score {
+  position: absolute;
+  top: 11px;
+  width: 78px;
+  font-size: 0.7em;
+  font-family: JerseyM54, Helvetica, Arial, sans-serif;
+}
+#profile-page .score-wrap .score .label,
+#connect-addToRosterProfile-page .score-wrap .score .label,
+#profile-invitationProfile-page .score-wrap .score .label,
+#leaderboard-rosterProfile-page .score-wrap .score .label {
+  text-transform: uppercase;
+  float: left;
+}
+#profile-page .score-wrap .score .value,
+#connect-addToRosterProfile-page .score-wrap .score .value,
+#profile-invitationProfile-page .score-wrap .score .value,
+#leaderboard-rosterProfile-page .score-wrap .score .value {
+  float: right;
+}
+#profile-page .score-wrap .score.roster,
+#connect-addToRosterProfile-page .score-wrap .score.roster,
+#profile-invitationProfile-page .score-wrap .score.roster,
+#leaderboard-rosterProfile-page .score-wrap .score.roster {
+  left: 20px;
+}
+#profile-page .score-wrap .score.points,
+#connect-addToRosterProfile-page .score-wrap .score.points,
+#profile-invitationProfile-page .score-wrap .score.points,
+#leaderboard-rosterProfile-page .score-wrap .score.points {
+  left: 113px;
+}
+#profile-page .score-wrap .score.rank,
+#connect-addToRosterProfile-page .score-wrap .score.rank,
+#profile-invitationProfile-page .score-wrap .score.rank,
+#leaderboard-rosterProfile-page .score-wrap .score.rank {
+  left: 206px;
+}
+#profile-page .separator,
+#connect-addToRosterProfile-page .separator,
+#profile-invitationProfile-page .separator,
+#leaderboard-rosterProfile-page .separator {
+  width: 320px;
+  height: 32px;
+  background: url("../images/profile/ProfileSeperators.png") no-repeat;
+  background-size: 965px 26px;
+  margin: 20px auto 5px auto;
+}
+#profile-page .text,
+#connect-addToRosterProfile-page .text,
+#profile-invitationProfile-page .text,
+#leaderboard-rosterProfile-page .text {
+  width: 290px;
+  margin: 0 auto;
+  font-size: 0.8em;
+  line-height: 1.4em;
+}
+#profile-page .bio .separator,
+#connect-addToRosterProfile-page .bio .separator,
+#profile-invitationProfile-page .bio .separator,
+#leaderboard-rosterProfile-page .bio .separator {
+  background-position: 0 0;
+}
+#profile-page .game-day-spot .separator,
+#connect-addToRosterProfile-page .game-day-spot .separator,
+#profile-invitationProfile-page .game-day-spot .separator,
+#leaderboard-rosterProfile-page .game-day-spot .separator {
+  background-position: -322.5px 0;
+}
+#profile-page .bragging-rights .separator,
+#connect-addToRosterProfile-page .bragging-rights .separator,
+#profile-invitationProfile-page .bragging-rights .separator,
+#leaderboard-rosterProfile-page .bragging-rights .separator {
+  background-position: -645px 0;
+}
+#profile-page .tutorial-welcome {
+  height: 39px;
+  background: url("../images/tutorial/Tutorial_welcomeBanner.png") 50% 0 no-repeat;
+  background-size: 187px 39px;
+}
+#profile-page .tutorial-fannect-logo {
+  height: 57px;
+  background: url("../images/tutorial/Tutorial_fannectLogo.png") 50% 0 no-repeat;
+  background-size: 263px 57px;
+  margin-top: 8px;
+}
+#profile-page .tutorial-separator {
+  height: 16px;
+  background: url("../images/tutorial/Tutorial_dividerLine.png") 50% 50% no-repeat;
+  background-size: 143px 8px;
+}
+#profile-page .tutorial .left {
+  text-align: left;
+}
+#profile-page .tutorial-profile-sketch {
+  height: 176px;
+  background: url("../images/tutorial/Tutorial_tapToAdd.png") 50% 50% no-repeat;
+  background-size: 229px 176px;
+}
+#profile-page .tutorial-score-sketch {
+  height: 24px;
+  background: url("../images/tutorial/Tutorial_scoreBar.png") 50% 50% no-repeat;
+  background-size: 221px 24px;
+  margin-bottom: 4px;
+}
+#profile-page .tutorial-headers {
+  height: 95px;
+  background: url("../images/tutorial/Tutorial_headers.png") 50% 50% no-repeat;
+  background-size: 220px 95px;
+  margin: 2px 0 8px;
+}
+#profile-editBio-page .image-title,
+#profile-editGameDaySpot-page .image-title,
+#profile-editBraggingRights-page .image-title {
+  width: 320px;
+  height: 32px;
+  background: url("../images/profile/ProfileSeperators.png") no-repeat;
+  background-size: 965px 26px;
+  margin: 0 auto 5px auto;
+}
+#profile-editBio-page .image-title .game-day-spot,
+#profile-editGameDaySpot-page .image-title .game-day-spot,
+#profile-editBraggingRights-page .image-title .game-day-spot {
+  background-position: -322.5px 0;
+}
+#profile-editBio-page .image-title .bragging-rights,
+#profile-editGameDaySpot-page .image-title .bragging-rights,
+#profile-editBraggingRights-page .image-title .bragging-rights {
+  background-position: -645px 0;
+}
+#profile-editBio-page .text-edit,
+#profile-editGameDaySpot-page .text-edit,
+#profile-editBraggingRights-page .text-edit {
+  width: 100%;
+  height: 180px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+  #profile-page .team-wrap .cover,
+  #connect-profile-page .team-wrap .cover {
+    background-image: url("../images/profile/Overlay_TeamPictureFrame@2x.png") !important;
+  }
+  #profile-page .user-wrap .cover,
+  #connect-profile-page .user-wrap .cover {
+    background-image: url("../images/profile/Overlay_ProfilePictureFrame@2x.png") !important;
+  }
+  #profile-page .user-hint,
+  #connect-profile-page .user-hint {
+    background-image: url("../images/profile/Profile_tapToAddProfilePhoto@2x.png") !important;
+  }
+  #profile-page .team-hint,
+  #connect-profile-page .team-hint {
+    background-image: url("../images/profile/Profile_tapToAddTeamPhoto@2x.png") !important;
+  }
+  #profile-page .team-name-wrap,
+  #connect-profile-page .team-name-wrap {
+    background-image: url("../images/profile/Profile_GlassMarquee@2x.png") !important;
+  }
+  #profile-page .score-wrap,
+  #connect-profile-page .score-wrap {
+    background-image: url("../images/profile/Profile_ScoreDisplay-iPhone@2x.png") !important;
+  }
+  #profile-page .separator,
+  #connect-profile-page .separator {
+    background-image: url("../images/profile/ProfileSeperators@2x.png") !important;
+  }
+  #profile-editBio-page .image-title,
+  #profile-editGameDaySpot-page .image-title,
+  #profile-editBraggingRights-page .image-title {
+    background-image: url("../images/profile/ProfileSeperators@2x.png") !important;
+  }
+  #profile-page .tutorial-welcome {
+    background-image: url("../images/tutorial/Tutorial_welcomeBanner@2x.png");
+  }
+  #profile-page .tutorial-fannect-logo {
+    background-image: url("../images/tutorial/Tutorial_fannectLogo@2x.png");
+  }
+  #profile-page .tutorial-separator {
+    background-image: url("../images/tutorial/Tutorial_dividerLine@2x.png");
+  }
+  #profile-page .tutorial-profile-sketch {
+    background-image: url("../images/tutorial/Tutorial_tapToAdd@2x.png");
+  }
+  #profile-page .tutorial-score-sketch {
+    background-image: url("../images/tutorial/Tutorial_scoreBar@2x.png");
+  }
+  #profile-page .tutorial-headers {
+    background-image: url("../images/tutorial/Tutorial_headers@2x.png");
+  }
+}
+#games-page {
+  background: url("../images/Pattern_FabricKnit.png");
+  background-size: 4px 4px;
+}
+#games-page .icon-gamecell {
+  float: left;
+}
+#games-page .text {
+  position: relative;
+  margin-left: 82px;
+  height: 1px;
+}
+#games-page .inner {
+  display: table;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 72px;
+}
+#games-page .game-name {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: normal;
+  font-size: 1.3em;
+}
+#games-guessTheScore-page .team-info,
+#games-gameFace-page .team-info {
+  width: 304px;
+  margin: 4px auto 0;
+}
+#games-guessTheScore-page .team-info .team-glass,
+#games-gameFace-page .team-info .team-glass {
+  float: left;
+}
+#games-guessTheScore-page .team-info .vs,
+#games-gameFace-page .team-info .vs {
+  float: left;
+  width: 36px;
+  height: 36px;
+  margin-top: 2px;
+  background: url("../images/games/Overlay_VsButton.png") no-repeat 50% 0%;
+  background-size: 36px 36px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+  #games-page {
+    background-image: url("../images/Pattern_FabricKnit@2x.png");
+  }
+  #games-attendanceStreak-page .vs,
+  #games-guessTheScore-page .vs,
+  #games-gameFace-page .vs {
+    background-image: url("../images/games/Overlay_VsButton@2x.png");
+  }
+}
+#games-attendanceStreak-page .ui-content {
+  padding: 0;
+}
+#games-attendanceStreak-page .ui-content .info {
+  margin: 0 auto;
+  max-width: 600px;
+  height: 121px;
+  background: url("../images/games/attendanceStreak/Overlay_Marquee_iPhone.png") repeat-x 50% -1px;
+  background-size: 320px 121px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+#games-attendanceStreak-page .ui-content .info .right-cap,
+#games-attendanceStreak-page .ui-content .info .left-cap {
+  position: absolute;
+  top: -6px;
+  width: 13px;
+  height: 110px;
+}
+#games-attendanceStreak-page .ui-content .info .left-cap {
+  left: 0;
+  background: url("../images/games/attendanceStreak/Overlay_MarqueeCap_Left_iPhone.png");
+  background-size: 13px 110px;
+}
+#games-attendanceStreak-page .ui-content .info .right-cap {
+  right: 0;
+  background: url("../images/games/attendanceStreak/Overlay_MarqueeCap_Right_iPhone.png");
+  background-size: 13px 110px;
+}
+#games-attendanceStreak-page .ui-content .info .stadium-info {
+  padding-top: 8px;
+}
+#games-attendanceStreak-page .ui-content .info .stadium-info .stadium {
+  font-size: 1.6em;
+  text-shadow: 0.1em 0.1em #000;
+  margin-bottom: 3px;
+}
+#games-attendanceStreak-page .ui-content .info .stadium-info .location {
+  font-size: 0.7em;
+  color: #c0c0c0;
+  text-shadow: 0.1em 0.1em #000;
+}
+#games-attendanceStreak-page .ui-content .info .game-info {
+  margin-top: 10px;
+  font-size: 0.7em;
+}
+#games-attendanceStreak-page .ui-content .info .game-info .team {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#games-attendanceStreak-page .ui-content .info .game-info .record {
+  margin-top: 5px;
+  color: #c0c0c0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#games-attendanceStreak-page .ui-content .info .game-info .home-info {
+  float: left;
+  width: 40%;
+}
+#games-attendanceStreak-page .ui-content .info .game-info .home-info .inner {
+  margin-left: 15px;
+}
+#games-attendanceStreak-page .ui-content .info .game-info .vs {
+  float: left;
+  width: 20%;
+  height: 36px;
+  background: url("../images/games/Overlay_VsButton.png") no-repeat 50% 0%;
+  background-size: 36px 36px;
+}
+#games-attendanceStreak-page .ui-content .info .game-info .away-info {
+  float: left;
+  width: 40%;
+}
+#games-attendanceStreak-page .ui-content .info .game-info .away-info .inner {
+  margin-right: 15px;
+}
+#games-attendanceStreak-page .ui-content .bottom {
+  position: absolute;
+  width: 100%;
+  height: 96px;
+  bottom: 56px;
+  background: url("../images/games/attendanceStreak/Overlay_ButtonHolder_iPhone.png") 50% 0%;
+  background-size: 320px 96px;
+}
+#games-attendanceStreak-page .ui-content .bottom .inner {
+  max-width: 280px;
+  padding: 0 12px;
+  margin: 32px auto;
+  text-align: center;
+}
+#games-attendanceStreak-page .ui-content .bottom .checked-in {
+  background: url("../images/games/attendanceStreak/Overlay_checkbox.png") 0% 50% no-repeat;
+  background-size: 39px 39px;
+  display: inline-block;
+  height: 39px;
+  padding-left: 46px;
+  line-height: 39px;
+  margin: 0 auto;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+#games-attendanceStreak-page .ui-content .bottom .next-game {
+  font-size: 0.8em;
+  padding-top: 4px;
+}
+#games-attendanceStreak-page .ui-content .bottom .next-game .label {
+  color: #c0c0c0;
+  margin-right: 4px;
+}
+#games-attendanceStreak-page .tutorial-map {
+  height: 146px;
+  background: url("../images/tutorial/Tutorial_map.png") 50% 0 no-repeat;
+  background-size: 219px 146px;
+  margin: 8px 0;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+  #games-attendanceStreak-page .info {
+    background-image: url("../images/games/attendanceStreak/Overlay_Marquee_iPhone@2x.png") !important;
+  }
+  #games-attendanceStreak-page .info .left-cap {
+    background-image: url("../images/games/attendanceStreak/Overlay_MarqueeCap_Left_iPhone@2x.png") !important;
+  }
+  #games-attendanceStreak-page .info .right-cap {
+    background-image: url("../images/games/attendanceStreak/Overlay_MarqueeCap_Right_iPhone@2x.png") !important;
+  }
+  #games-attendanceStreak-page .bottom {
+    background-image: url("../images/games/attendanceStreak/Overlay_ButtonHolder_iPhone@2x.png") !important;
+  }
+  #games-attendanceStreak-page .bottom .checked-in {
+    background-image: url("../images/games/attendanceStreak/Overlay_checkbox@2x.png") !important;
+  }
+  #games-attendanceStreak-page .tutorial-map {
+    background-image: url("../images/tutorial/Tutorial_map@2x.png") !important;
+  }
+}
+#games-gameFace-page .game-face {
+  background: url("../images/games/gameFace/Gameface_Sprite.png");
+  background-size: 370.5px 184px;
+  width: 184px;
+  height: 184px;
+  margin: 15px auto 28px;
+  background-position: 0 0;
+}
+#games-gameFace-page .game-face.on {
+  background-position: -186px -185px;
+}
+#games-gameFace-page .team-info .team-glass {
+  position: relative;
+}
+#games-gameFace-page .team-info .label {
+  position: absolute;
+  top: -18px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 1.4em;
+  color: #c0c0c0;
+}
+#games-gameFace-page .unavailable.scrolling-text {
+  margin-bottom: 20px;
+}
+#games-gameFace-page .switch-wrap {
+  margin-top: 10px;
+  text-align: center;
+}
+#games-gameFace-page .switch-wrap .ui-slider {
+  margin: 0;
+}
+#games-gameFace-page .tutorial-gameface-sketch {
+  height: 151px;
+  background: url("../images/tutorial/Tutorial_gamefaceIcon.png") 50% 0 no-repeat;
+  background-size: 191px 151px;
+  margin: 8px 0 6px;
+}
+#games-gameFace-page .tutorial-switch {
+  height: 54px;
+  background: url("../images/tutorial/Tutorial_onSwitch.png") 50% 0 no-repeat;
+  background-size: 163px 54px;
+  margin: 8px 0;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+  #games-gameFace-page .game-face {
+    background-image: url("../images/games/gameFace/Gameface_Sprite@2x.png");
+  }
+  #games-gameFace-page .tutorial-gameface-sketch {
+    background-image: url("../images/tutorial/Tutorial_gamefaceIcon@2x.png");
+  }
+  #games-gameFace-page .tutorial-switch {
+    background-image: url("../images/tutorial/Tutorial_onSwitch@2x.png");
+  }
+}
+#games-guessTheScore-page .ui-content {
+  padding: 15px 0;
+}
+#games-guessTheScore-page .score {
+  margin: 10px auto 0;
+  width: 300px;
+}
+#games-guessTheScore-page .score .guess-block {
+  float: left;
+  width: 50%;
+  text-align: center;
+}
+#games-guessTheScore-page .score .guess-block label {
+  color: #c0c0c0;
+}
+#games-guessTheScore-page .score .guess-block .guess-wrap {
+  background: url("../images/games/guessTheScore/Overlay_PickSetBox.png") 0 50% no-repeat;
+  background-size: 129px 107px;
+  position: relative;
+  width: 129px;
+  height: 107px;
+}
+#games-guessTheScore-page .score .guess-block .guess-wrap .value,
+#games-guessTheScore-page .score .guess-block .guess-wrap input[type=number] {
+  font-family: JerseyM54, Helvetica, Arial, sans-serif;
+  font-size: 5em;
+  width: 129px;
+  height: 107px;
+  border: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background: transparent;
+  line-height: 107px;
+}
+#games-guessTheScore-page .score .guess-block .guess-wrap .value {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #c0c0c0;
+}
+#games-guessTheScore-page .score .guess-block.away .guess-wrap {
+  margin-left: 20px;
+}
+#games-guessTheScore-page .picking {
+  width: 250px;
+  margin: 12px auto 0;
+}
+#games-guessTheScore-page .picked {
+  display: none;
+}
+#games-guessTheScore-page .picked .game-preview {
+  background: url("../images/games/guessTheScore/Overlay_SubtleShadow.png") 50% -24px no-repeat;
+  background-size: 290px 60px;
+  width: 290px;
+  min-height: 36px;
+  margin: 0 auto;
+  padding-top: 7px;
+}
+#games-guessTheScore-page .picked .game-preview .title {
+  text-align: center;
+  color: #c0c0c0;
+}
+#games-guessTheScore-page .picked .game-preview .text {
+  margin-top: 24px;
+  font-size: 0.8em;
+}
+#games-guessTheScore-page .tutorial-score-picker {
+  height: 152px;
+  background: url("../images/tutorial/Tutorial_scorePickers.png") 50% 0 no-repeat;
+  background-size: 252px 152px;
+  margin: 8px 0 6px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+  #games-guessTheScore-page .guess-wrap {
+    background-image: url("../images/games/guessTheScore/Overlay_PickSetBox@2x.png") !important;
+  }
+  #games-guessTheScore-page .game-preview {
+    background-image: url("../images/games/guessTheScore/Overlay_SubtleShadow@2x.png") !important;
+  }
+  #games-guessTheScore-page .tutorial-score-picker {
+    background-image: url("../images/tutorial/Tutorial_scorePickers@2x.png") !important;
+  }
+}
+#leaderboard-page {
+  background: url("../images/Pattern_FabricKnit.png");
+  background-size: 4px 4px;
+}
+#leaderboard-page .switcher {
+  text-align: center;
+  -moz-box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+  width: 100%;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+  #leaderboard-page {
+    background-image: url("../images/Pattern_FabricKnit@2x.png");
+  }
+}
+#connect-page {
+  background: url("../images/Pattern_FabricKnit.png");
+  background-size: 4px 4px;
+}
+#connect-page .ui-content {
+  padding: 0;
+}
+#connect-page .ui-content .build-your-team {
+  display: none;
+  margin: 0 auto;
+  color: #aaa;
+  text-shadow: none;
+}
+#connect-page .ui-content .build-your-team .gray-connect-icon {
+  background: url("../images/connect/Icon_ConnectGrayed.png") no-repeat;
+  background-size: 63px 54px;
+  width: 63px;
+  height: 54px;
+  margin: 15px auto 12px auto;
+}
+#connect-page .ui-content .build-your-team .title {
+  text-align: center;
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+#connect-page .ui-content .build-your-team .text {
+  margin: 0 auto;
+  width: 200px;
+  text-align: center;
+  font-size: 1.1em;
+  line-height: 1.4em;
+}
+#connect-page .ui-content .fans {
+  margin: 0;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+  #connect-page {
+    background-image: url("../images/Pattern_FabricKnit@2x.png");
+  }
+  #connect-page .gray-connect-icon {
+    background-image: url("../images/connect/Icon_ConnectGrayed@2x.png") !important;
+  }
+}
+#settings-page .selections .icon {
+  position: relative;
+  float: left;
+  top: 4px;
+  left: 5px;
+}
+#settings-page .selections a {
+  margin-left: 28px;
+}
+.speed-up .ui-shadow,
+.speed-up .ui-btn-up-a,
+.speed-up .ui-btn-hover-a,
+.speed-up .ui-btn-down-a,
+.speed-up .ui-body-b,
+.speed-up .ui-btn-up-b,
+.speed-up .ui-btn-hover-b,
+.speed-up .ui-btn-down-b,
+.speed-up .ui-bar-c,
+.speed-up .ui-body-c,
+.speed-up .ui-btn-up-c,
+.speed-up .ui-btn-hover-c,
+.speed-up .ui-btn-down-c,
+.speed-up .ui-bar-c,
+.speed-up .ui-body-d,
+.speed-up .ui-btn-up-d,
+.speed-up .ui-btn-hover-d,
+.speed-up .ui-btn-down-d,
+.speed-up .ui-bar-d,
+.speed-up .ui-body-e,
+.speed-up .ui-btn-up-e,
+.speed-up .ui-btn-hover-e,
+.speed-up .ui-btn-down-e,
+.speed-up .ui-bar-e,
+.speed-up .ui-overlay-shadow,
+.speed-up .ui-shadow,
+.speed-up .ui-btn-active,
+.speed-up .ui-body-a,
+.speed-up .ui-bar-a,
+.speed-up .ui-navbar,
+.speed-up .cover,
+.speed-up .shadow {
+  text-shadow: none !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+.speed-up .pattern-bg li.ui-li .ui-btn-inner {
+  background: transparent;
+}
+.speed-up .pattern-bg li.ui-li.ui-btn-active .ui-btn-inner {
+  background: rgba(0,0,0,0.2);
+}

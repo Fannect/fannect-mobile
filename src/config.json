@@ -1,0 +1,24 @@
+{
+	"config_version": "2",
+	"name": "Fannect Mobile",
+	"author": "blakevanlan@gmail.com",
+	"version": "0.1",
+	"platform_version": "v1.4",
+	"description": "Social Network for Sports Fans",
+	"modules": {
+		"logging": {
+			"level": "INFO"
+		},
+		"file": true,
+		"is": true,
+		"media": true,
+		"prefs": true,
+		"request": {
+			"permissions": ["http://*/*", "https://*/*"]
+		},
+		"tools": true,
+		"reload": true,
+		"topbar": true,
+		"tabbar": true
+	}
+}
