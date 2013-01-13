@@ -8,7 +8,9 @@ do ($ = jQuery) ->
          @options._second = $("<span class='text'>" + text + "</span>").appendTo(textWrap)
 
       start: () ->
-         @options._first.css { "left": @options.start_offset}
+         # $.support.cssTransitions
+
+         @options._first.css "left": @options.start_offset 
          @options._second.css "left", @options.start_offset + @options._first.width() + @options.space_offset
          @_resetFirst()
          @_resetSecond()

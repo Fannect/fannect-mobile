@@ -26,7 +26,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       load: (done) ->
          fc.ajax 
-            url: "#{fc.getResourceURL()}/api/games/guessTheScore"
-            method: "GET"
-         , (xhr, statusText) ->
-            done null, xhr
+            url: "#{fc.getResourceURL()}/me/games/guessTheScore"
+            type: "GET"
+         , (error, data) ->
+            done null, data

@@ -10,6 +10,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.ajax 
             url: "#{fc.getResourceURL()}/api/connect/addToRoster"
             method: "GET"
-         , (xhr, statusText) ->
-            done null, xhr
+         , (error, data) ->
+            done null, data
 

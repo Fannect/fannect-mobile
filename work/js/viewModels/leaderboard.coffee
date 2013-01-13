@@ -20,18 +20,18 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       loadOverall: (done) ->
          fc.ajax 
-            url: "#{fc.getResourceURL()}/api/leaderboard?type=overall"
-            method: "GET"
-         , (data, statusText) =>
+            url: "#{fc.getResourceURL()}/me/leaderboard?type=overall"
+            type: "GET"
+         , (error, data) =>
             @overall_fans.push fan for fan in data.fans
             @overall_loaded = true
             if done then done null, data
 
       loadRoster: (done) ->
          fc.ajax 
-            url: "#{fc.getResourceURL()}/api/leaderboard?type=roster"
-            method: "GET"
-         , (data, statusText) =>
+            url: "#{fc.getResourceURL()}/me/leaderboard?type=roster"
+            type: "GET"
+         , (error, data) =>
             @roster_fans.push fan for fan in data.fans
             @roster_loaded = true
             $.mobile.loading "hide"

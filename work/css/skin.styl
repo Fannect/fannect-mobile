@@ -205,7 +205,7 @@
 
 .tutorial
    font-family: Journal, Helvetica, Arial, sans-serif
-   position: fixed
+   position: absolute
    padding-top: 60px
    top: 0
    width: 100%
@@ -315,6 +315,10 @@
       background: url(../images/tutorial/Tutorial_submitButton.png) 50% 0 no-repeat
       background-size: 225px 55px
       margin-top: 8px
+
+.is-mobile .tutorial
+   padding-top: 30px
+
 // Icons
 .icon
    &.settings
@@ -341,21 +345,6 @@
          background-position: -238px 0
       &.tell-friend
          background-position: -204px 0
-
-.icon-gamecell
-   width: 72px
-   height: 72px
-   background: url(../images/icons/icons-gamecell.png) no-repeat
-   background-size: 303px 72px
-         
-   &.attendence-streak
-      background-position: 0 0
-   &.game-face
-      background-position: -77px 0
-   &.guess-the-score
-      background-position: -154px 0
-   &.locked
-      background-position: -231px 0
       
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
    .ui-page

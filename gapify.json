@@ -3,11 +3,13 @@
    "assets": [
       {
          "from":"work/js/tree.coffee",
-         "to":"{out}/js/tree.js"
+         "to":"{out}/js/tree.js",
+         "refresh_directory":"work/js"
       },
       {
          "from":"work/css/skin.styl",
-         "to":"{out}/css/skin.css"
+         "to":"{out}/css/skin.css",
+         "refresh_directory":"work/css"
       },
       {
          "from":"work/css/lib/fannect.css",
@@ -36,7 +38,7 @@
    ],
    "views": {
       "directory":"work/views",
-      "ignore":["layout.jade"]
+      "layouts":["layout.jade"]
    },
    "default_command": null,
    "commands": {
@@ -57,6 +59,16 @@
          },
          {
             "command": "cd ../; forge run android",
+            "on_error": "stop"
+         }
+      ],
+      "ios": [
+         {
+            "command": "cd ../; forge build ios",
+            "on_error": "stop"
+         },
+         {
+            "command": "cd ../; forge run ios",
             "on_error": "stop"
          }
       ]

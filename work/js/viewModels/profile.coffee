@@ -42,7 +42,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             destinationType: navigator.camera.DestinationType.DATA_URL
             sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
 
-      chooseWebImage: () ->
+      chooseWebImage: () -> ""
 
 
       onImageDataSuccess: (image) ->

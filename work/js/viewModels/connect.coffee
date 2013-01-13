@@ -8,7 +8,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       load: (done) ->
          fc.ajax 
-            url: "#{fc.getResourceURL()}/api/connect"
+            url: "#{fc.getResourceURL()}/me/connect"
             method: "GET"
-         , (xhr, statusText) ->
-            done null, xhr
+         , (error, data) ->
+            done null, data

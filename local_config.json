@@ -9,7 +9,7 @@
 		}
 	},
 	"android": {
-		"sdk": "../../android/sdk",
+		"sdk": "",
 		"profiles": {
 			"DEFAULT": {
 				"keystore": "",

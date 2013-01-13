@@ -8,24 +8,13 @@ html
       link(rel="apple-touch-icon-precomposed", sizes="114x114", href="res/icon-114.png")
       link(rel="apple-touch-icon-precomposed", sizes="72x72", href="res/icon-72.png")
 
-      if (global.css)
-         != css("lib/normalize")
-         != css("lib/jquerymobile.css")
-         != css("lib/fannect")
-         != css("skin")
+      link(rel="stylesheet", href="css/lib/normalize.css")
+      link(rel="stylesheet", href="css/lib/jquerymobile.css")
+      link(rel="stylesheet", href="css/lib/fannect.css")
+      link(rel="stylesheet", href="css/skin.css")
 
-      else
-         link(rel="stylesheet", href="css/lib/normalize.css")
-         link(rel="stylesheet", href="css/lib/jquerymobile.css")
-         link(rel="stylesheet", href="css/lib/fannect.css")
-         link(rel="stylesheet", href="css/skin.css")
-
-      if (global.js)
-         != js("tree")
-
-      else
-         script(src="phonegap.js")
-         script(src="js/tree.js")
+      script(src="js/tree.js")
+      script(src="https://trigger.io/catalyst/target/target-script-min.js#EB0434C5-9E6F-4EF6-8998-67C9339A5D5E")
 
    - var viewDir = locals.settings.views;
    - var view = locals.filename.replace(viewDir, "").replace(".jade", "").replace(/^[\\\/]/g, "");

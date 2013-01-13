@@ -1,24 +1,29 @@
 {
-	"config_version": "2",
-	"name": "Fannect Mobile",
-	"author": "blakevanlan@gmail.com",
-	"version": "0.1",
-	"platform_version": "v1.4",
-	"description": "Social Network for Sports Fans",
+	"author": "blakevanlan@gmail.com", 
+	"config_version": "2", 
+	"description": "Social Network for Sports Fans", 
+	"homepage": "http://fannect.me", 
 	"modules": {
+		"event": true,
+		"file": true, 
+		"is": true, 
 		"logging": {
-			"level": "INFO"
-		},
-		"file": true,
-		"is": true,
-		"media": true,
-		"prefs": true,
+			"level": "WARNING"
+		}, 
+		"media": true, 
+		"prefs": true, 
+		"reload": true, 
 		"request": {
-			"permissions": ["http://*/*", "https://*/*"]
-		},
-		"tools": true,
-		"reload": true,
-		"topbar": true,
-		"tabbar": true
-	}
+			"permissions": [
+				"http://*/*", 
+				"https://*/*"
+			]
+		}, 
+		"tabbar": true, 
+		"tools": true, 
+		"topbar": true
+	}, 
+	"name": "Fannect Mobile", 
+	"platform_version": "v1.4", 
+	"version": "0.1"
 }

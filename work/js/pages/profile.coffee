@@ -1,8 +1,16 @@
 do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
    $(document).bind "mobileinit", () ->
+      profile_vm = null
+
       $("#profile-page").live("pagecreate", () ->
          new window.fannect.viewModels.Profile (err, vm) =>
+            profile_vm = vm
             ko.applyBindings vm, @
+      ).live("pageshow", () ->
+         fc.mobile.addHeaderButton 
+            text: "Invitations"
+            position: "left"
+            click: () -> $.mobile.changePage "profile-invitations.html"
       )
       
       $("#profile-invitations-page").live("pagecreate", () ->

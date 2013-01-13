@@ -23,7 +23,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       load: (done) ->
          fc.ajax 
-            url: "#{fc.getResourceURL()}/api/games/attendanceStreak"
-            method: "GET"
-         , (xhr, statusText) ->
-            done null, xhr
+            url: "#{fc.getResourceURL()}/me/games/attendanceStreak"
+            type: "GET"
+         , (error, data) ->
+            done null, data

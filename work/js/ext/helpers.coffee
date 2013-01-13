@@ -1,4 +1,4 @@
-do ($ = window.jQuery, ko = window.ko) ->
+do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
    $.cookie.json = true
    currentUser = null
    currentCookie = null
@@ -8,20 +8,33 @@ do ($ = window.jQuery, ko = window.ko) ->
       viewModels: {}
 
    fc.setActiveMenu = (menu) ->
-      $(".footer .ui-btn-active").removeClass("ui-btn-active").removeClass("ui-btn-persist")
-      $(".footer ." + menu + "-menu").addClass("ui-btn-active").addClass("ui-btn-persist")
+      if forge.is.web()
+         $(".footer .ui-btn-active").removeClass("ui-btn-active").removeClass("ui-btn-persist")
+         $(".footer ." + menu + "-menu").addClass("ui-btn-active").addClass("ui-btn-persist")
+      else
+         fc.mobile.setActiveMenu menu
+         fc.setHeader()
 
-   fc.isPhoneGap = () -> 
-      return document.URL.indexOf("http://") == -1 and document.URL.indexOf("https://") == -1
+   fc.setHeader = () ->
+      if forge.is.mobile()
+         forge.topbar.removeButtons()
+         header = $(".header", $.mobile.activePage).get(0)
+         forge.topbar.setTitle $("h1", header).text()
+
+         leftButton = $("a[data-rel=back]", header)
+
+         if leftButton.length > 0
+            forge.topbar.addButton
+               text: leftButton.text()
+               position: "left"
+               type: "back"
+               style: "back"
 
    fc.getResourceURL = () ->
-      if fc.isPhoneGap() then "http://fannect.herokuapp.com" else ""
+      return if forge.is.web() then "http://fannect.herokuapp.com" else "http://fannect.herokuapp.com"
 
    fc.getParams = () ->
-      if fc.isPhoneGap()
-         return $.url($.url().fsegment(1)).param()
-      else
-         return $.url().param() 
+      return $.url().param() 
 
    fc.loading = (status) ->
       showLoading = status == "show"
@@ -36,14 +49,18 @@ do ($ = window.jQuery, ko = window.ko) ->
 
    $(".ui-page").live "pageshow", () -> if showLoading then fc.loading "show"
 
-   fc.ajax = (settings, done) ->
-      fc.loading "show"
-      return $.ajax(settings).always (xhr, textStatus) ->
+   fc.ajax = (options, done) ->
+      done = done or options.success
+      options.success = (result) ->
          fc.loading "hide"
-         if xhr.status == 401
-            redirectToLogin()
-         else
-            if done then done xhr, textStatus
+         done null, JSON.parse(result)
+      options.error = (error) ->
+         fc.loading "hide"
+         if error?.statusCode == 401 then fc.redirectToLogin
+         else done error
+
+      fc.loading "show"
+      forge.ajax(options)
 
    fc.clearBindings = (context) ->
       ko.cleanNode context
@@ -77,11 +94,11 @@ do ($ = window.jQuery, ko = window.ko) ->
             done null, currentUser
          else
             fc.ajax 
-               url: "#{fc.getResourceURL()}/api/profile"
-               method: "GET"
-            , (xhr, statusText) ->
-               currentUser = xhr
-               done null, xhr
+               url: "#{fc.getResourceURL()}/me"
+               type: "GET"
+            , (error, data) ->
+               currentUser = data
+               done error, data
 
       update: (user) ->
          $.extend true, currentUser, user
@@ -121,3 +138,37 @@ do ($ = window.jQuery, ko = window.ko) ->
          noAuth = ["index-page", "createAccount-page"]
          if not ($.mobile.activePage.id in noAuth)
             $.mobile.changePage "index.html", transition: "slidedown"
+
+   fc.mobile =
+      _buttons: {}
+      _addButton: (index, text, image, target) ->
+         forge.tabbar.addButton
+            icon: image,
+            text: text,
+            index: index
+         , (button) ->
+            fc.mobile._buttons[text.toLowerCase()] = button
+            button.onPressed.addListener () ->
+               $.mobile.changePage target, transition: "none"
+         
+      createButtons: () ->
+         fc.mobile._addButton 0, "Profile", "images/icons/Icon_TabBar_Profile@2x.png", "profile.html"
+         fc.mobile._addButton 1, "Games", "images/icons/Icon_TabBar_Points@2x.png", "games.html"
+         fc.mobile._addButton 2, "Leaderboard", "images/icons/Icon_TabBar_Leaderboard@2x.png", "leaderboard.html"
+         fc.mobile._addButton 3, "Connect", "images/icons/Icon_TabBar_Connect@2x.png", "connect.html"
+         
+      setActiveMenu: (name) ->
+         if name
+            forge.tabbar.show()
+            console.log "ACTIVE NAME#{name}"
+            console.log JSON.stringify fc.mobile._buttons
+            fc.mobile._buttons[name.toLowerCase()].setActive()
+         else
+            forge.tabbar.hide()
+
+      addHeaderButton: (options, click) ->
+         if forge.is.mobile()
+            cb = cb or options.click
+            forge.topbar.addButton options, cb
+
+

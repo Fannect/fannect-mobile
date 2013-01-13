@@ -246,7 +246,7 @@
 }
 .tutorial {
   font-family: Journal, Helvetica, Arial, sans-serif;
-  position: fixed;
+  position: absolute;
   padding-top: 60px;
   top: 0;
   width: 100%;
@@ -383,6 +383,9 @@
   background-size: 225px 55px;
   margin-top: 8px;
 }
+.is-mobile .tutorial {
+  padding-top: 30px;
+}
 .icon.settings {
   width: 29px;
   height: 29px;
@@ -415,24 +418,6 @@
 }
 .icon.settings.tell-friend {
   background-position: -204px 0;
-}
-.icon-gamecell {
-  width: 72px;
-  height: 72px;
-  background: url("../images/icons/icons-gamecell.png") no-repeat;
-  background-size: 303px 72px;
-}
-.icon-gamecell.attendence-streak {
-  background-position: 0 0;
-}
-.icon-gamecell.game-face {
-  background-position: -77px 0;
-}
-.icon-gamecell.guess-the-score {
-  background-position: -154px 0;
-}
-.icon-gamecell.locked {
-  background-position: -231px 0;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
   .ui-page {
@@ -886,6 +871,24 @@
   white-space: normal;
   font-size: 1.3em;
 }
+.icon-gamecell {
+  width: 72px;
+  height: 72px;
+  background: url("../images/icons/icons-gamecell.png") no-repeat;
+  background-size: 303px 72px;
+}
+.icon-gamecell.attendence-streak {
+  background-position: 0 0;
+}
+.icon-gamecell.game-face {
+  background-position: -77px 0;
+}
+.icon-gamecell.guess-the-score {
+  background-position: -154px 0;
+}
+.icon-gamecell.locked {
+  background-position: -231px 0;
+}
 #games-guessTheScore-page .team-info,
 #games-gameFace-page .team-info {
   width: 304px;
@@ -911,7 +914,10 @@
   #games-attendanceStreak-page .vs,
   #games-guessTheScore-page .vs,
   #games-gameFace-page .vs {
-    background-image: url("../images/games/Overlay_VsButton@2x.png");
+    background-image: url("../images/games/Overlay_VsButton@2x.png") !important;
+  }
+  .icon-gamecell {
+    background-image: url("../images/icons/icons-gamecell@2x.png") !important;
   }
 }
 #games-attendanceStreak-page .ui-content {
