@@ -20,13 +20,13 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
    ).live("pageshow", () ->
       tutorial_pages = [ "profile-page", "games-attendanceStreak-page", "games-gameFace-page", "games-guessTheScore-page" ]
       currentId = $($.mobile.activePage).attr("id")
-      cookie = fc.cookie.get()
-      cookie.tutorialShown = cookie.tutorialShown or []
-
-      if currentId in tutorial_pages and not (currentId in cookie.tutorialShown)
-         cookie.tutorialShown.push currentId
-         fc.showTutorial()
-         fc.cookie.save cookie
+      
+      forge.prefs.get "tutorialShown", (shown) ->
+        shown = shown or []
+         if currentId in tutorial_pages and not (currentId in shown)
+            shown.push currentId
+            fc.showTutorial()
+            forge.prefs.set "tutorialShown", shown
 
    ).live "pageremove", () ->
       fc.clearBindings @

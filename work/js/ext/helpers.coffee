@@ -1,7 +1,6 @@
 do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
-   $.cookie.json = true
    currentUser = null
-   currentCookie = null
+   currentPrefs = null
    showLoading = false
    cachedIsSlow = null
 
@@ -115,21 +114,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
          if user then fc.user.update user
          # implement saving
 
-   fc.cookie = 
-      get: () ->
-         unless currentCookie
-            currentCookie = $.cookie("fannect_cached")
-         return currentCookie or {}
-      update: (data) ->
-         $.extend true, currentCookie, data
-         return currentCookie
-      save: (data) ->
-         if data 
-            fc.cookie.update data
-         cookieData = fc.cookie.get()
-         $.cookie("fannect_cached", cookieData, { expires: 365, path: '/' });
-         return cookieData
-
    fc.auth =
       login: (email, pw, done) ->
          query = { email: email, password: pw }
@@ -139,9 +123,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
             if data.status == "success" then done()
             else done data.error_message
       
-      isLoggedIn: () ->
-         return fc.cookie.get().refresh_token?
-      
+      isLoggedIn: (cb) ->
+         forge.get "refresh_token", cb
+         
       redirectToLogin: () ->
          noAuth = ["index-page", "createAccount-page"]
          if not ($.mobile.activePage.id in noAuth)
