@@ -10,7 +10,7 @@ do ($ = jQuery) ->
       start: () ->
          # $.support.cssTransitions
 
-         @options._first.css "left": @options.start_offset 
+         @options._first.css "left", @options.start_offset 
          @options._second.css "left", @options.start_offset + @options._first.width() + @options.space_offset
          @_resetFirst()
          @_resetSecond()
@@ -28,9 +28,21 @@ do ($ = jQuery) ->
          unless @element.is ":visible"
             return @_hiddenLoop()
 
-         current.animate { left: -1*width }, (width+offset)*@options.rate, "linear", () =>
-            current.css("left", next.position().left+next.width()+@options.space_offset)
-            cb.call @
+         if $.support.cssTransitions and @.options?.hardware_accelerated
+            current.addClass("moving").css(
+               "left": -1*width
+               "transition-duration": (width+offset)*@options.rate+"ms"
+               "-webkit-transition-duration": (width+offset)*@options.rate+"ms"
+               "-moz-transition-duration": (width+offset)*@options.rate+"ms"
+               "-o-transition-duration": (width+offset)*@options.rate+"ms"
+            ).one "transitionend webkitTransitionEnd oTransitionEnd", () =>
+               current.removeClass("moving")
+               current.css("left", next.position().left+next.width()+@options.space_offset)
+               cb.call @
+         else
+            current.animate { left: -1*width }, (width+offset)*@options.rate, "linear", () =>
+               current.css("left", next.position().left+next.width()+@options.space_offset)
+               cb.call @
 
       _resetFirst: () ->
          @_startScroll(@options._first, @options._second, @_resetFirst)
@@ -58,6 +70,7 @@ do ($ = jQuery) ->
          start_offset: 10
          space_offset: 25
          rate: 15
+         hardware_accelerated: false
 
    $(document).on "mobileinit", () ->
       $.widget "ui.scroller", Scroller

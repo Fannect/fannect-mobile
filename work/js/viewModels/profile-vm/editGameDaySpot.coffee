@@ -7,4 +7,4 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             done err, @
 
       next: () ->
-         fc.user.update game_day_spot: @game_day_spot
+         fc.user.update game_day_spot: @game_day_spot()

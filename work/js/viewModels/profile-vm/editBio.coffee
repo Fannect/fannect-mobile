@@ -7,4 +7,4 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             done err, @
 
       next: () ->
-         fc.user.update bio: @bio
+         fc.user.update bio: @bio()

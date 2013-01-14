@@ -113,6 +113,11 @@
          text-transform: uppercase
          line-height: 24px
          white-space: nowrap
+         &.moving
+            transition: left 1s linear
+            -webkit-transition: left 1s linear             
+            -moz-transition: left 1s linear             
+            -o-transition: left 1s linear
    .cover
       position: absolute
       left: -5px
@@ -122,6 +127,7 @@
       background-size: 290px 24px
       dropshadow: 0 2px 4px rgba(0,0,0,0.8)
       border-radius: 5px
+      border-bottom: 1px solid #444
       z-index: 50
 
 .pattern-bg 

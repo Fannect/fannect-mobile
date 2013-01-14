@@ -125,6 +125,12 @@
   line-height: 24px;
   white-space: nowrap;
 }
+.scrolling-text .text-wrap .text.moving {
+  transition: left 1s linear;
+  -webkit-transition: left 1s linear;
+  -moz-transition: left 1s linear;
+  -o-transition: left 1s linear;
+}
 .scrolling-text .cover {
   position: absolute;
   left: -5px;
@@ -138,6 +144,7 @@
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  border-bottom: 1px solid #444;
   z-index: 50;
 }
 .pattern-bg li.ui-li {
@@ -870,6 +877,12 @@
   text-transform: uppercase;
   white-space: normal;
   font-size: 1.3em;
+}
+#games-page li.locked .ui-btn-inner.ui-li {
+  background: rgba(0,0,0,0.15) !important;
+}
+#games-page li.locked .ui-icon-arrow-r {
+  display: none;
 }
 .icon-gamecell {
   width: 72px;

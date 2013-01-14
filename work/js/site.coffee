@@ -1,17 +1,15 @@
 do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
 
-   $(document).on "mobileinit", () ->
+   $(document).ready () ->
       setup()
 
    $(".ui-page").live("pagecreate", () ->
       if forge.is.mobile()
          $("body").addClass("is-mobile")
+         # Hide header and footer
          $(".header", @).removeAttr("data-role data-position data-tap-toggle").css(display: "none")
          $(".footer", @).removeAttr("data-role data-position data-tap-toggle").css(display: "none")
-      # $(".footer", @).css 
-      #    display: "none"
-      #    paddingTop: "0"
-      #    paddingBottom: "0"
+
 
    ).live("pagebeforeshow", () ->
       # check if logged in
@@ -43,15 +41,10 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
 
    setup = () ->
       $.mobile.allowCrossDomainPages = true
-      $.mobile.loader.prototype.options.text = "loading";
+      $.mobile.loader.prototype.options.text = "Loading Page";
       $.mobile.loader.prototype.options.textVisible = true
       $.mobile.loader.prototype.options.theme = "b"
       $.mobile.loader.prototype.options.html = ""
       fc.mobile.createButtons()
 
-      if $.support.touch and not $.support.touchOverflow
-         $("body").addClass("speed-up")
-
-      if forge.is.android()
-         forge.event.backPressed.addListener () ->
-            history.back()
+      if fc.isSlow() then $("body").addClass("speed-up")

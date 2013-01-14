@@ -13504,452 +13504,416 @@ Swipe.prototype = {
    };
 
 })(jQuery, document);
-/*
-   This is a modified version to work with how we are bypassing the normal
-   authorization processes. Only the constructor as been modified.
-*/
+// UA-Parser.JS v0.5.0
+// Lightweight JavaScript-based User-Agent string parser
+// https://github.com/faisalman/ua-parser-js
+//
+// Copyright © 2012 Faisalman
+// Dual licensed under GPLv2 & MIT
 
-var forcetk = window.forcetk;
+(function (global, undefined) {
 
-if (forcetk === undefined) {
-   forcetk = {};
-}
+    'use strict';
+    
+    var EMPTY       = '',
+        FUNC        = 'function',
+        UNDEF       = 'undefined',
+        OBJ         = 'object',        
+        MAJOR       = 'major',
+        MODEL       = 'model',
+        NAME        = 'name',
+        TYPE        = 'type',
+        VENDOR      = 'vendor',
+        VERSION     = 'version',        
+        CONSOLE     = 'console',
+        MOBILE      = 'mobile',
+        TABLET      = 'tablet';
 
-if (forcetk.Client === undefined) {
+    var mapper = {
 
-   // We use $j rather than $ for jQuery so it works in Visualforce
-   if (window.$j === undefined) {
-      $j = $;
-   }
+        regex : function () {
 
-   /**
-    * The Client provides a convenient wrapper for the Force.com REST API, 
-    * allowing JavaScript in Visualforce pages to use the API via the Ajax
-    * Proxy.
-    * @param [clientId=null] 'Consumer Key' in the Remote Access app settings
-    * @param [access_token=null] Access token to use for all requests
-    * @param [proxyUrl=null] 
-    * @constructor
-    */
-   forcetk.Client = function(client_id, access_token, instanceUrl) {
-      this.clientId = clientId;
-      this.proxyUrl = null;
-      this.refreshToken = null;
-      this.sessionId = null;
-      this.apiVersion = null;
-      this.instanceUrl = null;
-      this.asyncAjax = true;
-      this.loginUrl = 'https://login.salesforce.com/';
-      this.authzHeader = "Authorization";
-      
-      this.setSessionToken(access_token, null, instanceUrl);
-   }
+            var result, i, j, k, l, m, args = arguments;
 
-   /**
-    * Set a refresh token in the client.
-    * @param refreshToken an OAuth refresh token
-    */
-   forcetk.Client.prototype.setRefreshToken = function(refreshToken) {
-      this.refreshToken = refreshToken;
-   }
+            // loop through all regexes maps
+            for (i = 0; i < args.length; i += 2) {
 
-   /**
-    * Refresh the access token.
-    * @param callback function to call on success
-    * @param error function to call on failure
-    */
-   forcetk.Client.prototype.refreshAccessToken = function(callback, error) {
-      var that = this;
-      var url = this.loginUrl + '/services/oauth2/token';
-      $j.ajax({
-         type: 'POST',
-         url: (this.proxyUrl !== null) ? this.proxyUrl: url,
-         cache: false,
-         processData: false,
-         data: 'grant_type=refresh_token&client_id=' + this.clientId + '&refresh_token=' + this.refreshToken,
-         success: callback,
-         error: error,
-         dataType: "json",
-         beforeSend: function(xhr) {
-            if (that.proxyUrl !== null) {
-               xhr.setRequestHeader('SalesforceProxy-Endpoint', url);
+                var regex = args[i],       // odd sequence (0,2,4,..)
+                    props = args[i + 1];   // even sequence (1,3,5,..)
+
+                // construct object barebones
+                if (typeof result === UNDEF) {
+                    result = {};
+                    for (k = 0; k < props.length; k++) {
+                        if (typeof props[k] === OBJ) {
+                            result[props[k][0]] = undefined;
+                        } else {
+                            result[props[k]] = undefined;
+                        }
+                    }
+                    if (this.getUA().toString() === EMPTY) {
+                        return result;
+                    }
+                }
+
+                // try matching uastring with regexes
+                for (j = 0; j < regex.length; j++) {
+                    l = regex[j].exec(this.getUA());
+                    if (!!l) {
+                        for (k = 0; k < props.length; k++) {
+                            m = l[k + 1];
+                            if (typeof props[k] === OBJ && props[k].length === 2) {
+                                result[props[k][0]] = props[k][1];
+                            } else if (typeof props[k] === OBJ && props[k].length === 3) {
+                                if (typeof props[k][1] === FUNC && !(props[k][1].exec && props[k][1].test)) {
+                                    result[props[k][0]] = m ? props[k][1].call(this, m, props[k][2]) : undefined;
+                                } else {
+                                    result[props[k][0]] = m ? m.replace(props[k][1], props[k][2]) : undefined;
+                                }
+                            } else {
+                                result[props[k]] = m ? m : undefined;
+                            }
+                        }
+                        break;
+                    }
+                }
+
+                if(!!l) break; // break the loop immediately if match found
             }
-         }
-      });
-   }
+            return result;
+        },
 
-   /**
-    * Set a session token and the associated metadata in the client.
-    * @param sessionId a salesforce.com session ID. In a Visualforce page,
-    *                   use '{!$Api.sessionId}' to obtain a session ID.
-    * @param [apiVersion="21.0"] Force.com API version
-    * @param [instanceUrl] Omit this if running on Visualforce; otherwise 
-    *                   use the value from the OAuth token.
-    */
-   forcetk.Client.prototype.setSessionToken = function(sessionId, apiVersion, instanceUrl) {
-      this.sessionId = sessionId;
-      this.apiVersion = (typeof apiVersion === 'undefined' || apiVersion === null)
-      ? 'v24.0': apiVersion;
-      if (typeof instanceUrl === 'undefined' || instanceUrl == null) {
-         // location.hostname can be of the form 'abc.na1.visual.force.com' or
-         // 'na1.salesforce.com'. Split on '.', and take the [1] or [0] element
-         // as appropriate
-         var elements = location.hostname.split(".");
-         var instance = (elements.length == 3) ? elements[0] : elements[1];
-         this.instanceUrl = "https://" + instance + ".salesforce.com";
-      } else {
-         this.instanceUrl = instanceUrl;
-      }
-   }
+        string : function (str, map) {
 
-   /*
-    * Low level utility function to call the Salesforce endpoint.
-    * @param path resource path relative to /services/data
-    * @param callback function to which response will be passed
-    * @param [error=null] function to which jqXHR will be passed in case of error
-    * @param [method="GET"] HTTP method for call
-    * @param [payload=null] payload for POST/PATCH etc
-    */
-   forcetk.Client.prototype.ajax = function(path, callback, error, method, payload, retry) {
-      var that = this;
-      var url = this.instanceUrl + '/services/data' + path;
-
-      $j.ajax({
-         type: method || "GET",
-         async: this.asyncAjax,
-         url: (this.proxyUrl !== null) ? this.proxyUrl: url,
-         contentType: 'application/json',
-         cache: false,
-         processData: false,
-         data: payload,
-         success: callback,
-         error: (!this.refreshToken || retry ) ? error : function(jqXHR, textStatus, errorThrown) {
-            if (jqXHR.status === 401) {
-               that.refreshAccessToken(function(oauthResponse) {
-                  that.setSessionToken(oauthResponse.access_token, null,
-                  oauthResponse.instance_url);
-                  that.ajax(path, callback, error, method, payload, true);
-               },
-               error);
-            } else {
-               error(jqXHR, textStatus, errorThrown);
+            for (var i in map) {
+                if (map.hasOwnProperty(i)) {
+                    if (typeof map[i] === OBJ && map[i].length > 0) {
+                        for (var j = 0; j < map[i].length; j++) {
+                            if (str.toLowerCase().indexOf(map[i][j].toLowerCase()) !== -1) {
+                                return (i.toString() === UNDEF) ? undefined : i;
+                            }
+                        }
+                    } else if (str.toLowerCase().indexOf(map[i].toLowerCase()) !== -1) {
+                        return (i.toString() === UNDEF) ? undefined : i;
+                    }
+                }
             }
-         },
-         dataType: "json",
-         beforeSend: function(xhr) {
-            if (that.proxyUrl !== null) {
-               xhr.setRequestHeader('SalesforceProxy-Endpoint', url);
+            return str;
+        }
+    };
+
+    var maps = {
+    
+        browser : {
+        
+            oldsafari : {
+            
+                major : {
+                    '1' : ['/85', '/125', '/312'],
+                    '2' : ['/412', '/416', '/417', '/419'],
+                    'undefined' : '/'
+                },                
+                version : {
+                    '1.0'   : '/85',
+                    '1.2'   : '/125',
+                    '1.3'   : '/312',
+                    '2.0'   : '/412',
+                    '2.0.2' : '/416',
+                    '2.0.3' : '/417',
+                    '2.0.4' : '/419',
+                    'undefined' : '/'
+                }
             }
-            xhr.setRequestHeader(that.authzHeader, "OAuth " + that.sessionId);
-            xhr.setRequestHeader('X-User-Agent', 'salesforce-toolkit-rest-javascript/' + that.apiVersion);
-         }
-      });
-   }
-
-   /**
-    * Utility function to query the Chatter API and download a file
-    * Note, raw XMLHttpRequest because JQuery mangles the arraybuffer
-    * This should work on any browser that supports XMLHttpRequest 2 because arraybuffer is required. 
-    * For mobile, that means iOS >= 5 and Android >= Honeycomb
-    * @author Tom Gersic
-    * @param path resource path relative to /services/data
-    * @param mimetype of the file
-    * @param callback function to which response will be passed
-    * @param [error=null] function to which request will be passed in case of error
-    * @param rety true if we've already tried refresh token flow once
-    **/
-   forcetk.Client.prototype.getChatterFile = function(path,mimeType,callback,error,retry) {
-      var that = this;
-      var url = this.instanceUrl + path;
-
-      var request = new XMLHttpRequest();
-              
-      request.open("GET",  (this.proxyUrl !== null) ? this.proxyUrl: url, true);
-      request.responseType = "arraybuffer";
-      
-      request.setRequestHeader(that.authzHeader, "OAuth " + that.sessionId);
-      request.setRequestHeader('X-User-Agent', 'salesforce-toolkit-rest-javascript/' + that.apiVersion);
-      if (this.proxyUrl !== null) {
-         request.setRequestHeader('SalesforceProxy-Endpoint', url);
-      }
-      
-      request.onreadystatechange = function() {
-         // continue if the process is completed
-         if (request.readyState == 4) {
-            // continue only if HTTP status is "OK"
-            if (request.status == 200) {
-               try {
-                  // retrieve the response
-                  callback(request.response);
-               }
-               catch(e) {
-                  // display error message
-                  alert("Error reading the response: " + e.toString());
-               }
+        },
+        
+        os : {
+        
+            windows : {
+            
+                version : {
+                    'ME'        : '4.90',
+                    'NT 3.11'   : 'NT3.51',
+                    'NT 4.0'    : 'NT4.0',
+                    '2000'      : 'NT 5.0',
+                    'XP'        : ['NT 5.1', 'NT 5.2'],
+                    'Vista'     : 'NT 6.0',
+                    '7'         : 'NT 6.1',
+                    '8'         : 'NT 6.2',
+                    'RT'        : 'ARM'
+                }
             }
-            //refresh token in 401
-            else if(request.status == 401 && !retry) {
-               that.refreshAccessToken(function(oauthResponse) {
-                  that.setSessionToken(oauthResponse.access_token, null,oauthResponse.instance_url);
-                  that.getChatterFile(path, mimeType, callback, error, true);
-               },
-               error);
-            } 
-            else {
-               // display status message
-               error(request,request.statusText,request.response);
-            }
-         }            
-         
-      }
+        }
+    };
 
-      request.send();
-      
-   }
+    var regexes = {
 
-   /*
-    * Low level utility function to call the Salesforce endpoint specific for Apex REST API.
-    * @param path resource path relative to /services/apexrest
-    * @param callback function to which response will be passed
-    * @param [error=null] function to which jqXHR will be passed in case of error
-    * @param [method="GET"] HTTP method for call
-    * @param [payload=null] payload for POST/PATCH etc
-   * @param [paramMap={}] parameters to send as header values for POST/PATCH etc
-   * @param [retry] specifies whether to retry on error
-    */
-   forcetk.Client.prototype.apexrest = function(path, callback, error, method, payload, paramMap, retry) {
-      var that = this;
-      var url = this.instanceUrl + '/services/apexrest' + path;
+        browser : [[
 
-      $j.ajax({
-         type: method || "GET",
-         async: this.asyncAjax,
-         url: (this.proxyUrl !== null) ? this.proxyUrl: url,
-         contentType: 'application/json',
-         cache: false,
-         processData: false,
-         data: payload,
-         success: callback,
-         error: (!this.refreshToken || retry ) ? error : function(jqXHR, textStatus, errorThrown) {
-            if (jqXHR.status === 401) {
-               that.refreshAccessToken(function(oauthResponse) {
-                  that.setSessionToken(oauthResponse.access_token, null,
-                  oauthResponse.instance_url);
-                  that.apexrest(path, callback, error, method, payload, paramMap, true);
-               },
-               error);
-            } else {
-               error(jqXHR, textStatus, errorThrown);
-            }
-         },
-         dataType: "json",
-         beforeSend: function(xhr) {
-            if (that.proxyUrl !== null) {
-               xhr.setRequestHeader('SalesforceProxy-Endpoint', url);
-            }
-            //Add any custom headers
-            if (paramMap === null) {
-               paramMap = {};
-            }
-            for (paramName in paramMap) {
-               xhr.setRequestHeader(paramName, paramMap[paramName]);
-            }
-            xhr.setRequestHeader(that.authzHeader, "OAuth " + that.sessionId);
-            xhr.setRequestHeader('X-User-Agent', 'salesforce-toolkit-rest-javascript/' + that.apiVersion);
-         }
-      });
-   }
+            // Presto based
+            /(opera\smini)\/((\d+)?[\w\.-]+)/i,                                 // Opera Mini
+            /(opera\s[mobiletab]+).+version\/((\d+)?[\w\.-]+)/i,                // Opera Mobi/Tablet
+            /(opera).+version\/((\d+)?[\w\.]+)/i,                               // Opera > 9.80
+            /(opera)[\/\s]+((\d+)?[\w\.]+)/i,                                   // Opera < 9.80
 
-   /*
-    * Lists summary information about each Salesforce.com version currently 
-    * available, including the version, label, and a link to each version's
-    * root.
-    * @param callback function to which response will be passed
-    * @param [error=null] function to which jqXHR will be passed in case of error
-    */
-   forcetk.Client.prototype.versions = function(callback, error) {
-      this.ajax('/', callback, error);
-   }
+            // Mixed
+            /(kindle)\/((\d+)?[\w\.]+)/i,                                       // Kindle
+            /(lunascape|maxthon|netfront|jasmine|blazer)[\/\s]?((\d+)?[\w\.]+)*/i,
+                                                                                // Lunascape/Maxthon/Netfront/Jasmine/Blazer
 
-   /*
-    * Lists available resources for the client's API version, including 
-    * resource name and URI.
-    * @param callback function to which response will be passed
-    * @param [error=null] function to which jqXHR will be passed in case of error
-    */
-   forcetk.Client.prototype.resources = function(callback, error) {
-      this.ajax('/' + this.apiVersion + '/', callback, error);
-   }
+            // Trident based
+            /(avant\sbrowser|iemobile|slimbrowser|baidubrowser)[\/\s]?((\d+)?[\w\.]*)/i,
+                                                                                // Avant/IEMobile/SlimBrowser/Baidu
+            /ms(ie)\s((\d+)?[\w\.]+)/i,                                         // Internet Explorer
 
-   /*
-    * Lists the available objects and their metadata for your organization's 
-    * data.
-    * @param callback function to which response will be passed
-    * @param [error=null] function to which jqXHR will be passed in case of error
-    */
-   forcetk.Client.prototype.describeGlobal = function(callback, error) {
-      this.ajax('/' + this.apiVersion + '/sobjects/', callback, error);
-   }
+            // Webkit/KHTML based
+            /(chromium|flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt)\/((\d+)?[\w\.-]+)/i
+                                                                                // Chromium/Flock/RockMelt/Midori/Epiphany/Silk/Skyfire/Bolt
+            ], [NAME, VERSION, MAJOR], [
+            
+            /(yabrowser)\/((\d+)?[\w\.]+)/i                                     // Yandex
+            ], [[NAME, 'Yandex'], VERSION, MAJOR], [
+            
+            /(chrome|omniweb|arora|[tizenoka]{5}\s?browser)\/v?((\d+)?[\w\.]+)/i
+                                                                                // Chrome/OmniWeb/Arora/Tizen/Nokia
+            ], [NAME, VERSION, MAJOR], [
+            
+            /(dolfin)\/((\d+)?[\w\.]+)/i                                        // Dolphin
+            ], [[NAME, 'Dolphin'], VERSION, MAJOR], [
+            
+            /((?:android.+)crmo|crios)\/((\d+)?[\w\.]+)/i                       // Chrome for Android/iOS
+            ], [[NAME, 'Chrome'], VERSION, MAJOR], [
+            
+            /version\/((\d+)?[\w\.]+).+?mobile\/\w+\s(safari)/i                 // Mobile Safari
+            ], [VERSION, MAJOR, [NAME, 'Mobile Safari']], [
+            
+            /version\/((\d+)?[\w\.]+).+?(mobile\s?safari|safari)/i              // Safari & Safari Mobile
+            ], [VERSION, MAJOR, NAME], [
+            
+            /applewebkit.+?(mobile\s?safari|safari)((\/[\w\.]+))/i              // Safari < 3.0
+            ], [NAME, [MAJOR, mapper.string, maps.browser.oldsafari.major], [VERSION, mapper.string, maps.browser.oldsafari.version]], [
+            
+            /(konqueror)\/((\d+)?[\w\.]+)/i,                                    // Konqueror
+            /(applewebkit|khtml)\/((\d+)?[\w\.]+)/i
+            ], [NAME, VERSION, MAJOR], [
 
-   /*
-    * Describes the individual metadata for the specified object.
-    * @param objtype object type; e.g. "Account"
-    * @param callback function to which response will be passed
-    * @param [error=null] function to which jqXHR will be passed in case of error
-    */
-   forcetk.Client.prototype.metadata = function(objtype, callback, error) {
-      this.ajax('/' + this.apiVersion + '/sobjects/' + objtype + '/'
-      , callback, error);
-   }
+            // Gecko based
+            /(navigator|netscape)\/((\d+)?[\w\.-]+)/i                           // Netscape
+            ], [[NAME, 'Netscape'], VERSION, MAJOR], [
+            /(swiftfox)/i,                                                      // Swiftfox
+            /(iceweasel|camino|chimera|fennec|maemo\sbrowser|minimo)[\/\s]?((\d+)?[\w\.\+]+)/i,
+                                                                                // Iceweasel/Camino/Chimera/Fennec/Maemo/Minimo
+            /(firefox|seamonkey|k-meleon|icecat|iceape|firebird|phoenix)\/((\d+)?[\w\.-]+)/i,
+                                                                                // Firefox/SeaMonkey/K-Meleon/IceCat/IceApe/Firebird/Phoenix
+            /(mozilla)\/((\d+)?[\w\.]+).+rv\:.+gecko\/\d+/i,                    // Mozilla
 
-   /*
-    * Completely describes the individual metadata at all levels for the 
-    * specified object.
-    * @param objtype object type; e.g. "Account"
-    * @param callback function to which response will be passed
-    * @param [error=null] function to which jqXHR will be passed in case of error
-    */
-   forcetk.Client.prototype.describe = function(objtype, callback, error) {
-      this.ajax('/' + this.apiVersion + '/sobjects/' + objtype
-      + '/describe/', callback, error);
-   }
+            // Other
+            /(uc\s?browser|polaris|lynx|dillo|icab|doris)[\/\s]?((\d+)?[\w\.]+)/i,
+                                                                                // UCBrowser/Polaris/Lynx/Dillo/iCab/Doris
+            /(gobrowser)\/?((\d+)?[\w\.]+)*/i,                                  // GoBrowser
+            /(mosaic)[\/\s]((\d+)?[\w\.]+)/i                                    // Mosaic
+            ], [NAME, VERSION, MAJOR]
+        ],
 
-   /*
-    * Creates a new record of the given type.
-    * @param objtype object type; e.g. "Account"
-    * @param fields an object containing initial field names and values for 
-    *               the record, e.g. {:Name "salesforce.com", :TickerSymbol 
-    *               "CRM"}
-    * @param callback function to which response will be passed
-    * @param [error=null] function to which jqXHR will be passed in case of error
-    */
-   forcetk.Client.prototype.create = function(objtype, fields, callback, error) {
-      this.ajax('/' + this.apiVersion + '/sobjects/' + objtype + '/'
-      , callback, error, "POST", JSON.stringify(fields));
-   }
+        device : [[
 
-   /*
-    * Retrieves field values for a record of the given type.
-    * @param objtype object type; e.g. "Account"
-    * @param id the record's object ID
-    * @param [fields=null] optional comma-separated list of fields for which 
-    *               to return values; e.g. Name,Industry,TickerSymbol
-    * @param callback function to which response will be passed
-    * @param [error=null] function to which jqXHR will be passed in case of error
-    */
-   forcetk.Client.prototype.retrieve = function(objtype, id, fieldlist, callback, error) {
-      if (!arguments[4]) {
-         error = callback;
-         callback = fieldlist;
-         fieldlist = null;
-      }
-      var fields = fieldlist ? '?fields=' + fieldlist : '';
-      this.ajax('/' + this.apiVersion + '/sobjects/' + objtype + '/' + id
-      + fields, callback, error);
-   }
+            /\((ipad|playbook);[\w\s\);-]+(rim|apple)/i                         // iPad/PlayBook
+            ], [MODEL, VENDOR, [TYPE, TABLET]], [
+            
+            /(hp).+(touchpad)/i,                                                // HP TouchPad
+            /(kindle)\/([\w\.]+)/i,                                             // Kindle
+            /\s(nook)[\w\s]+build\/(\w+)/i,                                     // Nook
+            /(dell)\s(strea[kpr\s\d]*[\dko])/i                                  // Dell Streak
+            ], [VENDOR, MODEL, [TYPE, TABLET]], [
 
-   /*
-    * Upsert - creates or updates record of the given type, based on the 
-    * given external Id.
-    * @param objtype object type; e.g. "Account"
-    * @param externalIdField external ID field name; e.g. "accountMaster__c"
-    * @param externalId the record's external ID value
-    * @param fields an object containing field names and values for 
-    *               the record, e.g. {:Name "salesforce.com", :TickerSymbol 
-    *               "CRM"}
-    * @param callback function to which response will be passed
-    * @param [error=null] function to which jqXHR will be passed in case of error
-    */
-   forcetk.Client.prototype.upsert = function(objtype, externalIdField, externalId, fields, callback, error) {
-      this.ajax('/' + this.apiVersion + '/sobjects/' + objtype + '/' + externalIdField + '/' + externalId 
-      + '?_HttpMethod=PATCH', callback, error, "POST", JSON.stringify(fields));
-   }
+            /\((ip[honed]+);.+(apple)/i                                         // iPod/iPhone
+            ], [MODEL, VENDOR, [TYPE, MOBILE]], [
+            
+            /(blackberry)[\s-]?(\w+)/i,                                         // BlackBerry
+            /(blackberry|benq|palm(?=\-)|sonyericsson|acer|asus|dell|huawei|meizu|motorola)[\s_-]?([\w-]+)*/i,
+                                                                                // BenQ/Palm/Sony-Ericsson/Acer/Asus/Dell/Huawei/Meizu/Motorola
+            /(hp)\s([\w\s]+\w)/i,                                               // HP iPAQ
+            /(asus)-?(\w+)/i                                                    // Asus
+            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
+            /\((bb10);\s(\w+)/i                                                 // BlackBerry 10
+            ], [[VENDOR, 'BlackBerry'], MODEL, [TYPE, MOBILE]], [
 
-   /*
-    * Updates field values on a record of the given type.
-    * @param objtype object type; e.g. "Account"
-    * @param id the record's object ID
-    * @param fields an object containing initial field names and values for 
-    *               the record, e.g. {:Name "salesforce.com", :TickerSymbol 
-    *               "CRM"}
-    * @param callback function to which response will be passed
-    * @param [error=null] function to which jqXHR will be passed in case of error
-    */
-   forcetk.Client.prototype.update = function(objtype, id, fields, callback, error) {
-      this.ajax('/' + this.apiVersion + '/sobjects/' + objtype + '/' + id 
-      + '?_HttpMethod=PATCH', callback, error, "POST", JSON.stringify(fields));
-   }
+            /android.+((transfo[prime\s]{4,10}\s\w+|eeepc|slider\s\w+))/i       // Asus Tablets
+            ], [[VENDOR, 'Asus'], MODEL, [TYPE, TABLET]], [
 
-   /*
-    * Deletes a record of the given type. Unfortunately, 'delete' is a 
-    * reserved word in JavaScript.
-    * @param objtype object type; e.g. "Account"
-    * @param id the record's object ID
-    * @param callback function to which response will be passed
-    * @param [error=null] function to which jqXHR will be passed in case of error
-    */
-   forcetk.Client.prototype.del = function(objtype, id, callback, error) {
-      this.ajax('/' + this.apiVersion + '/sobjects/' + objtype + '/' + id
-      , callback, error, "DELETE");
-   }
+            /(sony)\s(tablet\s[ps])/i                                           // Sony Tablets
+            ], [VENDOR, MODEL, [TYPE, TABLET]], [
 
-   /*
-    * Executes the specified SOQL query.
-    * @param soql a string containing the query to execute - e.g. "SELECT Id, 
-    *             Name from Account ORDER BY Name LIMIT 20"
-    * @param callback function to which response will be passed
-    * @param [error=null] function to which jqXHR will be passed in case of error
-    */
-   forcetk.Client.prototype.query = function(soql, callback, error) {
-      this.ajax('/' + this.apiVersion + '/query?q=' + escape(soql)
-      , callback, error);
-   }
-   
-   /*
-    * Queries the next set of records based on pagination.
-    * <p>This should be used if performing a query that retrieves more than can be returned
-    * in accordance with http://www.salesforce.com/us/developer/docs/api_rest/Content/dome_query.htm</p>
-    * <p>Ex: forcetkClient.queryMore( successResponse.nextRecordsUrl, successHandler, failureHandler )</p>
-    * 
-    * @param url - the url retrieved from nextRecordsUrl or prevRecordsUrl
-    * @param callback function to which response will be passed
-    * @param [error=null] function to which jqXHR will be passed in case of error
-    */
-   forcetk.Client.prototype.queryMore = function( url, callback, error ){
-      //-- ajax call adds on services/data to the url call, so only send the url after
-      var serviceData = "services/data";
-      var index = url.indexOf( serviceData );
-      
-      if( index > -1 ){
-       url = url.substr( index + serviceData.length );
-      } else {
-       //-- leave alone
-      }
-      
-      this.ajax( url, callback, error );
-   }
+            /(nintendo|playstation)\s([wids3portablev]+)/i                      // Nintendo/Playstation
+            ], [VENDOR, MODEL, [TYPE, CONSOLE]], [
 
-   /*
-    * Executes the specified SOSL search.
-    * @param sosl a string containing the search to execute - e.g. "FIND 
-    *             {needle}"
-    * @param callback function to which response will be passed
-    * @param [error=null] function to which jqXHR will be passed in case of error
-    */
-   forcetk.Client.prototype.search = function(sosl, callback, error) {
-      this.ajax('/' + this.apiVersion + '/search?q=' + escape(sosl)
-      , callback, error);
-   }
-}
+            /(htc)[;_\s-]+([\w\s]+(?=\))|\w+)*/i,                               // HTC
+            /(zte)-(\w+)*/i                                                     // ZTE
+            ], [VENDOR, [MODEL, /_/g, ' '], [TYPE, MOBILE]], [
+
+            /\s((milestone|droid[2x]?))[globa\s]*\sbuild\//i,                   // Motorola
+            /(mot)[\s-]?(\w+)*/i
+            ], [[VENDOR, 'Motorola'], MODEL, [TYPE, MOBILE]], [
+            /android.+\s((mz60\d|xoom[\s2]{0,2}))\sbuild\//i
+            ], [[VENDOR, 'Motorola'], MODEL, [TYPE, TABLET]], [
+
+            /android.+((sch-i[89]0\d|shw-m380s|gt-p\d{4}|gt-n8000|sgh-t8[56]9))/i
+            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, TABLET]], [          // Samsung
+            /((s[cgp]h-\w+|gt-\w+|galaxy\snexus))/i,
+            /(sam[sung]*)[\s-]*(\w+-?[\w-]*)*/i,
+            /sec-((sgh\w+))/i
+            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, MOBILE]], [
+            /(sie)-(\w+)*/i                                                     // Siemens
+            ], [[VENDOR, 'Siemens'], MODEL, [TYPE, MOBILE]], [
+
+            /(maemo|nokia).*(n900|lumia\s\d+)/i,                                // Nokia
+            /(nokia)[\s_-]?([\w-]+)*/i
+            ], [[VENDOR, 'Nokia'], MODEL, [TYPE, MOBILE]], [
+
+            /android\s3\.[\s\w-;]{10}((a\d{3}))/i                               // Acer
+            ], [[VENDOR, 'Acer'], MODEL, [TYPE, TABLET]], [
+
+            /android\s3\.[\s\w-;]{10}(lg?)-([06cv9]{3,4})/i                     // LG
+            ], [[VENDOR, 'LG'], MODEL, [TYPE, TABLET]], [
+            /(lg)[e;\s-\/]+(\w+)*/i
+            ], [[VENDOR, 'LG'], MODEL, [TYPE, MOBILE]], [
+            
+            /(mobile|tablet);.+rv\:.+gecko\//i                                  // Unidentifiable
+            ], [TYPE, VENDOR, MODEL]
+        ],
+
+        engine : [[
+
+            /(presto)\/([\w\.]+)/i,                                             // Presto
+            /(webkit|trident|netfront)\/([\w\.]+)/i,                            // WebKit/Trident/NetFront
+            /(khtml)\/([\w\.]+)/i,                                              // KHTML
+            /(tasman)\s([\w\.]+)/i                                              // Tasman
+            ], [NAME, VERSION], [
+
+            /rv\:([\w\.]+).*(gecko)/i                                           // Gecko
+            ], [VERSION, NAME]
+        ],
+
+        os : [[
+
+            // Windows based
+            /(windows)\snt\s6\.2;\s(arm)/i,                                     // Windows RT
+            /(windows\sphone\sos|windows\smobile|windows)[\s\/]?([ntce\d\.\s]+\w)/i
+            ], [NAME, [VERSION, mapper.string, maps.os.windows.version]], [
+            /(win(?=3|9|n)|win\s9x\s)([nt\d\.]+)/i
+            ], [[NAME, 'Windows'], [VERSION, mapper.string, maps.os.windows.version]], [
+
+            // Mobile/Embedded OS
+            /\((bb)(10);/i                                                      // BlackBerry 10
+            ], [[NAME, 'BlackBerry'], VERSION], [
+            /(blackberry)\w*\/?([\w\.]+)*/i,                                    // Blackberry
+            /(tizen)\/([\w\.]+)/i,                                              // Tizen
+            /(android|webos|palm\os|qnx|bada|rim\stablet\sos|meego)[\/\s-]?([\w\.]+)*/i
+                                                                                // Android/WebOS/Palm/QNX/Bada/RIM/MeeGo
+            ], [NAME, VERSION], [
+            /(symbian\s?os|symbos|s60(?=;))[\/\s-]?([\w\.]+)*/i                 // Symbian
+            ], [[NAME, 'Symbian'], VERSION],[
+
+            /(nintendo|playstation)\s([wids3portablev]+)/i,                     // Nintendo/Playstation
+
+            // GNU/Linux based
+            /(mint)[\/\s\(]?(\w+)*/i,                                           // Mint
+            /(joli|[kxln]?ubuntu|debian|[open]*suse|gentoo|arch|slackware|fedora|mandriva|centos|pclinuxos|redhat|zenwalk)[\/\s-]?([\w\.-]+)*/i,
+                                                                                // Joli/Ubuntu/Debian/SUSE/Gentoo/Arch/Slackware
+                                                                                // Fedora/Mandriva/CentOS/PCLinuxOS/RedHat/Zenwalk
+            /(hurd|linux)\s?([\w\.]+)*/i,                                       // Hurd/Linux
+            /(gnu)\s?([\w\.]+)*/i                                               // GNU
+            ], [NAME, VERSION], [
+
+            /(cros)\s[\w]+\s([\w\.]+\w)/i                                       // Chromium OS
+            ], [[NAME, 'Chromium OS'], VERSION],[
+
+            // Solaris
+            /(sunos)\s?([\w\.]+\d)*/i                                           // Solaris
+            ], [[NAME, 'Solaris'], VERSION], [
+
+            // BSD based
+            /\s(\w*bsd|dragonfly)\s?([\w\.]+)*/i,                               // FreeBSD/NetBSD/OpenBSD/DragonFly
+            ], [NAME, VERSION],[
+
+            /(ip[honead]+)(?:.*os\s*([\w]+)*\slike\smac|;\sopera)/i,            // iOS
+            ], [[NAME, 'iOS'], [VERSION, /_/g, '.']], [
+
+            /(mac\sos\sx)\s?([\w\s\.]+\w)*/i,                                   // Mac OS
+            ], [NAME, [VERSION, /_/g, '.']], [
+
+            // Other
+            /(haiku)\s(\w+)/i,                                                  // Haiku
+            /(aix)\s((\d)(?=\.|\)|\s)[\w\.]*)*/i,                               // AIX                    
+            /(macintosh|mac(?=_powerpc)|plan\s9|minix|beos|os\/2|amigaos|morphos)/i,
+                                                                                // Plan9/Minix/BeOS/OS2/AmigaOS/MorphOS
+            /(unix)\s?([\w\.]+)*/i                                              // UNIX
+            ], [NAME, VERSION]
+        ]
+    };
+
+    var UAParser = function UAParser (uastring) {
+
+        var ua = uastring || ((global && global.navigator && global.navigator.userAgent) ? global.navigator.userAgent : EMPTY);
+
+        this.getBrowser = function () {
+            return mapper.regex.apply(this, regexes.browser);
+        };
+
+        this.getDevice = function () {
+            return mapper.regex.apply(this, regexes.device);
+        };
+
+        this.getEngine = function () {
+            return mapper.regex.apply(this, regexes.engine);
+        };
+
+        this.getOS = function () {
+            return mapper.regex.apply(this, regexes.os);
+        };
+
+        this.getResult = function() {
+            return {
+                browser : this.getBrowser(),
+                engine  : this.getEngine(),
+                os      : this.getOS(),
+                device  : this.getDevice()
+            };
+        };
+
+        this.getUA = function() {
+            return ua;
+        };
+
+        this.setUA = function (uastring) {
+            ua = uastring;
+            return this;
+        };
+
+        this.setUA(ua);
+    };
+
+    // check js environment    
+    if (typeof exports !== UNDEF && !/\[object\s[DOM]*Window\]/.test(global.toString())) {
+        // nodejs env
+        if (typeof module !== UNDEF && module.exports) {
+            exports = module.exports = UAParser;
+        }
+        exports.UAParser = UAParser;
+    } else {
+        // browser env
+        global['UAParser'] = UAParser;
+    }
+})(this);
 (function() {
   var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   (function($, forge, ko) {
-    var currentCookie, currentUser, fc, showLoading;
+    var cachedIsSlow, currentCookie, currentUser, fc, showLoading;
     $.cookie.json = true;
     currentUser = null;
     currentCookie = null;
     showLoading = false;
+    cachedIsSlow = null;
     fc = window.fannect = {
       viewModels: {}
     };
@@ -13988,6 +13952,14 @@ if (forcetk.Client === undefined) {
     };
     fc.getParams = function() {
       return $.url().param();
+    };
+    fc.isSlow = function() {
+      var result;
+      if (cachedIsSlow == null) {
+        result = new UAParser().getResult();
+        cachedIsSlow = result.os.name === "Android" && parseFloat(result.os.version) < 3.0;
+      }
+      return cachedIsSlow;
     };
     fc.loading = function(status) {
       showLoading = status === "show";
@@ -14134,13 +14106,20 @@ if (forcetk.Client === undefined) {
     };
     return fc.mobile = {
       _buttons: {},
+      _waiting_to_activate: null,
       _addButton: function(index, text, image, target) {
         return forge.tabbar.addButton({
           icon: image,
           text: text,
           index: index
         }, function(button) {
-          fc.mobile._buttons[text.toLowerCase()] = button;
+          var name;
+          name = text.toLowerCase();
+          fc.mobile._buttons[name] = button;
+          if (fc.mobile._waiting_to_activate === name) {
+            button.setActive();
+            fc.mobile._waiting_to_activate = null;
+          }
           return button.onPressed.addListener(function() {
             return $.mobile.changePage(target, {
               transition: "none"
@@ -14149,17 +14128,20 @@ if (forcetk.Client === undefined) {
         });
       },
       createButtons: function() {
-        fc.mobile._addButton(0, "Profile", "images/icons/Icon_TabBar_Profile@2x.png", "profile.html");
-        fc.mobile._addButton(1, "Games", "images/icons/Icon_TabBar_Points@2x.png", "games.html");
-        fc.mobile._addButton(2, "Leaderboard", "images/icons/Icon_TabBar_Leaderboard@2x.png", "leaderboard.html");
-        return fc.mobile._addButton(3, "Connect", "images/icons/Icon_TabBar_Connect@2x.png", "connect.html");
+        fc.mobile._addButton(0, "Profile", "images/mobile/Icon_TabBar_Profile@2x.png", "profile.html");
+        fc.mobile._addButton(1, "Games", "images/mobile/Icon_TabBar_Points@2x.png", "games.html");
+        fc.mobile._addButton(2, "Leaderboard", "images/mobile/Icon_TabBar_Leaderboard@2x.png", "leaderboard.html");
+        return fc.mobile._addButton(3, "Connect", "images/mobile/Icon_TabBar_Connect@2x.png", "connect.html");
       },
       setActiveMenu: function(name) {
         if (name) {
+          name = name.toLowerCase();
           forge.tabbar.show();
-          console.log("ACTIVE NAME" + name);
-          console.log(JSON.stringify(fc.mobile._buttons));
-          return fc.mobile._buttons[name.toLowerCase()].setActive();
+          if (fc.mobile._buttons[name]) {
+            return fc.mobile._buttons[name].setActive();
+          } else {
+            return fc.mobile._waiting_to_activate = name;
+          }
         } else {
           return forge.tabbar.hide();
         }
@@ -14243,9 +14225,7 @@ if (forcetk.Client === undefined) {
         return this.options._second = $("<span class='text'>" + text + "</span>").appendTo(textWrap);
       },
       start: function() {
-        this.options._first.css({
-          "left": this.options.start_offset
-        });
+        this.options._first.css("left", this.options.start_offset);
         this.options._second.css("left", this.options.start_offset + this.options._first.width() + this.options.space_offset);
         this._resetFirst();
         return this._resetSecond();
@@ -14257,19 +14237,33 @@ if (forcetk.Client === undefined) {
         return this.options._is_hidden = true;
       },
       _startScroll: function(current, next, cb) {
-        var offset, width,
+        var offset, width, _ref,
           _this = this;
         width = current.width();
         offset = current.position().left;
         if (!this.element.is(":visible")) {
           return this._hiddenLoop();
         }
-        return current.animate({
-          left: -1 * width
-        }, (width + offset) * this.options.rate, "linear", function() {
-          current.css("left", next.position().left + next.width() + _this.options.space_offset);
-          return cb.call(_this);
-        });
+        if ($.support.cssTransitions && ((_ref = this.options) != null ? _ref.hardware_accelerated : void 0)) {
+          return current.addClass("moving").css({
+            "left": -1 * width,
+            "transition-duration": (width + offset) * this.options.rate + "ms",
+            "-webkit-transition-duration": (width + offset) * this.options.rate + "ms",
+            "-moz-transition-duration": (width + offset) * this.options.rate + "ms",
+            "-o-transition-duration": (width + offset) * this.options.rate + "ms"
+          }).one("transitionend webkitTransitionEnd oTransitionEnd", function() {
+            current.removeClass("moving");
+            current.css("left", next.position().left + next.width() + _this.options.space_offset);
+            return cb.call(_this);
+          });
+        } else {
+          return current.animate({
+            left: -1 * width
+          }, (width + offset) * this.options.rate, "linear", function() {
+            current.css("left", next.position().left + next.width() + _this.options.space_offset);
+            return cb.call(_this);
+          });
+        }
       },
       _resetFirst: function() {
         return this._startScroll(this.options._first, this.options._second, this._resetFirst);
@@ -14300,7 +14294,8 @@ if (forcetk.Client === undefined) {
         _hidden_timeout_id: null,
         start_offset: 10,
         space_offset: 25,
-        rate: 15
+        rate: 15,
+        hardware_accelerated: false
       }
     };
     return $(document).on("mobileinit", function() {
@@ -14934,33 +14929,68 @@ if (forcetk.Client === undefined) {
 
 (function() {
 
-  $(document).bind("mobileinit", function() {
-    $("#connect-page").live("pagecreate", function() {
-      var _this = this;
-      return new window.fannect.viewModels.Connect(function(err, vm) {
-        return ko.applyBindings(vm, _this);
+  (function($, ko, fc) {
+    return $(document).bind("mobileinit", function() {
+      var addToRosterProfile_vm;
+      addToRosterProfile_vm = null;
+      $("#connect-page").live("pagecreate", function() {
+        var _this = this;
+        return new window.fannect.viewModels.Connect(function(err, vm) {
+          return ko.applyBindings(vm, _this);
+        });
+      }).live("pageshow", function() {
+        return fc.mobile.addHeaderButton({
+          text: "Add",
+          position: "right",
+          click: function() {
+            return $.mobile.changePage("connect-addToRoster.html", {
+              transition: "slide"
+            });
+          }
+        });
+      });
+      $("#connect-addToRoster-page").live("pagecreate", function() {
+        var _this = this;
+        return new window.fannect.viewModels.Connect.AddToRoster(function(err, vm) {
+          return ko.applyBindings(vm, _this);
+        });
+      });
+      return $("#connect-addToRosterProfile-page").live("pagecreate", function() {
+        var _this = this;
+        return new window.fannect.viewModels.Connect.AddToRosterProfile(function(err, vm) {
+          addToRosterProfile_vm = vm;
+          return ko.applyBindings(vm, _this);
+        });
+      }).live("pageshow", function() {
+        return fc.mobile.addHeaderButton({
+          text: "Add",
+          position: "right",
+          click: function() {
+            addToRosterProfile_vm.addToRoster();
+            return $.mobile.changePage("connect.html", {
+              transition: "slidedown"
+            });
+          }
+        });
       });
     });
-    $("#connect-addToRoster-page").live("pagecreate", function() {
-      var _this = this;
-      return new window.fannect.viewModels.Connect.AddToRoster(function(err, vm) {
-        return ko.applyBindings(vm, _this);
-      });
-    });
-    return $("#connect-addToRosterProfile-page").live("pagecreate", function() {
-      var _this = this;
-      return new window.fannect.viewModels.Connect.AddToRosterProfile(function(err, vm) {
-        return ko.applyBindings(vm, _this);
-      });
-    });
-  });
+  })(window.jQuery, window.ko, window.fannect);
 
 }).call(this);
 
 (function() {
 
-  (function($, ko) {
-    var setupAttendanceStreak, setupGameFace, setupGuessTheScore;
+  (function($, ko, fc) {
+    var addTutorialButton, setupAttendanceStreak, setupGameFace, setupGuessTheScore;
+    addTutorialButton = function() {
+      return fc.mobile.addHeaderButton({
+        icon: "images/mobile/InfoButton@2x.png",
+        position: "right",
+        click: function() {
+          return fc.showTutorial();
+        }
+      });
+    };
     setupGuessTheScore = function() {
       return $("#games-guessTheScore-page").live("pagecreate", function() {
         var scroller,
@@ -14970,6 +15000,7 @@ if (forcetk.Client === undefined) {
           return ko.applyBindings(vm, _this);
         });
       }).live("pageshow", function() {
+        addTutorialButton();
         return $(".scrolling-text", this).scroller("start");
       }).live("pagebeforehide", function() {
         return $(".scrolling-text", this).scroller("stop");
@@ -14983,6 +15014,7 @@ if (forcetk.Client === undefined) {
           return ko.applyBindings(vm, _this);
         });
       }).live("pageshow", function() {
+        addTutorialButton();
         return $(".scrolling-text", this).scroller("start");
       }).live("pagebeforehide", function() {
         return $(".scrolling-text", this).scroller("stop");
@@ -15003,6 +15035,7 @@ if (forcetk.Client === undefined) {
           return ko.applyBindings(vm, _this);
         });
       }).live("pageshow", function() {
+        addTutorialButton();
         if (viewModel != null ? viewModel.no_game : void 0) {
           return scroller.scroller("start");
         }
@@ -15015,7 +15048,7 @@ if (forcetk.Client === undefined) {
       setupGameFace();
       return setupAttendanceStreak();
     });
-  })(window.jQuery, window.ko);
+  })(window.jQuery, window.ko, window.fannect);
 
 }).call(this);
 
@@ -15048,20 +15081,32 @@ if (forcetk.Client === undefined) {
 
   (function($, ko, fc) {
     return $(document).bind("mobileinit", function() {
-      var profile_vm;
-      profile_vm = null;
+      var editBio_vm, editBraggingRights_vm, editGameDaySpot_vm;
+      editBio_vm = null;
+      editGameDaySpot_vm = null;
+      editBraggingRights_vm = null;
       $("#profile-page").live("pagecreate", function() {
         var _this = this;
         return new window.fannect.viewModels.Profile(function(err, vm) {
-          profile_vm = vm;
           return ko.applyBindings(vm, _this);
         });
       }).live("pageshow", function() {
-        return fc.mobile.addHeaderButton({
+        fc.mobile.addHeaderButton({
           text: "Invitations",
           position: "left",
           click: function() {
-            return $.mobile.changePage("profile-invitations.html");
+            return $.mobile.changePage("profile-invitations.html", {
+              transition: "slidedown"
+            });
+          }
+        });
+        return fc.mobile.addHeaderButton({
+          text: "Edit",
+          position: "right",
+          click: function() {
+            return $.mobile.changePage("profile-editBio.html", {
+              transition: "slide"
+            });
           }
         });
       });
@@ -15080,19 +15125,53 @@ if (forcetk.Client === undefined) {
       $("#profile-editBio-page").live("pagecreate", function() {
         var _this = this;
         return new window.fannect.viewModels.Profile.EditBio(function(err, vm) {
+          editBio_vm = vm;
           return ko.applyBindings(vm, _this);
+        });
+      }).live("pageshow", function() {
+        return fc.mobile.addHeaderButton({
+          text: "Next",
+          position: "right",
+          click: function() {
+            editBio_vm.next();
+            return $.mobile.changePage("profile-editGameDaySpot.html", {
+              transition: "slide"
+            });
+          }
         });
       });
       $("#profile-editGameDaySpot-page").live("pagecreate", function() {
         var _this = this;
         return new window.fannect.viewModels.Profile.EditGameDaySpot(function(err, vm) {
+          editGameDaySpot_vm = vm;
           return ko.applyBindings(vm, _this);
+        });
+      }).live("pageshow", function() {
+        return fc.mobile.addHeaderButton({
+          text: "Next",
+          position: "right",
+          click: function() {
+            editGameDaySpot_vm.next();
+            return $.mobile.changePage("profile-editBraggingRights.html");
+          }
         });
       });
       return $("#profile-editBraggingRights-page").live("pagecreate", function() {
         var _this = this;
         return new window.fannect.viewModels.Profile.EditBraggingRights(function(err, vm) {
+          editBraggingRights_vm = vm;
           return ko.applyBindings(vm, _this);
+        });
+      }).live("pageshow", function() {
+        return fc.mobile.addHeaderButton({
+          text: "Done",
+          position: "right",
+          click: function() {
+            editBraggingRights_vm.updateProfile();
+            return $.mobile.changePage("profile.html", {
+              transition: "slidedown"
+            });
+          }
         });
       });
     });
@@ -15105,7 +15184,7 @@ if (forcetk.Client === undefined) {
 
   (function($, fc, forge) {
     var getMenu, setup;
-    $(document).on("mobileinit", function() {
+    $(document).ready(function() {
       return setup();
     });
     $(".ui-page").live("pagecreate", function() {
@@ -15145,18 +15224,13 @@ if (forcetk.Client === undefined) {
     };
     return setup = function() {
       $.mobile.allowCrossDomainPages = true;
-      $.mobile.loader.prototype.options.text = "loading";
+      $.mobile.loader.prototype.options.text = "Loading Page";
       $.mobile.loader.prototype.options.textVisible = true;
       $.mobile.loader.prototype.options.theme = "b";
       $.mobile.loader.prototype.options.html = "";
       fc.mobile.createButtons();
-      if ($.support.touch && !$.support.touchOverflow) {
-        $("body").addClass("speed-up");
-      }
-      if (forge.is.android()) {
-        return forge.event.backPressed.addListener(function() {
-          return history.back();
-        });
+      if (fc.isSlow()) {
+        return $("body").addClass("speed-up");
       }
     };
   })(window.jQuery, window.fannect, window.forge);
