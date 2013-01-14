@@ -1,4 +1,8 @@
 .DS_Store
 development/
+src/
+!src/.forgeignore
+!src/config.json
+!src/identity.json
 .lib/
 .template/
