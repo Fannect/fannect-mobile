@@ -19,7 +19,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          @setupInfiniteScroll()
 
-         
          @loadRoster()
          @loadOverall false, (err, data) => done err, @
 
@@ -29,17 +28,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          prev = @prev_scroll
          @prev_scroll = $(document).scrollTop()
-         console.log "current_scroll:", @prev_scroll
-         console.log "change_to_scroll:", prev
 
          setTimeout () =>
             $(document).scrollTop prev
-            console.log "after change:", $(document).scrollTop()
             @track_scrolling = true
          , 50
-
-         # console.log "roster position:", @roster_scroll
-         # console.log "overall position:", @overall_scroll
 
       loadOverall: (hide_loading, done) ->
          fc.ajax 
@@ -63,13 +56,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       setupInfiniteScroll: () ->
          $window = $(window).scroll () =>
-            scrollTop = $window.scrollTop()
 
-            # console.log "window.scrollTop in setup:", scrollTop
-
-            # if @track_scrolling then @prev_scroll = scrollTop
-
-            if not @loading_more() and scrollTop > $(document).height() - $window.height() - 150
+            if not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
                @loading_more true
                
                if @is_overall_selected()
