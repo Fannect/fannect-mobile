@@ -31,7 +31,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
                style: "back"
 
    fc.getResourceURL = () ->
-      return if forge.is.web() then "http://fannect.herokuapp.com" else "http://fannect.herokuapp.com"
+      return if forge.is.web() then "http://localhost:2100" else "http://fannect.herokuapp.com"
 
    fc.getParams = () ->
       return $.url().param() 
@@ -59,14 +59,14 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
    fc.ajax = (options, done) ->
       done = done or options.success
       options.success = (result) ->
-         fc.loading "hide"
+         fc.loading "hide" unless options.hide_loading
          done null, JSON.parse(result)
       options.error = (error) ->
-         fc.loading "hide"
+         fc.loading "hide" unless options.hide_loading
          if error?.statusCode == 401 then fc.redirectToLogin
          else done error
 
-      fc.loading "show"
+      fc.loading "show" unless options.hide_loading
       forge.ajax(options)
 
    fc.clearBindings = (context) ->

@@ -4,7 +4,14 @@
 	"description": "Social Network for Sports Fans", 
 	"homepage": "http://fannect.me", 
 	"modules": {
-		"event": true,
+		"display": {
+			"orientations": {
+				"android": "portrait", 
+				"ipad": "portrait", 
+				"iphone": "portrait"
+			}
+		}, 
+		"event": true, 
 		"file": true, 
 		"is": true, 
 		"logging": {

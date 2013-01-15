@@ -2,37 +2,77 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
    class fc.viewModels.Leaderboard
       constructor: (done) ->
-         @overall_loaded =  false
-         @roster_loaded =  false
-         @selected_view = ko.observable("overall")
+         @limit = 20
+         @overall_skip = 0
+         @roster_skip = 0
+
+         @prev_scroll = 0
+         @track_scrolling = true
+
+         @selected_view = ko.observable "overall"
+         @selected_view.subscribe @viewToggled
          @is_overall_selected = ko.computed () => return @selected_view() == "overall"
          @is_roster_selected = ko.computed () => return @selected_view() == "roster"
          @roster_fans = ko.observableArray()
          @overall_fans = ko.observableArray()
+         @loading_more = ko.observable false
 
-         @selected_view.subscribe @viewToggled
-         @loadOverall (err, data) =>
-            done err, @
+         @setupInfiniteScroll()
+
+         
+         @loadRoster()
+         @loadOverall false, (err, data) => done err, @
 
       viewToggled: () =>
-         if @selected_view() == "roster" and not @roster_loaded then @loadRoster()
-         else if @selected_view() == "overall" and not @overall_loaded then @loadOverall()
+         @loading_more false
+         @track_scrolling = false
 
-      loadOverall: (done) ->
-         fc.ajax 
-            url: "#{fc.getResourceURL()}/me/leaderboard?type=overall"
-            type: "GET"
-         , (error, data) =>
-            @overall_fans.push fan for fan in data.fans
-            @overall_loaded = true
-            if done then done null, data
+         prev = @prev_scroll
+         @prev_scroll = $(document).scrollTop()
+         console.log "current_scroll:", @prev_scroll
+         console.log "change_to_scroll:", prev
 
-      loadRoster: (done) ->
+         setTimeout () =>
+            $(document).scrollTop prev
+            console.log "after change:", $(document).scrollTop()
+            @track_scrolling = true
+         , 50
+
+         # console.log "roster position:", @roster_scroll
+         # console.log "overall position:", @overall_scroll
+
+      loadOverall: (hide_loading, done) ->
          fc.ajax 
-            url: "#{fc.getResourceURL()}/me/leaderboard?type=roster"
+            url: "#{fc.getResourceURL()}/me/leaderboard?type=overall&limit=#{@limit}&skip=#{@overall_skip}"
             type: "GET"
-         , (error, data) =>
-            @roster_fans.push fan for fan in data.fans
-            @roster_loaded = true
-            $.mobile.loading "hide"
-            if done then done null, data
+            hide_loading: hide_loading
+         , (error, fans) =>
+            @overall_skip += @limit
+            @overall_fans.push fan for fan in fans
+            if done then done null, fans
+
+      loadRoster: (hide_loading, done) ->
+         fc.ajax 
+            url: "#{fc.getResourceURL()}/me/leaderboard?type=roster&limit=#{@limit}&skip=#{@roster_skip}"
+            type: "GET"
+            hide_loading: hide_loading
+         , (error, fans) =>
+            @roster_skip += @limit
+            @roster_fans.push fan for fan in fans
+            if done then done null, fans
+
+      setupInfiniteScroll: () ->
+         $window = $(window).scroll () =>
+            scrollTop = $window.scrollTop()
+
+            # console.log "window.scrollTop in setup:", scrollTop
+
+            # if @track_scrolling then @prev_scroll = scrollTop
+
+            if not @loading_more() and scrollTop > $(document).height() - $window.height() - 150
+               @loading_more true
+               
+               if @is_overall_selected()
+                  @loadOverall true, () => @loading_more false
+               else
+                  @loadRoster true, () => @loading_more false

@@ -21,8 +21,7 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       tutorial_pages = [ "profile-page", "games-attendanceStreak-page", "games-gameFace-page", "games-guessTheScore-page" ]
       currentId = $($.mobile.activePage).attr("id")
       
-      forge.prefs.get "tutorialShown", (shown) ->
-        shown = shown or []
+      forge.prefs.get "tutorialShown", (shown = []) ->
          if currentId in tutorial_pages and not (currentId in shown)
             shown.push currentId
             fc.showTutorial()
