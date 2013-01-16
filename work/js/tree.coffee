@@ -12,6 +12,7 @@
 #= require "viewModels/connect.coffee"
 #= require "viewModels/profile-vm/invitations.coffee"
 #= require "viewModels/profile-vm/invitationProfile.coffee"
+#= require "viewModels/profile-vm/chooseWebImage.coffee"
 #= require "viewModels/profile-vm/editBio.coffee"
 #= require "viewModels/profile-vm/editGameDaySpot.coffee"
 #= require "viewModels/profile-vm/editBraggingRights.coffee"

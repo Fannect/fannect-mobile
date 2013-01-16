@@ -30,6 +30,11 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
             ko.applyBindings vm, @
       )      
 
+      $("#profile-chooseWebImage-page").live("pagecreate", () ->
+         new window.fannect.viewModels.Profile.ChooseWebImage (err, vm) =>
+            ko.applyBindings vm, @
+      )      
+
       $("#profile-editBio-page").live("pagecreate", () ->
          new window.fannect.viewModels.Profile.EditBio (err, vm) =>
             editBio_vm = vm

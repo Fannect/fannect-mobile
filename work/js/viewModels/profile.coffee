@@ -18,29 +18,31 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       changeUserImage: (data, e) ->
          @editingImage "profile"
-         $("#changeProfileImagePopup").popup "open", 
-            transition: "pop"
-            positionTo: "window"
+         # $("#changeProfileImagePopup").popup "open", 
+         #    transition: "pop"
+         #    positionTo: "window"
 
       changeTeamImage: (data, e) -> 
          @editingImage "team"
-         $("#changeTeamImagePopup").popup "open", 
-            transition: "pop"
-            positionTo: "window"
+         # $("#changeTeamImagePopup").popup "open", 
+         #    transition: "pop"
+         #    positionTo: "window"
 
       takeImage: (data, e) ->
-         navigator.camera.getPicture @onImageDataSuccess, @phoneGapImageError, 
-            quality: 80
-            allowEdit: true
-            destinationType: navigator.camera.DestinationType.DATA_URL
-            sourceType: navigator.camera.PictureSourceType.CAMERA
-
+         forge.file.getImage
+            source: "camera"
+         , (file) ->
+            console.log "FILE: #{JSON.stringify(file)}"
+         , (error) ->
+            console.log "ERROR: #{JSON.stringify(error)}"
+         
       chooseImage: (data, e) ->
-         navigator.camera.getPicture @onImageDataSuccess, @phoneGapImageError, 
-            quality: 80
-            allowEdit: true
-            destinationType: navigator.camera.DestinationType.DATA_URL
-            sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+         forge.file.getImage
+            source: "gallery"
+         , (file) ->
+            console.log "FILE: #{JSON.stringify(file)}"
+         , (error) ->
+            console.log "ERROR: #{JSON.stringify(error)}"
 
       chooseWebImage: () -> ""
 
