@@ -1,20 +1,27 @@
 {
-	"general": {
-	},
-	"ios": {
-		"profiles": {
-			"DEFAULT": {
-				"provisioning_profile": ""
-			}
-		}
-	},
-	"android": {
-		"sdk": "",
-		"profiles": {
-			"DEFAULT": {
-				"keystore": "",
-				"keyalias": ""
-			}
-		}
-	}
+    "web": {
+        "profiles": {
+            "DEFAULT": {
+                "heroku_app_name": "serene-atoll-1366", 
+                "heroku_api_key": "5829f3d50458b4259766e56885ed1cb82d75067c"
+            }
+        }
+    }, 
+    "android": {
+        "profiles": {
+            "DEFAULT": {
+                "keystore": "", 
+                "keyalias": ""
+            }
+        }, 
+        "sdk": ""
+    }, 
+    "ios": {
+        "profiles": {
+            "DEFAULT": {
+                "provisioning_profile": ""
+            }
+        }
+    }, 
+    "general": {}
 }

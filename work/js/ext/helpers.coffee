@@ -31,7 +31,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
                style: "back"
 
    fc.getResourceURL = () ->
-      return if forge.is.web() then "http://localhost:2100" else "http://fannect.herokuapp.com"
+      return if forge.is.web() then "http://localhost:2100" else "http://fannect-api.herokuapp.com"
 
    fc.getParams = () ->
       return $.url().param() 
