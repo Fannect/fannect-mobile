@@ -2,7 +2,7 @@
     "web": {
         "profiles": {
             "DEFAULT": {
-                "heroku_app_name": "serene-atoll-1366", 
+                "heroku_app_name": "fannect-mobile", 
                 "heroku_api_key": "5829f3d50458b4259766e56885ed1cb82d75067c"
             }
         }

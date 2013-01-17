@@ -47,3 +47,5 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       fc.mobile.createButtons()
 
       if fc.isSlow() then $("body").addClass("speed-up")
+
+      

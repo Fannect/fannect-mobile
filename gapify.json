@@ -12,8 +12,8 @@
          "refresh_directory":"work/css"
       },
       {
-         "from":"work/css/lib/fannect.css",
-         "to":"{out}/css/lib/fannect.css"
+         "from":"work/css/lib/fannect.min.css",
+         "to":"{out}/css/lib/fannect.min.css"
       },
       {
          "from":"work/css/lib/jquerymobile.css",

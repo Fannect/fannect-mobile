@@ -9,8 +9,8 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
             ko.applyBindings vm, @
       )
       .live("pageshow", () ->
-         fc.mobile.addHeaderButton 
-            text: "Invitations"
+         fc.mobile.addHeaderButton
+            icon: "images/mobile/rosterInviteIcon.png"
             position: "left"
             click: () -> $.mobile.changePage "profile-invitations.html", transition: "slidedown"
 

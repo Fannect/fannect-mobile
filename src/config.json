@@ -28,7 +28,15 @@
 		}, 
 		"tabbar": true, 
 		"tools": true, 
-		"topbar": true
+		"topbar": true,
+		"icons": {
+			"android": {
+				"36": "res/icon-36.png",
+				"48": "res/icon-48.png",
+				"72": "res/icon-72.png",
+				"144": "res/icon-144.png"
+			}
+		}
 	}, 
 	"name": "Fannect Mobile", 
 	"platform_version": "v1.4", 

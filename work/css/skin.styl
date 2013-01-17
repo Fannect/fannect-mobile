@@ -1,5 +1,8 @@
 @import "lib/variables"
 @import "lib/mixins"
+@import "lib/normalize.css"
+@import "lib/jquerymobile.css"
+@import "lib/fannect.min.css"
 
 // Layout
 
@@ -30,16 +33,24 @@
       font-size: 1.2em
       text-transform: uppercase
 
-.ui-page
-   background: url(../images/Tilable-Background.png) 50% 0
-   background-size: 50px 50px
-   overflow: hidden
+.fixed-background
+   width: 100%
+   height: 100%
+   position: fixed
+   z-index: 0
+   background: url(../images/Fannect-lightingBackground.jpg) 50% 0 repeat
+   background-size: 720px 1280px
 
+   // background: url(../images/Tilable-Background.png) 50% 0
+   // background-size: 50px 50px
+   
 .ui-popup
    h1
       margin: .5em 0!important
 
 .ui-content
+   position: relative
+   z-index: 1
    overflow: hidden
    -webkit-overflow-scrolling: touch
 
@@ -364,8 +375,8 @@
          background-position: -204px 0
       
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
-   .ui-page
-      background-image: url(../images/Tilable-Background@2x.png)
+   .fixed-background
+      background-image: url(../images/Fannect-lightingBackground@2x.jpg) 
    .background-highlight
       background-image: url(../images/Lighting-Background@2x.png)
    .team-glass
