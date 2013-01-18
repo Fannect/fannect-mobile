@@ -45,6 +45,7 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       $.mobile.loader.prototype.options.theme = "b"
       $.mobile.loader.prototype.options.html = ""
       fc.mobile.createButtons()
+      fc.createPages()
 
       if fc.isSlow() then $("body").addClass("speed-up")
 

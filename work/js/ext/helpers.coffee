@@ -33,6 +33,32 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
    fc.getResourceURL = () ->
       return if forge.is.web() then "http://localhost:2100" else "http://fannect-api.herokuapp.com"
 
+   fc.createPages = () ->
+      for id, page of window.fannect.pages
+         do (id, page) ->
+            current_vm = null 
+            scroller = null
+            $("##{id}").live("pagecreate", () -> 
+               new page.vm (err, vm) => 
+                  console.log "instance", vm
+                  console.log "vm", page.vm
+                  ko.applyBindings current_vm = vm, @
+                  if page.scroller then scroller = $(".scrolling-text", @).scroller()
+            ).live("pageshow", () ->
+               if scroller then scroller.scroller("start")
+               current_vm.is_showing(true)
+
+               if forge.is.mobile() and page.buttons?.length > 0
+                  for button in page.buttons
+                     button.click () ->
+                        if button.position == "left" then current_vm.leftButtonClick()
+                        else current_vm.rightButtonClick()
+                     fc.mobile.addHeaderButton button
+            ).live("pagebeforehide", () ->
+               current_vm.is_showing(false)
+               if scroller then scroller.scroller("stop")
+            )
+
    fc.getParams = () ->
       return $.url().param() 
 

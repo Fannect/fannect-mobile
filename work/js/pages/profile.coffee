@@ -4,21 +4,21 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
       editGameDaySpot_vm = null
       editBraggingRights_vm = null
 
-      $("#profile-page").live("pagecreate", () ->
-         new window.fannect.viewModels.Profile (err, vm) =>
-            ko.applyBindings vm, @
-      )
-      .live("pageshow", () ->
-         fc.mobile.addHeaderButton
-            icon: "images/mobile/rosterInviteIcon.png"
-            position: "left"
-            click: () -> $.mobile.changePage "profile-invitations.html", transition: "slidedown"
+      # $("#profile-page").live("pagecreate", () ->
+      #    new window.fannect.viewModels.Profile (err, vm) =>
+      #       ko.applyBindings vm, @
+      # )
+      # .live("pageshow", () ->
+      #    fc.mobile.addHeaderButton
+      #       icon: "images/mobile/rosterInviteIcon.png"
+      #       position: "left"
+      #       click: () -> $.mobile.changePage "profile-invitations.html", transition: "slidedown"
 
-         fc.mobile.addHeaderButton 
-            text: "Edit"
-            position: "right"
-            click: () -> $.mobile.changePage "profile-editBio.html", transition: "slide"
-      )
+      #    fc.mobile.addHeaderButton 
+      #       text: "Edit"
+      #       position: "right"
+      #       click: () -> $.mobile.changePage "profile-editBio.html", transition: "slide"
+      # )
       
       $("#profile-invitations-page").live("pagecreate", () ->
          new window.fannect.viewModels.Profile.Invitations (err, vm) =>

@@ -1,6 +1,6 @@
 do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
-   class fc.viewModels.Profile
+   class fc.viewModels.Profile extends fc.viewModels.Base 
       constructor: (done) ->
          @editingImage = ko.observable false
          fc.user.get (err, data) =>
@@ -14,7 +14,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @bio = ko.observable data.bio
             @game_day_spot = ko.observable data.game_day_spot
             @bragging_rights = ko.observable data.bragging_rights
-            done err, @
+            
+            super done
 
       changeUserImage: (data, e) ->
          @editingImage "profile"
