@@ -22,7 +22,6 @@ html
 
    body
       div(id=pageId, data-role="page", data-theme="a")
-         .fixed-background
          .header(data-role="header", data-position="fixed", data-tap-toggle="false")
             block header
 
@@ -40,7 +39,7 @@ html
                      li: a.games-menu(href="games.html", data-icon="custom") Games
                      li: a.leaderboard-menu(href="leaderboard.html", data-icon="custom") Leaderboard
                      li: a.connect-menu(href="connect.html", data-icon="custom") Connect
-                     li: a.settings-menu(href="settings.html", data-icon="custom") Settings
+                     //- li: a.settings-menu(href="settings.html", data-icon="custom") Settings
 
       script(id="connect-fan-template", type="text/html")
          li.fan

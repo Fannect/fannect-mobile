@@ -9,7 +9,6 @@
    .ui-btn-left.ui-btn-icon-notext
       height: 28px
       width: 35px
-      
       .ui-icon-custom
          background: url(../images/icons/BarButton_RosterInvite@2x.png) 50% 50% no-repeat
          background-size: 18px 14px
@@ -22,6 +21,17 @@
       height: 250px
       width: 320px
       margin: 0 auto
+
+      .settings-button
+         position: absolute
+         left: 10px
+         top: 5px
+         width: 48px
+         height: 48px
+         background: rgba(0,0,0,.4) url(../images/profile/settingsIcon.png) 50% 50% no-repeat
+         background-size: 30px 32px
+         cursor: pointer
+
       .team-wrap
          position: absolute
          right: 0
@@ -105,6 +115,7 @@
          vertical-align: middle
          width: 222px
          height: 55px
+         line-height: 1.3em
          color: color-light-gray
          text-align: center
          overflow: hidden
@@ -196,26 +207,13 @@
       background-size: 220px 95px
       margin: 2px 0 8px 
 
-#profile-editBio-page
-#profile-editGameDaySpot-page
-#profile-editBraggingRights-page
-   .image-title
-      width: 320px
-      height: 32px
-      background: url(../images/profile/ProfileSeperators.png) no-repeat
-      background-size: 965px 26px
-      margin: 0 auto 5px auto
-      .game-day-spot
-         background-position: -322.5px 0 
-      .bragging-rights
-         background-position: -645px 0 
-   .text-edit
-      width: 100%
-      height: 180px
-
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
    #profile-page
    #connect-profile-page
+   #profile-invitationProfile-page
+   #leaderboard-rosterProfile-page
+      .settings-button
+         background-image: url(../images/profile/settingsIcon@2x.png)!important
       .team-wrap .cover
          background-image: url(../images/profile/Overlay_TeamPictureFrame@2x.png)!important
       .user-wrap .cover
@@ -230,12 +228,7 @@
          background-image: url(../images/profile/Profile_ScoreDisplay-iPhone@2x.png)!important
       .separator
          background-image: url(../images/profile/ProfileSeperators@2x.png)!important
-   #profile-editBio-page
-   #profile-editGameDaySpot-page
-   #profile-editBraggingRights-page
-      .image-title
-         background-image: url(../images/profile/ProfileSeperators@2x.png)!important
-
+   
    #profile-page
       .tutorial-welcome
          background-image: url(../images/tutorial/Tutorial_welcomeBanner@2x.png)

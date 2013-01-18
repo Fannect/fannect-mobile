@@ -25,6 +25,9 @@ block header
 
 block content
    .profile-images
+      //- .settings-button(data-bind="visible: window.forge.is.mobile()")
+      a.settings-button.ui-corner-all(href="settings.html", data-transition="slidedown")
+
       .team-wrap(data-bind="click: changeTeamImage, clickBubble: false, showPopup: '#changeTeamImagePopup'")
          img(data-bind="attr: {src:team_image}, visible: team_image().length > 0")
          .team-hint.ui-corner-all
@@ -65,7 +68,6 @@ block tutorial
    .tutorial-slider.four
       .tutorial-item
          .tutorial-content
-            .tutorial-close
             .tutorial-next
             .tutorial-pos-indicator
                .dot.active
@@ -79,7 +81,6 @@ block tutorial
             p Use Fannect to prove that your team has the best fans in the universe, and fight to become your team's #1 fan!
       .tutorial-item
          .tutorial-content
-            .tutorial-close
             .tutorial-next
             .tutorial-prev
             .tutorial-pos-indicator
@@ -98,7 +99,6 @@ block tutorial
                li Climb the Fannect leaderboard
       .tutorial-item
          .tutorial-content
-            .tutorial-close
             .tutorial-next
             .tutorial-prev
             .tutorial-pos-indicator

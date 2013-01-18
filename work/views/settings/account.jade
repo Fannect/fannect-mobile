@@ -1,7 +1,17 @@
 extend ../layout
 
 block header
-   a(href="settings", data-icon="back", data-rel="back") Back
-   h1(data-menu-root="settings") Account
+   a(href="settings.html", data-icon="back", data-rel="back") Back
+   h1 Account
+   a.ui-btn-right(href="settings.html", data-role="button", data-role="click: done", data-transition="reverse", data-theme="b") Done
 
 block content
+
+   .image-title.bio
+   textarea.text-edit(type="text", data-bind="value: bio", data-theme="b")
+
+   .image-title.game-day-spot
+   textarea.text-edit(type="text", data-bind="value: game_day_spot", data-theme="b")
+
+   .image-title.bragging-rights
+   textarea.text-edit(type="text", data-bind="value: bragging_rights", data-theme="b")
