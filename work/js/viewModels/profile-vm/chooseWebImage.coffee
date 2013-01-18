@@ -5,10 +5,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @limit = 20
          @skip = 0
          @has_loaded = false
+         @timeoutId = null
+         @selected_image = null
+         
          @loading_more = ko.observable false
          @images = ko.observableArray []
          @query = ko.observable()
-         @timeoutId = null
 
          $window = $(window).scroll () =>
             if @has_loaded and not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
@@ -44,3 +46,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @skip += @limit
                @images.push image for image in data
                done null, data if done
+
+      select: (data, event) ->
+         @selected_image = data
+
+      done: () ->
+         console.log "selected:", @selected_image
+

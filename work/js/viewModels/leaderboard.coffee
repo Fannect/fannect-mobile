@@ -20,7 +20,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @setupInfiniteScroll()
 
          @loadRoster()
-         @loadOverall false, (err, data) => done err, @
+         @loadOverall (err, data) => done err, @
 
       viewToggled: () =>
          @loading_more false
@@ -34,22 +34,26 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @track_scrolling = true
          , 50
 
-      loadOverall: (hide_loading, done) ->
+      loadOverall: (done) ->
+         @loading_more true
          fc.ajax 
             url: "#{fc.getResourceURL()}/me/leaderboard?type=overall&limit=#{@limit}&skip=#{@overall_skip}"
             type: "GET"
-            hide_loading: hide_loading
+            hide_loading: false
          , (error, fans) =>
+            setTimeout (() => @loading_more(false)), 200
             @overall_skip += @limit
             @overall_fans.push fan for fan in fans
             if done then done null, fans
 
-      loadRoster: (hide_loading, done) ->
+      loadRoster: (done) ->
+         @loading_more true
          fc.ajax 
             url: "#{fc.getResourceURL()}/me/leaderboard?type=roster&limit=#{@limit}&skip=#{@roster_skip}"
             type: "GET"
-            hide_loading: hide_loading
+            hide_loading: false
          , (error, fans) =>
+            setTimeout (() => @loading_more(false)), 200
             @roster_skip += @limit
             @roster_fans.push fan for fan in fans
             if done then done null, fans
@@ -58,9 +62,5 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          $window = $(window).scroll () =>
 
             if not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
-               @loading_more true
-               
-               if @is_overall_selected()
-                  @loadOverall true, () => @loading_more false
-               else
-                  @loadRoster true, () => @loading_more false
+               if @is_overall_selected() then @loadOverall()
+               else @loadRoster()

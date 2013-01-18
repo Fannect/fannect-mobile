@@ -3,7 +3,7 @@ extend ../layout
 block header
    h1(data-menu-root="profile") Choose Image
    a(href="profile.html", data-icon="back", data-rel="back", data-theme="b") Back
-   //- a.ui-btn-right(href="profile-editGameDaySpot.html", data-role="button", data-role="click: next", data-transition="slide") Next
+   a.ui-btn-right(href="profile.html", data-role="button", data-role="click: done", data-transition="slidedown", data-theme="b") Done
 
 block content
 
@@ -12,10 +12,11 @@ block content
    .web-images
       .web-image-column-left
          .web-image-wrap(data-bind="foreach: images")
-            // ko if: $index() % 2 == 0 --><img class="web-image" data-bind="click: $parent.chooseImage, attr: { src: thumbnail.url }" /><!-- /ko
+            // ko if: $index() % 2 == 0 --><img class="web-image" data-bind="click: $parent.select, activeClass: 'active', attr: { src: thumbnail.url }" /><!-- /ko
 
       .web-image-column-right
          .web-image-wrap(data-bind="foreach: images")
-            // ko if: $index() % 2 == 1 --><img class="web-image" data-bind="click: $parent.chooseImage, attr: { src: thumbnail.url }" /><!-- /ko
+            // ko if: $index() % 2 == 1 --><img class="web-image" data-bind="click: $parent.select, attr: { src: thumbnail.url }" /><!-- /ko
 
       .loading-more-indicator.clear(data-bind="visible: loading_more", style="display:none;")
+      .web-image-disclaimer Powered by Bing&trade; Image Search

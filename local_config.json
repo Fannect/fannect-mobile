@@ -7,21 +7,15 @@
             }
         }
     }, 
-    "android": {
+    "ios": {    
+        "device": "simulator", 
+        "simulatorsdk": "6.0", 
+        "simulatorfamily": "iphone", 
         "profiles": {
             "DEFAULT": {
-                "keystore": "", 
-                "keyalias": ""
-            }
-        }, 
-        "sdk": ""
-    }, 
-    "ios": {
-        "profiles": {
-            "DEFAULT": {
-                "provisioning_profile": ""
+                "provisioning_profile": "Developer.mobileprovision", 
+                "developer_certificate": "Developer"
             }
         }
-    }, 
-    "general": {}
+    }
 }

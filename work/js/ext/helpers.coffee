@@ -151,7 +151,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
                $.mobile.changePage target, transition: "none"
          
       createButtons: () ->
-         fc.mobile._addButton 0, "Profile", "images/mobile/Icon_TabBar_Profile@2x.png", "profile.html"
+         fc.mobile._addButton 0, "Profile", "images/mobile/Icon_TabBar_Profile.png", "profile.html"
          fc.mobile._addButton 1, "Games", "images/mobile/Icon_TabBar_Points@2x.png", "games.html"
          fc.mobile._addButton 2, "Leaderboard", "images/mobile/Icon_TabBar_Leaderboard@2x.png", "leaderboard.html"
          fc.mobile._addButton 3, "Connect", "images/mobile/Icon_TabBar_Connect@2x.png", "connect.html"

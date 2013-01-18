@@ -13,6 +13,7 @@
 		}, 
 		"event": true, 
 		"file": true, 
+		"geolocation": true, 
 		"icons": {
 			"android": {
 				"36": "res/icon-36.png", 
@@ -41,7 +42,10 @@
 		}, 
 		"tabbar": true, 
 		"tools": true, 
-		"topbar": true
+		"topbar": true,
+		"package_names": {
+			"ios": "com.fannect.*"
+		}
 	}, 
 	"name": "Fannect Mobile", 
 	"platform_version": "v1.4", 
