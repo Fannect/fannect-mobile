@@ -208,19 +208,30 @@
       margin: 2px 0 8px 
 
 #profile-chooseWebImage-page
-   .web-image-listitem
+   background: url(../images/Pattern_FabricKnit.png)
+   background-size: 4px 4px
+   .web-images
+      margin-left: -2px
+   .web-image-column-left
+   .web-image-column-right
       float: left
       width: 50%
-      &:nth-child(odd)
-         clear: left
-      &:nth-child(even)
-         clear:right
-   .web-image-wrap
-      margin: 6px
+   .web-image-column-left
+      .web-image-wrap
+         margin-right: 6px
+   .web-image-column-right
+      .web-image-wrap
+         margin-left: 6px
    .web-image
       width: 100%
+      margin-bottom: 6px
+      border: 1px #ccc solid
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
+
+   #profile-chooseWebImage-page
+      background-image: url(../images/Pattern_FabricKnit@2x.png)
+
    #profile-page
    #connect-profile-page
    #profile-invitationProfile-page

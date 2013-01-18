@@ -11,7 +11,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @timeoutId = null
 
          $window = $(window).scroll () =>
-            if @has_loaded and $window.scrollTop() > $(document).height() - $window.height() - 150
+            if @has_loaded and not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
                @load @query()
 
          @query.subscribe () =>
@@ -19,7 +19,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @timeoutId = setTimeout () =>
                @timeoutId = null
                @search()
-            , 100
+            , 400
 
          done null, @
 
@@ -38,8 +38,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             hide_loading: true
          , (error, data) =>
             if query == @query()
-
-               @loading_more false
+               console.log "SKIP:", @skip
+               setTimeout (() => @loading_more(false)), 200 # wait for images to load fully
                @has_loaded = true
                @skip += @limit
                @images.push image for image in data

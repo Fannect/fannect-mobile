@@ -9,12 +9,13 @@ block content
 
    input(type="text", data-bind="value: query, valueUpdate: 'keyup'")
 
-   .web-image-list(data-bind="foreach: images")
-      .web-image-listitem(data-bind="click: $parent.chooseImage")
-         .web-image-wrap
-            img.web-image(data-bind="attr: { src: thumbnail.url }")
-      // ko if: $index == $parent.images().length - 1 --><div class="clear"></div><!-- /ko
-      //- // ko if false --><div class="clear"></div><!-- /ko
+   .web-images
+      .web-image-column-left
+         .web-image-wrap(data-bind="foreach: images")
+            // ko if: $index() % 2 == 0 --><img class="web-image" data-bind="click: $parent.chooseImage, attr: { src: thumbnail.url }" /><!-- /ko
 
+      .web-image-column-right
+         .web-image-wrap(data-bind="foreach: images")
+            // ko if: $index() % 2 == 1 --><img class="web-image" data-bind="click: $parent.chooseImage, attr: { src: thumbnail.url }" /><!-- /ko
 
-   div.loading-more-indicator(data-bind="visible: loading_more", style="display:none;")
+      .loading-more-indicator.clear(data-bind="visible: loading_more", style="display:none;")
