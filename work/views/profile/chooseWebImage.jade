@@ -9,8 +9,12 @@ block content
 
    input(type="text", data-bind="value: query, valueUpdate: 'keyup'")
 
-   ul.web-images(data-bind="foreach: images")
-      li(data-bind="click: $parent.chooseImage")
-         img(data-bind="attr: { src: thumbnail.url }")
+   .web-image-list(data-bind="foreach: images")
+      .web-image-listitem(data-bind="click: $parent.chooseImage")
+         .web-image-wrap
+            img.web-image(data-bind="attr: { src: thumbnail.url }")
+      // ko if: $index == $parent.images().length - 1 --><div class="clear"></div><!-- /ko
+      //- // ko if false --><div class="clear"></div><!-- /ko
+
 
    div.loading-more-indicator(data-bind="visible: loading_more", style="display:none;")

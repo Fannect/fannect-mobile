@@ -13,11 +13,24 @@
 		}, 
 		"event": true, 
 		"file": true, 
+		"icons": {
+			"android": {
+				"36": "res/icon-36.png", 
+				"48": "res/icon-48.png", 
+				"72": "res/icon-72.png"
+			}
+		}, 
 		"is": true, 
+		"launchimage": {
+			"android": "res/screen-1024x768.png", 
+			"android-landscape": "res/screen-1024x768.png", 
+			"background-color": "#000000"
+		}, 
 		"logging": {
 			"level": "WARNING"
 		}, 
 		"media": true, 
+		"notification": true, 
 		"prefs": true, 
 		"reload": true, 
 		"request": {
@@ -28,15 +41,7 @@
 		}, 
 		"tabbar": true, 
 		"tools": true, 
-		"topbar": true,
-		"icons": {
-			"android": {
-				"36": "res/icon-36.png",
-				"48": "res/icon-48.png",
-				"72": "res/icon-72.png",
-				"144": "res/icon-144.png"
-			}
-		}
+		"topbar": true
 	}, 
 	"name": "Fannect Mobile", 
 	"platform_version": "v1.4", 

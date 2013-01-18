@@ -15,7 +15,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @load @query()
 
          @query.subscribe () =>
-            console.log "timeout: ", @timeoutId
             if @timeoutId then clearTimeout @timeoutId
             @timeoutId = setTimeout () =>
                @timeoutId = null
@@ -25,8 +24,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          done null, @
 
       search: () ->
-         console.log "SEARCH: ", @query()
-
          @skip = 0
          @images.removeAll()
 
