@@ -11,19 +11,22 @@ block content
       .right-cap
 
       .stadium-info
-         .stadium(data-bind="text: stadium_name")
-         .location(data-bind="text: stadium_location")
+         .stadium(data-bind="text: stadium().name")
+         .location(data-bind="text: stadium().location")
 
       .game-info
          .home-info
             .inner
-               .team(data-bind="text: home_team")
-               .record(data-bind="text: home_record")
+               .team(data-bind="text: home_team().name")
+               .record(data-bind="text: home_team().record")
          .vs
          .away-info
             .inner
-               .team(data-bind="text: away_team")
-               .record(data-bind="text: away_record")
+               .team(data-bind="text: away_team().name")
+               .record(data-bind="text: away_team().record")
+
+   .map-wrapper
+      .map
 
    .bottom
       .inner

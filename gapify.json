@@ -71,6 +71,20 @@
             "command": "cd ../; forge run ios",
             "on_error": "stop"
          }
+      ],
+      "package-ios": [
+         {
+            "command": "cd ../; forge build ios",
+            "on_error": "stop"
+         },
+         {
+            "command": "cd ../; forge package ios",
+            "on_error": "stop"
+         },
+         {
+            "command": "open ../release/ios",
+            "on_error": "stop"
+         }
       ]
    }
 }

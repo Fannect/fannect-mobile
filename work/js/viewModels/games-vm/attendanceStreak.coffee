@@ -17,6 +17,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @away_team = ko.observable
             name: null
             record: null
+
+         @center = null
+         
+         @load()
             
       checkIn: (data) ->
          @checked_in true
@@ -31,6 +35,18 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @no_game data.no_game or true
             @next_game data.next_game
             @stadium data.stadium
-            @home_team data.home
-            @away_team data.away
+            @home_team data.home_team
+            @away_team data.away_team
             @game_preview data.game_preview
+            @center = new google.maps.LatLng(data.stadium.lat, data.stadium.lng)
+
+            @map = new google.maps.Map $("#games-attendanceStreak-page .map").get(0), 
+               zoom: 18
+               mapTypeId: google.maps.MapTypeId.SATELLITE
+               disableDefaultUI: true
+               center: @center
+               scrollwheel: false
+               panControl: false
+               maxZoom: 18
+               minZoom: 18
+

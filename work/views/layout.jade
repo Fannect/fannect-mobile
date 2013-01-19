@@ -14,6 +14,7 @@ html
       link(rel="stylesheet", href="css/skin.css")
 
       script(src="js/tree.js")
+      script(src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false")
       //- script(src="https://trigger.io/catalyst/target/target-script-min.js#EB0434C5-9E6F-4EF6-8998-67C9339A5D5E")
 
    - var viewDir = locals.settings.views;
@@ -35,10 +36,10 @@ html
             block footer
                div(data-role="navbar")
                   ul
-                     li: a.profile-menu(href="profile.html", data-icon="custom") Profile
-                     li: a.games-menu(href="games.html", data-icon="custom") Games
-                     li: a.leaderboard-menu(href="leaderboard.html", data-icon="custom") Leaderboard
-                     li: a.connect-menu(href="connect.html", data-icon="custom") Connect
+                     li: a.profile-menu(href="profile.html", data-icon="custom", data-transition="none") Profile
+                     li: a.games-menu(href="games.html", data-icon="custom", data-transition="none") Games
+                     li: a.leaderboard-menu(href="leaderboard.html", data-icon="custom", data-transition="none") Leaderboard
+                     li: a.connect-menu(href="connect.html", data-icon="custom", data-transition="none") Connect
                      //- li: a.settings-menu(href="settings.html", data-icon="custom") Settings
 
       script(id="connect-fan-template", type="text/html")

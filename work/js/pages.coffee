@@ -23,6 +23,7 @@ window.fannect.pages =
          }
       ]
       scroller: false
+      classes: ["no-padding"]
 
    "profile-invitations-page":
       vm: vm.Profile.Invitations
@@ -30,6 +31,7 @@ window.fannect.pages =
    
    "profile-invitationProfile-page":
       vm: vm.Profile.InvitationProfile
+      classes: ["no-padding"]
    
    "profile-chooseWebImage-page":
       vm: vm.Profile.ChooseWebImage
@@ -60,6 +62,7 @@ window.fannect.pages =
             text: "Add"
          }
       ]
+      classes: ["no-padding"]
 
    ###
    # Games
@@ -77,6 +80,7 @@ window.fannect.pages =
          }
       ]
       scroller: true
+      classes: ["no-padding"]
 
    "games-gameFace-page":
       vm: vm.Games.GameFace
@@ -88,6 +92,7 @@ window.fannect.pages =
          }
       ]
       scroller: true
+      classes: ["no-padding"]
 
    "games-attendanceStreak-page":
       vm: vm.Games.AttendanceStreak
@@ -99,6 +104,7 @@ window.fannect.pages =
          }
       ]
       scroller: true
+      classes: ["no-padding"]
 
    ###
    # Leaderboard

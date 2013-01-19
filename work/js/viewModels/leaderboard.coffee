@@ -66,31 +66,31 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                if @is_overall_selected() then @loadOverall()
                else @loadRoster()
 
-   leftButtonClick: () ->
-      if @is_roster_selected
-         @selected_view "overall"
-         forge.topbar.removeButtons () ->
-            _createOverallButton(true)
-            _createRosterButton(false)
+      leftButtonClick: () ->
+         if @is_roster_selected
+            @selected_view "overall"
+            forge.topbar.removeButtons () ->
+               _createOverallButton(true)
+               _createRosterButton(false)
 
-   rightButtonClick: () ->
-      if @is_roster_selected
-         @selected_view "overall"
-         forge.topbar.removeButtons () ->
-            _createOverallButton(false)
-            _createRosterButton(true)
+      rightButtonClick: () ->
+         if @is_overall_selected
+            @selected_view "overall"
+            forge.topbar.removeButtons () ->
+               _createOverallButton(false)
+               _createRosterButton(true)
 
-   _createOverallButton = (active) ->
-      window.fannect.mobile.addHeaderButton 
-         text: "Overall"
-         position: "left"
-         tint: if active then [193, 39, 45, 255] else [120,120,120,255]
-         click: @leftButtonClick
-      
-   _createRosterButton = (active) ->
-      window.fannect.mobile.addHeaderButton 
-         text: "Roster"
-         position: "right"
-         # style: if active then "done" else null
-         tint: if active then [193, 39, 45, 255] else [120,120,120,255]
-         click: @rightButtonClick
+      _createOverallButton = (active) ->
+         window.fannect.mobile.addHeaderButton 
+            text: "Overall"
+            position: "left"
+            tint: if active then [193, 39, 45, 255] else [120,120,120,255]
+            click: @leftButtonClick
+         
+      _createRosterButton = (active) ->
+         window.fannect.mobile.addHeaderButton 
+            text: "Roster"
+            position: "right"
+            # style: if active then "done" else null
+            tint: if active then [193, 39, 45, 255] else [120,120,120,255]
+            click: @rightButtonClick

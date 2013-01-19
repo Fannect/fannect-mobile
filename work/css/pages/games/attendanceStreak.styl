@@ -5,6 +5,7 @@
    .ui-content
       padding: 0
       position: static
+      
       .info
          margin: 0 auto
          max-width: 600px
@@ -14,6 +15,7 @@
          position: relative
          overflow: hidden
          text-align: center
+         z-index: 2
          .right-cap
          .left-cap
             position: absolute
@@ -40,7 +42,7 @@
                text-shadow: 0.1em 0.1em #000
 
          .game-info
-            margin-top: 10px
+            margin-top: 6px
             font-size: .7em
             .team
                text-overflow: ellipsis
@@ -66,7 +68,21 @@
                width: 40%
                .inner
                   margin-right: 15px
-      // .map
+         
+      .map-wrapper
+         position: absolute
+         top: header-height + 101
+         bottom: footer-height + 89
+         width: 100%
+         z-index: 0
+         .is-mobile &
+            top: 101px
+            bottom: 89px
+         .map
+            max-width: 600px
+            height: 100%
+            margin: 0 auto
+
       .bottom
          position: absolute
          width: 100%
@@ -74,6 +90,7 @@
          bottom: footer-height
          background: url(../images/games/attendanceStreak/Overlay_ButtonHolder_iPhone.png) 50% 0%
          background-size: 320px 96px
+         z-index: 2
          
          .is-mobile &
             bottom: 0
