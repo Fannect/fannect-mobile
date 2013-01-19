@@ -1,12 +1,13 @@
 do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
    class fc.viewModels.Connect extends fc.viewModels.Base 
-      constructor: (done) ->
+      constructor: () ->
          super 
          @limit = 20
          @skip = 0
          @fans = ko.observableArray []
          @loading_more = ko.observable false
+         @has_loaded = ko.observable false
 
          $window = $(window).scroll () =>
             if $window.scrollTop() > $(document).height() - $window.height() - 150
@@ -22,7 +23,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             type: "GET"
             hide_loading: true
          , (error, data) =>
-            setTimeout (() => @loading_more(false)), 200
+            setTimeout () => 
+               @has_loaded true
+               @loading_more(false)
+            , 200
             @skip += @limit
             @fans.push fan for fan in data
             done null, data if done

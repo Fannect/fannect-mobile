@@ -6,7 +6,7 @@ block header
 
 block content
 
-   .build-your-team(data-bind="fadeIn: fans() == null || fans().length <= 0")
+   .build-your-team(data-bind="fadeIn: has_loaded() && fans().length == 0")
       .gray-connect-icon
       .title Build your team!
       .text Tap the "Add" button to add more of your team's fans to your roster.
