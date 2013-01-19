@@ -12,13 +12,13 @@ block content
    .team-info(data-bind="visible: available")
       .home.team-glass
          .label Home
-         .team(data-bind="text: home_team")
-         .record(data-bind="text: home_record")
+         .team(data-bind="text: home_team().name")
+         .record(data-bind="text: home_team().record")
       .vs
       .away.team-glass
          .label Away
-         .team(data-bind="text: away_team")
-         .record(data-bind="text: away_record")
+         .team(data-bind="text: away_team().name")
+         .record(data-bind="text: away_team().record")
       .clear
       
    .unavailable.scrolling-text(data-bind="visible: !available()", style="display:none;") GameFace can only be activated on game days!

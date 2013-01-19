@@ -11,6 +11,11 @@ do ($ = jQuery) ->
    ko.bindingHandlers.disableSlider = 
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
+         $el = $(element)
+
+         # return early if no slider exists
+         unless $el.hasClass("ui-slider-switch") then return 
+
          if valueUnwrapped
             $(element).slider "disable"
             # setTimeout (() -> $(element).slider "disable"), 300
@@ -35,7 +40,9 @@ do ($ = jQuery) ->
    ko.bindingHandlers.sliderUpdate =
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          ko.utils.unwrapObservable valueAccessor()
-         $(element).slider "refresh"
+         $el = $(element)
+         if $el.hasClass("ui-slider-switch")
+            $(element).slider "refresh"
 
    ko.bindingHandlers.showPopup =
       init: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) ->
@@ -48,7 +55,6 @@ do ($ = jQuery) ->
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
          allBindings = allBindingsAccessor()
          $(element).live "keypress", (e) ->
-            console.log "keypress"
             keyCode = if e.which then e.which else e.keyCode
             if (keyCode == 13)
                allBindings.onEnter.call(viewModel)

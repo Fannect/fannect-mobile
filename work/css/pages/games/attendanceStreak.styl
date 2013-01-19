@@ -4,6 +4,7 @@
 #games-attendanceStreak-page
    .ui-content
       padding: 0
+      position: static
       .info
          margin: 0 auto
          max-width: 600px
@@ -73,6 +74,10 @@
          bottom: footer-height
          background: url(../images/games/attendanceStreak/Overlay_ButtonHolder_iPhone.png) 50% 0%
          background-size: 320px 96px
+         
+         .is-mobile &
+            bottom: 0
+
          .inner
             max-width: 280px
             padding: 0 12px

@@ -14,7 +14,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @query = ko.observable()
 
          $window = $(window).scroll () =>
-            if @has_loaded and not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
+            if @is_showing and @has_loaded and not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
                @load @query()
 
          @query.subscribe () =>

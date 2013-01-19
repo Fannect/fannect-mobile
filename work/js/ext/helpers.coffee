@@ -35,17 +35,29 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
 
    fc.createPages = () ->
       for i, p of window.fannect.pages
-         console.log "Page", 'p'
          do (id = i, page = p) ->
             vm = null 
             scroller = null
+            
             $("##{id}").live("pagecreate", () -> 
-               vm = new page.vm()
-               ko.applyBindings vm, @
+
+               # apply page classes
+               if page.classes?
+                  $page = $(@)
+                  $page.addClass(c) for c in page.classes
+
+               # create viewmodel and bind to page
+               if page.vm?
+                  vm = new page.vm()
+                  ko.applyBindings vm, @
+               
+               # create page scrollers
                if page.scroller then scroller = $(".scrolling-text", @).scroller()
+            
             ).live("pageshow", () ->
                if scroller then scroller.scroller("start")
-               vm.is_showing(true)
+               
+               # add buttons to native header if mobile
                if forge.is.mobile() and page.buttons?.length > 0
                   for button in page.buttons
                      unless button.click
@@ -53,13 +65,14 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
                            if button.position == "left" then vm.leftButtonClick()
                            else page.instance.rightButtonClick()
                      fc.mobile.addHeaderButton button
+
+               vm.onPageShow() if vm
+
             ).live("pagebeforehide", () ->
-               vm.is_showing(false)
                if scroller then scroller.scroller("stop")
+               vm.onPageHide() if vm
             )
       return true
-
-
 
    fc.getParams = () ->
       return $.url().param() 
@@ -75,7 +88,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
       showLoading = status == "show"
       if showLoading
          $.mobile.loading "show",
-            text: "Loading Page"
+            text: "Loading"
             textVisible: true
             theme: "b"
             html: ""

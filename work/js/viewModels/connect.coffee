@@ -10,7 +10,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @has_loaded = ko.observable false
 
          $window = $(window).scroll () =>
-            if $window.scrollTop() > $(document).height() - $window.height() - 150
+            if @is_showing and $window.scrollTop() > $(document).height() - $window.height() - 150
                @loading_more true
                @load()
 

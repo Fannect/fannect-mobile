@@ -62,7 +62,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       setupInfiniteScroll: () ->
          $window = $(window).scroll () =>
 
-            if not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
+            if @is_showing and not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
                if @is_overall_selected() then @loadOverall()
                else @loadRoster()
 

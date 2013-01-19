@@ -46,6 +46,10 @@ body
    background: url(../images/Tilable-Background.png) 50% 0
    background-size: 50px 50px
    
+.light-background
+   background: url(../images/Pattern_FabricKnit.png)
+   background-size: 4px 4px
+
 .ui-popup
    h1
       margin: .5em 0!important
@@ -327,6 +331,10 @@ body
          &.active
             background-image: url(../images/tutorial/Tutorial_currentPageIndicator.png)
             background-size: 9px 9px
+   p
+      margin: 0
+      -webkit-margin-before: 0
+      -webkit-margin-after: 0
    p.medium
       font-size: 1.2em
       line-height: 1.1em
@@ -377,10 +385,8 @@ body
          background-position: -204px 0
       
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
-   .fixed-background
-      background-image: url(../images/Fannect-lightingBackground@2x.jpg) 
-   .background-highlight
-      background-image: url(../images/Lighting-Background@2x.png)
+   .ui-page
+      background-image: url(../images/Tilable-Background@2x.png)
    .team-glass
       background-image: url(../images/games/Overlay_TeamGlass_iPhone@2x.png)
    .footer .ui-icon.ui-icon-custom
@@ -389,6 +395,7 @@ body
       background-image: url(../images/Overlay_ScrollBarBase@2x.png)
       .cover
          background-image: url(../images/Overlay_ScrollBarFrame_iPhone@2x.png)
+   .light-background
    .pattern-bg li.ui-li
       background-image: url(../images/Pattern_FabricKnit@2x.png)
       .ui-icon-arrow-r

@@ -26,12 +26,14 @@ window.fannect.pages =
 
    "profile-invitations-page":
       vm: vm.Profile.Invitations
+      classes: ["light-background"]
    
    "profile-invitationProfile-page":
       vm: vm.Profile.InvitationProfile
    
    "profile-chooseWebImage-page":
       vm: vm.Profile.ChooseWebImage
+      classes: ["light-background"]
    
    ###
    # Connect
@@ -44,9 +46,11 @@ window.fannect.pages =
             text: "Add"
          }
       ]
+      classes: ["light-background"]
 
    "connect-addToRoster-page":
       vm: vm.Connect.AddToRoster
+      classes: ["light-background"]
 
    "connect-addToRosterProfile-page":
       vm: vm.Connect.AddToRosterProfile
@@ -60,6 +64,9 @@ window.fannect.pages =
    ###
    # Games
    ###
+   "games-page":
+      classes: ["light-background"]
+
    "games-guessTheScore-page":
       vm: vm.Games.GuessTheScore
       buttons: [
@@ -109,3 +116,4 @@ window.fannect.pages =
             tint: [120,120,120,255]
          }
       ]
+      classes: ["light-background"]

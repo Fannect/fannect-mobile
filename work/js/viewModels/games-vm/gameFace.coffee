@@ -1,15 +1,23 @@
 do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
-   class fc.viewModels.Games.GameFace
+   class fc.viewModels.Games.GameFace extends fc.viewModels.Base 
       constructor: () ->
          super
-         @face_value = ko.observable("off")
+         @face_value = ko.observable "off"
          @face_on = ko.computed () => @face_value()?.toLowerCase() == "on"
          @available = ko.observable false
+         @home_team = ko.observable
+            name: ""
+            record: ""
+         @away_team = ko.observable
+            name: ""
+            record: ""
          @face_on.subscribe (newValue) ->
             #ajax call
+
+         @load()
             
-      load: (done) ->
+      load: () ->
          fc.ajax 
             url: "#{fc.getResourceURL()}/me/games/gameFace"
             type: "GET"
@@ -21,8 +29,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @available false
                @face_value "off"
 
-            @home_team = data.home.name
-            @home_record = data.home.record
-            @away_team = data.away.name
-            @away_record = data.away.record
-            done null, data
+            @home_team data.home_team
+            @away_team data.away_team
+
+      onPageShow: () ->
+         super
+         console.log "pageShow"
+         @face_value.valueHasMutated()
+         @available.valueHasMutated()
+         # @available true
+         # @face_value "on"
+         # @face_value.notifySubscribers()
