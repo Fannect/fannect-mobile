@@ -1,7 +1,8 @@
 do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
-   class fc.viewModels.Connect
+   class fc.viewModels.Connect extends fc.viewModels.Base 
       constructor: (done) ->
+         super 
          @limit = 20
          @skip = 0
          @fans = ko.observableArray []
@@ -12,8 +13,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @loading_more true
                @load()
 
-         @load (err, data) =>
-            done err, @
+         @load()
 
       load: (done) ->
          @loading_more true
@@ -26,6 +26,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @skip += @limit
             @fans.push fan for fan in data
             done null, data if done
+
+      rightButtonClick: () ->
+         $.mobile.changePage "connect-addToRoster.html", transition: "slide"
 
       # scrolled: (data, e) ->
       #    console.log "SCROLL", e

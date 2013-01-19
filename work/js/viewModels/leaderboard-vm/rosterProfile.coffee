@@ -1,11 +1,10 @@
 do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
    class fc.viewModels.Leaderboard.RosterProfile extends fc.viewModels.Profile
-      constructor: (done) ->      
-         @checkIfOnRoster (err, on_roster) =>
-            @on_roster = ko.observable on_roster
-            super done
-
+      constructor: () ->      
+         super
+         @on_roster = ko.observable()
+         
       checkIfOnRoster: (done) ->
          done null, false
 

@@ -34,30 +34,32 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
       return if forge.is.web() then "http://localhost:2100" else "http://fannect-api.herokuapp.com"
 
    fc.createPages = () ->
-      for id, page of window.fannect.pages
-         do (id, page) ->
-            current_vm = null 
+      for i, p of window.fannect.pages
+         console.log "Page", 'p'
+         do (id = i, page = p) ->
+            vm = null 
             scroller = null
             $("##{id}").live("pagecreate", () -> 
-               new page.vm (err, vm) => 
-                  console.log "instance", vm
-                  console.log "vm", page.vm
-                  ko.applyBindings current_vm = vm, @
-                  if page.scroller then scroller = $(".scrolling-text", @).scroller()
+               vm = new page.vm()
+               ko.applyBindings vm, @
+               if page.scroller then scroller = $(".scrolling-text", @).scroller()
             ).live("pageshow", () ->
                if scroller then scroller.scroller("start")
-               current_vm.is_showing(true)
-
+               vm.is_showing(true)
                if forge.is.mobile() and page.buttons?.length > 0
                   for button in page.buttons
-                     button.click () ->
-                        if button.position == "left" then current_vm.leftButtonClick()
-                        else current_vm.rightButtonClick()
+                     unless button.click
+                        button.click () ->
+                           if button.position == "left" then vm.leftButtonClick()
+                           else page.instance.rightButtonClick()
                      fc.mobile.addHeaderButton button
             ).live("pagebeforehide", () ->
-               current_vm.is_showing(false)
+               vm.is_showing(false)
                if scroller then scroller.scroller("stop")
             )
+      return true
+
+
 
    fc.getParams = () ->
       return $.url().param() 

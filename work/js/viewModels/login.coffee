@@ -1,6 +1,6 @@
 do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
-   class fc.viewModels.Login
+   class fc.viewModels.Login extends fc.viewModels.Base 
       constructor: () ->
          @email = ko.observable()
          @password = ko.observable()

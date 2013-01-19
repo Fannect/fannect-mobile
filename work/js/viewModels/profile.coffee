@@ -1,21 +1,33 @@
 do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
    class fc.viewModels.Profile extends fc.viewModels.Base 
-      constructor: (done) ->
-         @editingImage = ko.observable false
+      constructor: () ->
+         super
+         @editingImage = ko.observable()
+         @name = ko.observable()
+         @team_image = ko.observable ""
+         @profile_image = ko.observable ""
+         @favorite_team = ko.observable() 
+         @roster = ko.observable()
+         @points = ko.observable()
+         @rank = ko.observable()
+         @bio = ko.observable()
+         @game_day_spot = ko.observable()
+         @bragging_rights = ko.observable()  
+         @load()
+
+      load: () ->
          fc.user.get (err, data) =>
-            @name = ko.observable data.name
-            @team_image = ko.observable data.team_image or ""
-            @profile_image = ko.observable data.profile_image or ""
-            @favorite_team = ko.observable data.favorite_team or "Select Team"
-            @roster = ko.observable data.roster
-            @points = ko.observable data.points
-            @rank = ko.observable data.rank
-            @bio = ko.observable data.bio
-            @game_day_spot = ko.observable data.game_day_spot
-            @bragging_rights = ko.observable data.bragging_rights
-            
-            super done
+            @name data.name
+            @team_image data.team_image or ""
+            @profile_image data.profile_image or ""
+            @favorite_team data.favorite_team or "Select Team"
+            @roster data.roster
+            @points data.points
+            @rank data.rank
+            @bio data.bio
+            @game_day_spot data.game_day_spot
+            @bragging_rights data.bragging_rights
 
       changeUserImage: (data, e) ->
          @editingImage "profile"

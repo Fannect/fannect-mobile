@@ -40,7 +40,7 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
 
    setup = () ->
       $.mobile.allowCrossDomainPages = true
-      $.mobile.loader.prototype.options.text = "Loading Page";
+      $.mobile.loader.prototype.options.text = "Loading";
       $.mobile.loader.prototype.options.textVisible = true
       $.mobile.loader.prototype.options.theme = "b"
       $.mobile.loader.prototype.options.html = ""

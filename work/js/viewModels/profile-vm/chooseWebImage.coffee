@@ -1,7 +1,8 @@
 do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
-   class fc.viewModels.Profile.ChooseWebImage
-      constructor: (done) ->
+   class fc.viewModels.Profile.ChooseWebImage extends fc.viewModels.Base 
+      constructor: () ->
+         super
          @limit = 20
          @skip = 0
          @has_loaded = false
@@ -23,8 +24,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @search()
             , 400
 
-         done null, @
-
       search: () ->
          @skip = 0
          @images.removeAll()
@@ -40,7 +39,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             hide_loading: true
          , (error, data) =>
             if query == @query()
-               console.log "SKIP:", @skip
                setTimeout (() => @loading_more(false)), 200 # wait for images to load fully
                @has_loaded = true
                @skip += @limit
