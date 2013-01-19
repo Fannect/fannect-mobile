@@ -49,4 +49,5 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                panControl: false
                maxZoom: 18
                minZoom: 18
+               draggable: false
 
