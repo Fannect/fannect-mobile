@@ -24,7 +24,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       load: (done) ->
          fc.ajax 
-            url: "#{fc.getResourceURL()}/me/games/guessTheScore"
+            url: "#{fc.getResourceURL()}/v1/me/games/guessTheScore"
             type: "GET"
          , (error, data) =>
             @picked_at_load = ko.observable data.picked

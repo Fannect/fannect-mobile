@@ -7,14 +7,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @skip = 0
          @has_loaded = false
          @timeoutId = null
-         @selected_image = null
+         @selected_index = -1
          
          @loading_more = ko.observable false
          @images = ko.observableArray []
          @query = ko.observable()
 
          $window = $(window).scroll () =>
-            if @is_showing and @has_loaded and not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
+            if @is_showing() and @has_loaded and not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
                @load @query()
 
          @query.subscribe () =>
@@ -34,7 +34,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       load: (query, done) ->
          @loading_more true
          fc.ajax 
-            url: "#{fc.getResourceURL()}/find/images?query=#{query}&limit=#{@limit}&skip=#{@skip}"
+            url: "#{fc.getResourceURL()}/v1/images/bing?q=#{query}&limit=#{@limit}&skip=#{@skip}"
             type: "GET"
             hide_loading: true
          , (error, data) =>
@@ -42,11 +42,21 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                setTimeout (() => @loading_more(false)), 200 # wait for images to load fully
                @has_loaded = true
                @skip += @limit
-               @images.push image for image in data
+               for image in data
+                  image.selected = ko.observable(false)
+                  @images.push image 
+
                done null, data if done
 
-      select: (data, event) ->
-         @selected_image = data
+      select: (data, event) =>
+         if @selected_index >= 0 
+            @images()[@selected_index].selected(false)
+
+         @selected_index = @images.indexOf(data)
+
+         if @selected_index >= 0 
+            @images()[@selected_index].selected(true)
+
 
       done: () ->
          console.log "selected:", @selected_image

@@ -8,7 +8,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       load: (done) ->
          fc.ajax 
-            url: "#{fc.getResourceURL()}/me/invitations"
+            url: "#{fc.getResourceURL()}/v1/me/invites"
             method: "GET"
          , (error, data) ->
             @invitations.push inv for inv in data

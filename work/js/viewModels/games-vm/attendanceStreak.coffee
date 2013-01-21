@@ -28,7 +28,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       load: () ->
          fc.ajax 
-            url: "#{fc.getResourceURL()}/me/games/attendanceStreak"
+            url: "#{fc.getResourceURL()}/v1/me/games/attendanceStreak"
             type: "GET"
          , (error, data) =>
             @checked_in data.checked_in

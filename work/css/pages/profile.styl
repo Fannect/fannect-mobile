@@ -208,8 +208,6 @@
       margin: 2px 0 8px 
 
 #profile-chooseWebImage-page
-   background: url(../images/Pattern_FabricKnit.png)
-   background-size: 4px 4px
    .web-images
       margin-left: -2px
    .web-image-column-left
@@ -227,8 +225,10 @@
       margin-bottom: 6px
       border: 1px #ccc solid
       &.active
-         border: 4px #c1272d solid
-         margin-left: -3px
+         border: 2px #c1272d solid
+         dropshadow: 0 4px 10px rgba(0,0,0,.6)
+         margin-left: -1px
+         margin-top: -2px
    .web-image-disclaimer
       margin-top: 12px
       font-size: .8em
@@ -236,10 +236,6 @@
       text-shadow: 0 1px 1px #111
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
-
-   #profile-chooseWebImage-page
-      background-image: url(../images/Pattern_FabricKnit@2x.png)
-
    #profile-page
    #connect-profile-page
    #profile-invitationProfile-page

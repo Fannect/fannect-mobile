@@ -10,7 +10,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @has_loaded = ko.observable false
 
          $window = $(window).scroll () =>
-            if @is_showing and $window.scrollTop() > $(document).height() - $window.height() - 150
+            if @is_showing() and $window.scrollTop() > $(document).height() - $window.height() - 150
                @loading_more true
                @load()
 
@@ -19,7 +19,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       load: (done) ->
          @loading_more true
          fc.ajax 
-            url: "#{fc.getResourceURL()}/me/connect?limit=#{@limit}&skip=#{@skip}"
+            url: "#{fc.getResourceURL()}/v1/users?limit=#{@limit}&skip=#{@skip}"
             type: "GET"
             hide_loading: true
          , (error, data) =>

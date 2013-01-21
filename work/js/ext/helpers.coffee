@@ -142,7 +142,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
             done null, currentUser
          else
             fc.ajax 
-               url: "#{fc.getResourceURL()}/me"
+               url: "#{fc.getResourceURL()}/v1/me"
                type: "GET"
             , (error, data) ->
                currentUser = data
@@ -159,7 +159,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
       login: (email, pw, done) ->
          query = { email: email, password: pw }
          $.mobile.loading "show"
-         $.post "#{fc.getResourceURL()}/api/login", query, (data, status) ->
+         $.post "#{fc.getResourceURL()}/v1/login", query, (data, status) ->
             $.mobile.loading "hide"
             if data.status == "success" then done()
             else done data.error_message

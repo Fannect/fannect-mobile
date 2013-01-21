@@ -19,7 +19,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             
       load: () ->
          fc.ajax 
-            url: "#{fc.getResourceURL()}/me/games/gameFace"
+            url: "#{fc.getResourceURL()}/v1/me/games/gameFace"
             type: "GET"
          , (error, data) =>
             if data.available

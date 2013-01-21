@@ -38,7 +38,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       loadOverall: (done) ->
          @loading_more true
          fc.ajax 
-            url: "#{fc.getResourceURL()}/me/leaderboard?type=overall&limit=#{@limit}&skip=#{@overall_skip}"
+            url: "#{fc.getResourceURL()}/v1/leaderboard/team&limit=#{@limit}&skip=#{@overall_skip}"
             type: "GET"
             hide_loading: true
          , (error, fans) =>
@@ -50,7 +50,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       loadRoster: (done) ->
          @loading_more true
          fc.ajax 
-            url: "#{fc.getResourceURL()}/me/leaderboard?type=roster&limit=#{@limit}&skip=#{@roster_skip}"
+            url: "#{fc.getResourceURL()}/v1/leaderboard/team?friends_only=true&limit=#{@limit}&skip=#{@roster_skip}"
             type: "GET"
             hide_loading: true
          , (error, fans) =>
@@ -62,7 +62,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       setupInfiniteScroll: () ->
          $window = $(window).scroll () =>
 
-            if @is_showing and not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
+            if @is_showing() and not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
                if @is_overall_selected() then @loadOverall()
                else @loadRoster()
 
