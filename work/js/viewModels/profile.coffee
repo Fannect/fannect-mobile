@@ -3,7 +3,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
    class fc.viewModels.Profile extends fc.viewModels.Base 
       constructor: () ->
          super
-         @editingImage = ko.observable()
+         @editing_image = ko.observable("none")
          @name = ko.observable()
          @team_image = ko.observable ""
          @profile_image = ko.observable ""
@@ -16,65 +16,57 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @bragging_rights = ko.observable()  
          @load()
 
-      load: () ->
-         fc.user.get (err, data) =>
-            @name data.name
-            @team_image data.team_image or ""
-            @profile_image data.profile_image or ""
-            @favorite_team data.favorite_team or "Select Team"
-            @roster data.roster
-            @points data.points
-            @rank data.rank
-            @bio data.bio
-            @game_day_spot data.game_day_spot
-            @bragging_rights data.bragging_rights
+         fc.user.subscribe @updateUser
 
-      changeUserImage: (data, e) ->
-         @editingImage "profile"
-         # $("#changeProfileImagePopup").popup "open", 
-         #    transition: "pop"
-         #    positionTo: "window"
+      load: () =>
+         fc.user.get (err, data) => @updateUser data
 
-      changeTeamImage: (data, e) -> 
-         @editingImage "team"
-         # $("#changeTeamImagePopup").popup "open", 
-         #    transition: "pop"
-         #    positionTo: "window"
+      updateUser: (user) =>
+         @name user.name
+         @team_image user.team_image or ""
+         @profile_image user.profile_image or ""
+         @favorite_team user.favorite_team or "Select Team"
+         @roster user.roster
+         @points user.points
+         @rank user.rank
+         @bio user.bio
+         @game_day_spot user.game_day_spot
+         @bragging_rights user.bragging_rights
 
-      takeImage: (data, e) ->
-         forge.file.getImage
-            source: "camera"
-         , (file) ->
-            console.log "FILE: #{JSON.stringify(file)}"
+      changeUserImage: () => @editing_image "profile"
+      changeTeamImage: () => @editing_image "team"
+      cancelImagePicking: () => @editing_image "none"
+       
+      takeImage: (data, e) =>
+         done = if @editing_image() == "profile" then @_uploadProfileImage else @_uploadTeamImage
+
+         forge.file.getImage source: "camera", done
          , (error) ->
             console.log "ERROR: #{JSON.stringify(error)}"
          
       chooseImage: (data, e) ->
-         forge.file.getImage
-            source: "gallery"
-         , (file) ->
-            console.log "FILE: #{JSON.stringify(file)}"
+         done = if @editing_image() == "profile" then @_uploadProfileImage else @_uploadTeamImage
+         
+         forge.file.getImage source: "gallery", done
          , (error) ->
             console.log "ERROR: #{JSON.stringify(error)}"
 
-      chooseWebImage: () -> ""
+      _uploadProfileImage: (file) ->
+         file.name = "image"
+         fc.ajax 
+            url: "#{fc.getResourceURL()}/v1/images/me"
+            type: "POST"
+            files: [file]
+         , (err, data) ->
+            console.log "PROFILE IMAGE: #{JSON.stringify(data)}"
+            fc.user.save profile_image: data.image_url
 
-
-      onImageDataSuccess: (image) ->
-         # save image
-         if @editingImage() == "profile"
-            @profile_image(image)
-            $("#changeProfileImagePopup").popup "close"
-         else if @editingImage() == "team"
-            @team_image(image)
-            $("#changeTeamImagePopup").popup "close"
-
-      cancelImagePicking: () ->
-         @editingImage "none"
-
-      phoneGapImageError: (message) ->
-         alert("ERROR: " + message);
-
-         $("#imageFailedPopup").popup "open", 
-            transition: "pop"
-            positionTo: "window"
+      _uploadTeamImage: (file) ->
+         file.name = "image"
+         fc.ajax 
+            url: "#{fc.getResourceURL()}/v1/images/me/someteam"
+            type: "POST"
+            files: [file]
+         , (err, data) ->
+            console.log "TEAM IMAGE: #{JSON.stringify(data)}"
+            fc.user.save team_image: data.image_url

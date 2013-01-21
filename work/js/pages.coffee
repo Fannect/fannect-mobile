@@ -35,6 +35,13 @@ window.fannect.pages =
    
    "profile-chooseWebImage-page":
       vm: vm.Profile.ChooseWebImage
+      buttons: [
+         {
+            position: "right"
+            text: "Done"
+            style: "done"
+         }
+      ]
       classes: ["light-background"]
    
    ###

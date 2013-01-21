@@ -61,7 +61,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          if @selected_index >= 0 
             @images()[@selected_index].selected(true)
 
-
-      done: () ->
-         console.log "selected:", @selected_image
-
+      rightButtonClick: () =>
+         image = @images()[@selected_index].url
+         fc.ajax 
+            url: "#{fc.getResourceURL()}/v1/images/me/someteam"
+            type: "POST"
+            data: image_url: @images()[@selected_index].url
+         , (error, data) =>
+            fc.user.update team_image: data.image_url

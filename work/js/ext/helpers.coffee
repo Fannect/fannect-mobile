@@ -1,5 +1,4 @@
 do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
-   currentUser = null
    currentPrefs = null
    showLoading = false
    cachedIsSlow = null
@@ -31,7 +30,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
                style: "back"
 
    fc.getResourceURL = () ->
-      return if forge.is.web() then "http://localhost:2100" else "http://fannect-api.herokuapp.com"
+      return "http://192.168.0.21:2100"
+      # return if forge.is.web() then "http://localhost:2100" else "http://fannect-api.herokuapp.com"
 
    fc.createPages = () ->
       for i, p of window.fannect.pages
@@ -137,23 +137,29 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
       $(".tutorial", $.mobile.activePage).fadeOut(400)
 
    fc.user =
+      _curr: null
+      _subscribers: []
       get: (done) ->
-         if currentUser 
-            done null, currentUser
+         if fc.user._curr 
+            done null, fc.user._curr
          else
             fc.ajax 
                url: "#{fc.getResourceURL()}/v1/me"
                type: "GET"
             , (error, data) ->
-               currentUser = data
+               fc.user._curr = data
                done error, data
 
       update: (user) ->
-         $.extend true, currentUser, user
+         $.extend true, fc.user._curr, user
+         sub fc.user._curr for sub in fc.user._subscribers
 
       save: (user) ->
          if user then fc.user.update user
          # implement saving
+
+      subscribe: (cb) ->
+         fc.user._subscribers.push cb if cb
 
    fc.auth =
       login: (email, pw, done) ->
