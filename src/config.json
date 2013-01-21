@@ -7,7 +7,7 @@
 		"display": {
 			"orientations": {
 				"android": "portrait", 
-				"ipad": "portrait", 
+				"ipad": "any", 
 				"iphone": "portrait"
 			}
 		}, 
@@ -19,16 +19,15 @@
 				"36": "res/icon-android-36.png", 
 				"48": "res/icon-android-48.png", 
 				"72": "res/icon-android-72.png"
-			},
+			}, 
 			"ios": {
-				"57": "res/icon-ios-57.png",
-            "72": "res/icon-ios-72.png",
-            "96": "res/icon-ios-96.png",
-            "114": "res/icon-ios-114.png",
-            "144": "res/icon-ios-144.png",
-            "512": "res/icon-ios-512.png",
-            "prerendered": true
-         }
+				"114": "res/icon-ios-114.png", 
+				"144": "res/icon-ios-144.png", 
+				"512": "res/icon-ios-512.png", 
+				"57": "res/icon-ios-57.png", 
+				"72": "res/icon-ios-72.png", 
+				"prerendered": true
+			}
 		}, 
 		"is": true, 
 		"launchimage": {
@@ -41,6 +40,9 @@
 		}, 
 		"media": true, 
 		"notification": true, 
+		"package_names": {
+			"ios": "com.fannect.*"
+		}, 
 		"prefs": true, 
 		"reload": true, 
 		"request": {
@@ -49,12 +51,18 @@
 				"https://*/*"
 			]
 		}, 
+		"requirements": {
+			"android": {
+				"minimum_version": "5"
+			}, 
+			"ios": {
+				"device_family": "iphone", 
+				"minimum_version": "4.0"
+			}
+		}, 
 		"tabbar": true, 
 		"tools": true, 
-		"topbar": true,
-		"package_names": {
-			"ios": "com.fannect.*"
-		}
+		"topbar": true
 	}, 
 	"name": "Fannect Mobile", 
 	"platform_version": "v1.4", 
