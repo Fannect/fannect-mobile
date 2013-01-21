@@ -13,10 +13,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @images = ko.observableArray []
          @query = ko.observable()
 
-         $window = $(window).scroll () =>
-            if @is_showing() and @has_loaded and not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
-               @load @query()
-
          @query.subscribe () =>
             if @timeoutId then clearTimeout @timeoutId
             @timeoutId = setTimeout () =>
@@ -30,6 +26,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          if @query().length > 0 then @load @query()
          else @has_loaded = false
+
+      onPageShow: () =>
+         $window = $(window).scroll () =>
+            if @has_loaded and not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
+               @load @query()
+
+      onPageHide: () =>
+         $(window).unbind("scroll")
 
       load: (query, done) ->
          @loading_more true

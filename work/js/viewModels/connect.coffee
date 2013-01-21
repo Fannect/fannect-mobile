@@ -9,10 +9,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @loading_more = ko.observable false
          @has_loaded = ko.observable false
 
-         $window = $(window).scroll () =>
-            if @is_showing() and $window.scrollTop() > $(document).height() - $window.height() - 150
-               @loading_more true
-               @load()
 
          @load()
 
@@ -30,6 +26,15 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @skip += @limit
             @fans.push fan for fan in data
             done null, data if done
+
+      onPageShow: () =>
+         $window = $(window).scroll () =>
+            if $window.scrollTop() > $(document).height() - $window.height() - 150
+               @loading_more true
+               @load()
+         
+      onPageHide: () =>
+         $(window).unbind("scroll")
 
       rightButtonClick: () ->
          $.mobile.changePage "connect-addToRoster.html", transition: "slide"

@@ -18,8 +18,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @overall_fans = ko.observableArray()
          @loading_more = ko.observable false
 
-         @setupInfiniteScroll()
-
          @loadRoster()
          @loadOverall()
 
@@ -59,12 +57,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @roster_fans.push fan for fan in fans
             if done then done null, fans
 
-      setupInfiniteScroll: () ->
+      onPageShow: () ->
          $window = $(window).scroll () =>
-
-            if @is_showing() and not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
+            if not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
                if @is_overall_selected() then @loadOverall()
                else @loadRoster()
+
+      onPageHide: () ->
+         $(window).unbind("scroll")
 
       leftButtonClick: () ->
          if @is_roster_selected
