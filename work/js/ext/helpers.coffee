@@ -12,26 +12,14 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
          $(".footer ." + menu + "-menu").addClass("ui-btn-active").addClass("ui-btn-persist")
       else
          fc.mobile.setActiveMenu menu
-         fc.setHeader()
-
-   fc.setHeader = () ->
-      if forge.is.mobile()
-         forge.topbar.removeButtons()
-         header = $(".header", $.mobile.activePage).get(0)
-         forge.topbar.setTitle $("h1", header).text()
-
-         leftButton = $("a[data-rel=back]", header)
-
-         if leftButton.length > 0
-            forge.topbar.addButton
-               text: leftButton.text()
-               position: "left"
-               type: "back"
-               style: "back"
+         fc.mobile.setupHeader()
 
    fc.getResourceURL = () ->
-      return "http://192.168.0.21:2100"
-      # return if forge.is.web() then "http://localhost:2100" else "http://fannect-api.herokuapp.com"
+      # return "http://192.168.0.21:2100"
+      return if forge.is.web() then "http://localhost:2100" else "http://fannect-api.herokuapp.com"
+
+   fc.getLoginURL = () ->
+      return if forge.is.web() then "http://localhost:2200" else "https://fannect-login.herokuapp.com"
 
    fc.createPages = () ->
       for i, p of window.fannect.pages
@@ -107,6 +95,12 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
          if error?.statusCode == 401 then fc.redirectToLogin
          else done error
 
+      # Append access_token on to querystring
+      if options.url.indexOf("?") > 0
+         options.url + "&access_token=#{fc.auth.getAccessToken}"
+      else
+         options.url + "?access_token=#{fc.auth.getAccessToken}"
+
       fc.loading "show" unless options.hide_loading
       forge.ajax(options)
 
@@ -136,87 +130,27 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
    fc.hideTutorial = () ->
       $(".tutorial", $.mobile.activePage).fadeOut(400)
 
-   fc.user =
-      _curr: null
-      _subscribers: []
-      get: (done) ->
-         if fc.user._curr 
-            done null, fc.user._curr
+   fc.getDataURL = (file, max_width, max_height, done) ->
+      canvas = document.createElement("canvas")
+      context = canvas.getContext("2d")
+      img = new Image()
+      img.onload = () ->
+         w = img.width
+         h = img.height
+
+         if w > h
+            if w > max_width
+               h *= max_width / w
+               w = max_width
          else
-            fc.ajax 
-               url: "#{fc.getResourceURL()}/v1/me"
-               type: "GET"
-            , (error, data) ->
-               fc.user._curr = data
-               done error, data
+            if h > max_height
+               w *= max_height / h
+               h = max_height
 
-      update: (user) ->
-         $.extend true, fc.user._curr, user
-         sub fc.user._curr for sub in fc.user._subscribers
+         context.drawImage(img, 0, 0, w, h)
+         data = canvas.toDataURL()
+         done null, data
 
-      save: (user) ->
-         if user then fc.user.update user
-         # implement saving
-
-      subscribe: (cb) ->
-         fc.user._subscribers.push cb if cb
-
-   fc.auth =
-      login: (email, pw, done) ->
-         query = { email: email, password: pw }
-         $.mobile.loading "show"
-         $.post "#{fc.getResourceURL()}/v1/login", query, (data, status) ->
-            $.mobile.loading "hide"
-            if data.status == "success" then done()
-            else done data.error_message
-      
-      isLoggedIn: (cb) ->
-         forge.get "refresh_token", cb
-         
-      redirectToLogin: () ->
-         noAuth = ["index-page", "createAccount-page"]
-         if not ($.mobile.activePage.id in noAuth)
-            $.mobile.changePage "index.html", transition: "slidedown"
-
-   fc.mobile =
-      _buttons: {}
-      _waiting_to_activate: null
-      _addButton: (index, text, image, target) ->
-         forge.tabbar.addButton
-            icon: image,
-            text: text,
-            index: index
-         , (button) ->
-            name = text.toLowerCase()
-            fc.mobile._buttons[name] = button
-            
-            if fc.mobile._waiting_to_activate == name
-               button.setActive()
-               fc.mobile._waiting_to_activate = null
-
-            button.onPressed.addListener () ->
-               $.mobile.changePage target, transition: "none"
-         
-      createButtons: () ->
-         fc.mobile._addButton 0, "Profile", "images/mobile/Icon_TabBar_Profile.png", "profile.html"
-         fc.mobile._addButton 1, "Games", "images/mobile/Icon_TabBar_Points@2x.png", "games.html"
-         fc.mobile._addButton 2, "Leaderboard", "images/mobile/Icon_TabBar_Leaderboard@2x.png", "leaderboard.html"
-         fc.mobile._addButton 3, "Connect", "images/mobile/Icon_TabBar_Connect@2x.png", "connect.html"
-         
-      setActiveMenu: (name) ->
-         if name
-            name = name.toLowerCase()
-            forge.tabbar.show()
-            
-            if fc.mobile._buttons[name] then fc.mobile._buttons[name].setActive()
-            else fc.mobile._waiting_to_activate = name
-
-         else
-            forge.tabbar.hide()
-
-      addHeaderButton: (options, click) ->
-         if forge.is.mobile()
-            cb = cb or options.click
-            forge.topbar.addButton options, cb
+      img.src = file
 
 

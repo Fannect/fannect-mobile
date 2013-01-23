@@ -62,7 +62,11 @@
 		}, 
 		"tabbar": true, 
 		"tools": true, 
-		"topbar": true
+		"topbar": true,
+		"parameters": {
+			"login_server": "http://fannect-login.herokuapp.com",
+			"resource_server": "http://fannect-api.herokuapp.com"
+		}
 	}, 
 	"name": "Fannect Mobile", 
 	"platform_version": "v1.4", 

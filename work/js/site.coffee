@@ -13,7 +13,7 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
 
    ).live("pagebeforeshow", () ->
       # check if logged in
-      # unless fc.auth.checkLogin() then return
+      unless fc.auth.isLoggedIn() then return
    
       fc.setActiveMenu getMenu @
 

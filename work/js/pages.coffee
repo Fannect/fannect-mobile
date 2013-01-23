@@ -5,8 +5,14 @@ window.fannect.pages =
    ###
    # Login
    ###
-   # "index-page":
-   #    vm: vm.Login
+   "index-page":
+      vm: vm.Login
+      buttons: [
+         {
+            position: "right"
+            text: "Create Account"
+         }
+      ]
 
    ###
    # Profile

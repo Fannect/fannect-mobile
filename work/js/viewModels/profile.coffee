@@ -16,6 +16,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @bragging_rights = ko.observable()  
          @load()
 
+         # testing
+         # console.log "URL", fc.getDataURL("http://www.houstondynamo.com/sites/houston/files/sporting-kansas-city-logo.png", 400, 400);
+
          fc.user.subscribe @updateUser
 
       load: () =>
@@ -52,13 +55,29 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             console.log "ERROR: #{JSON.stringify(error)}"
 
       _uploadProfileImage: (file) ->
+         # TESTING
+         # forge.file.base64 file
+         # , (data) ->
+         #    src = "data:image/png;base64,#{data}"
+         #    fc.getDataURL src, 500, 500, (data_url) ->
+
+         #       fc.ajax
+         #          url: "#{fc.getResourceURL()}/v1/images/me"
+         #          type: "POST"
+         #          fileUploadMethod: "raw"
+         #          data: data_url
+         #       , (err, res) ->
+         #          console.log "SHRANK IMAGE: #{JSON.stringify(res)}"
+               
+            # data:image/png;base64,
+         #END TESTING
+
          file.name = "image"
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/images/me"
             type: "POST"
             files: [file]
          , (err, data) ->
-            console.log "PROFILE IMAGE: #{JSON.stringify(data)}"
             fc.user.save profile_image: data.image_url
 
       _uploadTeamImage: (file) ->
