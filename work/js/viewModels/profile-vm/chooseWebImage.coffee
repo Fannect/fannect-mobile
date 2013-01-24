@@ -68,4 +68,5 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             type: "POST"
             data: image_url: @images()[@selected_index].url
          , (error, data) =>
+            # This needs to be updated for team image
             fc.user.update team_image: data.image_url

@@ -65,12 +65,6 @@ window.fannect.pages =
    ###
    "connect-page":
       vm: vm.Connect
-      buttons: [
-         {
-            position: "right"
-            text: "Add"
-         }
-      ]
       classes: ["light-background"]
 
    "connect-addToRoster-page":

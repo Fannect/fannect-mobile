@@ -5,39 +5,42 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super 
          @limit = 20
          @skip = 0
+         @query = ko.observable("")
          @fans = ko.observableArray []
          @loading_more = ko.observable false
-         @has_loaded = ko.observable false
+         @show_message = ko.observable false
 
+         @query.subscribe () =>
+            @fans.removeAll()
+            @skip = 0
 
          @load()
 
       load: (done) ->
+         @show_message false
          @loading_more true
          fc.ajax 
-            url: "#{fc.getResourceURL()}/v1/users?limit=#{@limit}&skip=#{@skip}"
+            url: "#{fc.getResourceURL()}/v1/users?limit=#{@limit}&skip=#{@skip}&q=#{@query()}"
             type: "GET"
             hide_loading: true
-         , (error, data) =>
+         , (error, fans) =>
             setTimeout () => 
-               @has_loaded true
-               @loading_more(false)
-            , 200
+               @loading_more false
+               @show_message(true) if @query().length == 0 and fans.length == 0 
+            , 150
+
             @skip += @limit
-            @fans.push fan for fan in data
-            done null, data if done
+            @fans.push fan for fan in fans
+            done null, fans if done
 
       onPageShow: () =>
          $window = $(window).scroll () =>
-            if $window.scrollTop() > $(document).height() - $window.height() - 150
+            if not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
                @loading_more true
                @load()
          
       onPageHide: () =>
          $(window).unbind("scroll")
-
-      rightButtonClick: () ->
-         $.mobile.changePage "connect-addToRoster.html", transition: "slide"
 
       # scrolled: (data, e) ->
       #    console.log "SCROLL", e
