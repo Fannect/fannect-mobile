@@ -55,6 +55,9 @@ body
    background: url(../images/Pattern_FabricKnit.png)
    background-size: 4px 4px
 
+.dark-background
+   background: url(../images/Pattern_FabricKnit_Dark.png)
+   background-size: 4px 4px
 
 .ui-popup
    h1
@@ -100,6 +103,22 @@ body
       background-position: 0 0
    .settings-menu .ui-icon
       background-position: -212px 0
+
+// Modify jQuery Mobile Elements
+.ui-input-search
+   .ui-btn
+      dropshadow: none
+      background: transparent
+      border: none
+      .ui-btn-inner
+         background-color: transparent
+         box-shadow: none
+         border: 0
+         margin-top: 2px
+      .ui-icon
+         dropshadow: none
+      .ui-btn-text
+         dropshadow: none
 
 // Elements
 .team-glass
@@ -165,6 +184,24 @@ body
             background: rgba(0,0,0,.2)
       .ui-icon-arrow-r
          background: url(../images/icons/TableCell_TableNext.png) 50% 50% no-repeat
+         background-size: 10px 14px
+         dropshadow: none
+
+.dark-pattern-bg 
+   li.ui-li
+      background: url(../images/Pattern_FabricKnit_Dark.png)
+      background-size: 4px 4px
+      .ui-btn-inner
+      .ui-btn-inner:hover
+         border-top: 0;
+         border-bottom: 1px #333 solid
+         font-weight: normal
+      &.ui-btn-active
+         border-color: #CCC
+         .ui-btn-inner
+            background: rgba(0,0,0,.2)
+      .ui-icon-arrow-r
+         background: url(../images/icons/UITableNext.png) 50% 50% no-repeat
          background-size: 10px 14px
          dropshadow: none
 
@@ -402,10 +439,18 @@ body
       .cover
          background-image: url(../images/Overlay_ScrollBarFrame_iPhone@2x.png)
    .light-background
+      background-image: url(../images/Pattern_FabricKnit@2x.png)
    .pattern-bg li.ui-li
       background-image: url(../images/Pattern_FabricKnit@2x.png)
       .ui-icon-arrow-r
          background-image: url(../images/icons/TableCell_TableNext@2x.png)
+
+   .dark-background
+      background-image: url(../images/Pattern_FabricKnit_Dark@2x.png)
+   .dark-pattern-bg li.ui-li
+      background-image: url(../images/Pattern_FabricKnit_Dark@2x.png)
+      .ui-icon-arrow-r
+         background-image: url(../images/icons/UITableNext@2x.png)
 
    .icon.gamecell
       background-image: url(../images/icons/icons-gamecell@2x.png)

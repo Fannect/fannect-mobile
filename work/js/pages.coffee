@@ -50,6 +50,16 @@ window.fannect.pages =
       ]
       classes: ["light-background"]
    
+   "profile-selectTeam-page":
+      vm: vm.Profile.SelectTeam
+      buttons: [
+         {
+            position: "right"
+            text: "Add"
+         }
+      ]
+      classes: ["dark-background"]
+
    ###
    # Connect
    ###

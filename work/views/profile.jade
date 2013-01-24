@@ -3,7 +3,7 @@ extend layout
 block header
    h1(data-menu-root="profile") Profile
    a.ui-btn-left(href="profile-invitations.html", data-role="button", data-iconpos="notext", data-icon="custom", data-theme="b", data-shadow="false")
-   a.ui-btn-right(href="profile-editBio.html", data-role="button", data-transition="slide", data-theme="b") Edit
+   a.ui-btn-right(href="settings.html", data-role="button", data-transition="slidedown", data-theme="b") Edit
 
    #changeProfileImagePopup(data-role="popup", style="width:260px;", class="ui-corner-all", data-overlay-theme="a", data-theme="a")
       .ui-corner-top(data-role="header", data-theme="b")
@@ -25,8 +25,7 @@ block header
 
 block content
    .profile-images
-      //- .settings-button(data-bind="visible: window.forge.is.mobile()")
-      a.settings-button.ui-corner-all(href="settings.html", data-transition="slidedown")
+      //- a.settings-button.ui-corner-all(href="settings.html", data-transition="slidedown")
 
       .team-wrap(data-bind="click: changeTeamImage, clickBubble: false, showPopup: '#changeTeamImagePopup'")
          img(data-bind="attr: {src:team_image}, visible: team_image().length > 0")
@@ -39,8 +38,8 @@ block content
 
    .name(data-bind="text: name")
 
-   .team-name-wrap
-      .team(data-bind="text: favorite_team")
+   a.team-name-wrap(href="profile-selectTeam.html", data-transition="slide")
+      .team(data-bind="text: team_name")
       .icon
 
    .score-wrap
@@ -56,13 +55,7 @@ block content
 
    .bio
       .separator
-      .text(data-bind="text: bio")
-   .bragging-rights
-      .separator
-      .text(data-bind="text: bragging_rights")
-   .game-day-spot
-      .separator
-      .text(data-bind="text: game_day_spot") 
+      .text(data-bind="text: trash_talk")
    
 block tutorial
    .tutorial-slider.four

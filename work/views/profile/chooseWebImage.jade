@@ -7,7 +7,7 @@ block header
 
 block content
 
-   input(type="text", data-bind="value: query, valueUpdate: 'keyup'")
+   input(type="search", data-bind="value: query, valueUpdate: ['afterkeydown'], onEnter: search")
 
    .web-images
       .web-image-column-left

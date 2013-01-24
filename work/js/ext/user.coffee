@@ -1,4 +1,4 @@
-do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
+do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect) ->
    fc.user =
       _curr: null
       _subscribers: []
@@ -10,9 +10,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
             fc.ajax 
                url: "#{fc.getResourceURL()}/v1/me"
                type: "GET"
-            , (error, data) ->
-               fc.user._curr = data
-               done error, data
+            , (error, user) ->
+               fc.user._curr = user
+               done error, user
 
       update: (user) ->
          if not fc.user._curr then fc.user._curr = {}

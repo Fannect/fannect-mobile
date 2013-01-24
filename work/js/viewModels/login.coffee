@@ -4,6 +4,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       constructor: () ->
          @email = ko.observable()
          @password = ko.observable()
+         super
 
       login: () ->
          fc.auth.login @email(), @password(), (error) ->
@@ -12,6 +13,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          return false
 
-      onPageShow: () ->
-         if fc.auth.isLoggedIn()
-            $.mobile.changePage "profile.html", transition: "none"
+      onPageShow: () =>
+         super
+         fc.auth.isLoggedIn (err, is_logged_in) ->
+            if is_logged_in
+               $.mobile.changePage "profile.html", transition: "none"

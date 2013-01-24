@@ -13,8 +13,9 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
 
    ).live("pagebeforeshow", () ->
       # check if logged in
-      unless fc.auth.isLoggedIn() then return
-   
+      if $($.mobile.activePage).attr("id") != "index-page"
+         fc.auth.isLoggedIn()
+
       fc.setActiveMenu getMenu @
 
    ).live("pageshow", () ->

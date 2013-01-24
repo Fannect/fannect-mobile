@@ -1,4 +1,4 @@
-do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
+do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect) ->
    fc.auth =
       _refresh_token: null
       _access_token: null
@@ -9,6 +9,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
             url: "#{fc.getLoginURL()}/v1/token"
             data: { email: email, password: pw }
             success: (user) ->
+               user = JSON.parse(user)
                fc.auth._refresh_token = user.refresh_token
                fc.auth._access_token = user.access_token
                forge.prefs.set "refresh_token", user.refresh_token
@@ -29,14 +30,14 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
       getNewAccessToken: (done) ->
          fc.auth.getRefreshToken (err, token) ->
             done(err) if err
-
             options =
                type: "PUT"
                url: "#{fc.getLoginURL()}/v1/token"
-               data: { access_token: token }
+               data: { refresh_token: token }
                success: (data) ->
+                  data = JSON.parse data
                   fc.auth._access_token = data.access_token
-                  done(null, fc.auth._access_token)
+                  done(null, fc.auth._access_token) if done
                error: (err) ->
                   done err
 
@@ -44,7 +45,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
 
       getRefreshToken: (done) ->
          return done(null, fc.auth._refresh_token) if fc.auth._refresh_token 
-
+         
          forge.prefs.get "refresh_token"
          , (refresh_token) ->
             return fc.auth.redirectToLogin() unless refresh_token
@@ -57,7 +58,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
       isLoggedIn: (done) ->
          fc.auth.getRefreshToken (err, token) ->
             return done(err) if err
-            done null, token
+            done null, (token?) if done
 
       redirectToLogin: () ->
          noAuth = ["index-page", "createAccount-page"]

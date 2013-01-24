@@ -7,13 +7,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @name = ko.observable()
          @team_image = ko.observable ""
          @profile_image = ko.observable ""
-         @favorite_team = ko.observable() 
+         @team_name = ko.observable "Select Team"
          @roster = ko.observable()
          @points = ko.observable()
          @rank = ko.observable()
-         @bio = ko.observable()
-         @game_day_spot = ko.observable()
-         @bragging_rights = ko.observable()  
+         @trash_talk = ko.observable()
          @load()
 
          # testing
@@ -22,20 +20,20 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.user.subscribe @updateUser
 
       load: () =>
-         fc.user.get (err, data) => @updateUser data
+         fc.user.get (err, user) => @updateUser user
 
       updateUser: (user) =>
-         @name user.name
-         @team_image user.team_image or ""
+         @name "#{user.first_name} #{user.last_name}"
          @profile_image user.profile_image or ""
-         @favorite_team user.favorite_team or "Select Team"
-         @roster user.roster
-         @points user.points
-         @rank user.rank
-         @bio user.bio
-         @game_day_spot user.game_day_spot
-         @bragging_rights user.bragging_rights
 
+      updateTeamProfile: (team_profile) =>
+         @team_image team_profile.image or ""
+         @team_name team_profile.name or "Select Team"
+         @roster team_profile.roster
+         @points team_profile.points
+         @rank team_profile.rank
+         @trash_talk team_profile.trash_talk
+         
       changeUserImage: () => @editing_image "profile"
       changeTeamImage: () => @editing_image "team"
       cancelImagePicking: () => @editing_image "none"
@@ -53,6 +51,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          forge.file.getImage source: "gallery", done
          , (error) ->
             console.log "ERROR: #{JSON.stringify(error)}"
+
+      rightButtonClick: () ->
+         $.mobile.changePage "settings.html", transition: "slidedown"
 
       _uploadProfileImage: (file) ->
          # TESTING

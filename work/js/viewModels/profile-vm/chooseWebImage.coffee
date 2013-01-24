@@ -13,12 +13,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @images = ko.observableArray []
          @query = ko.observable()
 
-         @query.subscribe () =>
-            if @timeoutId then clearTimeout @timeoutId
-            @timeoutId = setTimeout () =>
-               @timeoutId = null
-               @search()
-            , 400
+         # @query.subscribe () =>
+         #    if @timeoutId then clearTimeout @timeoutId
+         #    @timeoutId = setTimeout () =>
+         #       @timeoutId = null
+         #       @search()
+         #    , 400
 
       search: () ->
          @skip = 0

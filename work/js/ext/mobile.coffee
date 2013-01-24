@@ -1,4 +1,4 @@
-do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
+do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect) ->
    fc.mobile =
       _buttons: {}
       _waiting_to_activate: null
@@ -35,20 +35,20 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
          else
             forge.tabbar.hide()
 
-      fc.setupHeader = () ->
-      if forge.is.mobile()
-         forge.topbar.removeButtons()
-         header = $(".header", $.mobile.activePage).get(0)
-         forge.topbar.setTitle $("h1", header).text()
+      setupHeader: () ->
+         if forge.is.mobile()
+            forge.topbar.removeButtons()
+            header = $(".header", $.mobile.activePage).get(0)
+            forge.topbar.setTitle $("h1", header).text()
 
-         leftButton = $("a[data-rel=back]", header)
+            leftButton = $("a[data-rel=back]", header)
 
-         if leftButton.length > 0
-            forge.topbar.addButton
-               text: leftButton.text()
-               position: "left"
-               type: "back"
-               style: "back"
+            if leftButton.length > 0
+               forge.topbar.addButton
+                  text: leftButton.text()
+                  position: "left"
+                  type: "back"
+                  style: "back"
 
       addHeaderButton: (options, click) ->
          if forge.is.mobile()
