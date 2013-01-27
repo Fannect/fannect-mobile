@@ -4,28 +4,29 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       constructor: () ->
          super
          @editing_image = ko.observable("none")
-         @name = ko.observable()
+         @name = ko.observable("&nbsp;")
          @team_image = ko.observable ""
          @profile_image = ko.observable ""
-         @team_name = ko.observable "Select Team"
+         @team_name = ko.observable ""
          @roster = ko.observable()
          @points = ko.observable()
          @rank = ko.observable()
          @trash_talk = ko.observable()
          @breakdown = ko.observableArray()
+         fc.user.subscribe @updateUser
+         fc.team.subscribe @updateTeamProfile
          @load()
 
          # testing
          # console.log "URL", fc.getDataURL("http://www.houstondynamo.com/sites/houston/files/sporting-kansas-city-logo.png", 400, 400);
 
-         fc.user.subscribe @updateUser
-         fc.team.subscribe @updateTeamProfile
-
       load: () =>
+         console.log "Load called"
          fc.user.get (err, user) => @updateUser user
-         fc.team.getActive (err, profile) => @updateTeamProfile profile
+         fc.team.loadActive()
 
       updateUser: (user) =>
+         console.log "Updated user"
          @name "#{user.first_name} #{user.last_name}"
          @profile_image user.profile_image or ""
 
@@ -41,6 +42,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          # Add chart data
          if profile.points
+            @breakdown.removeAll()
             @breakdown.push
                val: profile.points.passion
                style: "passion"
@@ -50,6 +52,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @breakdown.push
                val: profile.points.knowledge
                style: "knowledge"
+
+      onPageShow: () =>
+         super
+         console.log "Page Show"
+         console.log @team_name()
+         console.log @name()
 
       changeUserImage: () => @editing_image "profile"
       changeTeamImage: () => @editing_image "team"

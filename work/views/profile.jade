@@ -36,7 +36,7 @@ block content
          .user-hint.ui-corner-all
          .cover
 
-   .name(data-bind="text: name")
+   .name(data-bind="html: name")
 
    a.team-name-wrap(href="profile-selectTeam.html", data-transition="slide")
       .team(data-bind="text: team_name")
@@ -57,7 +57,10 @@ block content
       .separator
       .text(data-bind="text: trash_talk")
 
-   .breakdown
+   .bragging-rights
+      .separator
+
+   .breakdown(data-bind="chart: breakdown")
    
 block tutorial
    .tutorial-slider.four

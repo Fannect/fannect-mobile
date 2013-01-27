@@ -4,19 +4,23 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       _curr: null
       _subscribers: []
 
+
+
       get: (team_profile_id, done) ->
          if fc.team._teams[team_profile_id] 
-            done null, fc.team._teams[team_profile_id] 
+            done(null, fc.team._teams[team_profile_id]) if done
+            return fc.team._teams[team_profile_id]
          else
             fc.ajax 
                url: "#{fc.getResourceURL()}/v1/me/teams/#{team_profile_id}"
                type: "GET"
             , (err, team) ->
-               return done err if err
+               throw err if err
                fc.team._teams[team_profile_id] = team
                fc.team._notify(team)
-               done null, team
+               done(null, team) if done
 
+      getActiveTeamId: () ->  fc.team._teams[fc.team._curr].team_id
       getActiveId: () -> fc.team._curr
       getActive: (done) ->
          if fc.team.getActiveId()
@@ -28,8 +32,17 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   fc.team._curr = team_profile_id
                   fc.team.get fc.team._curr, done
                else
-                  done null, null
+                  done(null, null) if done
             , (err) -> throw err
+
+      load: (team_profile_id, silent) ->
+         fc.team.get team_profile_id, (err, profile) ->
+            fc.team._notify(profile) unless silent
+
+      loadActive: (silent) ->
+         fc.team.getActive (err, profile) ->
+            if profile and not silent
+               fc.team._notify(profile)
 
       setActive: (team_profile_id, cache, done) ->
          if arguments < 3

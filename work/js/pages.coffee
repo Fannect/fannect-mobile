@@ -151,8 +151,9 @@ window.fannect.pages =
    ###
    # Leaderboard
    ###
-   "leaderboard-page":
-      vm: vm.Leaderboard
+   "leaderboard-page": classes: ["light-background"]
+   "leaderboard-users-page":
+      vm: vm.Leaderboard.Users
       buttons: [
          {
             position: "left"

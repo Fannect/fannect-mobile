@@ -45,6 +45,7 @@
 #= require "viewModels/connect-vm/addToRosterProfile.coffee"
 
 #= require "viewModels/leaderboard-vm/rosterProfile.coffee"
+#= require "viewModels/leaderboard-vm/users.coffee"
 
 #= require "pages.coffee"
 #= require "site.coffee"

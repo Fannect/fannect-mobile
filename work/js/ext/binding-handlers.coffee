@@ -1,4 +1,4 @@
-do ($ = jQuery) ->
+do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
    ko.bindingHandlers.fadeIn = 
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
@@ -69,5 +69,8 @@ do ($ = jQuery) ->
          viewModel.chart = new fc.Chart($(element))
 
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         if viewModel.chartTimeoutId then clearTimeout(viewModel.chartTimeoutId)
          data = ko.utils.unwrapObservable valueAccessor()
-         console.log "CHART DATA", data
+         viewModel.chartTimeoutId = setTimeout (() ->
+            viewModel.chart.update(data)
+         ), 10
