@@ -20,7 +20,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @show_message false
          @loading_more true
          fc.ajax 
-            url: "#{fc.getResourceURL()}/v1/users?limit=#{@limit}&skip=#{@skip}&q=#{@query()}"
+            url: "#{fc.getResourceURL()}/v1/teams/#{fc.team.getActiveTeamId()}/users?limit=#{@limit}&skip=#{@skip}&q=#{@query()}"
             type: "GET"
             hide_loading: true
          , (error, fans) =>
@@ -42,7 +42,5 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       onPageHide: () =>
          $(window).unbind("scroll")
 
-      # scrolled: (data, e) ->
-      #    console.log "SCROLL", e
-      #    elem = e.target
-         
+      selectUser: (data) -> 
+         fc.user.view(data._id)

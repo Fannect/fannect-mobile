@@ -13,26 +13,16 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @rank = ko.observable()
          @trash_talk = ko.observable()
          @breakdown = ko.observableArray()
-         fc.user.subscribe @updateUser
-         fc.team.subscribe @updateTeamProfile
          @load()
 
-         # testing
-         # console.log "URL", fc.getDataURL("http://www.houstondynamo.com/sites/houston/files/sporting-kansas-city-logo.png", 400, 400);
-
       load: () =>
-         console.log "Load called"
-         fc.user.get (err, user) => @updateUser user
+         fc.team.subscribe @updateProfile
          fc.team.loadActive()
 
-      updateUser: (user) =>
-         console.log "Updated user"
-         @name "#{user.first_name} #{user.last_name}"
-         @profile_image user.profile_image or ""
-
-      updateTeamProfile: (profile) =>
+      updateProfile: (profile) =>
          return unless profile
-
+         @name profile.name or "&nbsp;"
+         @profile_image profile.profile_image_url or ""
          @team_image profile.team_image_url or ""
          @team_name profile.team_name or "Select Team"
          @roster profile.roster or 0
@@ -53,15 +43,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                val: profile.points.knowledge
                style: "knowledge"
 
-      onPageShow: () =>
-         super
-         console.log "Page Show"
-         console.log @team_name()
-         console.log @name()
-
+      selectTeam: () -> $.mobile.changePage "profile-selectTeam.html", transition: "slide"
       changeUserImage: () => @editing_image "profile"
       changeTeamImage: () => @editing_image "team"
       cancelImagePicking: () => @editing_image "none"
+      isEditable: () -> return true
        
       takeImage: (data, e) =>
          done = if @editing_image() == "profile" then @_uploadProfileImage else @_uploadTeamImage

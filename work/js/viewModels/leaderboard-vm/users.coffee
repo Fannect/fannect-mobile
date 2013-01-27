@@ -36,14 +36,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       loadOverall: (done) ->
          @loading_more true
          fc.ajax 
-            url: "#{fc.getResourceURL()}/v1/leaderboard/users/#{fc.team.getActiveId()}&limit=#{@limit}&skip=#{@overall_skip}"
+            url: "#{fc.getResourceURL()}/v1/leaderboard/users/#{fc.team.getActiveId()}?limit=#{@limit}&skip=#{@overall_skip}"
             type: "GET"
             hide_loading: true
-         , (error, fans) =>
+         , (error, users) =>
             setTimeout (() => @loading_more(false)), 200
             @overall_skip += @limit
-            @overall_fans.push fan for fan in fans
-            if done then done null, fans
+            @overall_users.push user for user in users
+            if done then done null, users
 
       loadRoster: (done) ->
          @loading_more true
@@ -51,11 +51,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             url: "#{fc.getResourceURL()}/v1/leaderboard/users/#{fc.team.getActiveTeamId()}?friends_of=#{fc.team.getActiveId()}&limit=#{@limit}&skip=#{@roster_skip}"
             type: "GET"
             hide_loading: true
-         , (error, fans) =>
+         , (error, users) =>
             setTimeout (() => @loading_more(false)), 200
             @roster_skip += @limit
-            @roster_fans.push fan for fan in fans
-            if done then done null, fans
+            @roster_users.push user for user in users
+            if done then done null, users
 
       onPageShow: () ->
          $window = $(window).scroll () =>
@@ -63,8 +63,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                if @is_overall_selected() then @loadOverall()
                else @loadRoster()
 
-      onPageHide: () ->
-         $(window).unbind("scroll")
+      onPageHide: () -> $(window).unbind("scroll")
+      selectUser: (data) -> fc.user.view(data._id)
 
       leftButtonClick: () ->
          if @is_roster_selected

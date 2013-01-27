@@ -92,19 +92,15 @@ window.fannect.pages =
       vm: vm.Connect
       classes: ["light-background"]
 
-   "connect-addToRoster-page":
-      vm: vm.Connect.AddToRoster
-      classes: ["light-background"]
-
-   "connect-addToRosterProfile-page":
-      vm: vm.Connect.AddToRosterProfile
+   "connect-connectProfile-page":
+      vm: vm.Connect.ConnectProfile
       buttons: [
          {
             position: "right"
             text: "Add"
          }
       ]
-      classes: ["no-padding"]
+      classes: ["no-padding"]      
 
    ###
    # Games

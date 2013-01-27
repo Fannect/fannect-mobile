@@ -1,6 +1,6 @@
 do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
-   class fc.viewModels.Connect.AddToRosterProfile extends fc.viewModels.Profile
+   class fc.viewModels.Connect.ConnectProfile extends fc.viewModels.Profile
          # $.mobile.changePage "connect.html", { transition: "slideup" }
       changeUserImage: () ->
          return false #override function to disable changing other persons profile

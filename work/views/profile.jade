@@ -38,9 +38,9 @@ block content
 
    .name(data-bind="html: name")
 
-   a.team-name-wrap(href="profile-selectTeam.html", data-transition="slide")
+   a.team-name-wrap(data-bind="click: selectTeam")
       .team(data-bind="text: team_name")
-      .icon
+      .icon(data-bind="visible: isEditable()")
 
    .score-wrap
       .score.roster

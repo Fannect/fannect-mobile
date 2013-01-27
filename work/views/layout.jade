@@ -46,33 +46,30 @@ html
 
       script(id="connect-fan-template", type="text/html")
          li.fan
-            a(data-bind="attr: { 'href': profile_url }", data-transition="slide")
+            a(data-bind="click: $parent.selectUser", data-transition="slide")
                .image-wrap
                   img.profile-image(data-bind="attr: { 'src': profile_image_url }")
                   .cover
                .fan-info
                   .name(data-bind="text: name")
-                  .team(data-bind="text: team")
 
       script(id="invitation-fan-template", type="text/html")
          li.fan(data-icon="false")
-            a(data-bind="attr: { 'href': profile_url }", data-transition="slide")
+            a(data-bind="click: $parent.selectUser", data-transition="slide")
                .left-icon.cancel
                .image-wrap
                   img.profile-image(data-bind="attr: { 'src': profile_image_url }")
                   .cover
                .fan-info
                   .name(data-bind="text: name")
-                  .team(data-bind="text: team")
                .right-icon.accept
 
       script(id="leaderboard-fan-template", type="text/html")
          li.fan(data-icon="false")
-            a(data-bind="attr: { 'href': profile_url }", data-transition="slide")
+            a(data-bind="click: $parent.selectUser", data-transition="slide")
                .image-wrap
                   img.profile-image(data-bind="attr: { 'src': profile_image_url }")
                   .cover
                .fan-info
                   .name(data-bind="text: name")
-                  .team(data-bind="text: team")
-               .right-icon.rank(data-bind="text: rank")
+               .right-icon.rank(data-bind="text: $index")

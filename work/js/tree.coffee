@@ -31,6 +31,7 @@
 #= require "viewModels/profile-vm/editGameDaySpot.coffee"
 #= require "viewModels/profile-vm/editBraggingRights.coffee"
 #= require "viewModels/profile-vm/selectTeam.coffee"
+#= require "viewModels/profile-vm/other.coffee"
 
 #= require "viewModels/profile-vm/selectTeam-vm/chooseSport.coffee"
 #= require "viewModels/profile-vm/selectTeam-vm/chooseLeague.coffee"
@@ -41,10 +42,6 @@
 #= require "viewModels/games-vm/gameFace.coffee"
 #= require "viewModels/games-vm/guessTheScore.coffee"
 
-#= require "viewModels/connect-vm/addToRoster.coffee"
-#= require "viewModels/connect-vm/addToRosterProfile.coffee"
-
-#= require "viewModels/leaderboard-vm/rosterProfile.coffee"
 #= require "viewModels/leaderboard-vm/users.coffee"
 
 #= require "pages.coffee"

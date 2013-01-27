@@ -1,4 +1,22 @@
 do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect) ->
+   
+   $("#profile-other-page").live "pageshow", () ->
+      if not options = fc.cache.get("view_other")
+         $.mobile.changePage "profile.html", transition: "none"
+      else
+         vm = new fc.viewModels.Profile.Other options.team_profile_id, () ->
+            if forge.is.mobile() and not vm.is_friend()
+               fc.mobile.addHeaderButton
+                  position: "left"
+                  type: "back"
+                  style: "back"
+                  text: "Back"
+               fc.mobile.addHeaderButton
+                  position: "right"
+                  text: "Add"
+                  click: () -> vm.rightButtonClick()
+         ko.applyBindings vm, @
+
    fc.user =
       _curr: null
       _subscribers: []
@@ -25,3 +43,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       subscribe: (cb) ->
          fc.user._subscribers.push cb if cb
+
+      # possible options - menu, prev_page
+      view: (profileId, options = {}) ->
+         options.team_profile_id = profileId
+         fc.cache.set "view_other", options
+         $.mobile.changePage "profile-other.html", transition: "slide"
