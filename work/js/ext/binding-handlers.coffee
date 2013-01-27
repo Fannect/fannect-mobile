@@ -2,11 +2,14 @@ do ($ = jQuery) ->
    ko.bindingHandlers.fadeIn = 
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
-         duration = allBindingAccessor().duration or 400
+         allBindings = allBindingAccessor()
+         duration = allBindings.duration or 400
+         hideInstant = allBindings.hideInstant or false
          if valueUnwrapped
             $(element).fadeIn duration
          else
-            $(element).fadeOut duration
+            if hideInstant then $(element).hide()
+            else $(element).fadeOut duration
 
    ko.bindingHandlers.disableSlider = 
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
@@ -61,4 +64,10 @@ do ($ = jQuery) ->
                return false
             return true
 
+   ko.bindingHandlers.chart = 
+      init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
+         viewModel.chart = new fc.Chart($(element))
 
+      update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         data = ko.utils.unwrapObservable valueAccessor()
+         console.log "CHART DATA", data

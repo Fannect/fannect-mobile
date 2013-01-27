@@ -63,10 +63,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       rightButtonClick: () =>
          image = @images()[@selected_index].url
+
          fc.ajax 
-            url: "#{fc.getResourceURL()}/v1/images/me/someteam"
+            url: "#{fc.getResourceURL()}/v1/images/me/#{fc.team.getActiveId()}"
             type: "POST"
             data: image_url: @images()[@selected_index].url
-         , (error, data) =>
-            # This needs to be updated for team image
-            fc.user.update team_image: data.image_url
+         , (err, data) =>
+            throw err if err
+            fc.team.update data

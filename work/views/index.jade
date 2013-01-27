@@ -1,8 +1,8 @@
 extend layout
 
 block header
-   h1 SIGN IN
-   a.ui-btn-right(href="createAccount.html", data-role="button", data-transition="slide") New Account
+   h1 Sign In
+   a.ui-btn-right(href="createAccount.html", data-role="button", data-transition="slide", data-theme="b") New Account
 
 block content
    .fannect-logo
@@ -13,6 +13,6 @@ block content
       label(for="password") Password
       input(type="password", name="password", id="password", data-bind="value: password")
 
-      button(data-role="button", data-bind="click: login") Login
+      button(data-role="button", data-bind="click: login, clickBubble: false") Login
 
 block footer

@@ -14,6 +14,9 @@ window.fannect.pages =
          }
       ]
 
+   "createAccount-page":
+      vm: vm.CreateAccount
+
    ###
    # Profile
    ###
@@ -50,6 +53,9 @@ window.fannect.pages =
       ]
       classes: ["light-background"]
    
+   ###
+   # Select Team
+   ###
    "profile-selectTeam-page":
       vm: vm.Profile.SelectTeam
       buttons: [
@@ -58,6 +64,25 @@ window.fannect.pages =
             text: "Add"
          }
       ]
+      classes: ["dark-background"]
+
+   "profile-selectTeam-chooseSport-page":
+      vm: vm.Profile.SelectTeam.ChooseSport
+      classes: ["dark-background"]
+
+   "profile-selectTeam-chooseMethod-page":
+      classes: ["dark-background"]
+
+   "profile-selectTeam-chooseLeague-page":
+      vm: vm.Profile.SelectTeam.ChooseLeague
+      classes: ["dark-background"]
+
+   "profile-selectTeam-chooseTeam-page":
+      vm: vm.Profile.SelectTeam.ChooseTeam
+      classes: ["dark-background"]
+
+   "profile-selectTeam-search-page":
+      vm: vm.Profile.SelectTeam.Search
       classes: ["dark-background"]
 
    ###
@@ -93,7 +118,7 @@ window.fannect.pages =
          {
             icon: "images/mobile/InfoButton@2x.png"
             position: "right"
-            click: () -> window.fannect.showTutorial()
+            click: () -> window.fannect.tutorial.show()
          }
       ]
       scroller: true
@@ -105,7 +130,7 @@ window.fannect.pages =
          {
             icon: "images/mobile/InfoButton@2x.png"
             position: "right"
-            click: () -> window.fannect.showTutorial()
+            click: () -> window.fannect.tutorial.show()
          }
       ]
       scroller: true
@@ -117,7 +142,7 @@ window.fannect.pages =
          {
             icon: "images/mobile/InfoButton@2x.png"
             position: "right"
-            click: () -> window.fannect.showTutorial()
+            click: () -> window.fannect.tutorial.show()
          }
       ]
       scroller: true

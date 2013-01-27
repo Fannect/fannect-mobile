@@ -1,0 +1,13 @@
+extend ../../layout
+
+block header
+   a(href="profile-selectTeam-chooseMethod.html", data-icon="back", data-rel="back", data-theme="b") Back
+   h1(data-menu-root="profile") Select Team
+   
+block content
+   input(type="search", data-bind="value: query, valueUpdate: ['afterkeydown'], onEnter: load")
+
+   ul.dark-pattern-bg(data-role="listview", data-theme="b", data-filter-theme="b", data-bind="foreach: teams, listviewUpdate: teams")
+      li
+         a(href="profile.html", data-bind="click: $parent.selectTeam, text: team_name", data-transition="slideup")
+     

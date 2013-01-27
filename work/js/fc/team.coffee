@@ -17,23 +17,24 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                fc.team._notify(team)
                done null, team
 
+      getActiveId: () -> fc.team._curr
       getActive: (done) ->
-         if _curr
-            fc.team.get(_curr, done) 
+         if fc.team.getActiveId()
+            fc.team.get(fc.team._curr, done) 
          else
-            forge.prefs.get "team_profile",
-               (err) -> done err
-               (team_profile_id) ->
-                  if team_profile_id
-                     _curr = team_profile_id
-                     fc.team.get _curr, done
-                  else
-                     done null, null
+            forge.prefs.get "team_profile_id"     
+            , (team_profile_id) ->
+               if team_profile_id
+                  fc.team._curr = team_profile_id
+                  fc.team.get fc.team._curr, done
+               else
+                  done null, null
+            , (err) -> throw err
 
       setActive: (team_profile_id, cache, done) ->
          if arguments < 3
             done = cache
-            cache = null
+            cache = false
 
          # Run functions in parallel so this tracks which are finished
          caching_finished = not cache
@@ -49,20 +50,29 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             if setting_finished then done err, team_profile
             else caching_finished = true
 
-      update: (team_profile) ->
-         if not fc.team._teams[team_profile._id]
+      create: (team_id, done) ->
+         fc.ajax 
+            url: "#{fc.getResourceURL()}/v1/me/teams"
+            type: "POST"
+            data: team_id: team_id
+         , (err, team) ->
+            return next(err) if err
+            fc.team._teams[team._id] = team
+            fc.team.setActive team._id, false
+            fc.team._notify(team)
+            done(null, team) if done
+
+      update: (update) ->
+         if not team = fc.team._teams[update._id or fc.team._curr]
             throw "Cannot update a team (#{team_profile._id}) that has not been fetched"
          
-         $.extend true, fc.team._curr, team
-         fc.team._notify(team_profile)
+         $.extend true, team, update
+         fc.team._notify(team)
 
       save: (team_profile) ->
          if team_profile then fc.team.update team_profile
          # implement saving
 
-      subscribe: (cb) ->
-         fc.team._subscribers.push cb if cb
-
-      _notify: (team) ->
-         sub team for sub in fc.team._subscribers
+      subscribe: (cb) -> fc.team._subscribers.push cb if cb
+      _notify: (team) -> sub team for sub in fc.team._subscribers
 

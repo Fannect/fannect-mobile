@@ -7,6 +7,11 @@
          "refresh_directory":"work/js"
       },
       {
+         "from":"work/js/lib/d3.v3.js",
+         "to":"{out}/js/d3.js",
+         "refresh_directory":"work/js"
+      },
+      {
          "from":"work/css/skin.styl",
          "to":"{out}/css/skin.css",
          "refresh_directory":"work/css"

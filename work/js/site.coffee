@@ -13,19 +13,19 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
 
    ).live("pagebeforeshow", () ->
       # check if logged in
-      if $($.mobile.activePage).attr("id") != "index-page"
+      if $.mobile.activePage.attr("id") != "index-page"
          fc.auth.isLoggedIn()
 
       fc.setActiveMenu getMenu @
 
    ).live("pageshow", () ->
       tutorial_pages = [ "profile-page", "games-attendanceStreak-page", "games-gameFace-page", "games-guessTheScore-page" ]
-      currentId = $($.mobile.activePage).attr("id")
+      currentId = $.mobile.activePage.attr("id")
       
       forge.prefs.get "tutorialShown", (shown = []) ->
          if currentId in tutorial_pages and not (currentId in shown)
             shown.push currentId
-            fc.showTutorial()
+            fc.tutorial.show()
             forge.prefs.set "tutorialShown", shown
 
    ).live "pageremove", () ->
@@ -33,7 +33,7 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
 
    $(".tutorial-link").live "click", (e) ->
       e.stopPropagation()
-      fc.showTutorial()
+      fc.tutorial.show()
       return false
       
    getMenu = (page) ->

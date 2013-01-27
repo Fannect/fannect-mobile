@@ -12,28 +12,45 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @points = ko.observable()
          @rank = ko.observable()
          @trash_talk = ko.observable()
+         @breakdown = ko.observableArray()
          @load()
 
          # testing
          # console.log "URL", fc.getDataURL("http://www.houstondynamo.com/sites/houston/files/sporting-kansas-city-logo.png", 400, 400);
 
          fc.user.subscribe @updateUser
+         fc.team.subscribe @updateTeamProfile
 
       load: () =>
          fc.user.get (err, user) => @updateUser user
+         fc.team.getActive (err, profile) => @updateTeamProfile profile
 
       updateUser: (user) =>
          @name "#{user.first_name} #{user.last_name}"
          @profile_image user.profile_image or ""
 
-      updateTeamProfile: (team_profile) =>
-         @team_image team_profile.image or ""
-         @team_name team_profile.name or "Select Team"
-         @roster team_profile.roster
-         @points team_profile.points
-         @rank team_profile.rank
-         @trash_talk team_profile.trash_talk
-         
+      updateTeamProfile: (profile) =>
+         return unless profile
+
+         @team_image profile.team_image_url or ""
+         @team_name profile.team_name or "Select Team"
+         @roster profile.roster or 0
+         @points profile.points?.overall or 0
+         @rank profile.rank or 0
+         @trash_talk profile.trash_talk
+
+         # Add chart data
+         if profile.points
+            @breakdown.push
+               val: profile.points.passion
+               style: "passion"
+            @breakdown.push
+               val: profile.points.dedication
+               style: "dedication"
+            @breakdown.push
+               val: profile.points.knowledge
+               style: "knowledge"
+
       changeUserImage: () => @editing_image "profile"
       changeTeamImage: () => @editing_image "team"
       cancelImagePicking: () => @editing_image "none"

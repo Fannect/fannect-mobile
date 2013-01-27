@@ -17,7 +17,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             done null, teams if done
 
       selectTeam: (data) ->
-         fc.team.setActive data.team_profile_id, true, () ->
+         fc.team.setActive data._id, true, () ->
             $.mobile.changePage "profile.html", transition: "slideup"
             # window.history.back()
 

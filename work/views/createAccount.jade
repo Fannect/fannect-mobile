@@ -1,0 +1,23 @@
+extend layout
+
+block header
+   h1 Create Account
+
+block content
+   .fannect-logo
+
+   form
+      label(for="firstname") First Name
+      input(type="text", name="firstname", data-bind="value: first_name")
+      label(for="lastname") Last Name
+      input(type="text", name="lastname", data-bind="value: last_name")
+      label(for="email") Email
+      input(type="text", name="email", data-bind="value: email")
+      label(for="password") Password
+      input(type="password", name="password", data-bind="value: password")
+      label(for="password") Confirm Password
+      input(type="password", name="password", data-bind="value: confirm_password")
+      
+      button(data-role="button", data-bind="click: createAccount, clickBubble: false") Create Account
+
+block footer

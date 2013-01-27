@@ -1,5 +1,4 @@
 do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
-   currentPrefs = null
    showLoading = false
    cachedIsSlow = null
 
@@ -15,11 +14,13 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
          fc.mobile.setupHeader()
 
    fc.getResourceURL = () ->
+      # "http://fannect-api.herokuapp.com"
       # return "http://192.168.0.21:2100"
       return if forge.is.web() then "http://localhost:2100" else "http://fannect-api.herokuapp.com"
 
    fc.getLoginURL = () ->
-      return if forge.is.web() then "http://localhost:2200" else "https://fannect-login.herokuapp.com"
+      "https://fannect-login.herokuapp.com"
+      # return if forge.is.web() then "http://localhost:2200" else "https://fannect-login.herokuapp.com"
 
    fc.createPages = () ->
       for i, p of window.fannect.pages
@@ -85,65 +86,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
 
    $(".ui-page").live "pageshow", () -> if showLoading then fc.loading "show"
 
-   fc.ajax = (options, done) ->
-      done = done or options.success
-      options.success = (result) ->
-         console.log "#{options.url}:", JSON.parse(result) 
-         # fc.loading "hide" unless options.hide_loading
-         done null, JSON.parse(result)
-      options.error = (error) ->
-         # fc.loading "hide" unless options.hide_loading
-
-         if error?.status == 401 and not options.second_try
-            fc.auth.getNewAccessToken (err, token) ->
-               options.second_try = true
-               fc.ajax(options, done)
-         else
-            console.error "#{options.url}:", error
-            console.error JSON.parse error.responseText
-            throw error
-            done error
-
-      # Get a new access token if we don't have one and then rerun the requrest
-      if not fc.auth.hasAccessToken()
-         return fc.auth.getNewAccessToken (err, token) ->
-            options.second_try = true
-            fc.ajax(options, done)
-
-      # Append access_token on to querystring
-      if options.url.indexOf("?") > 0
-         options.url += "&access_token=#{fc.auth.getAccessToken()}"
-      else
-         options.url += "?access_token=#{fc.auth.getAccessToken()}"
-
-      # fc.loading "show" unless options.hide_loading
-      forge.ajax(options)
-
    fc.clearBindings = (context) ->
       ko.cleanNode context
-
-   fc.showTutorial = () ->
-      $tutorial = $(".tutorial", $.mobile.activePage).fadeIn(400)
-      
-      unless $tutorial.data("tutorial_is_init")
-         if $tutorial.children(".tutorial-slider.one").length < 1
-            tutorial = $tutorial.get(0)
-            slider = new Swipe(tutorial, speed: 500)
-            $tutorial.data("tutorial_is_init", true)
-
-            $(".tutorial-next", tutorial).click (e) ->
-               e.stopPropagation()
-               slider.next()
-            $(".tutorial-prev", tutorial).click (e) ->
-               e.stopPropagation()
-               slider.prev()
-
-         $(".tutorial-close", tutorial).click (e) ->
-            e.stopPropagation()
-            fc.hideTutorial()
-
-   fc.hideTutorial = () ->
-      $(".tutorial", $.mobile.activePage).fadeOut(400)
 
    fc.getDataURL = (file, max_width, max_height, done) ->
       canvas = document.createElement("canvas")

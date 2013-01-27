@@ -7,7 +7,7 @@ block content
    
    input(type="search", data-bind="value: query, valueUpdate: ['afterkeydown'], onEnter: load")
 
-   .build-your-team(data-bind="fadeIn: show_message()")
+   .build-your-team(data-bind="fadeIn: show_message(), hideInstant: true")
       .gray-connect-icon
       .title Build your team!
       .text Tap the "Add" button to add more of your team's fans to your roster.

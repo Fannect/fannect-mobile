@@ -10,15 +10,36 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             data: { email: email, password: pw }
             success: (user) ->
                user = JSON.parse(user)
-               fc.auth._refresh_token = user.refresh_token
-               fc.auth._access_token = user.access_token
-               forge.prefs.set "refresh_token", user.refresh_token
-               fc.user.update user
+               fc.auth._loginUser(user)
                done(null, user)
             error: (err) ->
-               done err
+               done(err)
 
          forge.ajax(options)
+
+      _loginUser: (user) ->
+         fc.auth._refresh_token = user.refresh_token
+         fc.auth._access_token = user.access_token
+         forge.prefs.set "refresh_token", user.refresh_token
+         fc.user.update user
+         
+      createAccount: (user, done) ->
+         options = 
+            type: "POST"
+            url: "#{fc.getLoginURL()}/v1/users"
+            data: user
+            success: (user) ->
+               user = JSON.parse(user)
+               fc.auth._loginUser(user)
+               done()
+            error: (err) ->
+               done(err)
+
+         forge.ajax(options)
+
+      signout: (done) ->
+         fc.auth._refresh_token = null
+         forge.prefs.set "refresh_token", null, fc.auth.redirectToLogin, fc.auth.redirectToLogin
 
       hasAccessToken: () ->
          return fc.auth._access_token?
@@ -39,7 +60,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   fc.auth._access_token = data.access_token
                   done(null, fc.auth._access_token) if done
                error: (err) ->
-                  done err
+                  resp = JSON.parse(err.responseText)
+                  if resp.reason == "invalid_argument" then fc.auth.signout()
+                  done(err)
 
             forge.ajax(options)
 
@@ -62,5 +85,5 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       redirectToLogin: () ->
          noAuth = ["index-page", "createAccount-page"]
-         if not ($.mobile.activePage.id in noAuth)
+         if not ($.mobile.activePage.attr("id") in noAuth)
             $.mobile.changePage "index.html", transition: "slidedown"
