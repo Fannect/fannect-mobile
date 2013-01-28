@@ -50,18 +50,16 @@ html
                .image-wrap
                   img.profile-image(data-bind="attr: { 'src': profile_image_url }")
                   .cover
-               .fan-info
-                  .name(data-bind="text: name")
+               .fan-name(data-bind="text: name")
 
-      script(id="invitation-fan-template", type="text/html")
+      script(id="invite-fan-template", type="text/html")
          li.fan(data-icon="false")
             a(data-bind="click: $parent.selectUser", data-transition="slide")
                .left-icon.cancel
                .image-wrap
                   img.profile-image(data-bind="attr: { 'src': profile_image_url }")
                   .cover
-               .fan-info
-                  .name(data-bind="text: name")
+               .fan-name(data-bind="text: name")
                .right-icon.accept
 
       script(id="leaderboard-fan-template", type="text/html")
@@ -70,6 +68,12 @@ html
                .image-wrap
                   img.profile-image(data-bind="attr: { 'src': profile_image_url }")
                   .cover
-               .fan-info
-                  .name(data-bind="text: name")
-               .right-icon.rank(data-bind="text: $index")
+               .fan-name(data-bind="text: name")
+               .right-icon.rank(data-bind="text: $index() + 1")
+
+
+      script(id="leaderboard-team-template", type="text/html")
+         li.team-item(data-icon="false")
+            a
+               .team-name(data-bind="text: abbreviation + ' ' + nickname")
+               .right-icon.rank(data-bind="text: $index() + 1")

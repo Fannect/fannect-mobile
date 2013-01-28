@@ -6,6 +6,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @limit = 20
          @overall_skip = 0
          @roster_skip = 0
+         @no_overall_results = false
+         @no_roster_results = false
 
          @prev_scroll = 0
          @track_scrolling = true
@@ -33,29 +35,37 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @track_scrolling = true
          , 50
 
-      loadOverall: (done) ->
+      loadOverall: () ->
+         return if @no_overall_results
          @loading_more true
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/leaderboard/users/#{fc.team.getActiveId()}?limit=#{@limit}&skip=#{@overall_skip}"
             type: "GET"
-            hide_loading: true
          , (error, users) =>
             setTimeout (() => @loading_more(false)), 200
-            @overall_skip += @limit
-            @overall_users.push user for user in users
-            if done then done null, users
+            
+            if users.length > 0
+               @overall_skip += @limit
+               @overall_fans.push user for user in users
+            else if @overall_skip = 0
+               @no_overall_results = true
+         return true
 
-      loadRoster: (done) ->
+      loadRoster: () =>
+         return if @no_roster_results
          @loading_more true
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/leaderboard/users/#{fc.team.getActiveTeamId()}?friends_of=#{fc.team.getActiveId()}&limit=#{@limit}&skip=#{@roster_skip}"
             type: "GET"
-            hide_loading: true
          , (error, users) =>
             setTimeout (() => @loading_more(false)), 200
-            @roster_skip += @limit
-            @roster_users.push user for user in users
-            if done then done null, users
+
+            if users.length > 0
+               @roster_skip += @limit
+               @roster_fans.push user for user in users
+            else if @roster_skip = 0
+               @no_roster_results = true
+         return true
 
       onPageShow: () ->
          $window = $(window).scroll () =>

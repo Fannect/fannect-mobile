@@ -97,6 +97,7 @@
       font-size: 1.8em
       font-weight: bold
       text-align: center
+      margin: 0 10px
    .team-name-wrap
       display: table
       position: relative
@@ -174,22 +175,43 @@
       .separator
          background-position: -645px 0 
 
-   .breakdown
-      width: 280px
-      height: 200px
+
+   .graph-wrapper
+      background: url(../images/profile/fanDNAGraph-Box.png)
+      background-size: 270px 169px
+      width: 270px
+      height: 169px
       margin: 0 auto
-      border-bottom: 1px #111 solid
+
+      .breakdown 
+         width: 205px
+         height: 154px
+         margin: 0 auto
+         padding-top: 12px
+
+   .graph-base
+      position: relative
+      background: url(../images/profile/graphBase@2x.png) 50% 0 no-repeat
+      background-size: 400px 51px
+      width: 400px
+      height: 51px
+      margin: -18px auto 0
+      font-size: .7em
+      z-index: 5
 
       .passion
-         fill: #c1272d
-         stroke: #222
       .dedication
-         fill: #00a651
-         stroke: #222
       .knowledge
-         fill: #0072bc
-         stroke: #222
-
+         color: #c0c0c0
+         position: absolute
+         top: 20px
+      .passion
+         left: 98px
+      .dedication
+         left: 177px
+      .knowledge
+         left: 255px
+      
 #profile-page
    .tutorial-welcome
       height: 39px
@@ -253,9 +275,7 @@
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
    #profile-page
-   #connect-profile-page
-   #profile-invitationProfile-page
-   #leaderboard-rosterProfile-page
+   #profile-other-page
       .settings-button
          background-image: url(../images/profile/settingsIcon@2x.png)!important
       .team-wrap .cover
@@ -272,7 +292,10 @@
          background-image: url(../images/profile/Profile_ScoreDisplay-iPhone@2x.png)!important
       .separator
          background-image: url(../images/profile/ProfileSeperators@2x.png)!important
-   
+      .graph-wrapper
+         background-image: url(../images/profile/fanDNAGraph-Box@2x.png)
+
+
    #profile-page
       .tutorial-welcome
          background-image: url(../images/tutorial/Tutorial_welcomeBanner@2x.png)

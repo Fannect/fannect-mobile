@@ -1,6 +1,7 @@
 extend ../layout
 
 block header
+   a(data-icon="back", data-rel="back", data-theme="b") Back
    h1(data-menu-root="leaderboard") Leaderboard
    .ui-bar-a.switcher
       fieldset(data-role="controlgroup", data-type="horizontal", data-mini="true")
@@ -14,4 +15,4 @@ block content
    .fans-lists
       ul.fans.pattern-bg(data-role="listview", data-bind="template: { name:'leaderboard-fan-template', foreach: overall_fans }, visible: is_overall_selected, listviewUpdate: overall_fans")
       ul.fans.pattern-bg(data-role="listview", data-bind="template: { name:'leaderboard-fan-template', foreach: roster_fans }, visible: is_roster_selected, listviewUpdate: roster_fans")
-      div.loading-more-indicator(data-bind="visible: loading_more", style="display:none;")
+      .loading-more-indicator(data-bind="visible: loading_more", style="display:none;")

@@ -27,9 +27,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             url: "#{fc.getResourceURL()}/v1/users/#{@other_user_id}/invite"
             type: "POST"
             data: inviter_user_id: user._id
-         , () ->
-            forge.topbar.removeButtons () ->
-               window.fannect.mobile.addHeaderButton 
-                  text: "Back"
-                  position: "left"
-                  click: @leftButtonClick
+         , () -> console.log "SUCCESS"
+         forge.topbar.removeButtons () ->
+            window.fannect.mobile.addHeaderButton 
+               text: "Back"
+               position: "left"
+               click: @leftButtonClick

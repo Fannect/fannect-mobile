@@ -34,13 +34,9 @@ window.fannect.pages =
       scroller: false
       classes: ["no-padding"]
 
-   "profile-invitations-page":
-      vm: vm.Profile.Invitations
+   "profile-invites-page":
+      vm: vm.Profile.Invites
       classes: ["light-background"]
-   
-   "profile-invitationProfile-page":
-      vm: vm.Profile.InvitationProfile
-      classes: ["no-padding"]
    
    "profile-chooseWebImage-page":
       vm: vm.Profile.ChooseWebImage
@@ -162,3 +158,15 @@ window.fannect.pages =
          }
       ]
       classes: ["light-background"]
+
+   "leaderboard-conference-page": 
+      vm: vm.Leaderboard.Conference
+      classes: ["light-background"]
+
+   "leaderboard-league-page": 
+      vm: vm.Leaderboard.Conference
+      classes: ["light-background"]
+
+   "leaderboard-breakdown-page":
+      vm: vm.Leaderboard.Breakdown
+      classes: ["light-background", "no-padding"]

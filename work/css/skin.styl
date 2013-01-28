@@ -44,7 +44,7 @@ body
 
 .ui-page
    background: url(../images/Tilable-Background.png) 50% 0
-   background-size: 50px 50px
+   background-size: 500px 50px
 
 .no-padding
    .content
@@ -128,7 +128,7 @@ body
    background-size: 134px 43px
    width: 110px
    height: 25px
-   padding: 8px 12px 10px 12px
+   padding: 6px 12px 10px 12px
    text-align: center
    .team
       margin-bottom: 2px
@@ -241,17 +241,14 @@ body
             height: 43px
             border-radius: 5px
             dropshadow: inset 1px 2px 3px rgba(0,0,0,0.6), 0 1px 2px rgba(255, 255, 255, 0.8), 0 -1px 1px rgba(0, 0, 0, 0.8)
-      .fan-info
-         margin: -2px 0 0 12px
-         float: left
-         .name
-            font-size: 1.5em
-            font-weight: bold
-         .team
-            font-size: .9em
-            font-weight: lighter
-            margin: 3px 0 4px 0
-            color: color-red
+      a.ui-link-inherit
+         display: table
+      .fan-name
+         display: table-cell
+         vertical-align: middle
+         padding-left: 12px
+         font-size: 1.4em
+         font-weight: bold
       .left-icon
          width: 38px            
          height: 43px
@@ -271,7 +268,7 @@ body
             background-size: 27px 28px
             font-family: JerseyM54, Helvetica, Arial, sans-serif
             text-align: center
-            font-size: 1.1em
+            font-size: 1em
             line-height: 63px
             color: color-dark-red
             padding-left: 2px
@@ -279,7 +276,27 @@ body
             background: url(../images/icons/Button_Delete.png) 50% 50% no-repeat
             background-size: 19px 19px
 
+.team-list
+   &.has-search
+      margin-top: 0px
 
+   .team-item
+      .right-icon
+         position: absolute
+         right: 10px
+         top: 0 
+         width: 34px            
+         height: 42px
+         &.rank
+            background: url(../images/leaderboard/Overlay_LeaderboardRank.png) 50% 50% no-repeat
+            background-size: 27px 28px
+            font-family: JerseyM54, Helvetica, Arial, sans-serif
+            text-align: center
+            font-size: 1em
+            line-height: 40px
+            color: color-dark-red
+            padding-left: 2px
+         
 .tutorial-link .ui-icon.ui-icon-custom
    background: url(../images/tutorial/InfoButton@2x.png) no-repeat
    background-size: 18px 18px
@@ -433,7 +450,7 @@ body
       
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
    .ui-page
-      background-image: url(../images/Tilable-Background@2x.png)
+      background-image: url(../images/Tilable-Background03@2x.png)
    .team-glass
       background-image: url(../images/games/Overlay_TeamGlass_iPhone@2x.png)
    .footer .ui-icon.ui-icon-custom
@@ -460,6 +477,7 @@ body
       background-image: url(../images/icons/icons-gamecell@2x.png)
 
    .fans
+   .team-list
       .cancel
          background-image: url(../images/icons/Button_Delete@2x.png)!important
       .accept
@@ -488,6 +506,7 @@ body
    .tutorial-submit-button
       background-image: url(../images/tutorial/Tutorial_submitButton@2x.png)!important
       
+@import "charts"
 @import "pages/profile"
 @import "pages/games"
 @import "pages/games/attendanceStreak"

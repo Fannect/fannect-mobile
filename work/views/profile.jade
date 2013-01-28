@@ -2,7 +2,7 @@ extend layout
 
 block header
    h1(data-menu-root="profile") Profile
-   a.ui-btn-left(href="profile-invitations.html", data-role="button", data-iconpos="notext", data-icon="custom", data-theme="b", data-shadow="false")
+   a.ui-btn-left(href="profile-invites.html", data-role="button", data-iconpos="notext", data-icon="custom", data-theme="b", data-shadow="false")
    a.ui-btn-right(href="settings.html", data-role="button", data-transition="slidedown", data-theme="b") Edit
 
    #changeProfileImagePopup(data-role="popup", style="width:260px;", class="ui-corner-all", data-overlay-theme="a", data-theme="a")
@@ -60,8 +60,13 @@ block content
    .bragging-rights
       .separator
 
-   .breakdown(data-bind="chart: breakdown")
-   
+   .graph-wrapper
+      .breakdown(data-bind="chart: breakdown")
+   .graph-base
+      span.passion Passion
+      span.dedication Dedication
+      span.knowledge Knowledege
+
 block tutorial
    .tutorial-slider.four
       .tutorial-item

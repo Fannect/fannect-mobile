@@ -6,8 +6,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @password = ko.observable()
          super
 
-      login: () ->
-         fc.auth.login @email(), @password(), (error) ->
+      login: () =>
+         fc.auth.login @email(), @password(), (error) =>
             unless error
                $.mobile.changePage "profile.html", transition: "slideup"
 
@@ -18,3 +18,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.auth.isLoggedIn (err, is_logged_in) ->
             if is_logged_in
                $.mobile.changePage "profile.html", transition: "none"
+
+      rightButtonClick: () =>
+         $.mobile.changePage "createAccount.html", transition: "slide"

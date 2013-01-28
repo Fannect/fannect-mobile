@@ -1,0 +1,9 @@
+extend ../layout
+
+block header
+   h1(data-menu-root="profile") INVITES
+   a(href="profile.html", data-icon="back", data-rel="back", data-theme="b") Profile
+   
+block content
+   .no-invites(data-bind="fadeIn: no_invites") You're invitationless!
+   ul.fans.pattern-bg(data-role="listview", data-theme="a", data-bind="template: { name:'invite-fan-template', foreach: invites }, listviewUpdate: invites, visible: !no_invites()")

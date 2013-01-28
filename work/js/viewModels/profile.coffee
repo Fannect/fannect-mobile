@@ -7,7 +7,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @name = ko.observable("&nbsp;")
          @team_image = ko.observable ""
          @profile_image = ko.observable ""
-         @team_name = ko.observable ""
+         @team_name = ko.observable "Select Team"
          @roster = ko.observable()
          @points = ko.observable()
          @rank = ko.observable()
@@ -31,8 +31,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @trash_talk profile.trash_talk
 
          # Add chart data
+         @breakdown.removeAll()
          if profile.points
-            @breakdown.removeAll()
             @breakdown.push
                val: profile.points.passion
                style: "passion"

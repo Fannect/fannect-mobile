@@ -1,0 +1,11 @@
+extend ../layout
+
+block header
+   a(data-icon="back", data-rel="back", data-theme="b") Back
+   h1(data-menu-root="leaderboard") Leaderboard
+
+block content
+
+   ul.team-list.pattern-bg(data-role="listview", data-bind="template: { name:'leaderboard-team-template', foreach: teams }, listviewUpdate: teams")
+   .loading-more-indicator(data-bind="visible: loading_more", style="display:none;")
+      

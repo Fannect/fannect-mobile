@@ -6,7 +6,7 @@ block header
 block content
    .fannect-logo
 
-   form
+   form(data-bind="submit: createAccount")
       label(for="firstname") First Name
       input(type="text", name="firstname", data-bind="value: first_name")
       label(for="lastname") Last Name
@@ -18,6 +18,6 @@ block content
       label(for="password") Confirm Password
       input(type="password", name="password", data-bind="value: confirm_password")
       
-      button(data-role="button", data-bind="click: createAccount, clickBubble: false") Create Account
+      button(data-role="button", type="submit") Create Account
 
 block footer

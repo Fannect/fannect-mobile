@@ -24,8 +24,7 @@
 #= require "viewModels/leaderboard.coffee"
 #= require "viewModels/connect.coffee"
 
-#= require "viewModels/profile-vm/invitations.coffee"
-#= require "viewModels/profile-vm/invitationProfile.coffee"
+#= require "viewModels/profile-vm/invites.coffee"
 #= require "viewModels/profile-vm/chooseWebImage.coffee"
 #= require "viewModels/profile-vm/editBio.coffee"
 #= require "viewModels/profile-vm/editGameDaySpot.coffee"
@@ -43,6 +42,10 @@
 #= require "viewModels/games-vm/guessTheScore.coffee"
 
 #= require "viewModels/leaderboard-vm/users.coffee"
+#= require "viewModels/leaderboard-vm/teamList.coffee"
+#= require "viewModels/leaderboard-vm/conference.coffee"
+#= require "viewModels/leaderboard-vm/league.coffee"
+#= require "viewModels/leaderboard-vm/breakdown.coffee"
 
 #= require "pages.coffee"
 #= require "site.coffee"
