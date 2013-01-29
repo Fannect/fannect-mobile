@@ -3,7 +3,7 @@ extend layout
 block header
    h1(data-menu-root="profile") Profile
    a.ui-btn-left(href="profile-invites.html", data-role="button", data-iconpos="notext", data-icon="custom", data-theme="b", data-shadow="false")
-   a.ui-btn-right(href="settings.html", data-role="button", data-transition="slidedown", data-theme="b") Edit
+   a.ui-btn-right(href="settings.html", data-role="button", data-transition="slidedown", data-theme="b", data-iconpos="notext", data-icon="gear") Edit
 
    #changeProfileImagePopup(data-role="popup", style="width:260px;", class="ui-corner-all", data-overlay-theme="a", data-theme="a")
       .ui-corner-top(data-role="header", data-theme="b")
@@ -25,8 +25,6 @@ block header
 
 block content
    .profile-images
-      //- a.settings-button.ui-corner-all(href="settings.html", data-transition="slidedown")
-
       .team-wrap(data-bind="click: changeTeamImage, clickBubble: false, showPopup: '#changeTeamImagePopup'")
          img(data-bind="attr: {src:team_image}, visible: team_image().length > 0")
          .team-hint.ui-corner-all
@@ -63,6 +61,7 @@ block content
    .graph-wrapper
       .breakdown(data-bind="chart: breakdown")
    .graph-base
+      .highlight
       span.passion Passion
       span.dedication Dedication
       span.knowledge Knowledege

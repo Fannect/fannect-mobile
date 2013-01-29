@@ -1,12 +1,13 @@
 do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect) ->
    fc.ajax = (options, done) ->
       done = done or options.success
+      console.log "Requesting: #{options.url}"
       options.success = (result) ->
          console.log "#{options.url}:", JSON.parse(result) 
          # fc.loading "hide" unless options.hide_loading
          done null, JSON.parse(result)
       options.error = (error) ->
-         console.error "#{options.url}:", error
+         console.error "#{options.url} (err):", error
          # fc.loading "hide" unless options.hide_loading
 
          if error?.status == 401 and not options.second_try

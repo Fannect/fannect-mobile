@@ -35,37 +35,41 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @track_scrolling = true
          , 50
 
-      loadOverall: () ->
+      loadOverall: () =>
          return if @no_overall_results
          @loading_more true
-         fc.ajax 
-            url: "#{fc.getResourceURL()}/v1/leaderboard/users/#{fc.team.getActiveId()}?limit=#{@limit}&skip=#{@overall_skip}"
-            type: "GET"
-         , (error, users) =>
-            setTimeout (() => @loading_more(false)), 200
-            
-            if users.length > 0
-               @overall_skip += @limit
-               @overall_fans.push user for user in users
-            else if @overall_skip = 0
-               @no_overall_results = true
-         return true
+
+         fc.team.getActive (err, profile) =>
+            fc.ajax 
+               url: "#{fc.getResourceURL()}/v1/leaderboard/users/#{profile._id}?limit=#{@limit}&skip=#{@overall_skip}"
+               type: "GET"
+            , (error, users) =>
+               setTimeout (() => @loading_more(false)), 200
+               
+               if users.length > 0
+                  @overall_skip += @limit
+                  @overall_fans.push user for user in users
+               else if @overall_skip = 0
+                  @no_overall_results = true
+            return true
 
       loadRoster: () =>
          return if @no_roster_results
          @loading_more true
-         fc.ajax 
-            url: "#{fc.getResourceURL()}/v1/leaderboard/users/#{fc.team.getActiveTeamId()}?friends_of=#{fc.team.getActiveId()}&limit=#{@limit}&skip=#{@roster_skip}"
-            type: "GET"
-         , (error, users) =>
-            setTimeout (() => @loading_more(false)), 200
 
-            if users.length > 0
-               @roster_skip += @limit
-               @roster_fans.push user for user in users
-            else if @roster_skip = 0
-               @no_roster_results = true
-         return true
+         fc.team.getActive (err, profile) =>
+            fc.ajax 
+               url: "#{fc.getResourceURL()}/v1/leaderboard/users/#{profile.team_id}?friends_of=#{profile._id}&limit=#{@limit}&skip=#{@roster_skip}"
+               type: "GET"
+            , (error, users) =>
+               setTimeout (() => @loading_more(false)), 200
+
+               if users.length > 0
+                  @roster_skip += @limit
+                  @roster_fans.push user for user in users
+               else if @roster_skip = 0
+                  @no_roster_results = true
+            return true
 
       onPageShow: () ->
          $window = $(window).scroll () =>

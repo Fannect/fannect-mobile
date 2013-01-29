@@ -74,3 +74,10 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
          viewModel.chartTimeoutId = setTimeout (() ->
             viewModel.chart.update(data)
          ), 10
+
+   ko.bindingHandlers.listviewClick = 
+      init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
+         link = $(element).click () ->
+            console.log link.parents("li.ui-li").addClass("ui-btn-active")
+         console.log link
+

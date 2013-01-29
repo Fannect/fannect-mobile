@@ -11,14 +11,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @teams = ko.observableArray []
          @load()
 
-      load: (done) ->
+      load: () ->
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/sports/#{fc.cache.get('sport_key')}/leagues/#{fc.cache.get('league_key')}/teams"
             type: "GET"
          , (error, teams) =>
-            for team in teams
-               team.team_name = "#{team.abbreviation} #{team.nickname}"
-               @teams.push team
-            done null, teams if done
+            @teams.push team for team in teams
 
-      selectTeam: (data) -> fc.team.create(data._id)
+      selectTeam: (data) -> 
+         fc.team.create data._id, () ->
+            $.mobile.changePage "profile.html", transition: "slideup"

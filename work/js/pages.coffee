@@ -28,7 +28,7 @@ window.fannect.pages =
             icon: "images/mobile/rosterInviteIcon.png"
          }, {
             position: "right"
-            text: "Edit"
+            icon: "images/profile/settingsIcon@2x.png"
          }
       ]
       scroller: false

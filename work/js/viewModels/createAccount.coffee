@@ -10,13 +10,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super
 
       createAccount: () =>
-         console.log "HIT"
          fc.auth.createAccount
             first_name: @first_name()
             last_name: @last_name()
             email: @email()
             password: @password()
          , (err) ->
-            unless err
-               $.mobile.changePage "profile.html", transition: "slideup"
+            fc.team.redirectToSelect(hide_back: true)
          return false

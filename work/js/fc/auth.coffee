@@ -21,6 +21,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          fc.auth._refresh_token = user.refresh_token
          fc.auth._access_token = user.access_token
          forge.prefs.set "refresh_token", user.refresh_token
+         forge.prefs.set "user_id", user._id
          fc.user.update user
          
       createAccount: (user, done) ->
@@ -37,9 +38,12 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
          forge.ajax(options)
 
-      signout: (done) ->
+      logout: (done) ->
          fc.auth._refresh_token = null
+         fc.team._curr = null
          forge.prefs.set "refresh_token", null, fc.auth.redirectToLogin, fc.auth.redirectToLogin
+         forge.prefs.set "user_id", null
+         forge.prefs.set "team_profile_id", null
 
       hasAccessToken: () ->
          return fc.auth._access_token?
@@ -51,17 +55,18 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       getNewAccessToken: (done) ->
          fc.auth.getRefreshToken (err, token) ->
             done(err) if err
+            console.log "Requesting: new access_token"
             options =
                type: "PUT"
                url: "#{fc.getLoginURL()}/v1/token"
                data: { refresh_token: token }
                success: (data) ->
+                  console.log "Success: new access_token"
                   data = JSON.parse data
                   fc.auth._access_token = data.access_token
                   done(null, fc.auth._access_token) if done
                error: (err) ->
-                  resp = JSON.parse(err.responseText)
-                  if resp.reason == "invalid_argument" then fc.auth.signout()
+                  fc.auth.logout()
                   done(err)
 
             forge.ajax(options)

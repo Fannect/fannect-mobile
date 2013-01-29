@@ -20,16 +20,6 @@
       width: 320px
       margin: 0 auto
 
-      .settings-button
-         position: absolute
-         left: 10px
-         top: 5px
-         width: 48px
-         height: 48px
-         background: rgba(0,0,0,.4) url(../images/profile/settingsIcon.png) 50% 50% no-repeat
-         background-size: 30px 32px
-         cursor: pointer
-
       .team-wrap
          position: absolute
          right: 0
@@ -190,14 +180,20 @@
          padding-top: 12px
 
    .graph-base
-      position: relative
-      background: url(../images/profile/graphBase@2x.png) 50% 0 no-repeat
-      background-size: 400px 51px
-      width: 400px
-      height: 51px
+      width: 200px
+      height: 40px
       margin: -18px auto 0
+      position: relative
       font-size: .7em
-      z-index: 5
+    
+      .highlight
+         position: absolute
+         left: -100px 
+         background: url(../images/profile/graphBase.png) 50% 0 no-repeat
+         background-size: 400px 51px
+         width: 400px
+         height: 51px
+         z-index: 5
 
       .passion
       .dedication
@@ -206,11 +202,16 @@
          position: absolute
          top: 20px
       .passion
-         left: 98px
+         left: -2px
       .dedication
-         left: 177px
+         left: 77px
       .knowledge
-         left: 255px
+         left: 155px
+
+// #profile-selectTeam-chooseMethod-page
+//    .or
+//       text-align: center
+//       font-size: 1
       
 #profile-page
    .tutorial-welcome
@@ -294,7 +295,8 @@
          background-image: url(../images/profile/ProfileSeperators@2x.png)!important
       .graph-wrapper
          background-image: url(../images/profile/fanDNAGraph-Box@2x.png)
-
+      .highlight
+         background-image: url(../images/profile/graphBase@2x.png)
 
    #profile-page
       .tutorial-welcome

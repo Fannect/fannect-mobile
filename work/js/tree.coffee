@@ -3,6 +3,7 @@
 #= require "lib/purl.js"
 #= require "lib/swipe.js"
 #= require "lib/ua-parser.js"
+# "lib/d3.v3.js"
 
 #= require "fc/helpers.coffee"
 #= require "fc/ajax.coffee"

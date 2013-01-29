@@ -1,12 +1,13 @@
 extend layout
 
 block header
+   a(data-icon="back", data-rel="back", data-theme="b") Back
    h1 Create Account
 
 block content
    .fannect-logo
 
-   form(data-bind="submit: createAccount")
+   form(data-bind="submit: createAccount", data-ajax="false")
       label(for="firstname") First Name
       input(type="text", name="firstname", data-bind="value: first_name")
       label(for="lastname") Last Name

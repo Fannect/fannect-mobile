@@ -2,12 +2,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
    class fc.viewModels.Profile extends fc.viewModels.Base 
       constructor: () ->
+         console.log "PROFILE"
          super
          @editing_image = ko.observable("none")
          @name = ko.observable("&nbsp;")
          @team_image = ko.observable ""
          @profile_image = ko.observable ""
-         @team_name = ko.observable "Select Team"
+         @team_name = ko.observable "Loading..."
          @roster = ko.observable()
          @points = ko.observable()
          @rank = ko.observable()
@@ -17,14 +18,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       load: () =>
          fc.team.subscribe @updateProfile
-         fc.team.loadActive()
+         fc.team.getActive()
 
       updateProfile: (profile) =>
          return unless profile
          @name profile.name or "&nbsp;"
          @profile_image profile.profile_image_url or ""
          @team_image profile.team_image_url or ""
-         @team_name profile.team_name or "Select Team"
+         @team_name profile.team_name
          @roster profile.roster or 0
          @points profile.points?.overall or 0
          @rank profile.rank or 0
@@ -62,6 +63,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          forge.file.getImage source: "gallery", done
          , (error) ->
             console.log "ERROR: #{JSON.stringify(error)}"
+
+      leftButtonClick: () ->
+         $.mobile.changePage "profile-invites.html", transition: "slidedown"
 
       rightButtonClick: () ->
          $.mobile.changePage "settings.html", transition: "slidedown"

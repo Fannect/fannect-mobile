@@ -8,7 +8,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @query = ko.observable("")
          @fans = ko.observableArray []
          @loading_more = ko.observable false
-         @show_message = ko.observable false
 
          @query.subscribe () =>
             @fans.removeAll()
@@ -17,21 +16,20 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @load()
 
       load: (done) ->
-         @show_message false
          @loading_more true
-         fc.ajax 
-            url: "#{fc.getResourceURL()}/v1/teams/#{fc.team.getActiveTeamId()}/users?limit=#{@limit}&skip=#{@skip}&q=#{@query()}"
-            type: "GET"
-            hide_loading: true
-         , (error, fans) =>
-            setTimeout () => 
-               @loading_more false
-               @show_message(true) if @query().length == 0 and fans.length == 0 
-            , 150
 
-            @skip += @limit
-            @fans.push fan for fan in fans
-            done null, fans if done
+         fc.team.getActive (err, profile) =>
+            fc.ajax 
+               url: "#{fc.getResourceURL()}/v1/teams/#{profile.team_id}/users?limit=#{@limit}&skip=#{@skip}&q=#{escape(@query())}"
+               type: "GET"
+            , (error, fans) =>
+               setTimeout () => 
+                  @loading_more false
+               , 150
+
+               @skip += @limit
+               @fans.push fan for fan in fans
+               done null, fans if done
 
       onPageShow: () =>
          $window = $(window).scroll () =>

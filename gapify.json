@@ -7,7 +7,7 @@
          "refresh_directory":"work/js"
       },
       {
-         "from":"work/js/lib/d3.v3.js",
+         "from":"work/js/lib/d3.v3.min.js",
          "to":"{out}/js/d3.js",
          "refresh_directory":"work/js"
       },

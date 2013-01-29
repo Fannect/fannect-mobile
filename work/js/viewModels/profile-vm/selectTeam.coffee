@@ -4,22 +4,25 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       constructor: () ->
          super 
          @teams = ko.observableArray []
-         @has_loaded = ko.observable false
+         @has_loaded = ko.observable(false)
          @load()
 
       load: (done) ->
+         console.log "HIT HERE"
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/me/teams"
             type: "GET"
          , (error, teams) =>
             @has_loaded true
-            @teams.push team for team in teams
-            done null, teams if done
+            if teams.length > 0
+               @teams.push team for team in teams
+            else 
+               fc.cache.set("no_team_profile", true)
+               $.mobile.changePage "profile-selectTeam-chooseSport.html", transition: "slide"
 
       selectTeam: (data) ->
-         fc.team.setActive data._id, true, () ->
+         fc.team.setActive data._id, () ->
             $.mobile.changePage "profile.html", transition: "slideup"
-            # window.history.back()
 
       rightButtonClick: () ->
          # $.mobile.changePage "connect-addToRoster.html", transition: "slide"

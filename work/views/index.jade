@@ -7,12 +7,14 @@ block header
 block content
    .fannect-logo
 
-   form(data-bind="submit: login")
+   form(data-bind="submit: login", data-ajax="false")
       label(for="email") Email
       input(type="text", name="email", id="email", data-bind="value: email")
       label(for="password") Password
       input(type="password", name="password", id="password", data-bind="value: password")
 
-      button(data-role="button", type="submit") Login
+      button(data-role="button", type="submit", data-bind="fadeIn: !signing_in()") Login
+      .loading(data-role="fadeIn: signing_in", style="display:none;")
+
 
 block footer

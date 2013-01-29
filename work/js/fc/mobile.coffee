@@ -19,10 +19,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                $.mobile.changePage target, transition: "none"
          
       createButtons: () ->
-         fc.mobile._addButton 0, "Profile", "images/mobile/Icon_TabBar_Profile.png", "profile.html"
-         fc.mobile._addButton 1, "Games", "images/mobile/Fannect-GamesIcon100.png", "games.html"
-         fc.mobile._addButton 2, "Leaderboard", "images/mobile/Fannect-LeaderboardIcon100.png", "leaderboard.html"
-         fc.mobile._addButton 3, "Connect", "images/mobile/Fannect-RosterIcon100.png", "connect.html"
+         fc.mobile._addButton 0, "Profile", "images/mobile/TabBar_Profile.png", "profile.html"
+         fc.mobile._addButton 1, "Games", "images/mobile/TabBar_Games.png", "games.html"
+         fc.mobile._addButton 2, "Leaderboard", "images/mobile/TabBar_Leaderboard.png", "leaderboard.html"
+         fc.mobile._addButton 3, "Connect", "images/mobile/TabBar_Connect.png", "connect.html"
          
       setActiveMenu: (name) ->
          if name

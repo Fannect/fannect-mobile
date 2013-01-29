@@ -4,12 +4,16 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       constructor: () ->
          @email = ko.observable()
          @password = ko.observable()
+         @signing_in = ko.observable(false)
          super
 
       login: () =>
+         @signing_in(true)
+         console.log @email(), @password()
          fc.auth.login @email(), @password(), (error) =>
             unless error
                $.mobile.changePage "profile.html", transition: "slideup"
+
 
          return false
 

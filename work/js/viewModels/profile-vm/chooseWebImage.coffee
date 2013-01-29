@@ -38,7 +38,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       load: (query, done) ->
          @loading_more true
          fc.ajax 
-            url: "#{fc.getResourceURL()}/v1/images/bing?q=#{query}&limit=#{@limit}&skip=#{@skip}"
+            url: "#{fc.getResourceURL()}/v1/images/bing?q=#{escape(query)}&limit=#{@limit}&skip=#{@skip}"
             type: "GET"
             hide_loading: true
          , (error, data) =>
@@ -64,10 +64,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       rightButtonClick: () =>
          image = @images()[@selected_index].url
 
-         fc.ajax 
-            url: "#{fc.getResourceURL()}/v1/images/me/#{fc.team.getActiveId()}"
-            type: "POST"
-            data: image_url: @images()[@selected_index].url
-         , (err, data) =>
-            throw err if err
-            fc.team.update data
+         fc.team.getActive (err, profile) =>
+            fc.ajax 
+               url: "#{fc.getResourceURL()}/v1/images/me/#{profile._id}"
+               type: "POST"
+               data: image_url: @images()[@selected_index].url
+            , (err, data) =>
+               throw err if err
+               fc.team.update data

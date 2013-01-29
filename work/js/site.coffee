@@ -48,6 +48,7 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       fc.mobile.createButtons()
       fc.createPages()
 
+
       if fc.isSlow() then $("body").addClass("speed-up")
 
       

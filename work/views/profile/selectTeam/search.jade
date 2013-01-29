@@ -7,7 +7,7 @@ block header
 block content
    input(type="search", data-bind="value: query, valueUpdate: ['afterkeydown'], onEnter: load")
 
-   ul.dark-pattern-bg(data-role="listview", data-theme="b", data-filter-theme="b", data-bind="foreach: teams, listviewUpdate: teams")
+   ul.dark-pattern-bg.has-search(data-role="listview", data-theme="b", data-filter-theme="b", data-bind="foreach: teams, listviewUpdate: teams")
       li
-         a(href="profile.html", data-bind="click: $parent.selectTeam, text: team_name", data-transition="slideup")
+         a(data-bind="click: $parent.selectTeam, text: full_name")
      
