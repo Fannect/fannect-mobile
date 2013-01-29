@@ -250,16 +250,9 @@ body
       .fan-name
          display: table-cell
          vertical-align: middle
-         font-size: 1.4em
+         font-size: 1.3em
+         white-space: normal
 
-      .left-icon
-         width: 38px            
-         height: 43px
-         float: left
-         margin: 0 2px 0 -12px
-         &.cancel
-            background: url(../images/icons/Button_Delete.png) 50% 50% no-repeat
-            background-size: 19px 19px
       .right-icon
          position: absolute
          right: 10px
@@ -276,6 +269,45 @@ body
             color: color-dark-red
             padding-left: 2px
          &.accept
+            background: url(../images/icons/Button_Delete.png) 50% 50% no-repeat
+            background-size: 19px 19px
+
+.invite-list
+   .invite-item
+      .image-wrap
+         position: relative
+         width: 43px
+         height: 43px
+         float: left
+         border-radius: 5px
+         .profile-image
+            width: 43px
+            height: 43px
+            border-radius: 5px
+         .cover
+            position: absolute
+            top: 0
+            left: 0
+            width: 43px
+            height: 43px
+            border-radius: 5px
+            dropshadow: inset 1px 2px 3px rgba(0,0,0,0.6), 0 1px 2px rgba(255, 255, 255, 0.8), 0 -1px 1px rgba(0, 0, 0, 0.8)
+      .fan-name
+         font-size: 1.3em
+         padding-left: 84px
+      .teams
+         padding: 2px 0 0 84px 
+         font-size: .7em
+         font-weight: normal
+         white-space: normal
+         .diff
+            color: #999
+      .left-icon
+         width: 38px            
+         height: 43px
+         float: left
+         margin: 0 2px 0 -12px
+         &.cancel
             background: url(../images/icons/Button_Delete.png) 50% 50% no-repeat
             background-size: 19px 19px
 
@@ -478,6 +510,7 @@ body
 
    .fans
    .team-list
+   .invite-list
       .cancel
          background-image: url(../images/icons/Button_Delete@2x.png)!important
       .accept

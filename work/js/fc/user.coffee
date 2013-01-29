@@ -15,25 +15,27 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                fc.user._curr = user
                done error, user
 
-      update: (user) ->
-         if not fc.user._curr then fc.user._curr = {}
-         $.extend true, fc.user._curr, user
-         sub fc.user._curr for sub in fc.user._subscribers
+      # update: (user) ->
+      #    if not fc.user._curr then fc.user._curr = {}
+      #    $.extend true, fc.user._curr, user
+      #    sub fc.user._curr for sub in fc.user._subscribers
 
-      save: (user) ->
-         if user then fc.user.update user
-         # implement saving
+      # save: (user) ->
+      #    if user then fc.user.update user
+      #    # implement saving
 
-      subscribe: (cb) ->
-         fc.user._subscribers.push cb if cb
+      # subscribe: (cb) ->
+      #    fc.user._subscribers.push cb if cb
 
-      # possible options - menu, prev_page
+      # possible options - prev_page
       view: (profileId, options = {}) ->
          options.team_profile_id = profileId
          fc.cache.set "view_other", options
          $.mobile.changePage "profile-other.html", transition: "slide"
 
-   $("#profile-other-page").live "pageshow", () ->
+   $("#profile-other-page").live("pageinit", () ->
+      $(@).addClass("no-padding")
+   ).live("pageshow", () ->
       if not options = fc.cache.pull("view_other")
          $.mobile.changePage "profile.html", transition: "none"
       else
@@ -49,3 +51,4 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             type: "back"
             style: "back"
             text: "Back"
+   )

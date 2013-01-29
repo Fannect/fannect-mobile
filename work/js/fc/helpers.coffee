@@ -50,9 +50,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
                if forge.is.mobile() and page.buttons?.length > 0
                   for button in page.buttons
                      unless button.click
-                        button.click = () ->
-                           if button.position == "left" then vm.leftButtonClick()
-                           else vm.rightButtonClick()
+                        if button.position == "left"
+                           button.click = vm.leftButtonClick
+                        else 
+                           button.click = vm.rightButtonClick
                      fc.mobile.addHeaderButton button
 
                vm.onPageShow() if vm

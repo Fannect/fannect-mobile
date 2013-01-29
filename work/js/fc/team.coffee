@@ -39,7 +39,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          else
             forge.prefs.get "team_profile_id"     
             , (teamProfileId) ->
-               console.log "ProfileID: #{teamProfileId}"
                if teamProfileId
                   fc.team._curr = teamProfileId
                   fc.team.get(fc.team._curr, done)
@@ -53,6 +52,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          forge.prefs.set "team_profile_id", teamProfileId
          fc.team.get teamProfileId, done
 
+      updateActive: (update) ->
+         throw "Cannot update team before it has been fetched" unless fc.team._curr
+         $.extend true, fc.team._teams[fc.team._curr], update
+         fc.team._notify(fc.team._teams[fc.team._curr])
+
       create: (team_id, done) ->
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/me/teams"
@@ -64,17 +68,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             fc.team.setActive team._id, false
             fc.team._notify(team)
             done(null, team) if done
-
-      update: (update) ->
-         if not team = fc.team._teams[update._id or fc.team._curr]
-            throw "Cannot update a team (#{team_profile._id}) that has not been fetched"
-         
-         $.extend true, team, update
-         fc.team._notify(team)
-
-      save: (team_profile) ->
-         if team_profile then fc.team.update team_profile
-         # implement saving
 
       subscribe: (cb) -> fc.team._subscribers.push cb if cb
       _notify: (team) -> 

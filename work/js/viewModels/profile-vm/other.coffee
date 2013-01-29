@@ -25,14 +25,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       rightButtonClick: () =>
          if not @is_friend()
-            user.get (user) =>
-            fc.ajax
-               url: "#{fc.getResourceURL()}/v1/users/#{@other_user_id}/invite"
-               type: "POST"
-               data: inviter_user_id: user._id
-            , () -> console.log "SUCCESS"
-            forge.topbar.removeButtons () ->
-               window.fannect.mobile.addHeaderButton 
-                  text: "Back"
-                  position: "left"
-                  click: @leftButtonClick
+            fc.user.get (err, user) =>
+               fc.ajax
+                  url: "#{fc.getResourceURL()}/v1/users/#{@other_user_id}/invite"
+                  type: "POST"
+                  data: inviter_user_id: user._id
+               , () -> console.log "SUCCESS"
+               forge.topbar.removeButtons () ->
+                  window.fannect.mobile.addHeaderButton 
+                     text: "Back"
+                     position: "left"
+                     click: @leftButtonClick

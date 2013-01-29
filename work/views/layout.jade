@@ -54,14 +54,15 @@ html
                   .fan-name(data-bind="text: name")
 
       script(id="invite-fan-template", type="text/html")
-         li.fan(data-icon="false")
+         li.invite-item
             a(data-bind="click: $parent.selectUser, listviewClick: true")
-               .left-icon.cancel
+               .left-icon.cancel(data-bind="click: $parent.removeInvite, clickBubble: false")
                .image-wrap
                   img.profile-image(data-bind="attr: { 'src': profile_image_url }")
                   .cover
-               .text-wrapper
-                  .fan-name(data-bind="text: name")
+               .fan-name(data-bind="text: name")
+               .teams(data-bind="html: teams_text")
+                  //- span.team-name(data-bind="text: $data")
                .right-icon.accept
 
       script(id="leaderboard-fan-template", type="text/html")
@@ -77,6 +78,6 @@ html
 
       script(id="leaderboard-team-template", type="text/html")
          li.team-item(data-icon="false")
-            a(data-bind="click: $parent.selectUser, listviewClick: true",
+            a(data-bind="click: $parent.selectUser, listviewClick: true")
                .team-name(data-bind="text: full_name")
                .right-icon.rank(data-bind="text: $index() + 1")

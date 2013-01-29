@@ -7,7 +7,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
    class fc.Chart
       constructor: (container, data) ->
-         # console.log
          return unless d3
          @container = container
          @chart = d3.select(container.get(0)).append("svg").attr("class", "chart")
@@ -45,7 +44,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                .attr("x", (d,i) => @x(i) + (10 * i))
                .attr("y", (d,i) => @h)
                .attr("dx", @bar_width / 2)
-               .attr("dy", "1.3em")
+               .attr("dy", "-.4em")
                .attr("text-anchor", "middle")
                .text(0)
             .transition()
@@ -60,5 +59,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       getDomain: (data) ->
          max = 0
          (max = d.val if d.val > max) for d in data
-         return [0, max * 1.1]
+
+         if max > 0
+            return [0, max * 1.20]
+         else
+            return [-1.5, 20]
 

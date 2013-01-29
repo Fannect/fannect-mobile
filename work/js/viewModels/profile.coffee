@@ -2,7 +2,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
    class fc.viewModels.Profile extends fc.viewModels.Base 
       constructor: () ->
-         console.log "PROFILE"
          super
          @editing_image = ko.observable("none")
          @name = ko.observable("&nbsp;")
@@ -52,17 +51,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
        
       takeImage: (data, e) =>
          done = if @editing_image() == "profile" then @_uploadProfileImage else @_uploadTeamImage
-
          forge.file.getImage source: "camera", done
-         , (error) ->
-            console.log "ERROR: #{JSON.stringify(error)}"
          
       chooseImage: (data, e) ->
          done = if @editing_image() == "profile" then @_uploadProfileImage else @_uploadTeamImage
-         
          forge.file.getImage source: "gallery", done
-         , (error) ->
-            console.log "ERROR: #{JSON.stringify(error)}"
 
       leftButtonClick: () ->
          $.mobile.changePage "profile-invites.html", transition: "slidedown"
@@ -94,14 +87,15 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             type: "POST"
             files: [file]
          , (err, data) ->
-            fc.user.save profile_image: data.image_url
+            fc.team.updateActive(data) if data.profile_image_url
 
       _uploadTeamImage: (file) ->
-         file.name = "image"
-         fc.ajax 
-            url: "#{fc.getResourceURL()}/v1/images/me/someteam"
-            type: "POST"
-            files: [file]
-         , (err, data) ->
-            console.log "TEAM IMAGE: #{JSON.stringify(data)}"
-            fc.user.save team_image: data.image_url
+         fc.team.getActive (err, profile) ->
+            file.name = "image"
+            fc.ajax 
+               url: "#{fc.getResourceURL()}/v1/images/me/#{profile._id}"
+               type: "POST"
+               files: [file]
+            , (err, data) ->
+               fc.team.updateActive(data) if data.team_image_url
+               

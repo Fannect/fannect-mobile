@@ -62,13 +62,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @images()[@selected_index].selected(true)
 
       rightButtonClick: () =>
-         image = @images()[@selected_index].url
-
-         fc.team.getActive (err, profile) =>
-            fc.ajax 
-               url: "#{fc.getResourceURL()}/v1/images/me/#{profile._id}"
-               type: "POST"
-               data: image_url: @images()[@selected_index].url
-            , (err, data) =>
-               throw err if err
-               fc.team.update data
+         if @selected_index >= 0
+            image = @images()[@selected_index].url
+            fc.team.getActive (err, profile) =>
+               fc.ajax 
+                  url: "#{fc.getResourceURL()}/v1/images/me/#{profile._id}"
+                  type: "POST"
+                  data: image_url: @images()[@selected_index].url
+               , (err, data) =>
+                  fc.team.updateActive(data)
