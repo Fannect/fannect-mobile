@@ -25,4 +25,4 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             $.mobile.changePage "profile.html", transition: "slideup"
 
       rightButtonClick: () ->
-         # $.mobile.changePage "connect-addToRoster.html", transition: "slide"
+         $.mobile.changePage "profile-selectTeam-chooseSport.html", transition: "slide"

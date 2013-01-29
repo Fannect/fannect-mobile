@@ -48,7 +48,11 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       fc.mobile.createButtons()
       fc.createPages()
 
-
       if fc.isSlow() then $("body").addClass("speed-up")
+      
+      # Redirect to profile
+      fc.auth.isLoggedIn (err, is_logged_in) ->
+         if is_logged_in then $.mobile.changePage "profile.html", transition: "none"
+
 
       
