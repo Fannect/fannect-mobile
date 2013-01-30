@@ -17,6 +17,19 @@ window.fannect.pages =
    "createAccount-page":
       vm: vm.CreateAccount
 
+   ##
+   # Reset Password
+   ##
+   "resetPassword-page":
+      vm: vm.ResetPassword
+
+   "resetPassword-setPassword-page":
+      vm: vm.ResetPassword.SetPassword
+
+   "resetPassword-submitTemporary-page":
+      vm: vm.ResetPassword.SubmitTemporary
+
+
    ###
    # Profile
    ###

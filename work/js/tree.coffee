@@ -38,6 +38,10 @@
 #= require "viewModels/profile-vm/selectTeam-vm/chooseTeam.coffee"
 #= require "viewModels/profile-vm/selectTeam-vm/search.coffee"
 
+#= require "viewModels/resetPassword.coffee"
+#= require "viewModels/resetPassword-vm/setPassword.coffee"
+#= require "viewModels/resetPassword-vm/submitTemporary.coffee"
+
 #= require "viewModels/games-vm/attendanceStreak.coffee"
 #= require "viewModels/games-vm/gameFace.coffee"
 #= require "viewModels/games-vm/guessTheScore.coffee"

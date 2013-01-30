@@ -11,7 +11,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @roster = ko.observable()
          @points = ko.observable()
          @rank = ko.observable()
-         @trash_talk = ko.observable()
+         @shout = ko.observable()
          @breakdown = ko.observableArray()
          @load()
 
@@ -28,8 +28,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @roster profile.roster or 0
          @points profile.points?.overall or 0
          @rank profile.rank or 0
-         @trash_talk profile.trash_talk
-
+         @shout profile.shouts?[0]
+         
          # Add chart data
          @breakdown.removeAll()
          @breakdown.push
@@ -49,12 +49,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       isEditable: () -> return true
        
       takeImage: (data, e) =>
-         done = if @editing_image() == "profile" then @_uploadProfileImage else @_uploadTeamImage
-         forge.file.getImage source: "camera", done
+         if @isEditable()
+            done = if @editing_image() == "profile" then @_uploadProfileImage else @_uploadTeamImage
+            forge.file.getImage source: "camera", done
          
       chooseImage: (data, e) ->
-         done = if @editing_image() == "profile" then @_uploadProfileImage else @_uploadTeamImage
-         forge.file.getImage source: "gallery", done
+         if @isEditable()
+            done = if @editing_image() == "profile" then @_uploadProfileImage else @_uploadTeamImage
+            forge.file.getImage source: "gallery", done
 
       leftButtonClick: () ->
          $.mobile.changePage "profile-invites.html", transition: "slidedown"

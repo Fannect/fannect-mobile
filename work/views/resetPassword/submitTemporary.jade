@@ -1,0 +1,13 @@
+extend ../layout
+
+block header
+   
+block content
+
+   form(data-bind="submit: submitTemporary", data-ajax="false")
+      label(for="password") Temporary
+      input(type="text", name="password", id="password", data-bind="value: password")
+    
+      button(data-role="button", type="submit") Submit
+
+block footer

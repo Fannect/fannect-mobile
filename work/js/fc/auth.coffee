@@ -97,6 +97,12 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             done null, (token?) if done
 
       redirectToLogin: () ->
-         noAuth = ["index-page", "createAccount-page"]
+         noAuth = [
+            "index-page", 
+            "createAccount-page", 
+            "resetPassword-page", 
+            "resetPassword-submitTemporary-page"
+         ]
+         
          if not ($.mobile.activePage.attr("id") in noAuth)
             $.mobile.changePage "index.html", transition: "slidedown"

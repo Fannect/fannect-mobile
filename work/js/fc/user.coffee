@@ -17,6 +17,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       update: (user) ->
          if not fc.user._curr then fc.user._curr = {}
+         fc.auth._refresh_token = user.refresh_token if user.refresh_token
          $.extend true, fc.user._curr, user
          sub fc.user._curr for sub in fc.user._subscribers
 

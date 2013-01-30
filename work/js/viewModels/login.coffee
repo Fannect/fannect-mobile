@@ -14,12 +14,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             textVisible: true
             theme: "a"
 
-         fc.auth.login @email(), @password(), (error) =>
+         fc.auth.login @email(), @password(), (err, success) =>
             $.mobile.loading "hide"
             @signing_in(false)
-            unless error
+            if not err and success
                $.mobile.changePage "profile.html", transition: "slideup"
-         return false
 
       onPageShow: () =>
          super

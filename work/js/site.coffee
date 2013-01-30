@@ -19,7 +19,13 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       fc.setActiveMenu getMenu @
 
    ).live("pageshow", () ->
-      tutorial_pages = [ "profile-page", "games-attendanceStreak-page", "games-gameFace-page", "games-guessTheScore-page" ]
+      tutorial_pages = [ 
+         "profile-page", 
+         "games-attendanceStreak-page", 
+         "games-gameFace-page", 
+         "games-guessTheScore-page" 
+      ]
+      
       currentId = $.mobile.activePage.attr("id")
       
       forge.prefs.get "tutorialShown", (shown = []) ->
@@ -50,6 +56,9 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
 
       if fc.isSlow() then $("body").addClass("speed-up")
       
+      # Change reload stream to developers (for now)
+      forge.reload.switchStream("developers-only")
+
       # Redirect to profile
       fc.auth.isLoggedIn (err, is_logged_in) ->
          if is_logged_in then $.mobile.changePage "profile.html", transition: "none"
