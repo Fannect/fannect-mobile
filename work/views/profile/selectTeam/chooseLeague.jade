@@ -5,6 +5,7 @@ block header
    h1(data-menu-root="profile") Select Team
    
 block content
+   .loading-more-indicator(data-bind="visible: is_loading")
    ul.dark-pattern-bg(data-role="listview", data-theme="b", data-filter="true", data-filter-theme="b", data-bind="foreach: leagues, listviewUpdate: leagues")
       li
          a(href="profile-selectTeam-chooseTeam.html", data-bind="click: $parent.selectLeague, text: league_name", data-transition="slide")

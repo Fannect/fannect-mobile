@@ -11,9 +11,18 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             success: (user) ->
                user = JSON.parse(user)
                fc.auth._loginUser(user)
+               fc.user.update(user)
                done(null, user)
             error: (err) ->
-               done(err)
+               if err.status == 401
+                  $.mobile.loading "show",
+                     text: "Invalid username and password"
+                     textonly: true
+                     theme: "a"
+                  setTimeout (() => $.mobile.loading "hide"), 1800
+                  done(null, false)
+               else
+                  done(err)
 
          forge.ajax(options)
 
@@ -22,7 +31,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          fc.auth._access_token = user.access_token
          forge.prefs.set "refresh_token", user.refresh_token
          forge.prefs.set "user_id", user._id
-         fc.user.update user
          
       createAccount: (user, done) ->
          options = 

@@ -9,27 +9,27 @@ block header
       .ui-corner-top(data-role="header", data-theme="b")
          h1 Change Profile Picture
       .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
-         a(href="#", data-role="button", data-rel="back", data-bind="click: takeImage, visible: window.forge.is.mobile()") Take Picture
-         a(href="#", data-role="button", data-rel="back", data-bind="click: chooseImage, visible: window.forge.is.mobile()") Choose from Library
-         a(href="#", data-role="button", data-rel="back", data-rel="back", data-theme="c", data-bind="click: cancelImagePicking") Cancel
+         a(data-role="button", data-rel="back", data-bind="click: takeImage, visible: window.forge.is.mobile(), showClick: true") Take Picture
+         a(data-role="button", data-rel="back", data-bind="click: chooseImage, visible: window.forge.is.mobile(), showClick: true") Choose from Library
+         a(data-role="button", data-rel="back", data-rel="back", data-theme="c", data-bind="click: cancelImagePicking, showClick: true") Cancel
 
    #changeTeamImagePopup(data-role="popup", style="width:260px;", class="ui-corner-all", data-overlay-theme="a", data-theme="a")
       .ui-corner-top(data-role="header", data-theme="b")
          h1 Change Team Picture
       .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
-         a(href="#", data-role="button", data-rel="back", data-bind="click: takeImage, visible: window.forge.is.mobile()") Take Picture
-         a(href="#", data-role="button", data-rel="back", data-bind="click: chooseImage, visible: window.forge.is.mobile()") Choose from Library
+         a(data-role="button", data-rel="back", data-bind="click: takeImage, visible: window.forge.is.mobile(), showClick: true") Take Picture
+         a(data-role="button", data-rel="back", data-bind="click: chooseImage, visible: window.forge.is.mobile(), showClick: true") Choose from Library
          a(href="profile-chooseWebImage.html", data-role="button") Choose from Web
-         a(href="#", data-role="button", data-rel="back", data-theme="c", data-bind="click: cancelImagePicking") Cancel
+         a(data-role="button", data-rel="back", data-theme="c", data-bind="click: cancelImagePicking, showClick: true") Cancel
 
 
 block content
    .profile-images
-      .team-wrap(data-bind="click: changeTeamImage, clickBubble: false, showPopup: '#changeTeamImagePopup'")
+      .team-wrap(data-bind="click: changeTeamImage, clickBubble: false, showPopupOnClick: '#changeTeamImagePopup'")
          img(data-bind="attr: {src:team_image}, visible: team_image().length > 0")
          .team-hint.ui-corner-all
          .cover
-      .user-wrap(data-bind="click: changeUserImage, clickBubble: false, showPopup: '#changeProfileImagePopup'")
+      .user-wrap(data-bind="click: changeUserImage, clickBubble: false, showPopupOnClick: '#changeProfileImagePopup'")
          img(data-bind="attr: {src:profile_image}, visible: profile_image().length > 0", width="140", height="140")
          .user-hint.ui-corner-all
          .cover

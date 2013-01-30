@@ -143,7 +143,9 @@ window.fannect.pages =
    ###
    # Leaderboard
    ###
-   "leaderboard-page": classes: ["light-background"]
+   "leaderboard-page": 
+      vm: vm.Leaderboard
+      classes: ["light-background"]
    "leaderboard-users-page":
       vm: vm.Leaderboard.Users
       buttons: [
@@ -164,9 +166,18 @@ window.fannect.pages =
       classes: ["light-background"]
 
    "leaderboard-league-page": 
-      vm: vm.Leaderboard.Conference
+      vm: vm.Leaderboard.League
       classes: ["light-background"]
 
    "leaderboard-breakdown-page":
       vm: vm.Leaderboard.Breakdown
       classes: ["light-background", "no-padding"]
+
+   "leaderboard-myRoster-page":
+      vm: vm.Leaderboard.MyRoster
+      classes: ["light-background"]
+
+   "leaderboard-overallFans-page":
+      vm: vm.Leaderboard.MyRoster
+      classes: ["light-background"]
+

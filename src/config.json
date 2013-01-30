@@ -12,7 +12,14 @@
 			}
 		}, 
 		"event": true, 
+		"facebook": {
+			"appid": "490956187613410"
+		}, 
 		"file": true, 
+		"flurry": {
+			"android_api_key": "JQN5FVPQXRCZ9SZ9B44P", 
+			"ios_api_key": "6P5NN88MGKT7C3QSK6JG"
+		}, 
 		"geolocation": true, 
 		"icons": {
 			"android": {
@@ -33,7 +40,14 @@
 		"launchimage": {
 			"android": "res/screen-1024x768.png", 
 			"android-landscape": "res/screen-1024x768.png", 
-			"background-color": "#000000"
+			"background-color": "#000000", 
+			"ipad": "res/screen-640x1136.png", 
+			"ipad-landscape": "res/screen-640x1136.png", 
+			"ipad-landscape-retina": "res/screen-640x1136.png", 
+			"ipad-retina": "res/screen-640x1136.png", 
+			"iphone": "res/screen-320x480.png", 
+			"iphone-retina": "res/screen-640x960.png", 
+			"iphone-retina4": "res/screen-640x1136.png"
 		}, 
 		"logging": {
 			"level": "DEBUG"
@@ -42,6 +56,10 @@
 		"notification": true, 
 		"package_names": {
 			"ios": "com.fannect.*"
+		}, 
+		"parameters": {
+			"login_server": "http://fannect-login.herokuapp.com", 
+			"resource_server": "http://fannect-api.herokuapp.com"
 		}, 
 		"prefs": true, 
 		"reload": true, 
@@ -62,11 +80,7 @@
 		}, 
 		"tabbar": true, 
 		"tools": true, 
-		"topbar": true,
-		"parameters": {
-			"login_server": "http://fannect-login.herokuapp.com",
-			"resource_server": "http://fannect-api.herokuapp.com"
-		}
+		"topbar": true
 	}, 
 	"name": "Fannect Mobile", 
 	"platform_version": "v1.4", 

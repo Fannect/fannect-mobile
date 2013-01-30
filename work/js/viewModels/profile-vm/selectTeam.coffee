@@ -4,7 +4,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       constructor: () ->
          super 
          @teams = ko.observableArray []
-         @has_loaded = ko.observable(false)
+         @is_loading = ko.observable(true)
          @load()
 
       load: (done) ->
@@ -13,7 +13,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             url: "#{fc.getResourceURL()}/v1/me/teams"
             type: "GET"
          , (error, teams) =>
-            @has_loaded true
+            @is_loading(false)
             if teams.length > 0
                @teams.push team for team in teams
             else 

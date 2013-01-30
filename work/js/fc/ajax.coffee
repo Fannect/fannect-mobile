@@ -16,7 +16,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                fc.ajax(options, done)
          else
             console.error JSON.parse error.responseText
-            throw error
             done error
 
       # Get a new access token if we don't have one and then rerun the requrest

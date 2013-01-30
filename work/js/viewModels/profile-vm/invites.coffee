@@ -18,18 +18,23 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             if loadedTeams then @_setInvites(loadedTeams, invs)
             else loadedInvites = invs
 
-      selectUser: (data) ->
-         fc.user.view(data._id)
-
-
-      hideInvite: (data) -> $el = slideUp () -> $el.remove()
+      selectUser: (data) -> fc.user.view(user_id: data._id)
+      hideInvite: (element) -> $el = $(element).slideUp 400, () -> $el.remove()
       removeInvite: (data) =>
          @invites.remove(data)
          fc.ajax
             url: "#{fc.getResourceURL()}/v1/me/invites"
             type: "DELETE"
             data: user_id: data._id
-         , (err) => throw err
+         , (err) => throw(err) if err
+
+      acceptInvite: (data) =>
+         @invites.remove(data)
+         fc.ajax
+            url: "#{fc.getResourceURL()}/v1/me/invites"
+            type: "POST"
+            data: user_id: data._id
+         , (err, data) => throw(err) if err
 
       _loadTeams: (done) =>
          fc.ajax

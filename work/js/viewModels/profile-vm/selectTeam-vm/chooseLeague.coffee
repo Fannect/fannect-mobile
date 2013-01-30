@@ -8,6 +8,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          unless fc.cache.hasKey("sport_key")
             $.mobile.changePage "profile-selectTeam.html", transition: "none"
          
+         @is_loading = ko.observable(true)
          @leagues = ko.observableArray []
          @load()
 
@@ -16,6 +17,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             url: "#{fc.getResourceURL()}/v1/sports/#{fc.cache.get('sport_key')}/leagues"
             type: "GET"
          , (error, leagues) =>
+            @is_loading(false)
             @leagues.push league for league in leagues
             done null, leagues if done
 

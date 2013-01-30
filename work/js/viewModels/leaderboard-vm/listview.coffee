@@ -1,6 +1,6 @@
 do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
-   class fc.viewModels.Leaderboard.TeamList extends fc.viewModels.Base 
+   class fc.viewModels.Leaderboard.ListView extends fc.viewModels.Base 
       constructor: () ->
          super
          @limit = 20
@@ -10,25 +10,31 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @prev_scroll = 0
          @track_scrolling = true
 
-         @teams = ko.observableArray()
+         @items = ko.observableArray()
          @loading_more = ko.observable false
          @load()
 
       getUrl: (url) -> throw "getUrl must be overridden!"
+      getItemTemplate: () -> return "getItemTemplate must be overridden!"
+      getListViewClass: () -> return "getListViewClass must be overridden!"
+      extractList: (data) -> return data
 
       load: () =>
          return if @no_more_results
-         @loading_more true
+         @loading_more(true)
          @getUrl (url) =>
             fc.ajax 
-               url: "#{url}?limit=#{@limit}&skip=#{@skip}"
+               url: "#{url}#{if url.indexOf('?') >= 0 then '&' else '?' }limit=#{@limit}&skip=#{@skip}"
                type: "GET"
-            , (error, teams) =>
+            , (error, result) =>
                setTimeout (() => @loading_more(false)), 200
                
-               if teams.length > 0
+               items = @extractList(result)
+
+               if items.length > 0
+                  @no_more_results = items.length == @limit
                   @skip += @limit
-                  @teams.push team for team in teams
+                  @items.push team for team in items
                else
                   @no_more_results = true
             return true

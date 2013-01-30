@@ -18,18 +18,27 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       load: (done) ->
          @loading_more true
 
-         fc.team.getActive (err, profile) =>
-            fc.ajax 
-               url: "#{fc.getResourceURL()}/v1/teams/#{profile.team_id}/users?limit=#{@limit}&skip=#{@skip}&q=#{escape(@query())}"
-               type: "GET"
-            , (error, fans) =>
-               setTimeout () => 
-                  @loading_more false
-               , 150
+         finished = (error, fans) =>
+            setTimeout () => 
+               @loading_more false
+            , 200
 
-               @skip += @limit
-               @fans.push fan for fan in fans
-               done null, fans if done
+            @skip += @limit
+            @fans.push fan for fan in fans
+            done null, fans if done
+
+         fc.team.getActive (err, profile) =>
+            if @query()?.length > 0
+               fc.ajax 
+                  url: "#{fc.getResourceURL()}/v1/teams/#{profile.team_id}/users?limit=#{@limit}&skip=#{@skip}&q=#{escape(@query())}"
+                  type: "GET"
+               , finished
+            else
+               fc.ajax 
+                  url: "#{fc.getResourceURL()}/v1/teams/#{profile.team_id}/users?limit=#{@limit}&skip=#{@skip}&friends_of=#{profile._id}"
+                  type: "GET"
+               , finished
+
 
       onPageShow: () =>
          $window = $(window).scroll () =>
@@ -40,5 +49,4 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       onPageHide: () =>
          $(window).unbind("scroll")
 
-      selectUser: (data) -> 
-         fc.user.view(data._id)
+      selectUser: (data) -> fc.user.view(team_profile_id: data._id)

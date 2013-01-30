@@ -19,8 +19,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
       return if forge.is.web() then "http://localhost:2100" else "http://fannect-api.herokuapp.com"
 
    fc.getLoginURL = () ->
-      "https://fannect-login.herokuapp.com"
-      # return if forge.is.web() then "http://localhost:2200" else "https://fannect-login.herokuapp.com"
+      # "https://fannect-login.herokuapp.com"
+      return if forge.is.web() then "http://localhost:2200" else "https://fannect-login.herokuapp.com"
 
    fc.createPages = () ->
       for i, p of window.fannect.pages

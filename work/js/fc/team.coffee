@@ -45,7 +45,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                else
                   fc.team.redirectToSelect(no_back: true)
                   done(null, null) if done
-            , (err) -> throw err
+            , (err) -> throw err if err
 
       setActive: (teamProfileId, done) ->
          fc.team._curr = teamProfileId
@@ -80,7 +80,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             url: "#{fc.getResourceURL()}/v1/me/teams"
             type: "GET"
          , (error, teams) =>
-            console.log "HI THERE"
             if teams.length > 0
                fc.team.setActive teams[0]._id, () ->
                   $.mobile.changePage "profile.html", transition: "slidedown"

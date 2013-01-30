@@ -42,11 +42,12 @@
 #= require "viewModels/games-vm/gameFace.coffee"
 #= require "viewModels/games-vm/guessTheScore.coffee"
 
-#= require "viewModels/leaderboard-vm/users.coffee"
-#= require "viewModels/leaderboard-vm/teamList.coffee"
+#= require "viewModels/leaderboard-vm/listview.coffee"
 #= require "viewModels/leaderboard-vm/conference.coffee"
 #= require "viewModels/leaderboard-vm/league.coffee"
 #= require "viewModels/leaderboard-vm/breakdown.coffee"
+#= require "viewModels/leaderboard-vm/myRoster.coffee"
+#= require "viewModels/leaderboard-vm/overallFans.coffee"
 
 #= require "pages.coffee"
 #= require "site.coffee"

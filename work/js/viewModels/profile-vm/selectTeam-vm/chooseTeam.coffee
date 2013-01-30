@@ -9,6 +9,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             $.mobile.changePage "profile-selectTeam.html", transition: "none"
          
          @teams = ko.observableArray []
+         @is_loading = ko.observable(true)
          @load()
 
       load: () ->
@@ -16,6 +17,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             url: "#{fc.getResourceURL()}/v1/sports/#{fc.cache.get('sport_key')}/leagues/#{fc.cache.get('league_key')}/teams"
             type: "GET"
          , (error, teams) =>
+            @is_loading(false)
             @teams.push team for team in teams
 
       selectTeam: (data) -> 

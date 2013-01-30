@@ -47,12 +47,25 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
          if $el.hasClass("ui-slider-switch")
             $(element).slider "refresh"
 
-   ko.bindingHandlers.showPopup =
+   ko.bindingHandlers.showPopupOnClick =
       init: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) ->
          $(element).click () ->
             $(ko.utils.unwrapObservable valueAccessor()).popup "open", 
                transition: "pop"
                positionTo: "window"
+
+   ko.bindingHandlers.showPopup =
+      update: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) ->
+         $el = $(element)
+         if $el.hasClass("ui-popup") 
+            if ko.utils.unwrapObservable valueAccessor()
+               $el.popup "open",
+                  transition: "pop"
+                  positionTo: "window"
+            else
+               $el.popup "close",
+                  transition: "pop"
+                  positionTo: "window"
 
    ko.bindingHandlers.onEnter = 
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
@@ -75,9 +88,18 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
             viewModel.chart.update(data)
          ), 10
 
-   ko.bindingHandlers.listviewClick = 
+   ko.bindingHandlers.showClick = 
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
          link = $(element).click () ->
-            link.parents("li.ui-li").addClass("ui-btn-active")
-       
+            link.addClass("ui-btn-active")
 
+   ko.bindingHandlers.showListviewClick = 
+      init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
+         link = $(element).click () ->
+            link.parents(".ui-btn").addClass("ui-btn-active")
+
+
+   ko.bindingHandlers.setClass = 
+      init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
+         c = ko.utils.unwrapObservable valueAccessor()
+         $(element).addClass(c)

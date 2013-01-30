@@ -5,5 +5,5 @@ block header
    a(href="profile.html", data-icon="back", data-rel="back", data-theme="b") Profile
    
 block content
-   .no-invites(data-bind="fadeIn: no_invites") You're invitationless!
    ul.invite-list.pattern-bg(data-role="listview", data-theme="a", data-bind="template: { name:'invite-fan-template', foreach: invites, beforeRemove: hideInvite }, listviewUpdate: invites, visible: !no_invites()")
+   .no-invites(data-bind="fadeIn: no_invites", style="display:none;") You're invitationless!

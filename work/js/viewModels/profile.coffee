@@ -32,16 +32,15 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          # Add chart data
          @breakdown.removeAll()
-         if profile.points
-            @breakdown.push
-               val: profile.points.passion
-               style: "passion"
-            @breakdown.push
-               val: profile.points.dedication
-               style: "dedication"
-            @breakdown.push
-               val: profile.points.knowledge
-               style: "knowledge"
+         @breakdown.push
+            val: profile.points?.passion or 0
+            style: "passion"
+         @breakdown.push
+            val: profile.points?.dedication or 0
+            style: "dedication"
+         @breakdown.push
+            val: profile.points?.knowledge or 0
+            style: "knowledge"
 
       selectTeam: () -> $.mobile.changePage "profile-selectTeam.html", transition: "slide"
       changeUserImage: () => @editing_image "profile"

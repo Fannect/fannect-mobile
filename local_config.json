@@ -7,8 +7,17 @@
             }
         }
     }, 
-    "ios": {    
-        "device": "simulator", 
+    "android": {
+        "profiles": {
+            "DEFAULT": {
+                "keystore": "/Users/blakevanlandingham/Desktop/fannect-release-key.keystore", 
+                "keypass": "9uJ7_reVad-pRaD2", 
+                "storepass": "9uJ7_reVad-pRaD2"
+            }
+        }
+    }, 
+    "ios": {
+        "device": "device", 
         "simulatorsdk": "6.0", 
         "simulatorfamily": "iphone", 
         "profiles": {

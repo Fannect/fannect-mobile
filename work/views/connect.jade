@@ -13,4 +13,4 @@ block content
    //-    .text Tap the "Add" button to add more of your team's fans to your roster.
 
    ul.pattern-bg.has-search(data-role="listview", data-bind="template: { name:'connect-fan-template', foreach: fans }, listviewUpdate: fans, visible: fans().length > 0").fans
-   div.loading-more-indicator(data-bind="visible: loading_more", style="display:none;")
+   .loading-more-indicator(data-bind="visible: loading_more", style="display:none;")
