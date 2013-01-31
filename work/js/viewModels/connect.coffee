@@ -39,7 +39,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   type: "GET"
                , finished
 
-
       onPageShow: () =>
          $window = $(window).scroll () =>
             if not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150

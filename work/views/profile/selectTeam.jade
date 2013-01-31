@@ -6,9 +6,9 @@ block header
    a.ui-btn-right(href="profile-selectTeam-chooseSport.html", data-role="button", data-icon="plus", data-transition="slide", data-theme="b") Add
 
 block content
-   .loading-more-indicator(data-bind="visible: is_loading")
    ul.dark-pattern-bg(data-role="listview", data-theme="b", data-bind="foreach: teams, listviewUpdate: teams")
       li
          a(data-bind="click: $parent.selectTeam, text: team_name, showListviewClick: true")
+   .loading-more-indicator(data-bind="visible: is_loading")
 
      

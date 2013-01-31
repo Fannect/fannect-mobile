@@ -2,9 +2,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
    class fc.viewModels.Profile.Other extends fc.viewModels.Profile
       constructor: (options) ->
+         console.log options
          @options = options
          @is_friend = ko.observable(false)
          @showSentPopup = ko.observable(false)
+         @showAcceptedPopup = ko.observable(false)
          super
 
       load: () =>
@@ -13,6 +15,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @other_user_id = profile.user_id
             @is_friend(profile.is_friend) 
             @updateProfile(profile)
+
+            unless profile.is_friend
+               fc.mobile.addHeaderButton
+                  position: "right"
+                  text: if @options.action == "accept" then "Accept" else "Add"
+                  click: @rightButtonClick
 
          fc.team.getActive (err, profile) =>
             if @options.user_id 
@@ -33,18 +41,20 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       changeTeamImage: () -> return false
 
       rightButtonClick: () =>
-         if @options.invite == "accept"
-            _acceptInvite()
+         if @options.action == "accept"
+            @_acceptInvite()
          else
-            _sendInvite()
+            @_sendInvite()
 
       _acceptInvite: () =>
          @_hideRightButton()
          fc.ajax
             url: "#{fc.getResourceURL()}/v1/me/invites"
             type: "POST"
-            data: user_id: data._id
-         , (err, data) => throw(err) if err
+            data: user_id: @other_user_id
+         , (err, data) => 
+            throw(err) if err
+            @showAcceptedPopup(true) if data.status == "success" 
 
       _sendInvite: () =>
          if not @is_friend()

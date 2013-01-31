@@ -23,12 +23,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       onPageShow: () =>
          super
          fc.auth.isLoggedIn (err, is_logged_in) =>
-            $.mobile.loading "show",
-                  text: "#{@email()} already registered!"
-                  textonly: true
-                  theme: "a"
-               setTimeout (() => $.mobile.loading "hide"), 1800
-
             if is_logged_in
                $.mobile.changePage "profile.html", transition: "none"
 

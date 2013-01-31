@@ -49,6 +49,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       isEditable: () -> return true
        
       takeImage: (data, e) =>
+         # console.log "HIT"
          if @isEditable()
             done = if @editing_image() == "profile" then @_uploadProfileImage else @_uploadTeamImage
             forge.file.getImage source: "camera", done

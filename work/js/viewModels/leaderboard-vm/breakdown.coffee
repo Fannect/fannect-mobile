@@ -13,7 +13,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             done "#{fc.getResourceURL()}/v1/leaderboard/teams/#{profile.team_id}/breakdown"
 
       load: () =>
-
          @getUrl (url) =>
             fc.ajax 
                url: url
@@ -31,5 +30,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      val: points.knowledge
                      style: "knowledge"
                else
+                  console.log "HIT"
                   @no_data(true)
 

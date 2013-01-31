@@ -31,12 +31,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       if not options = fc.cache.pull("view_other")
          $.mobile.changePage "profile.html", transition: "none"
       else
-         vm = new fc.viewModels.Profile.Other options, () ->
-            if forge.is.mobile() and not vm.is_friend()
-               fc.mobile.addHeaderButton
-                  position: "right"
-                  text: "Add"
-                  click: () -> vm.rightButtonClick()
+         vm = new fc.viewModels.Profile.Other options
          ko.applyBindings vm, @
          fc.mobile.addHeaderButton
             position: "left"

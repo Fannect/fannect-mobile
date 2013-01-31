@@ -42,7 +42,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          $(window).unbind("scroll")
 
       selectTeam: (data) -> 
-         fc.team.create data._id, () ->
-            $.mobile.changePage "profile.html", transition: "slideup"
+         fc.team.create data._id, (err) ->
+            if err?.reason == "duplicate"
+               $.mobile.loading "show",
+                  text: "Already a fan!"
+                  textVisible: true
+                  theme: "a"
+               setTimeout (-> $.mobile.loading "hide"), 500
+            else
+               $.mobile.changePage "profile.html", transition: "slideup"
 
             

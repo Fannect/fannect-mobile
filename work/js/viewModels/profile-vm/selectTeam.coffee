@@ -8,7 +8,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @load()
 
       load: (done) ->
-         console.log "HIT HERE"
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/me/teams"
             type: "GET"
@@ -21,7 +20,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                $.mobile.changePage "profile-selectTeam-chooseSport.html", transition: "slide"
 
       selectTeam: (data) ->
-         fc.team.setActive data._id, () ->
+         fc.team.setActive data._id, (err) ->
             $.mobile.changePage "profile.html", transition: "slideup"
 
       rightButtonClick: () ->

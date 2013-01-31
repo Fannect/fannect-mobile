@@ -63,11 +63,23 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             type: "POST"
             data: team_id: team_id
          , (err, team) ->
-            return next(err) if err
+            return done(err) if err and done
             fc.team._teams[team._id] = team
             fc.team.setActive team._id, false
             fc.team._notify(team)
             done(null, team) if done
+
+      remove: (teamProfileId, done) ->
+         fc.ajax 
+            url: "#{fc.getResourceURL()}/v1/teamprofiles/#{teamProfileId}"
+            type: "DELETE"
+         , (err, data) ->
+            done(err, data) if err and done
+            
+            fc.team._teams[teamProfileId] = null
+            fc.team._curr = null
+            forge.prefs.set "team_profile_id", teamProfileId
+            done(err, data) if done
 
       subscribe: (cb) -> fc.team._subscribers.push cb if cb
       _notify: (team) -> 

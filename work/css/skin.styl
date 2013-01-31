@@ -19,6 +19,9 @@ body
    -webkit-overflow-scrolling: touch
    -webkit-tap-highlight-color:rgba(0,0,0,0)
 
+.is-mobile
+   min-height: 0
+
 .header
    dropshadow: 0 2px 3px rgba(0,0,0,.5)
    z-index: 3000
@@ -33,6 +36,9 @@ body
       font-family: JerseyM54, Helvetica, Arial, sans-serif
       font-size: 1.2em
       text-transform: uppercase
+
+img
+   background: url(../images/icons/ajax-loader2.gif) 50% 50% no-repeat
 
 // .fixed-background
 //    width: 100%
@@ -196,6 +202,8 @@ body
    li.ui-li
       background: url(../images/Pattern_FabricKnit_Dark.png)
       background-size: 4px 4px
+      border-right: 0
+      border-left: 0
       .ui-btn-inner
       .ui-btn-inner:hover
          border-top: 0;
@@ -274,13 +282,17 @@ body
             background-size: 19px 19px
 
 .invite-list
-   a
-      padding-right: 42px
+   .ui-link-inherit
+      padding-right: 42px!important
+   // a
+   //    padding-right: 42px
    .image-wrap
-      position: relative
+      position: absolute
+      top: 50%
+      left: 40px
+      margin-top: -21.5px
       width: 43px
       height: 43px
-      float: left
       border-radius: 5px
       .profile-image
          width: 43px
@@ -305,19 +317,21 @@ body
       .diff
          color: #999
    .left-icon
+      position: absolute
+      top: 0
+      left: -2px
+      bottom: 0
       width: 38px            
-      height: 43px
-      float: left
-      margin: 0 2px 0 -12px
+      margin: 0
       &.cancel
          background: url(../images/icons/Button_Delete.png) 50% 50% no-repeat
          background-size: 19px 19px
    .right-icon
       position: absolute
-      right: 10px
+      right: 5px
       top: 0 
       width: 34px            
-      height: 63px
+      bottom: 0
       &.accept
          background: url(../images/icons/Button_Delete.png) 50% 50% no-repeat
          background-size: 19px 19px
@@ -462,7 +476,7 @@ body
       margin-top: 8px
 
 .is-mobile .tutorial
-   padding-top: 30px
+   padding-top: 20px
 
 // Icons
 .icon

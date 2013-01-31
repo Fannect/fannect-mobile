@@ -7,7 +7,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @skip = 0
          @has_loaded = false
          @timeoutId = null
-         @selected_index = -1
+         @selected = false
          
          @loading_more = ko.observable false
          @images = ko.observableArray []
@@ -40,7 +40,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/images/bing?q=#{escape(query)}&limit=#{@limit}&skip=#{@skip}"
             type: "GET"
-            hide_loading: true
          , (error, data) =>
             if query == @query()
                setTimeout (() => @loading_more(false)), 200 # wait for images to load fully
@@ -53,21 +52,22 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                done null, data if done
 
       select: (data, event) =>
-         if @selected_index >= 0 
-            @images()[@selected_index].selected(false)
+         if not @selected
+            @selected = true
 
-         @selected_index = @images.indexOf(data)
+            @images()[@images.indexOf(data)].selected(true)
 
-         if @selected_index >= 0 
-            @images()[@selected_index].selected(true)
+            $.mobile.loading "show",
+               text: "Uploading image.."
+               textVisible: true
+               theme: "a"
 
-      rightButtonClick: () =>
-         if @selected_index >= 0
-            image = @images()[@selected_index].url
             fc.team.getActive (err, profile) =>
                fc.ajax 
                   url: "#{fc.getResourceURL()}/v1/images/me/#{profile._id}"
                   type: "POST"
-                  data: image_url: @images()[@selected_index].url
+                  data: image_url: data.url
                , (err, data) =>
+                  $.mobile.loading "hide"
                   fc.team.updateActive(data)
+                  $.mobile.changePage "profile.html", transition: "slideup"

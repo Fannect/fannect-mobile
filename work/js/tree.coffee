@@ -14,6 +14,7 @@
 #= require "fc/team.coffee"
 #= require "fc/tutorial.coffee"
 #= require "fc/user.coffee"
+#= require "fc/images.coffee"
 
 #= require "ext/binding-handlers.coffee"
 #= require "ext/text-scroller.coffee"
@@ -50,8 +51,11 @@
 #= require "viewModels/leaderboard-vm/conference.coffee"
 #= require "viewModels/leaderboard-vm/league.coffee"
 #= require "viewModels/leaderboard-vm/breakdown.coffee"
+#= require "viewModels/leaderboard-vm/breakdownOther.coffee"
 #= require "viewModels/leaderboard-vm/myRoster.coffee"
 #= require "viewModels/leaderboard-vm/overallFans.coffee"
+
+#= require "viewModels/settings-vm/removeProfiles.coffee"
 
 #= require "pages.coffee"
 #= require "site.coffee"

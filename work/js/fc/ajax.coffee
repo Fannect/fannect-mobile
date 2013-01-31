@@ -12,8 +12,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                options.second_try = true
                fc.ajax(options, done)
          else
-            console.error JSON.parse error.responseText
-            done error
+            try
+               console.error errText = JSON.parse error.responseText
+            finally
+               done(errText or error)
 
       # Get a new access token if we don't have one and then rerun the requrest
       if not options.no_access_token and not fc.auth.hasAccessToken()

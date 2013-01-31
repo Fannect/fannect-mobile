@@ -74,8 +74,12 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   fc.auth._access_token = data.access_token
                   done(null, fc.auth._access_token) if done
                error: (err) ->
-                  fc.auth.logout()
-                  done(err)
+                  if err
+                     if err.status == 401
+                        console.log "Failed to get access_token: Invalid refresh_token"
+                        fc.auth.logout()
+                     else
+                        console.error "Error: failed to get access_token", err
 
             forge.ajax(options)
 

@@ -2,6 +2,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
    fc.mobile =
       _buttons: {}
       _waiting_to_activate: null
+      
       _addButton: (index, text, image, target) ->
          forge.tabbar.addButton
             icon: image,
@@ -19,10 +20,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                $.mobile.changePage target, transition: "none"
          
       createButtons: () ->
-         fc.mobile._addButton 0, "Profile", "images/mobile/TabBar_Profile.png", "profile.html"
-         fc.mobile._addButton 1, "Games", "images/mobile/TabBar_Games.png", "games.html"
-         fc.mobile._addButton 2, "Leaderboard", "images/mobile/TabBar_Leaderboard.png", "leaderboard.html"
-         fc.mobile._addButton 3, "Connect", "images/mobile/TabBar_Connect.png", "connect.html"
+         forge.tabbar.removeButtons () ->
+            fc.mobile._addButton 0, "Profile", "images/mobile/TabBar_Profile.png", "profile.html"
+            fc.mobile._addButton 1, "Games", "images/mobile/TabBar_Games.png", "games.html"
+            fc.mobile._addButton 2, "Leaderboard", "images/mobile/TabBar_Leaderboard.png", "leaderboard.html"
+            fc.mobile._addButton 3, "Connect", "images/mobile/TabBar_Connect.png", "connect.html"
          
       setActiveMenu: (name) ->
          if name

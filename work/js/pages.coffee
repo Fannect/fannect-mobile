@@ -53,13 +53,6 @@ window.fannect.pages =
    
    "profile-chooseWebImage-page":
       vm: vm.Profile.ChooseWebImage
-      buttons: [
-         {
-            position: "right"
-            text: "Done"
-            style: "done"
-         }
-      ]
       classes: ["light-background"]
    
    ###
@@ -186,6 +179,10 @@ window.fannect.pages =
       vm: vm.Leaderboard.Breakdown
       classes: ["light-background", "no-padding"]
 
+   "leaderboard-breakdownOther-page":
+      vm: vm.Leaderboard.BreakdownOther
+      classes: ["light-background", "no-padding"]
+
    "leaderboard-myRoster-page":
       vm: vm.Leaderboard.MyRoster
       classes: ["light-background"]
@@ -193,4 +190,11 @@ window.fannect.pages =
    "leaderboard-overallFans-page":
       vm: vm.Leaderboard.MyRoster
       classes: ["light-background"]
+
+   ###
+   # Settings
+   ###
+   "settings-removeProfiles-page":
+      vm: vm.Settings.RemoveProfiles
+      classes: ["dark-background"]
 

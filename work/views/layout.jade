@@ -42,13 +42,12 @@ html
                      li: a.games-menu(href="games.html", data-icon="custom", data-transition="none") Games
                      li: a.leaderboard-menu(href="leaderboard.html", data-icon="custom", data-transition="none") Leaderboard
                      li: a.connect-menu(href="connect.html", data-icon="custom", data-transition="none") Connect
-                     //- li: a.settings-menu(href="settings.html", data-icon="custom") Settings
-
+                 
       script(id="connect-fan-template", type="text/html")
          li.fan
             a(data-bind="click: $parent.selectUser, showListviewClick: true")
                .image-wrap
-                  img.profile-image(data-bind="attr: { 'src': profile_image_url }")
+                  img.profile-image(data-bind="thumbnailSrc: profile_image_url")
                   .cover
                .text-wrapper
                   .fan-name(data-bind="text: name")
@@ -58,26 +57,24 @@ html
             a(data-bind="click: $parent.selectUser, showListviewClick: true")
                .left-icon.cancel(data-bind="click: $parent.removeInvite, clickBubble: false")
                .image-wrap
-                  img.profile-image(data-bind="attr: { 'src': profile_image_url }")
+                  img.profile-image(data-bind="thumbnailSrc: profile_image_url")
                   .cover
                .fan-name(data-bind="text: name")
                .teams(data-bind="html: teams_text")
-                  //- span.team-name(data-bind="text: $data")
                .right-icon.accept(data-bind="click: $parent.acceptInvite, clickBubble: false")
 
       script(id="leaderboard-fan-template", type="text/html")
          li.fan(data-icon="false")
             a(data-bind="click: $parent.selectUser, showListviewClick: true")
                .image-wrap
-                  img.profile-image(data-bind="attr: { 'src': profile_image_url }")
+                  img.profile-image(data-bind="thumbnailSrc: profile_image_url")
                   .cover
                .text-wrapper
                   .fan-name(data-bind="text: name")
                .right-icon.rank(data-bind="text: $index() + 1")
 
-
       script(id="leaderboard-team-template", type="text/html")
          li.team-item(data-icon="false")
-            a(data-bind="click: $parent.selectUser, showListviewClick: true")
+            a(data-bind="click: $parent.selectTeam, showListviewClick: true")
                .team-name(data-bind="text: full_name")
                .right-icon.rank(data-bind="text: $index() + 1")

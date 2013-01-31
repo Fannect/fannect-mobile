@@ -5,11 +5,9 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
 
    $(".ui-page").live("pagecreate", () ->
       if forge.is.mobile()
-         $("body").addClass("is-mobile")
          # Hide header and footer
          $(".header", @).removeAttr("data-role data-position data-tap-toggle").css(display: "none")
          $(".footer", @).removeAttr("data-role data-position data-tap-toggle").css(display: "none")
-
 
    ).live("pagebeforeshow", () ->
       # check if logged in
@@ -54,11 +52,13 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       fc.mobile.createButtons()
       fc.createPages()
 
-      if fc.isSlow() then $("body").addClass("speed-up")
+      if fc.isSlow() then $("html").addClass("speed-up")
       
-      # Change reload stream to developers (for now)
-      forge.reload.switchStream("developers-only")
-
+      if forge.is.mobile()
+         $("html").addClass("is-mobile")
+         # Change reload stream to developers (for now)
+         forge.reload.switchStream("developers-only")
+      
       # Redirect to profile
       fc.auth.isLoggedIn (err, is_logged_in) ->
          if is_logged_in then $.mobile.changePage "profile.html", transition: "none"

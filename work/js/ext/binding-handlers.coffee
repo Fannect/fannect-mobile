@@ -63,16 +63,15 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
                   transition: "pop"
                   positionTo: "window"
             else
-               $el.popup "close",
-                  transition: "pop"
-                  positionTo: "window"
+               $el.popup "close"
 
    ko.bindingHandlers.onEnter = 
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
          allBindings = allBindingsAccessor()
-         $(element).live "keypress", (e) ->
+         $el = $(element).live "keypress", (e) ->
             keyCode = if e.which then e.which else e.keyCode
             if (keyCode == 13)
+               $el.blur()
                allBindings.onEnter.call(viewModel)
                return false
             return true
@@ -92,14 +91,32 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
          link = $(element).click () ->
             link.addClass("ui-btn-active")
+            setTimeout (() -> link.removeClass("ui-btn-active")), 400
 
    ko.bindingHandlers.showListviewClick = 
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
          link = $(element).click () ->
-            link.parents(".ui-btn").addClass("ui-btn-active")
-
+            parent = link.parents(".ui-btn").addClass("ui-btn-active")
+            setTimeout (() -> parent.removeClass("ui-btn-active")), 400
 
    ko.bindingHandlers.setClass = 
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
          c = ko.utils.unwrapObservable valueAccessor()
          $(element).addClass(c)
+
+   ko.bindingHandlers.thumbnailSrc =
+      update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         img = ko.utils.unwrapObservable valueAccessor()
+         $(element).attr("src", fc.images.getThumbnailUrl(img))
+
+   ko.bindingHandlers.profileSrc =
+      update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         img = ko.utils.unwrapObservable valueAccessor()
+         $(element).attr("src", fc.images.getProfileUrl(img))
+
+   ko.bindingHandlers.teamSrc =
+      update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         img = ko.utils.unwrapObservable valueAccessor()
+         $(element).attr("src", fc.images.getTeamUrl(img))
+
+

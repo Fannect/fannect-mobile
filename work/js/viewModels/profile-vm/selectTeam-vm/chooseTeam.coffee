@@ -21,5 +21,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @teams.push team for team in teams
 
       selectTeam: (data) -> 
-         fc.team.create data._id, () ->
-            $.mobile.changePage "profile.html", transition: "slideup"
+         fc.team.create data._id, (err) ->
+            if err?.reason == "duplicate"
+               $.mobile.loading "show",
+                  text: "Already a fan!"
+                  textVisible: true
+                  textonly: true
+                  theme: "a"
+               setTimeout (-> $.mobile.loading "hide"), 1500
+            else
+               $.mobile.changePage "profile.html", transition: "slideup"

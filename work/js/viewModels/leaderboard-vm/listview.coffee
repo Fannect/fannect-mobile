@@ -32,7 +32,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                items = @extractList(result)
 
                if items.length > 0
-                  @no_more_results = items.length == @limit
+                  @no_more_results = items.length < @limit
                   @skip += @limit
                   @items.push team for team in items
                else
@@ -45,4 +45,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @load()
 
       onPageHide: () => $(window).unbind("scroll")
-      # selectUser: (data) -> fc.user.view(data._id)
+
+      selectUser: (data) -> fc.user.view({ team_profile_id: data._id })
+      selectTeam: (data) -> 
+         fc.cache.set("leaderboard_team_id", data._id)
+         $.mobile.changePage "leaderboard-breakdownOther.html", transition: "slide"
