@@ -55,15 +55,22 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
                positionTo: "window"
 
    ko.bindingHandlers.showPopup =
+      init: (element) ->
+         $(element).data("is_open", false)
+
       update: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) ->
+         val = ko.utils.unwrapObservable valueAccessor()
          $el = $(element)
-         if $el.hasClass("ui-popup") 
-            if ko.utils.unwrapObservable valueAccessor()
-               $el.popup "open",
-                  transition: "pop"
-                  positionTo: "window"
-            else
-               $el.popup "close"
+
+         if $el.data("is_open") != val
+            if $el.hasClass("ui-popup") 
+               $el.data("is_open", val)
+               if val
+                  $el.popup "open",
+                     transition: "pop"
+                     positionTo: "window"
+               else
+                  $el.popup "close"
 
    ko.bindingHandlers.onEnter = 
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->

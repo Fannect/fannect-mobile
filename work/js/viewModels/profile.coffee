@@ -15,6 +15,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @breakdown = ko.observableArray()
          @load()
 
+         @showProfileImagePopup = ko.computed () => @editing_image() == "profile"
+         @showTeamImagePopup = ko.computed () => @editing_image() == "team"
+
       load: () =>
          fc.team.subscribe @updateProfile
          fc.team.getActive()
