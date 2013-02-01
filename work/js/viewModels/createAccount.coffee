@@ -29,5 +29,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                setTimeout (() => $.mobile.loading "hide"), 1800
             else
                $.mobile.loading "hide"
+               $.mobile.changePage "linkAccounts.html", transition: "slide"
                fc.team.redirectToSelect(hide_back: true)
          return false

@@ -44,24 +44,16 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       return $(".header h1", page)?.first()?.attr("data-menu-root")
 
    setup = () ->
-      $.mobile.allowCrossDomainPages = true
-      $.mobile.loader.prototype.options.text = "Loading";
-      $.mobile.loader.prototype.options.textVisible = true
-      $.mobile.loader.prototype.options.theme = "b"
-      $.mobile.loader.prototype.options.html = ""
-      fc.mobile.createButtons()
       fc.createPages()
-
+      fc.mobile.createButtons()
       if fc.isSlow() then $("html").addClass("speed-up")
-      
       if forge.is.mobile()
          $("html").addClass("is-mobile")
          # Change reload stream to developers (for now)
          forge.reload.switchStream("developers-only")
-      
-      # Redirect to profile
-      fc.auth.isLoggedIn (err, is_logged_in) ->
-         if is_logged_in then $.mobile.changePage "profile.html", transition: "none"
+
+
+
 
 
       

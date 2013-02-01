@@ -23,16 +23,18 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
       return if forge.is.web() then "http://localhost:2200" else "https://fannect-login.herokuapp.com"
 
    fc.createPages = () ->
+      console.log "CREATE PAGES"
       for i, p of window.fannect.pages
          do (id = i, page = p) ->
             vm = null 
             scroller = null
+            $page = null
             
             $("##{id}").live("pageinit", () -> 
 
                # apply page classes
+               $page = $(@)
                if page.classes?
-                  $page = $(@)
                   $page.addClass(c) for c in page.classes
 
                # create viewmodel and bind to page

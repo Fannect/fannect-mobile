@@ -75,7 +75,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   done(null, fc.auth._access_token) if done
                error: (err) ->
                   if err
-                     if err.status == 401
+                     if err?.status == 401 or err.statusCode?.toString() == "401"
                         console.log "Failed to get access_token: Invalid refresh_token"
                         fc.auth.logout()
                      else
@@ -88,7 +88,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          
          forge.prefs.get "refresh_token"
          , (refresh_token) ->
-            return fc.auth.redirectToLogin() unless refresh_token
+            if not refresh_token
+               didRedirect = fc.auth.redirectToLogin() unless refresh_token
+               done(null, false) unless didRedirect and done
+
             fc.auth._refresh_token = refresh_token
             done null, refresh_token
 
@@ -97,8 +100,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       isLoggedIn: (done) ->
          fc.auth.getRefreshToken (err, token) ->
-            return done(err) if err
-            done null, (token?) if done
+            return done(err) if err and done
+            done null, (token?.length > 0) if done
 
       redirectToLogin: () ->
          noAuth = [
@@ -110,3 +113,5 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          
          if not ($.mobile.activePage.attr("id") in noAuth)
             $.mobile.changePage "index.html", transition: "slidedown"
+         else 
+            return false

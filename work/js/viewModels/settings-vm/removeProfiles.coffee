@@ -30,3 +30,4 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @showConfirm(false)
          @teams.remove @selectedTeam
          fc.team.remove @selectedTeam._id, () -> @is_loading(false)
+         fc.team.removeFromChannel(@selectedTeam.team_id)

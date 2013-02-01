@@ -2,9 +2,9 @@ vm = window.fannect.viewModels
 
 window.fannect.pages =
 
-   ###
+   ##
    # Login
-   ###
+   ##
    "index-page":
       vm: vm.Login
       buttons: [

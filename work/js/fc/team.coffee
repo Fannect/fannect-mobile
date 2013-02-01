@@ -22,6 +22,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   type: "GET"
                , (err, team) ->
                   throw err if err
+                  fc.team._addToChannel(team.team_id)
                   fc.team._teams[teamProfileId] = team
                   fc.team._notify(team)
                   fc.team._waitingFn[teamProfileId]
@@ -64,6 +65,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             data: team_id: team_id
          , (err, team) ->
             return done(err) if err and done
+            fc.team._addToChannel(team_id)
             fc.team._teams[team._id] = team
             fc.team.setActive team._id, false
             fc.team._notify(team)
@@ -75,15 +77,14 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             type: "DELETE"
          , (err, data) ->
             done(err, data) if err and done
-            
             fc.team._teams[teamProfileId] = null
             fc.team._curr = null
             forge.prefs.set "team_profile_id", teamProfileId
             done(err, data) if done
 
+      removeFromChannel: (team_id) -> forge.partners.parse.push.unsubscribe("team_#{team_id}") if forge.is.mobile()
       subscribe: (cb) -> fc.team._subscribers.push cb if cb
-      _notify: (team) -> 
-         sub team for sub in fc.team._subscribers
+      _notify: (team) -> sub team for sub in fc.team._subscribers
 
       # options - hide_back: [false]
       redirectToSelect: (options) ->
@@ -100,18 +101,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                $.mobile.changePage "profile-selectTeam-chooseSport.html", transition: ("slide" or options.transition)
 
 
-         # $.mobile.changePage "profile-selectTeam.html", transition: ("slide" or options.transition) 
-
-   # $("#profile-selectTeam-page").live("pageinit", () ->
-   #    $(@).addClass("dark-background")
-   #    vm = new fc.viewModels.Profile.SelectTeam() 
-   #    ko.applyBindings vm, @
-   # ).live("pageshow", () ->
-   #    options = fc.cache.pull("select_team_options") or {}
-   #    unless options.hide_back
-   #       fc.mobile.addHeaderButton
-   #          position: "left"
-   #          type: "back"
-   #          style: "back"
-   #          text: "Back"
-   # )
+      _addToChannel: (team_id) ->
+         if forge.is.mobile()
+            forge.partners.parse.push.subscribedChannels (channels) ->
+               channel = "team_#{team_id}"
+               if not (channel in channels)
+                  forge.partners.parse.push.subscribe(channel)

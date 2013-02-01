@@ -18,8 +18,17 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             type: "GET"
          , (error, teams) =>
             @is_loading(false)
-            @teams.push team for team in teams
+            
+            start = 0
+            showResults () =>
+               for i in [start..start+20] by 1
+                  return i >= teams.length
+                  start = i
+                  @teams.push teams[i]
+               setTimeout showResults, 5
 
+            showResults
+            
       selectTeam: (data) -> 
          fc.team.create data._id, (err) ->
             if err?.reason == "duplicate"

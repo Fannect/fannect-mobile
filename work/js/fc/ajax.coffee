@@ -7,7 +7,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       options.error = (error) ->
          console.error "#{options.url} (err):", error
       
-         if error?.status == 401 and not options.second_try
+         if (error?.status == 401 or error?.statusCode?.toString() == "401") and not options.second_try
             fc.auth.getNewAccessToken (err, token) ->
                options.second_try = true
                fc.ajax(options, done)

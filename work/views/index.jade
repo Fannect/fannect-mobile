@@ -13,9 +13,7 @@ block content
       label(for="password") Password
       input(type="password", name="password", id="password", data-bind="value: password")
 
-      button(data-role="button", type="submit", data-bind="fadeIn: !signing_in()") Login
-      .loading(data-role="fadeIn: signing_in", style="display:none;")
-
+      button(data-role="button", type="submit", data-bind="showClick: true") Login
 
       a(href="resetPassword.html", data-role="button", data-transition="slide") Reset Password
 

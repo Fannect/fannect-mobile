@@ -4,7 +4,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       constructor: () ->
          @email = ko.observable()
          @password = ko.observable()
-         @signing_in = ko.observable(false)
+         fc.setup()
          super
 
       login: () =>
@@ -16,7 +16,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          fc.auth.login @email(), @password(), (err, success) =>
             $.mobile.loading "hide"
-            @signing_in(false)
             if not err and success
                $.mobile.changePage "profile.html", transition: "slideup"
 
@@ -25,6 +24,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.auth.isLoggedIn (err, is_logged_in) =>
             if is_logged_in
                $.mobile.changePage "profile.html", transition: "none"
+            else
+               forge.launchimage.hide() if forge.is.mobile()
 
       rightButtonClick: () =>
          $.mobile.changePage "createAccount.html", transition: "slide"

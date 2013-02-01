@@ -41,6 +41,7 @@
 			"android": "res/screen-1024x768.png", 
 			"android-landscape": "res/screen-1024x768.png", 
 			"background-color": "#000000", 
+			"hide-manually": true, 
 			"ipad": "res/screen-640x1136.png", 
 			"ipad-landscape": "res/screen-640x1136.png", 
 			"ipad-landscape-retina": "res/screen-640x1136.png", 
@@ -59,7 +60,8 @@
 		}, 
 		"parameters": {
 			"login_server": "http://fannect-login.herokuapp.com", 
-			"resource_server": "http://fannect-api.herokuapp.com"
+			"resource_server": "http://fannect-api.herokuapp.com",
+			"loggly_server": "https://logs.loggly.com/inputs/3de92d03-5202-41b7-906d-f5b2c281a8d9"
 		}, 
 		"prefs": true, 
 		"reload": true, 
@@ -83,6 +85,12 @@
 		"topbar": true
 	}, 
 	"name": "Fannect Mobile", 
+	"partners": {
+		"parse": {
+			"applicationId": "EP2BOLtJpCtZP1gMWc65YxIMUvum8qqjKswCESJi", 
+			"clientKey": "crkhhKCtiP0qPbsUc89hU6X5UaoXKih43HiDptIM"
+		}
+	}, 
 	"platform_version": "v1.4", 
 	"version": "0.1"
 }

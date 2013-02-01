@@ -45,6 +45,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             val: profile.points?.knowledge or 0
             style: "knowledge"
 
+      onPageShow: () -> setTimeout (() -> forge.launchimage.hide() if forge.is.mobile()), 200
       selectTeam: () -> $.mobile.changePage "profile-selectTeam.html", transition: "slide"
       changeUserImage: () => @editing_image "profile"
       changeTeamImage: () => @editing_image "team"

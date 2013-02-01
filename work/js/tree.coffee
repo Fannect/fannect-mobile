@@ -15,6 +15,8 @@
 #= require "fc/tutorial.coffee"
 #= require "fc/user.coffee"
 #= require "fc/images.coffee"
+#= require "fc/setup.coffee"
+#= require "fc/logger.coffee"
 
 #= require "ext/binding-handlers.coffee"
 #= require "ext/text-scroller.coffee"
