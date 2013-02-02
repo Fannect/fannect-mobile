@@ -1,12 +1,6 @@
 @import "../lib/variables"
 @import "../lib/mixins"
 
-#leaderboard-users-page
-   .switcher
-      text-align: center
-      dropshadow: 0 2px 3px rgba(0,0,0,.5)
-      width: 100%
-
 .no-data
    margin-top: 40px
    text-align: center
@@ -18,3 +12,48 @@
    margin: 20px auto 0
    width: 300px
    height: 340px
+
+#leaderboard-breakdown-page
+#leaderboard-breakdownOther-page
+   .team-name
+      margin: 20px 10px 30px
+      font-size: 2.1em
+      text-align: center
+      text-shadow: 0 1px 3px #000
+
+   .graph-wrapper
+      background: url(../images/leaderboard/graph_LightBackground.png) no-repeat
+      background-size: 320px 235px
+      width: 320px
+      height: 235px
+      margin: 0 auto
+
+      .breakdown
+         width: 180px
+         height: 188px
+         margin: 0 auto 
+         padding-top: 12px
+
+   .graph-base
+      position: relative
+      margin: -32px auto 0
+      width: 280px
+      font-size: .6em
+      color: #bbb
+      text-shadow: 0 1px 1px #fff
+
+      .passion
+         position: absolute
+         left: 50px
+      .dedication
+         position: absolute
+         left: 119px
+      .knowledge
+         position: absolute
+         left: 190px
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5)
+   #leaderboard-breakdown-page
+   #leaderboard-breakdownOther-page
+      .graph-wrapper
+         background-image: url(../images/leaderboard/graph_LightBackground@2x.png)!important

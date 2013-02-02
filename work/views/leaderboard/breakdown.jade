@@ -5,6 +5,11 @@ block header
    h1(data-menu-root="leaderboard") Leaderboard
 
 block content
+   .team-name(data-bind="text: name")
 
-   .no-data(data-bind="fadeIn: no_data") No data for this team!
-   .chart-full(data-bind="chart: breakdown, visible: !no_data()")
+   .graph-wrapper
+      .breakdown(data-bind="chart: breakdown")
+   .graph-base
+      span.passion Passion
+      span.dedication Dedication
+      span.knowledge Knowledege

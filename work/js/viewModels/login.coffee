@@ -8,7 +8,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super
 
       login: () =>
-         @signing_in(true)
          $.mobile.loading "show",
             text: "Logging In"
             textVisible: true

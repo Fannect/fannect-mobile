@@ -5,7 +5,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       constructor: () ->
          super
          @breakdown = ko.observableArray()
-         @no_data = ko.observable(false)
+         @name = ko.observableArray()
          @load()
 
       getUrl: (done) -> 
@@ -17,19 +17,18 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             fc.ajax 
                url: url
                type: "GET"
-            , (error, points) =>
-               if points.passion and points.dedication and points.knowledge
-                  @breakdown.removeAll()
-                  @breakdown.push
-                     val: points.passion
-                     style: "passion"
-                  @breakdown.push
-                     val: points.dedication
-                     style: "dedication"
-                  @breakdown.push
-                     val: points.knowledge
-                     style: "knowledge"
-               else
-                  console.log "HIT"
-                  @no_data(true)
+            , (error, team) =>
+               @name(team.full_name)
+               @breakdown.removeAll()
+               @breakdown.push
+                  val: team.points?.passion or 0
+                  style: "passion"
+               @breakdown.push
+                  val: team.points?.dedication or 0
+                  style: "dedication"
+               @breakdown.push
+                  val: team.points?.knowledge or 0
+                  style: "knowledge"
+                  
+               console.log @breakdown()
 
