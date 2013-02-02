@@ -14,6 +14,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             throw err if err
             @other_user_id = profile.user_id
             @is_friend(profile.is_friend) 
+
+            profile.profile_image_url = "images/fannect_UserPlaceholderPic@2x.png" unless profile.profile_image_url?.length > 2
+            profile.team_image_url = "images/fannect_TeamPlaceholderPic@2x.png" unless profile.team_image_url?.length > 2
+
             @updateProfile(profile)
 
             unless profile.is_friend

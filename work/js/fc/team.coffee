@@ -8,8 +8,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       get: (teamProfileId, done) ->
          if fc.team._teams[teamProfileId] 
-            done(null, fc.team._teams[teamProfileId]) if done
             fc.team._notify(fc.team._teams[teamProfileId])
+            done(null, fc.team._teams[teamProfileId]) if done
             return fc.team._teams[teamProfileId]
          else
             if done and fc.team._fetching[teamProfileId]

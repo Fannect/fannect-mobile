@@ -11,6 +11,26 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
             if hideInstant then $(element).hide()
             else $(element).fadeOut duration
 
+   ko.bindingHandlers.slideInOut = 
+      update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
+         allBindings = allBindingAccessor()
+         duration = allBindings.duration or 400
+         if valueUnwrapped
+            $(element).slideDown duration
+         else
+            $(element).slideUp duration
+
+   ko.bindingHandlers.setFocusBlur =
+      update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
+         allBindings = allBindingAccessor()
+         if valueUnwrapped
+            $(element).focus()
+         else
+            $(element).blur()
+
+
    ko.bindingHandlers.disableSlider = 
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          valueUnwrapped = ko.utils.unwrapObservable valueAccessor()

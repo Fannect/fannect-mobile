@@ -38,17 +38,17 @@
 		}, 
 		"is": true, 
 		"launchimage": {
-			"android": "res/screen-1024x768.png", 
-			"android-landscape": "res/screen-1024x768.png", 
+			"android": "res/splash-androidmobile@2x.png", 
+			"android-landscape": "res/splash-androidmobile@2x.png", 
 			"background-color": "#000000", 
 			"hide-manually": true, 
-			"ipad": "res/screen-640x1136.png", 
-			"ipad-landscape": "res/screen-640x1136.png", 
-			"ipad-landscape-retina": "res/screen-640x1136.png", 
-			"ipad-retina": "res/screen-640x1136.png", 
-			"iphone": "res/screen-320x480.png", 
-			"iphone-retina": "res/screen-640x960.png", 
-			"iphone-retina4": "res/screen-640x1136.png"
+			"ipad": "res/splash-androidmobile@2x.png", 
+			"ipad-landscape": "res/splash-androidmobile@2x.png", 
+			"ipad-landscape-retina": "res/splash-androidmobile@2x.png", 
+			"ipad-retina": "res/splash-androidmobile@2x.png", 
+			"iphone": "res/splash-iphone-4mobile.png", 
+			"iphone-retina": "res/splash-iphone-4mobile@2x.png", 
+			"iphone-retina4": "res/splash-iphone-5mobile@2x.png"
 		}, 
 		"logging": {
 			"level": "DEBUG"

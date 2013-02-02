@@ -11,8 +11,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @roster = ko.observable()
          @points = ko.observable()
          @rank = ko.observable()
-         @shout = ko.observable()
          @breakdown = ko.observableArray()
+         @shout = ko.observable()
+         @new_shout = ko.observable("")
+         @shouting = ko.observable(false) 
          @load()
 
          @showProfileImagePopup = ko.computed () => @editing_image() == "profile"
@@ -23,6 +25,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.team.getActive()
 
       updateProfile: (profile) =>
+         console.log "SHOUT", profile
          return unless profile
          @name profile.name or "&nbsp;"
          @profile_image profile.profile_image_url or ""
@@ -31,8 +34,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @roster profile.roster or 0
          @points profile.points?.overall or 0
          @rank profile.rank or 0
-         @shout profile.shouts?[0]
-         
+         @shout profile.shouts?[0]?.text
+
          # Add chart data
          @breakdown.removeAll()
          @breakdown.push
@@ -51,9 +54,33 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       changeTeamImage: () => @editing_image "team"
       cancelImagePicking: () => @editing_image "none"
       isEditable: () -> return true
-       
+
+      startShouting: () =>
+         if @isEditable()
+            @shouting(not @shouting())
+      
+      submitShout: () =>
+         newShout = @new_shout()
+         if newShout?.length > 0 and newShout.length <= 140
+            @shouting(false)
+            setTimeout (()=> @new_shout("")), 400
+
+            fc.team.updateActive({shouts: [{text: newShout}]})
+            fc.team.getActive (err, profile) =>
+               # @shout(newShout)
+               fc.ajax
+                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/shouts"
+                  type: "POST"
+                  data: shout: newShout
+         else
+            # Notify that the shout is too long
+
+         @shouting(false)
+
+      stopShouting: () =>
+         @shouting(false)
+
       takeImage: (data, e) =>
-         # console.log "HIT"
          if @isEditable()
             done = if @editing_image() == "profile" then @_uploadProfileImage else @_uploadTeamImage
             forge.file.getImage source: "camera", done

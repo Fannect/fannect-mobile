@@ -44,9 +44,6 @@ body
       font-size: 1.2em
       text-transform: uppercase
 
-img
-   background: url(../images/icons/ajax-loader2.gif) 50% 50% no-repeat
-
 // .fixed-background
 //    width: 100%
 //    height: 100%
@@ -340,8 +337,12 @@ img
       width: 34px            
       bottom: 0
       &.accept
-         background: url(../images/icons/Button_Delete.png) 50% 50% no-repeat
-         background-size: 19px 19px
+         background: url(../images/icons/Tablecell_greenCheckmark.png) 50% 50% no-repeat
+         background-size: 30px 30px
+   .active
+      .right-icon.accept
+         background: url(../images/icons/Tablecell_blueCheckmark.png) 50% 50% no-repeat
+         background-size: 30px 30px
 
 .team-list
    .team-item
@@ -546,9 +547,11 @@ img
       .cancel
          background-image: url(../images/icons/Button_Delete@2x.png)!important
       .accept
-         background-image: url(../images/icons/Button_Delete@2x.png)!important
+         background-image: url(../images/icons/Tablecell_greenCheckmark@2x.png)!important
       .rank
          background-image: url(../images/leaderboard/Overlay_LeaderboardRank@2x.png)!important
+      .active .accept
+         background-image: url(../images/icons/Tablecell_blueCheckmark@2x.png)!important
 
    .tutorial-link .ui-icon.ui-icon-custom
       background-image: url(../images/tutorial/InfoButton@2x.png)

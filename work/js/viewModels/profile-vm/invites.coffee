@@ -52,7 +52,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       _loadInvites: (done) =>
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/me/invites"
-         , done
+         , (err, users) ->
+            for user in users
+               user.profile_image_url = "images/fannect_UserPlaceholderPic@2x.png" unless user.profile_image_url?.length > 2
+            done(err, users)
 
       _setInvites: (teams, invites) =>
          if invites.length > 0

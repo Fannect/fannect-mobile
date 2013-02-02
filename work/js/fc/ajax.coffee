@@ -3,7 +3,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       done = done or options.success
       options.success = (result) ->
          console.log "#{options.url}:", JSON.parse(result) 
-         done null, JSON.parse(result)
+         done null, JSON.parse(result) if done
       options.error = (error) ->
          console.error "#{options.url} (err):", error
       
@@ -15,7 +15,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             try
                console.error errText = JSON.parse error.responseText
             finally
-               done(errText or error)
+               done(errText or error) if done
 
       # Get a new access token if we don't have one and then rerun the requrest
       if not options.no_access_token and not fc.auth.hasAccessToken()

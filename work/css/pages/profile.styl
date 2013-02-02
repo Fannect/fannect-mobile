@@ -149,18 +149,57 @@
             left: 206px
 
    .shout-button
-      background: url(../images/profile/shout_ButtonDark@2x.png) no-repeat
-      background-size: 130px 63px
+      background: url(../images/profile/Shout.png) no-repeat
+      background-size: 265px 63px
       height: 63px
       width: 130px
       margin: 0 auto
+      &.active
+         background-position: -135px
+         background-image: url(../images/profile/ShoutHighlight.png)
+
+   .shout-box
+      position: relative
+      display: table
+      background: url(../images/profile/fannect_ShoutBox.png)
+      background-size: 270px 100px
+      width: 270px
+      height: 100px
+      margin: 5px auto 0px
+      // &.active
+      //    dropshadow: 0px 0px 12px #c1272d
+      //    border-radius: 5px
 
    .shout-text
-      width: 280px
-      margin: 10px auto 10px
+      display: table-cell
+      padding: 10px
+      vertical-align: middle
+      color: #aaa
+      text-align: center
+      font-size: 0.9em
 
+   .shout-editable
+      position: absolute
+      top: 15px
+      left: 10px
+      right: 10px
+      bottom: 15px
+      border: none
+      background: transparent
+      dropshadow: none
+      color: #aaa
+      text-align: center
+      font-size: 0.9em
+      width: auto
+      padding: 0
+      margin: 0
+      resize:none
+      max-width: 250px
 
-      // shout_ButtonDark@2x.png
+   .shout-actions
+      width: 270px
+      margin: auto
+
    .separator
       width: 320px
       height: 32px
@@ -309,6 +348,10 @@
          background-image: url(../images/profile/fanDNAGraph-Box@2x.png)
       .highlight
          background-image: url(../images/profile/graphBase@2x.png)
+      .shout-button
+         background-image: url(../images/profile/Shout@2x.png)!important
+      .shout-box
+         background-image: url(../images/profile/fannect_ShoutBox@2x.png)!important
 
    #profile-page
       .tutorial-welcome
