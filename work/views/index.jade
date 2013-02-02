@@ -2,19 +2,33 @@ extend layout
 
 block header
    h1 Sign In
-   a.ui-btn-right(href="createAccount.html", data-role="button", data-transition="slide", data-theme="b") New Account
+   //- a.ui-btn-right(href="createAccount.html", data-role="button", data-transition="slide", data-theme="b") New Account
 
 block content
-   .fannect-logo
+   .logo
 
-   form(data-bind="submit: login", data-ajax="false")
-      label(for="email") Email
-      input(type="text", name="email", id="email", data-bind="value: email")
-      label(for="password") Password
-      input(type="password", name="password", id="password", data-bind="value: password")
+   .input-container
+      
+      form(data-bind="submit: login", data-ajax="false")
+         //- label(for="email") Email
+         input(type="text", name="email", id="email", data-bind="value: email", placeholder="email")
+         //- label(for="password") Password
+         input(type="password", name="password", id="password", data-bind="value: password", placeholder="password")
 
-      button(data-role="button", type="submit", data-bind="showClick: true") Login
+         button(data-role="button", type="submit", data-bind="showClick: true", data-theme="a") Login
+      
+      .or-separator
 
-      a(href="resetPassword.html", data-role="button", data-transition="slide") Reset Password
+      .sub-container
+         a(href="createAccount.html", data-role="button", data-transition="slide", data-theme="b", data-mini="true") Create Account
+         a(href="resetPassword.html", data-role="button", data-transition="slide", data-theme="b", data-mini="true") Reset Password
+      
+
+   //-       <div class="ui-grid-a">
+   //- <div class="ui-block-a"><strong>I'm Block A</strong> and text inside will wrap</div>
+   //- <div class="ui-block-b"><strong>I'm Block B</strong> and text inside will wrap</div>
+
+
+      
 
 block footer

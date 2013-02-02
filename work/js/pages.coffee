@@ -7,12 +7,12 @@ window.fannect.pages =
    ##
    "index-page":
       vm: vm.Login
-      buttons: [
-         {
-            position: "right"
-            text: "Create Account"
-         }
-      ]
+      # buttons: [
+      #    {
+      #       position: "right"
+      #       text: "Create Account"
+      #    }
+      # ]
 
    "createAccount-page":
       vm: vm.CreateAccount

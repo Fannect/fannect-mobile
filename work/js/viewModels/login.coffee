@@ -8,15 +8,17 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super
 
       login: () =>
-         $.mobile.loading "show",
-            text: "Logging In"
-            textVisible: true
-            theme: "a"
+         if @email()?.length > 1 and @password()?.length > 1
 
-         fc.auth.login @email(), @password(), (err, success) =>
-            $.mobile.loading "hide"
-            if not err and success
-               $.mobile.changePage "profile.html", transition: "slideup"
+            fc.msg.loading("Logging in...")
+            fc.auth.login @email(), @password(), (err, success) =>
+               fc.msg.hide()
+               if not err and success
+                  $.mobile.changePage "profile.html", transition: "slideup"
+               else
+                  fc.msg.show("Incorrect username or password!")
+         else
+            fc.msg.show("We need your email and password to log you in!")
 
       onPageShow: () =>
          super

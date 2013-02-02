@@ -7,10 +7,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       resetPassword: () =>
          if @email()
-            $.mobile.loading "show",
-               text: "Resetting Password"
-               textVisible: true
-               theme: "a"
+
+            fc.msg.loading("Resetting password...")
 
             fc.ajax
                url: "#{fc.getLoginURL()}/v1/reset"
@@ -18,11 +16,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                data: { email: @email() }
                no_access_token: true
             , (err, data) =>
+               fc.msg.hide()
+
                if err
-                  $.mobile.loading "show",
-                     text: "No account associated with this email"
-                     textOnly: true
-                     theme: "a"
+                  fc.msg.show("No account associated with: #{@email()}")
                else
                   fc.cache.set("reset_password_email", @email())
                   $.mobile.changePage "resetPassword-submitTemporary.html", transition: "slide"
+         else
+            fc.msg.show("We need an email to be able to reset your password silly!")

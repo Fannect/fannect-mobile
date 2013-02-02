@@ -11,6 +11,7 @@
 #= require "fc/cache.coffee"
 #= require "fc/chart.coffee"
 #= require "fc/mobile.coffee"
+#= require "fc/msg.coffee"
 #= require "fc/team.coffee"
 #= require "fc/tutorial.coffee"
 #= require "fc/user.coffee"

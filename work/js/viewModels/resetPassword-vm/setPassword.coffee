@@ -8,10 +8,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       submitPassword: () =>
          if @password() and @password() == @confirmPassword()
-            $.mobile.loading "show",
-               text: "Updating password"
-               textVisible: true
-               theme: "a"
+            fc.msg.loading("Updating password...")
 
             fc.user.get (err, user) =>
                fc.ajax 
@@ -19,9 +16,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   type: "PUT"
                   data: password: @password()
                , (err, result) =>
-                  $.mobile.loading "show",
+                  fc.msg.hide()
                   if err
-                     #handle
+                     fc.msg.show("Unable to update password. :(")
                   else
                      fc.auth._refresh_token = result.refresh_token
                      $.mobile.changePage "profile.html", transition: "slideup"
+         else
+            fc.msg.show("Your passwords don't match!")

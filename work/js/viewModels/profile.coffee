@@ -25,7 +25,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.team.getActive()
 
       updateProfile: (profile) =>
-         console.log "SHOUT", profile
          return unless profile
          @name profile.name or "&nbsp;"
          @profile_image profile.profile_image_url or ""

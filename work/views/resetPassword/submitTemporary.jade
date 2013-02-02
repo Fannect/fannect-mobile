@@ -1,13 +1,17 @@
 extend ../layout
 
 block header
-   
+   a(data-icon="back", data-rel="back", data-theme="b") Back
+   h1 Reset Code
+
 block content
 
-   form(data-bind="submit: submitTemporary", data-ajax="false")
-      label(for="password") Temporary
-      input(type="text", name="password", id="password", data-bind="value: password")
-    
+   form.input-container(data-bind="submit: submitTemporary", data-ajax="false")
+      
+      .explanation
+         | A password reset code has been emailed to you. Please check your email and input the provided code.
+
+      input(type="text", name="password", id="password", data-bind="value: password", placeholder="code")
       button(data-role="button", type="submit") Submit
 
 block footer
