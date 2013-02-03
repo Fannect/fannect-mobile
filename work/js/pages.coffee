@@ -200,5 +200,3 @@ window.fannect.pages =
 
    "settings-account-page":
       vm: vm.Settings.Account
-      classes: ["dark-background"]
-

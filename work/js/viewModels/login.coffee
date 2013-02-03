@@ -9,7 +9,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       login: () =>
          if @email()?.length > 1 and @password()?.length > 1
-
             fc.msg.loading("Logging in...")
             fc.auth.login @email(), @password(), (err, success) =>
                fc.msg.hide()

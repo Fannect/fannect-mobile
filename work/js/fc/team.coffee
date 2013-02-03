@@ -35,6 +35,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             d(null, team) for d in fc.team._waitingFn[teamProfileId]
 
       getActive: (done) ->
+         console.log "MADE IT HERE"
          if fc.team._curr
             fc.team.get(fc.team._curr, done) 
          else

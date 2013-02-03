@@ -103,25 +103,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          $.mobile.changePage "settings.html", transition: "slidedown"
 
       _uploadProfileImage: (file) =>
-         # TESTING
-         # forge.file.base64 file
-         # , (data) ->
-         #    src = "data:image/png;base64,#{data}"
-         #    fc.getDataURL src, 500, 500, (data_url) ->
-
-         #       fc.ajax
-         #          url: "#{fc.getResourceURL()}/v1/images/me"
-         #          type: "POST"
-         #          fileUploadMethod: "raw"
-         #          data: data_url
-         #       , (err, res) ->
-         #          console.log "SHRANK IMAGE: #{JSON.stringify(res)}"
-               
-            # data:image/png;base64,
-         #END TESTING
-
          file.name = "image"
-         forge.file.URL(file, (url) -> console.log("URL: #{url}"); fc.team.updateActive(profile_image_url: url))
+         # forge.file.URL(file, (url) -> console.log("URL: #{url}"); fc.team.updateActive(profile_image_url: url))
 
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/images/me"
@@ -132,7 +115,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       _uploadTeamImage: (file) =>
          file.name = "image"
-         forge.file.URL(file, (url) -> fc.team.updateActive(team_image_url: url))
+         # forge.file.URL(file, (url) -> fc.team.updateActive(team_image_url: url))
 
          fc.team.getActive (err, profile) =>
             fc.ajax 
