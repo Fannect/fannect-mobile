@@ -71,6 +71,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             fc.team._notify(team)
             done(null, team) if done
 
+      clearCache: () ->
+         fc.team._teams = {}
+
       remove: (teamProfileId, done) ->
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/teamprofiles/#{teamProfileId}"

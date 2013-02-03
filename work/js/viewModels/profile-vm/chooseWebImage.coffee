@@ -57,10 +57,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
             @images()[@images.indexOf(data)].selected(true)
 
-            $.mobile.loading "show",
-               text: "Uploading image.."
-               textVisible: true
-               theme: "a"
+            fc.msg.loading("Uploading image...")
 
             fc.team.getActive (err, profile) =>
                fc.ajax 
@@ -68,6 +65,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   type: "POST"
                   data: image_url: data.url
                , (err, data) =>
-                  $.mobile.loading "hide"
-                  fc.team.updateActive(data)
-                  $.mobile.changePage "profile.html", transition: "slideup"
+                  if err
+                     fc.msg.show("Unable to upload image.")
+                  else
+                     fc.msg.hide()
+                     fc.team.updateActive(data)
+                     $.mobile.changePage "profile.html", transition: "slideup"

@@ -34,7 +34,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       onPageShow: () ->
          super
-         console.log "pageShow"
          @face_value.valueHasMutated()
          @available.valueHasMutated()
          # @available true

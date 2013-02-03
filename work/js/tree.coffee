@@ -59,6 +59,7 @@
 #= require "viewModels/leaderboard-vm/overallFans.coffee"
 
 #= require "viewModels/settings-vm/removeProfiles.coffee"
+#= require "viewModels/settings-vm/account.coffee"
 
 #= require "pages.coffee"
 #= require "site.coffee"

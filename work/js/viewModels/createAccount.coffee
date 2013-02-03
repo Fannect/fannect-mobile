@@ -10,10 +10,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super
 
       createAccount: () =>
-         $.mobile.loading "show",
-            text: "Creating Account"
-            textVisible: true
-            theme: "a"
+         fc.msg.loading("Creating accout...")
 
          fc.auth.createAccount
             first_name: @first_name()
@@ -22,13 +19,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             password: @password()
          , (err) =>
             if err?.status == 409
-               $.mobile.loading "show",
-                  text: "#{@email()} already registered!"
-                  textonly: true
-                  theme: "a"
-               setTimeout (() => $.mobile.loading "hide"), 1800
+               fc.msg.show("#{@email()} already registered!")
             else
-               $.mobile.loading "hide"
+               fc.msg.hide()
                $.mobile.changePage "linkAccounts.html", transition: "slide"
                fc.team.redirectToSelect(hide_back: true)
          return false

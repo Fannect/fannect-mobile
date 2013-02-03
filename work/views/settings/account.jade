@@ -1,17 +1,18 @@
 extend ../layout
 
+
 block header
    a(href="settings.html", data-icon="back", data-rel="back") Settings
    h1(data-menu-root="profile") Account
    a.ui-btn-right(href="settings.html", data-role="button", data-role="click: done", data-transition="reverse", data-theme="b") Done
 
 block content
-
-   .image-title.bio
-   textarea.text-edit(type="text", data-bind="value: bio", data-theme="b")
-
-   .image-title.game-day-spot
-   textarea.text-edit(type="text", data-bind="value: game_day_spot", data-theme="b")
-
-   .image-title.bragging-rights
-   textarea.text-edit(type="text", data-bind="value: bragging_rights", data-theme="b")
+   
+   form.input-container(data-bind="submit: update", data-ajax="false")
+      input(type="text", name="firstname", data-bind="value: first_name", , placeholder="fist name")
+      input(type="text", name="lastname", data-bind="value: last_name", placeholder="last name")
+      input(type="text", name="email", data-bind="value: email", placeholder="email")
+      input(type="password", name="password", data-bind="value: password", placeholder="new password")
+      input(type="password", name="password", data-bind="value: confirm_password", placeholder="confirm")
+      
+      button(data-role="button", type="submit") Update

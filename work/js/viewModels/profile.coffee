@@ -5,8 +5,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super
          @editing_image = ko.observable("none")
          @name = ko.observable("&nbsp;")
-         @team_image = ko.observable ""
-         @profile_image = ko.observable ""
+         @profile_image = ko.observable "images/fannect_UserPlaceholderPic@2x.png"
+         @team_image = ko.observable "images/fannect_TeamPlaceholderPic@2x.png"
          @team_name = ko.observable "Loading..."
          @roster = ko.observable()
          @points = ko.observable()
@@ -26,6 +26,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       updateProfile: (profile) =>
          return unless profile
+
+         if @isEditable()
+            profile.profile_image_url = "images/profile/Profile_tapToAddProfilePhoto@2x.png" unless profile.profile_image_url?.length > 2
+            profile.team_image_url = "images/profile/Profile_tapToAddTeamPhoto@2x.png" unless profile.team_image_url?.length > 2
+
          @name profile.name or "&nbsp;"
          @profile_image profile.profile_image_url or ""
          @team_image profile.team_image_url or ""
@@ -82,11 +87,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       takeImage: (data, e) =>
          if @isEditable()
             done = if @editing_image() == "profile" then @_uploadProfileImage else @_uploadTeamImage
+            @editing_image("none")
             forge.file.getImage source: "camera", done
          
       chooseImage: (data, e) ->
          if @isEditable()
             done = if @editing_image() == "profile" then @_uploadProfileImage else @_uploadTeamImage
+            @editing_image("none")
             forge.file.getImage source: "gallery", done
 
       leftButtonClick: () ->
@@ -95,7 +102,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       rightButtonClick: () ->
          $.mobile.changePage "settings.html", transition: "slidedown"
 
-      _uploadProfileImage: (file) ->
+      _uploadProfileImage: (file) =>
          # TESTING
          # forge.file.base64 file
          # , (data) ->
@@ -114,6 +121,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          #END TESTING
 
          file.name = "image"
+         forge.file.URL(file, (url) -> console.log("URL: #{url}"); fc.team.updateActive(profile_image_url: url))
+
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/images/me"
             type: "POST"
@@ -121,9 +130,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          , (err, data) ->
             fc.team.updateActive(data) if data.profile_image_url
 
-      _uploadTeamImage: (file) ->
-         fc.team.getActive (err, profile) ->
-            file.name = "image"
+      _uploadTeamImage: (file) =>
+         file.name = "image"
+         forge.file.URL(file, (url) -> fc.team.updateActive(team_image_url: url))
+
+         fc.team.getActive (err, profile) =>
             fc.ajax 
                url: "#{fc.getResourceURL()}/v1/images/me/#{profile._id}"
                type: "POST"

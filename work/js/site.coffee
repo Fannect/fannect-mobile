@@ -49,9 +49,6 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       if fc.isSlow() then $("html").addClass("speed-up")
       if forge.is.mobile()
          $("html").addClass("is-mobile")
-         # Change reload stream to developers (for now)
-         forge.reload.switchStream("developers-only")
-
 
 
 

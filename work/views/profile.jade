@@ -25,12 +25,10 @@ block header
 block content
    .profile-images
       .team-wrap(data-bind="click: changeTeamImage, clickBubble: false")
-         img(data-bind="teamSrc:team_image, visible: team_image().length > 0", width="188", height="188")
-         .team-hint.ui-corner-all
+         img(data-bind="teamSrc:team_image", width="188", height="188")
          .cover
       .user-wrap(data-bind="click: changeUserImage, clickBubble: false")
-         img(data-bind="profileSrc:profile_image, visible: profile_image().length > 0", width="140", height="140")
-         .user-hint.ui-corner-all
+         img(data-bind="profileSrc:profile_image", width="140", height="140")
          .cover
 
    .name(data-bind="html: name")
@@ -56,7 +54,7 @@ block content
       textarea.shout-editable(data-bind="value: new_shout, valueUpdate: ['afterkeydown'], fadeIn: shouting, setFocusBlur: shouting")
    .shout-actions(data-bind="slideInOut: shouting")
       a(data-role="button", data-bind="click: submitShout, showClick: true") Shout It
-      a(data-role="button", data-bind="click: stopShouting, showClick: true", data-theme="b") Cancel
+      a(data-role="button", data-bind="click: stopShouting, showClick: true", data-theme="b", data-mini="true") Cancel
 
    .bragging-rights
       .separator

@@ -13,6 +13,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                type: "GET"
             , (error, user) ->
                fc.user._curr = user
+
+               # Change stream
+               if forge.is.mobile()
+                  forge.reload.switchStream(user?.reload_stream or "default")
+
                done error, user
 
       update: (user) ->
@@ -20,6 +25,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          fc.auth._refresh_token = user.refresh_token if user.refresh_token
          $.extend true, fc.user._curr, user
          sub fc.user._curr for sub in fc.user._subscribers
+
+      clearCache: () ->
+         fc.user._curr = null
 
       view: (options) ->
          fc.cache.set "view_other", options

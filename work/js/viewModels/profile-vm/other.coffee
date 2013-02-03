@@ -2,7 +2,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
    class fc.viewModels.Profile.Other extends fc.viewModels.Profile
       constructor: (options) ->
-         console.log options
          @options = options
          @is_friend = ko.observable(false)
          @showSentPopup = ko.observable(false)
@@ -10,6 +9,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super
 
       load: () =>
+
          finish = (err, profile) =>
             throw err if err
             @other_user_id = profile.user_id

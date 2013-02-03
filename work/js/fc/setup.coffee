@@ -11,11 +11,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       if forge.is.mobile()
          handleConnectionChange = () ->
             if not forge.is.connection.connected()
-               $.mobile.loading "show",
-                  text: "Connection lost. Attempting to reconnect..."
-                  textVisible: true
-                  theme: "a"
+               fc.msg.loading("Connection lost. Attempting to reconnect...")
             else  
-               $.mobile.loading "hide"
+               fc.msg.hide()
 
          forge.event.connectionStateChange.addListener(handleConnectionChange, handleConnectionChange)

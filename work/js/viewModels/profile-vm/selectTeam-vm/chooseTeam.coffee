@@ -20,7 +20,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             
             start = 0
             showResults = () =>
-               console.log "start", 0
                for i in [start..start+5] by 1
                   if i >= teams.length
                      @is_loading(false)
@@ -34,11 +33,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       selectTeam: (data) -> 
          fc.team.create data._id, (err) ->
             if err?.reason == "duplicate"
-               $.mobile.loading "show",
-                  text: "Already a fan!"
-                  textVisible: true
-                  textonly: true
-                  theme: "a"
-               setTimeout (-> $.mobile.loading "hide"), 1500
+               fc.msg.show("You're already a commit fan of #{data.full_name}!")
             else
                $.mobile.changePage "profile.html", transition: "slideup"
