@@ -17,22 +17,29 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          @load()
             
-      load: () ->
-         fc.ajax 
-            url: "#{fc.getResourceURL()}/v1/me/games/gameFace"
-            type: "GET"
-         , (error, data) =>
-            if data.available
-               @available true
-               @face_value data?.face_value
-            else 
-               @available false
-               @face_value "off"
+      load: () =>
+         fc.team.getActive (err, profile) =>
+            return fc.msg.show("Unable to load game information!") if err
+            
+            fc.ajax 
+               url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace/mock0"
+               type: "GET"
+            , (error, data) =>
+               return fc.msg.show("Unable to load game information!") if err
+               
+               @available data.available or false
+               @face_value if data?.meta?.face_value then "on" else "off"
 
-            @home_team data.home_team
-            @away_team data.away_team
+               away = { name: "Unknown", record: "" } 
+               home = { name: "Unknown", record: "" }
 
-      onPageShow: () ->
+               $.extend home, data.home_team
+               $.extend away, data.away_team
+
+               @home_team home
+               @away_team away
+
+      onPageShow: () =>
          super
          @face_value.valueHasMutated()
          @available.valueHasMutated()

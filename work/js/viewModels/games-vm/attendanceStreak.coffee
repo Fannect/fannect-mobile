@@ -38,8 +38,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             , (error, data) =>
                return fc.msg.show("Unable to load game information!") if err
 
-               console.log data
-
                @available data.available
                @checked_in data.meta?.checked_in
                @game_preview data.preview
