@@ -16,7 +16,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   e.stopPropagation()
                   slider.prev()
 
-            $(".tutorial-close", tutorial).click (e) ->
+            $(".tutorial-close, .tutorial-done", tutorial).click (e) ->
                e.stopPropagation()
                fc.tutorial.hide()
 

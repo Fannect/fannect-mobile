@@ -35,7 +35,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             d(null, team) for d in fc.team._waitingFn[teamProfileId]
 
       getActive: (done) ->
-         console.log "MADE IT HERE"
          if fc.team._curr
             fc.team.get(fc.team._curr, done) 
          else
@@ -77,13 +76,13 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       remove: (teamProfileId, done) ->
          fc.ajax 
-            url: "#{fc.getResourceURL()}/v1/teamprofiles/#{teamProfileId}"
+            url: "#{fc.getResourceURL()}/v1/me/teams/#{teamProfileId}"
             type: "DELETE"
          , (err, data) ->
             done(err, data) if err and done
             fc.team._teams[teamProfileId] = null
             fc.team._curr = null
-            forge.prefs.set "team_profile_id", teamProfileId
+            forge.prefs.set "team_profile_id", null
             done(err, data) if done
 
       removeFromChannel: (team_id) -> forge.partners.parse.push.unsubscribe("team_#{team_id}") if forge.is.mobile()

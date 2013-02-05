@@ -50,14 +50,15 @@ block content
 
    .shout-button(data-bind="css:{'active': shouting}, click: startShouting")
    .shout-box(data-bind="css:{'active': shouting}")
+      .shout-quote-left
+      .shout-quote-right
       .shout-text(data-bind="text: shout, fadeIn: !shouting()")
       textarea.shout-editable(data-bind="value: new_shout, valueUpdate: ['afterkeydown'], fadeIn: shouting, setFocusBlur: shouting")
    .shout-actions(data-bind="slideInOut: shouting")
       a(data-role="button", data-bind="click: submitShout, showClick: true") Shout It
       a(data-role="button", data-bind="click: stopShouting, showClick: true", data-theme="b", data-mini="true") Cancel
 
-   .bragging-rights
-      .separator
+   .fan-dna-separator
 
    .graph-wrapper
       .breakdown(data-bind="chart: breakdown")
@@ -115,6 +116,7 @@ block tutorial
       .tutorial-item
          .tutorial-content
             .tutorial-close
+            .tutorial-done
             .tutorial-prev
             .tutorial-pos-indicator
                .dot

@@ -31,11 +31,10 @@
             background: url(../images/games/attendanceStreak/Overlay_MarqueeCap_Right_iPhone.png)
             background-size: 13px 110px
          .stadium-info
-            padding-top: 8px
+            padding-top: 4px
             .stadium
                font-size: 1.6em
                text-shadow: 0.1em 0.1em #000
-               margin-bottom: 3px
             .location
                font-size: .7em
                color: color-light-gray
@@ -52,23 +51,32 @@
                color: color-light-gray
                text-overflow: ellipsis
                white-space: nowrap;
-            .home-info
-               float: left
+            .team-info
+               display: table
                width: 40%
-               .inner
+               height: 50px
+               margin-top: -9px
+               &.home
+                  float: left
                   margin-left: 15px
+               &.away
+                  float: right
+                  margin-right: 15px
+               .team
+                  font-size: 1.3em
+               .inner
+                  display: table-cell
+                  vertical-align: middle
+                  height: 100%
             .vs
-               float: left
-               width: 20% 
+               position: absolute
+               left: 50%
+               margin-left: -18px
+               width: 36px 
                height: 36px
                background: url(../images/games/Overlay_VsButton.png) no-repeat 50% 0%
                background-size: 36px 36px
-            .away-info
-               float: left
-               width: 40%
-               .inner
-                  margin-right: 15px
-         
+            
       .map-wrapper
          position: absolute
          top: header-height + 101
@@ -96,9 +104,9 @@
             bottom: 0
 
          .inner
-            max-width: 280px
+            max-width: 300px
             padding: 0 12px
-            margin: 32px auto
+            margin: 28px auto 0
             text-align: center
          .checked-in
             background: url(../images/games/attendanceStreak/Overlay_checkbox.png) 0% 50% no-repeat

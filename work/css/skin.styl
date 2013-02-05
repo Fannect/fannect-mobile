@@ -380,7 +380,7 @@ body
 
 .tutorial
    font-family: Journal, Helvetica, Arial, sans-serif
-   position: absolute
+   position: fixed
    padding-top: 50px
    top: 0
    width: 100%
@@ -435,13 +435,23 @@ body
       cursor: pointer
       &:active
          background-image: url(../images/tutorial/tutorial_redX.png)
+   .tutorial-done
+      position: absolute
+      background: url(../images/tutorial/TutorialDoneButton.png) 50% 50% no-repeat
+      background-size: 48px 27px
+      width: 60px
+      height: 60px
+      cursor: pointer
+      right: 4px
+      bottom: 10px
+
    .tutorial-title
       font-size: 1.3em
       text-align: center
    .tutorial-next
    .tutorial-prev
       position: absolute
-      bottom: 25px
+      bottom: 27px
       width: 30px
       height: 21px
       background-size: 30px 21px
@@ -573,6 +583,8 @@ body
       background-image: url(../images/tutorial/Tutorial_exitButton@2x.png)!important
       &:active
          background-image: url(../images/tutorial/tutorial_redX@2x.png)!important
+   .tutorial-done
+      background-image: url(../images/tutorial/TutorialDoneButton@2x.png)!important
    .tutorial-next
          background-image: url(../images/tutorial/Tutorial_nextArrow@2x.png)!important
    .tutorial-prev

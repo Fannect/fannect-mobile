@@ -13,8 +13,72 @@ block content
          .icon.settings.account
          a(href="settings-removeProfiles.html", data-transition="slide") Remove Teams
       li
+         .icon.settings.welcome-tutorial
+         a(href="javascript:fannect.tutorial.show()", data-transition="slide") Welcome Tutorial
+      li
          .icon.settings.privacy
          a(href="settings-privacy.html", data-transition="slide") Privacy
 
+
    a(href="javascript:fannect.auth.logout()", data-role="button") Logout
       
+block tutorial
+   .tutorial-slider.four
+      .tutorial-item
+         .tutorial-content
+            .tutorial-next
+            .tutorial-pos-indicator
+               .dot.active
+               .dot
+               .dot
+               .dot
+            .tutorial-welcome
+            .tutorial-fannect-logo
+            p.medium Congratulations on becoming a part of your team's committed fanbase!
+            .tutorial-separator
+            p Use Fannect to prove that your team has the best fans in the universe, and fight to become your team's #1 fan!
+      .tutorial-item
+         .tutorial-content
+            .tutorial-next
+            .tutorial-prev
+            .tutorial-pos-indicator
+               .dot
+               .dot.active
+               .dot
+               .dot
+            .tutorial-welcome
+            .tutorial-fannect-logo
+            p.large The rules are simple
+            .tutorial-separator
+            ol
+               li Create an awesome profile
+               li Build each team's roster of fanatics
+               li Score points for your team
+               li Climb the Fannect leaderboard
+      .tutorial-item
+         .tutorial-content
+            .tutorial-next
+            .tutorial-prev
+            .tutorial-pos-indicator
+               .dot
+               .dot
+               .dot.active
+               .dot
+            p.left Upload your profile picture here so other fans know who you are
+            .tutorial-profile-sketch
+            p.left Show your spirit by uploading a team photo or logo for your favorite team here
+      .tutorial-item
+         .tutorial-content
+            .tutorial-close
+            .tutorial-done
+            .tutorial-prev
+            .tutorial-pos-indicator
+               .dot
+               .dot
+               .dot
+               .dot.active
+            .tutorial-score-sketch
+            p.left This bar indicates the number of fans on your roster, your point total, and your overall rank for your team
+            .tutorial-headers
+            p.left Amp up your profile by filling out these sections. Tell us about you, your gameday ritual, and why your team is #1
+

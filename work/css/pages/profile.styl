@@ -148,11 +148,11 @@
    .shout-box
       position: relative
       display: table
-      background: url(../images/profile/fannect_ShoutBox.png)
+      background: url(../images/profile/shoutBox.png)
       background-size: 270px 100px
       width: 270px
       height: 100px
-      margin: 5px auto 0px
+      margin: 8px auto 0px
       // &.active
       //    dropshadow: 0px 0px 12px #c1272d
       //    border-radius: 5px
@@ -164,6 +164,22 @@
       color: #aaa
       text-align: center
       font-size: 0.9em
+
+   .shout-quote-left
+      background: url(../images/profile/leftShoutQuote.png) no-repeat
+      left: -3px
+
+   .shout-quote-right
+      background: url(../images/profile/rightShoutQuote.png) no-repeat
+      right: -3px
+
+   .shout-quote-left
+   .shout-quote-right
+      position: absolute
+      background-size: 18px 16px
+      top: 12px
+      width: 18px
+      height: 16px
 
    .shout-editable
       position: absolute
@@ -187,25 +203,13 @@
       width: 270px
       margin: auto
 
-   .separator
+   .fan-dna-separator
       width: 320px
-      height: 32px
-      background: url(../images/profile/ProfileSeperators.png) no-repeat
-      background-size: 965px 26px
-      margin: 20px auto 5px auto
-   .text
-      width: 290px
-      margin: 0 auto
-      font-size: .8em
-      line-height: 1.4em
-   .game-day-spot
-      .separator
-         background-position: -322.5px 0 
-   .bragging-rights
-      .separator
-         background-position: -645px 0 
-
-
+      height: 36px
+      background: url(../images/profile/fanDNADivider.png)
+      background-size: 320px 36px
+      margin: 6px auto 5px auto
+   
    .graph-wrapper
       background: url(../images/profile/fanDNAGraph-Box.png)
       background-size: 270px 169px
@@ -223,6 +227,7 @@
       margin: -18px auto 0
       position: relative
       font-size: .7em
+      text-shadow: 0 -2px 2px #000
       .highlight
          position: absolute
          left: -100px 
@@ -250,6 +255,7 @@
 //       font-size: 1
       
 #profile-page
+#settings-page
    .tutorial-welcome
       height: 39px
       background: url(../images/tutorial/Tutorial_welcomeBanner.png) 50% 0 no-repeat
@@ -280,6 +286,14 @@
       background: url(../images/tutorial/Tutorial_headers.png) 50% 50% no-repeat
       background-size: 220px 95px
       margin: 2px 0 8px 
+
+#profile-invites-page
+   .no-invites
+      text-shadow: 0 -1px 2px #fff
+      color: #ccc
+      text-align: center
+      font-size: 1.3em
+      margin-top: 26px
 
 #profile-chooseWebImage-page
    .web-images
@@ -329,8 +343,8 @@
          background-image: url(../images/profile/Profile_GlassMarquee@2x.png)!important
       .score-wrap
          background-image: url(../images/profile/Profile_ScoreDisplay-iPhone@2x.png)!important
-      .separator
-         background-image: url(../images/profile/ProfileSeperators@2x.png)!important
+      .fan-dna-separator
+         background-image: url(../images/profile/fanDNADivider@2x.png)!important
       .graph-wrapper
          background-image: url(../images/profile/fanDNAGraph-Box@2x.png)
       .highlight
@@ -338,7 +352,11 @@
       .shout-button
          background-image: url(../images/profile/Shout@2x.png)!important
       .shout-box
-         background-image: url(../images/profile/fannect_ShoutBox@2x.png)!important
+         background-image: url(../images/profile/shoutBox@2x.png)!important
+      .shout-quote-left
+         background-image: url(../images/profile/leftShoutQuote@2x.png)
+      .shout-quote-right
+         background-image: url(../images/profile/rightShoutQuote@2x.png)
 
    #profile-page
       .tutorial-welcome
