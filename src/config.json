@@ -56,7 +56,7 @@
 		"media": true, 
 		"notification": true, 
 		"package_names": {
-			"ios": "com.fannect.*"
+			"ios": "me.fannect"
 		}, 
 		"parameters": {
 			"login_server": "http://fannect-login.herokuapp.com", 

@@ -69,7 +69,7 @@ do ($ = jQuery) ->
          _hidden_timeout_id: null
          start_offset: 10
          space_offset: 25
-         rate: 15
+         rate: 20
          hardware_accelerated: false
 
    $(document).on "mobileinit", () ->

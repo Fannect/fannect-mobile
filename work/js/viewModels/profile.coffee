@@ -71,13 +71,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
             fc.team.updateActive({shouts: [{text: newShout}]})
             fc.team.getActive (err, profile) =>
-               # @shout(newShout)
                fc.ajax
                   url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/shouts"
                   type: "POST"
                   data: shout: newShout
          else
-            # Notify that the shout is too long
+            fc.msg.show("Shouts must be only 140 characters or less!")
 
          @shouting(false)
 
@@ -104,7 +103,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       _uploadProfileImage: (file) =>
          file.name = "image"
-         # forge.file.URL(file, (url) -> console.log("URL: #{url}"); fc.team.updateActive(profile_image_url: url))
+         fc.team.updateActive(profile_image_url: "images/LoadingProfilePhoto@2x.png")
 
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/images/me"
@@ -115,7 +114,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       _uploadTeamImage: (file) =>
          file.name = "image"
-         # forge.file.URL(file, (url) -> fc.team.updateActive(team_image_url: url))
+         fc.team.updateActive(profile_image_url: "images/LoadingTeamPhoto@2x.png")
 
          fc.team.getActive (err, profile) =>
             fc.ajax 

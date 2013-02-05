@@ -17,13 +17,13 @@
         }
     }, 
     "ios": {
-        "device": "simulator", 
+        "device": "device", 
         "simulatorsdk": "6.0", 
         "simulatorfamily": "iphone", 
         "profiles": {
             "DEFAULT": {
-                "provisioning_profile": "Developer.mobileprovision", 
-                "developer_certificate": "Developer"
+                "provisioning_profile": "/Users/blakevanlandingham/ws/fannect-mobile/Development.mobileprovision", 
+                "developer_certificate": "Development"
             }
         }
     }

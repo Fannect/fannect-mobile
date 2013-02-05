@@ -21,13 +21,19 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @teams.push team for team in teams
         
       confirmDelete: (data) =>
+         @selectedTeam = data
          @deleteText("<span style='font-weight:normal'>Are you sure you want to delete your profile for</span> #{data.team_name}<span style='font-weight:normal'>?</span>")
          @showConfirm(true)
-         @selectedTeam = data
 
-      hideProfile: (element) -> $el = $(element).slideUp 400, () -> $el.remove()
+      cancel: () =>
+         @showConfirm(false)
+         @selectedTeam = null
+
+      hideProfile: (element) => 
+         console.log "HIT"; 
+         $el = $(element).slideUp 400, () => $el.remove()
       removeProfile: () =>
          @showConfirm(false)
          @teams.remove @selectedTeam
-         fc.team.remove @selectedTeam._id, () -> @is_loading(false)
+         fc.team.remove @selectedTeam._id, 
          fc.team.removeFromChannel(@selectedTeam.team_id)

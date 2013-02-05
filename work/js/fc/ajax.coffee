@@ -11,6 +11,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             fc.auth.getNewAccessToken (err, token) ->
                options.second_try = true
                fc.ajax(options, done)
+         if (error?.status == 0 or error.statusText == "timeout")
+            fc.msg.show("We are unable to retrieve information for the servers at this time")
+            fc.logger.sendError(error)
          else
             try
                console.error errText = JSON.parse error.responseText
