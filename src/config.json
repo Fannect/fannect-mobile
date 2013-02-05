@@ -56,12 +56,12 @@
 		"media": true, 
 		"notification": true, 
 		"package_names": {
-			"ios": "com.fannect.*"
+			"ios": "me.fannect.Fannect"
 		}, 
 		"parameters": {
+			"loggly_server": "https://logs.loggly.com/inputs/3de92d03-5202-41b7-906d-f5b2c281a8d9", 
 			"login_server": "http://fannect-login.herokuapp.com", 
-			"resource_server": "http://fannect-api.herokuapp.com",
-			"loggly_server": "https://logs.loggly.com/inputs/3de92d03-5202-41b7-906d-f5b2c281a8d9"
+			"resource_server": "http://fannect-api.herokuapp.com"
 		}, 
 		"prefs": true, 
 		"reload": true, 
