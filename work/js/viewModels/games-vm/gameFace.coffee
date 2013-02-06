@@ -3,18 +3,24 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
    class fc.viewModels.Games.GameFace extends fc.viewModels.Base 
       constructor: () ->
          super
+         @game_data = new fc.models.GameData()
+         @meta = null
+
          @face_value = ko.observable "off"
          @face_on = ko.computed () => @face_value()?.toLowerCase() == "on"
-         @available = ko.observable false
-         @home_team = ko.observable
-            name: ""
-            record: ""
-         @away_team = ko.observable
-            name: ""
-            record: ""
-         @face_on.subscribe (newValue) ->
-            #ajax call
+         @has_saved = false
 
+         @face_on.subscribe (newValue) =>
+            return if @has_saved or @meta?.face_on or @face_value() == "off"
+            @has_saved = true
+
+            fc.team.getActive (err, profile) =>
+               fc.ajax
+                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace"
+                  type: "POST"
+               (err) ->
+                  return fc.msg.show("Something went wrong.. :(") if err
+         
          @load()
             
       load: () =>
@@ -22,27 +28,18 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             return fc.msg.show("Unable to load game information!") if err
             
             fc.ajax 
-               url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace/mock0"
+               url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace/mock2"
                type: "GET"
             , (error, data) =>
                return fc.msg.show("Unable to load game information!") if err
-               
-               @available data.available or false
-               @face_value if data?.meta?.face_value then "on" else "off"
+               @meta = data.meta
+               @face_value(if data.meta?.face_on then "on" else "off")
+               @game_data.set(data)
 
-               away = { name: "Unknown", record: "" } 
-               home = { name: "Unknown", record: "" }
-
-               $.extend home, data.home_team
-               $.extend away, data.away_team
-
-               @home_team home
-               @away_team away
 
       onPageShow: () =>
          super
          @face_value.valueHasMutated()
-         @available.valueHasMutated()
          # @available true
          # @face_value "on"
          # @face_value.notifySubscribers()

@@ -31,20 +31,35 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       linkTwitter: (done) ->
          fc.user.get (err, user) ->
-            if forge.is.mobile() and not user.twitter
+            if not forge.is.mobile() or user.twitter 
+               done() if done
+               return
+
+            link = () ->
                forge.tabs.openWithOptions
                   url: "#{fc.getLoginURL()}/twitter?access_token=#{fc.auth.getAccessToken()}"
                   pattern: "#{fc.getLoginURL()}/twitter/success"
                   title: "Link Twitter"
                , (data) ->
                   if data.url = "#{fc.getLoginURL()}/twitter/success"
-                     fc.user._curr.twitter = true
+                     fc.user.update(twitter: true)
                      done(null, true) if done
                   else
-                     data()
-            else
-               done()
+                     done() if done
+               
+            if fc.auth.hasAccessToken() then link()
+            else fc.auth.getNewAccessToken (err, token) ->
+               if err then done() if done
+               else link()
 
+      unlinkTwitter: (done) ->
+         fc.ajax
+            url: "#{fc.getLoginURL()}/twitter"
+            type: "DELETE"
+         , (err, data) ->
+            return done() if err
+            fc.user.update(twitter: false)
+            done(null, true)
 
       view: (options) ->
          fc.cache.set "view_other", options

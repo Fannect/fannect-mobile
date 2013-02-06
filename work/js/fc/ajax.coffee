@@ -12,8 +12,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                options.second_try = true
                fc.ajax(options, done)
          if (error?.status == 0 or error.statusText == "timeout")
-            fc.msg.show("We are unable to retrieve information for the servers at this time")
+            fc.msg.loading("Server timeout! Retrying...")
             fc.logger.sendError(error)
+            setTimeout (() ->
+               fc.ajax(options, done)
+            ), 5000
          else
             try
                console.error errText = JSON.parse error.responseText
@@ -21,7 +24,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                done(errText or error) if done
 
       # Get a new access token if we don't have one and then rerun the requrest
-      if not options.no_access_token and not fc.auth.hasAccessToken()
+      if not options.no_access_token and not fc.auth.hasAccessToken() and not options.second_try
          return fc.auth.getNewAccessToken (err, token) ->
             options.second_try = true
             fc.ajax(options, done)

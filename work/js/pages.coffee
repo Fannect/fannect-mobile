@@ -203,3 +203,6 @@ window.fannect.pages =
 
    "settings-account-page":
       vm: vm.Settings.Account
+
+   "settings-manageAccounts-page":
+      vm: vm.Settings.ManageAccounts

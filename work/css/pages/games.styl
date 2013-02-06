@@ -46,23 +46,67 @@
 #games-guessTheScore-page
 #games-gameFace-page
    .team-info
-      width: 304px
-      margin: 4px auto 0
+      width: 320px
+      margin: 25px auto 0
+      
       .team-glass
          float: left
+         font-size: .8em
+         background: url(../images/games/SmallTeamGlass_Larger.png)
+         background-size: 140px 51px
+         width: 140px
+         height: 51px
+         text-align: center
+         display: table
+         position: relative
+
+         .inner
+            display: table-cell
+            height: 100%
+            width: 100%
+            vertical-align: middle
+
+         .team
+            margin-bottom: 2px
+         .record
+            color: color-light-gray
+            font-size: .8em
+         .label
+            position: absolute
+            top: -20px
+            left: 0
+            width: 100%
+            text-align: center
+            font-size: 1.4em
+            color: color-light-gray
       .vs
          float: left
          width: 36px 
          height: 36px
-         margin-top: 2px
+         margin-top: 6px
          background: url(../images/games/Overlay_VsButton.png) no-repeat 50% 0%
          background-size: 36px 36px
+
+
+
+.vs-center
+   position: absolute
+   left: 50%
+   margin-left: -18px
+   width: 36px 
+   height: 36px
+   background: url(../images/games/Overlay_VsButton.png) no-repeat 50% 0%
+   background-size: 36px 36px
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
    #games-attendanceStreak-page
    #games-guessTheScore-page
    #games-gameFace-page
       .vs
+      .vs-center
          background-image: url(../images/games/Overlay_VsButton@2x.png)!important
    .icon-gamecell
       background-image: url(../images/icons/icons-gamecell@2x.png)!important
+   .team-glass
+      background-image: url(../images/games/SmallTeamGlass_Larger@2x.png)!important
+   

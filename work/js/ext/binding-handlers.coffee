@@ -118,7 +118,7 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
          link = $(element).click () ->
             link.addClass("ui-btn-active")
-            setTimeout (() -> link.removeClass("ui-btn-active")), 400
+            setTimeout (() -> link.removeClass("ui-btn-active")), 250
 
    ko.bindingHandlers.showListviewClick = 
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->

@@ -75,8 +75,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      minZoom: 17
                      draggable: false
 
-                  google.maps.event.addListener @map,"dblclick", (e) -> e.stop()
-
                   @findUserLocation() if @available()
                      
       findUserLocation: () =>

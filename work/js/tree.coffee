@@ -20,6 +20,8 @@
 #= require "fc/setup.coffee"
 #= require "fc/logger.coffee"
 
+#= require "models/gameData.coffee"
+
 #= require "ext/binding-handlers.coffee"
 #= require "ext/text-scroller.coffee"
 
@@ -62,6 +64,7 @@
 
 #= require "viewModels/settings-vm/removeProfiles.coffee"
 #= require "viewModels/settings-vm/account.coffee"
+#= require "viewModels/settings-vm/manageAccounts.coffee"
 
 #= require "pages.coffee"
 #= require "site.coffee"
