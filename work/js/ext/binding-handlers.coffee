@@ -153,3 +153,14 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
             setTimeout (-> $(element).focus()), 300
          else
             $(element).blur() 
+
+   # ko.bindingHandlers.scrollerToggle = 
+   #    update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+   #       $el = $(element)
+   #       if $el.hasClass("ui-scroller")
+   #          if ko.utils.unwrapObservable valueAccessor()
+   #             $el.show().scroller("start")
+   #          else
+   #             $el.hide().scroller("stop")
+
+

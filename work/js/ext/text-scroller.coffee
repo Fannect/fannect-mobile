@@ -1,15 +1,14 @@
 do ($ = jQuery) ->
    Scroller = 
       _create: () ->
-         text = @element.text()
-         @element.empty().addClass("scrolling-text").append("<div class='cover'></div>")
+         @options.text = @element.text()
+         @element.empty().addClass("ui-scroller").append("<div class='cover'></div>")
          textWrap = $("<div class='text-wrap'></div>").appendTo(@element)
-         @options._first = $("<span class='text'>" + text + "</span>").appendTo(textWrap)
-         @options._second = $("<span class='text'>" + text + "</span>").appendTo(textWrap)
+         @options._first = $("<span class='text'>" + @options.text + "</span>").appendTo(textWrap)
+         @options._second = $("<span class='text'>" + @options.text + "</span>").appendTo(textWrap)
 
       start: () ->
          # $.support.cssTransitions
-
          @options._first.css "left", @options.start_offset 
          @options._second.css "left", @options.start_offset + @options._first.width() + @options.space_offset
          @_resetFirst()
@@ -71,6 +70,7 @@ do ($ = jQuery) ->
          space_offset: 25
          rate: 20
          hardware_accelerated: false
+         text: null
 
    $(document).on "mobileinit", () ->
       $.widget "ui.scroller", Scroller

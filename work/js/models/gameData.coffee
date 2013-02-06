@@ -19,11 +19,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             name: null
             location: null
          @no_game_scheduled = ko.computed () => @away_team()?.name == "Unknown" or @next_game() == "TBD"
+         @in_progress = ko.observable()
 
          @set(data) if data
 
       set: (data) ->
          @available data.available or false
+         @in_progress data.in_progress or false
          @game_preview data.preview
          @next_game if data.game_time then dateFormat(new Date(data.game_time), "ddd, mmmm dS, h:MM TT") else "TBD"
 

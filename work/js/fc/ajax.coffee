@@ -30,7 +30,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             fc.ajax(options, done)
 
       # Append access_token on to querystring
-      if not options.no_access_token
+      if not options.no_access_token and options.url.indexOf("access_token") < 0
          if options.url.indexOf("?") > 0
             options.url += "&access_token=#{fc.auth.getAccessToken()}"
          else

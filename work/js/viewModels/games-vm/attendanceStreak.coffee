@@ -20,13 +20,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          if @in_range()
             @checked_in true
 
-            fc.team.getActive (err, team) ->
+            fc.team.getActive (err, profile) =>
                fc.ajax
-                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/guessTheScore"
+                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/attendanceStreak"
                   type: "POST"
                   data:
-                     home_score: @away_score() or 0
-                     away_score: @home_score() or 0
+                     lat: @user_center?.lat()
+                     lng: @user_center?.lng()
                , (err) ->
                   return fc.msg.show("Something went wrong.. :(") if err
                   fc.showScoringPopup()

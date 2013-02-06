@@ -9,6 +9,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @pick_set = ko.observable()
          @home_score = ko.observable()
          @away_score = ko.observable()
+         @scroller_text = ko.observable("Guess the Score can only be play on game days!")
          @input_valid = ko.computed () =>
             return @home_score() >= 0 and @away_score() >= 0
 
@@ -17,22 +18,29 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       setPick: () =>
          if @input_valid()
             @pick_set(true)
-            fc.ajax
-               url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/guessTheScore"
-               type: "POST"
-               data:
-                  home_score: @away_score() or 0
-                  away_score: @home_score() or 0
-            , (err) ->
+
+            fc.team.getActive (err, profile) =>
                return fc.msg.show("Something went wrong.. :(") if err
-               fc.showScoringPopup()
+
+               @home_score(@home_score() or 0)
+               @away_score(@away_score() or 0)
+
+               fc.ajax
+                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/guessTheScore"
+                  type: "POST"
+                  data:
+                     home_score: @home_score()
+                     away_score: @away_score()
+               , (err) ->
+                  return fc.msg.show("Something went wrong.. :(") if err
+                  fc.showScoringPopup()
 
       load: () =>
          fc.team.getActive (err, profile) =>
             return fc.msg.show("Unable to load game information!") if err
 
             fc.ajax 
-               url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/guessTheScore/mock3"
+               url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/guessTheScore"
                type: "GET"
             , (error, data) =>
                return fc.msg.show("Unable to load game information!") if err
@@ -50,4 +58,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   @home_score(0)
                   @away_score(0)
 
+               if @game_data.in_progress
+                  # console.log "HIT"
+                  @scroller_text("This game is in action. Submit your score predictions prior to game time to earn points!")
+      # onPageLoad: () =>      
+      #    super
               

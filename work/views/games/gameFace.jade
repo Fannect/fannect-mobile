@@ -56,7 +56,8 @@ block content
          br
          span.sub Keep checking back!
 
-   .unavailable.scrolling-text(data-bind="visible: !game_data.available()", style="display:none;") GameFace can only be activated on game days!
+   .unavailable.scrolling-text(data-bind="visible: !game_data.in_progress() && !game_data.available()", style="display:none;") Game Face can only be activated on game days!
+   .in-progress(data-bind="visible: game_data.in_progress() && !game_data.available()", style="display:none;") This game has already started. Activate your Game Face prior to game time to earn points!
 
    .switch-wrap(data-bind="visible: game_data.available")
       select(id="gameFaceSwitch", data-role="slider", data-bind="value: face_value, disableSlider: face_on() || !game_data.available(), sliderUpdate: face_on")
