@@ -21,7 +21,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @user_center = null
          @user_pin = null
          @user_distance = ko.observable()
-         @in_range = ko.computed () => return @user_distance()? and @user_distance() < 5280
+         @in_range = ko.computed () => false#return @user_distance()? and @user_distance() < 5280
+         @miles_away = ko.computed () => 
+            return @user_distance()
+            # if @user_distance >= 1000
+
+
          @load()
             
       checkIn: (data) =>

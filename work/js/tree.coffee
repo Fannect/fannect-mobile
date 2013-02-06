@@ -26,6 +26,7 @@
 #= require "viewModels/base.coffee"
 #= require "viewModels/login.coffee"
 #= require "viewModels/createAccount.coffee"
+#= require "viewModels/linkAccounts.coffee"
 #= require "viewModels/profile.coffee"
 #= require "viewModels/leaderboard.coffee"
 #= require "viewModels/connect.coffee"

@@ -22,8 +22,37 @@
          text-align: center
          font-size: 1.4em
          color: color-light-gray
-   .unavailable.scrolling-text
-      margin-bottom: 20px
+   
+   // .unavailable.scrolling-text
+   //    margin-bottom: 20px
+
+
+   .no-game-scheduled
+      background: url(../images/games/BigTeamGlass.png) 50% 50% no-repeat
+      background-size: 301px 104px
+      display: table
+      margin: 10px auto 0
+      width: 301px
+      height: 104px
+
+      .inner
+         display: table-cell
+         vertical-align: middle
+         height: 100%
+         width: 100%
+         white-space: normal
+         padding: 5px 22px
+         text-align: center
+         text-shadow: 0 2px 2px #000
+
+         .title
+            font-size: 1.6em
+            display: line-height
+            margin-bottom: 3px
+         .sub
+            color: #888
+            font-size: .8em
+
    .switch-wrap
       margin-top: 10px
       text-align: center
@@ -49,8 +78,10 @@
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
    #games-gameFace-page
       .game-face
-         background-image: url(../images/games/gameFace/Gameface_Sprite@2x.png) 
-       .tutorial-gameface-sketch
+         background-image: url(../images/games/gameFace/Gameface_Sprite@2x.png)
+      .no-game-scheduled
+         background-image: url(../images/games/BigTeamGlass@2x.png)
+      .tutorial-gameface-sketch
          background-image: url(../images/tutorial/Tutorial_gamefaceIcon@2x.png)
       .tutorial-switch
          background-image: url(../images/tutorial/Tutorial_onSwitch@2x.png)

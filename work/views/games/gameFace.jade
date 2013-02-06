@@ -21,6 +21,15 @@ block content
          .record(data-bind="text: away_team().record")
       .clear
       
+   .next-game
+      
+
+   .no-game-scheduled
+      .inner
+         span.title No game scheduled!
+         br
+         span.sub Keep checking back!
+
    .unavailable.scrolling-text(data-bind="visible: !available()", style="display:none;") GameFace can only be activated on game days!
 
    .switch-wrap

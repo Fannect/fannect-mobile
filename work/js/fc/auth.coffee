@@ -49,6 +49,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       logout: (done) ->
          fc.auth._refresh_token = null
          fc.team._curr = null
+         fc.user._curr = null
          forge.prefs.set "refresh_token", null, fc.auth.redirectToLogin, fc.auth.redirectToLogin
          forge.prefs.set "user_id", null
          forge.prefs.set "team_profile_id", null
@@ -68,10 +69,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                type: "PUT"
                url: "#{fc.getLoginURL()}/v1/token"
                data: { refresh_token: token }
-               success: (data) ->
+               success: (user) ->
                   console.log "Success: new access_token"
-                  data = JSON.parse data
-                  fc.auth._access_token = data.access_token
+                  user = JSON.parse(user)
+                  fc.user.update(user)
+                  fc.auth._access_token = user.access_token
                   done(null, fc.auth._access_token) if done
                error: (err) ->
                   if err

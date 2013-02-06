@@ -30,7 +30,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @selectedTeam = null
 
       hideProfile: (element) => 
-         console.log "HIT"; 
          $el = $(element).slideUp 400, () => $el.remove()
       removeProfile: () =>
          @showConfirm(false)
