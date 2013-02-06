@@ -75,14 +75,17 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          fc.team._teams = {}
 
       remove: (teamProfileId, done) ->
+         fc.team._teams[teamProfileId] = null
+
+         if teamProfileId == fc.team._curr
+            fc.team._curr = null
+            forge.prefs.set "team_profile_id", null
+         
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/me/teams/#{teamProfileId}"
             type: "DELETE"
          , (err, data) ->
-            done(err, data) if err and done
-            fc.team._teams[teamProfileId] = null
-            fc.team._curr = null
-            forge.prefs.set "team_profile_id", null
+            return done(err, data) if err and done
             done(err, data) if done
 
       removeFromChannel: (team_id) -> forge.partners.parse.push.unsubscribe("team_#{team_id}") if forge.is.mobile()

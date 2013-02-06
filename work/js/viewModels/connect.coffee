@@ -22,7 +22,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          @load()
 
-      search: () ->
+      search: () =>
          @skip = 0
          @fans.removeAll()
          # regex = new RegExp("(|.*[\s]+)(#{@query().trim()}).*", "i")
@@ -31,7 +31,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          @load()
 
-      load: (done) ->
+      load: (done) =>
          @loading_more true
 
          finished = (error, fans) =>

@@ -26,11 +26,11 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       
       currentId = $.mobile.activePage.attr("id")
       
-      forge.prefs.get "tutorialShown", (shown = []) ->
+      forge.prefs.get "tutorial_shown", (shown = []) ->
          if currentId in tutorial_pages and not (currentId in shown)
             shown.push currentId
             fc.tutorial.show()
-            forge.prefs.set "tutorialShown", shown
+            forge.prefs.set "tutorial_shown", shown
 
    ).live "pageremove", () ->
       fc.clearBindings @

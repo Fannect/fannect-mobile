@@ -53,6 +53,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          forge.prefs.set "refresh_token", null, fc.auth.redirectToLogin, fc.auth.redirectToLogin
          forge.prefs.set "user_id", null
          forge.prefs.set "team_profile_id", null
+         forge.prefs.set "twitter_active", null
+         forge.prefs.set "scoring_info_shown", null
+         forge.prefs.set "tutorial_shown", null
 
       hasAccessToken: () ->
          return fc.auth._access_token?
