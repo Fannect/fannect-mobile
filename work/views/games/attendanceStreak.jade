@@ -33,7 +33,7 @@ block content
       .map
 
    .bottom
-      .inner
+      .inner(data-bind="visible: in_range")
          a.check-in(data-role="button", data-bind="visible: !checked_in() && available(), click: checkIn") Check In
          .checked-in(data-bind="fadeIn: checked_in() && available(), duration: 500", style="display:none;") Checked In!
          .no-game(data-bind="visible: !available()")
@@ -41,6 +41,10 @@ block content
             .next-game
                span.label Next Gameday:
                span.text(data-bind="text: next_game")
+      .distance-signage(data-bind="visible: !in_range()")
+         .only Only
+         .distance(data-bind="text: miles_away")
+         .bottom-text to check in!
 
 block tutorial
    .tutorial-slider.one

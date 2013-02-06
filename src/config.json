@@ -81,6 +81,7 @@
 			}
 		}, 
 		"tabbar": true, 
+		"tabs": true, 
 		"tools": true, 
 		"topbar": true
 	}, 

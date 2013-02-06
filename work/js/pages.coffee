@@ -17,6 +17,9 @@ window.fannect.pages =
    "createAccount-page":
       vm: vm.CreateAccount
 
+   "linkAccounts-page":
+      vm: vm.LinkAccounts
+
    ##
    # Reset Password
    ##

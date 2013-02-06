@@ -1,18 +1,12 @@
 do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
-   class fc.viewModels.ResetPassword.SetPassword extends fc.viewModels.Base 
-      constructor: () ->
-         @password = ko.observable()
-         @confirmPassword = ko.observable()
-         super
+   class fc.viewModels.LinkAccounts extends fc.viewModels.Base 
+      
+      linkTwitter: () =>
+         if fc.auth.hasAccessToken()
+            fc.user.linkTwitter () ->
+               fc.team.redirectToSelect(hide_back: true)
+         else
+            fc.msg.show("Unable to access Twitter login servers!")
 
-      linkFacebook: () =>
-         if forge.is.mobile()
-            # forge.facebook.authorize (
-            #    (data) -> 
-            #       console.log "FB Data: #{JSON.stringify(data)}"
-            #       fc.team.redirectToSelect(hide_back: true)
-            # ),(
-            #    (err) -> 
-            #       console.log "FB Err: #{JSON.stringify(err)}"
-            # )
+      skip: () => fc.team.redirectToSelect(hide_back: true)

@@ -29,6 +29,23 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       clearCache: () ->
          fc.user._curr = null
 
+      linkTwitter: (done) ->
+         fc.user.get (err, user) ->
+            if forge.is.mobile() and not user.twitter
+               forge.tabs.openWithOptions
+                  url: "#{fc.getLoginURL()}/twitter?access_token=#{fc.auth.getAccessToken()}"
+                  pattern: "#{fc.getLoginURL()}/twitter/success"
+                  title: "Link Twitter"
+               , (data) ->
+                  if data.url = "#{fc.getLoginURL()}/twitter/success"
+                     fc.user._curr.twitter = true
+                     done(null, true) if done
+                  else
+                     data()
+            else
+               done()
+
+
       view: (options) ->
          fc.cache.set "view_other", options
          $.mobile.changePage "profile-other.html", transition: "slide"

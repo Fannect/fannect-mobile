@@ -59,6 +59,29 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       cancelImagePicking: () => @editing_image "none"
       isEditable: () -> return true
 
+      pullTwitterImage: () =>
+
+         getImage = () =>
+            @editing_image("none")
+            fc.team.updateActive(profile_image_url: "images/profile/LoadingProfilePhoto@2x.png")
+            fc.msg.loading("Pulling profile image from Twitter...")
+
+            fc.team.getActive (err, profile) =>
+               return fc.msg.show("Unable to pull to fetch profile!") if err
+               fc.ajax 
+                  url: "#{fc.getResourceURL()}/v1/images/me"
+                  type: "POST"
+                  data: pull_twitter: true
+               , (err, data) =>
+                  fc.msg.hide()
+                  return fc.msg.show("Unable to pull in your profile from Twitter!") if err
+                  fc.team.updateActive(data) if data.profile_image_url
+
+         fc.user.get (err, user) =>
+            return fc.msg.show("Unable to pull to fetch profile!") if err
+            if user?.twitter then getImage()
+            else fc.user.linkTwitter (err, success) => getImage() if success
+
       startShouting: () =>
          if @isEditable()
             @shouting(not @shouting())
@@ -103,7 +126,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       _uploadProfileImage: (file) =>
          file.name = "image"
-         fc.team.updateActive(profile_image_url: "images/LoadingProfilePhoto@2x.png")
+         fc.team.updateActive(profile_image_url: "images/profile/LoadingProfilePhoto@2x.png")
 
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/images/me"
@@ -114,7 +137,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       _uploadTeamImage: (file) =>
          file.name = "image"
-         fc.team.updateActive(profile_image_url: "images/LoadingTeamPhoto@2x.png")
+         fc.team.updateActive(profile_image_url: "images/profile/LoadingTeamPhoto@2x.png")
 
          fc.team.getActive (err, profile) =>
             fc.ajax 

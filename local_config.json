@@ -22,7 +22,7 @@
         "simulatorfamily": "iphone", 
         "profiles": {
             "DEFAULT": {
-                "provisioning_profile": "/Users/kcfcfuryrox16/Desktop/Fannect_App.mobileprovision", 
+                "provisioning_profile": "Fannect_App.mobileprovision", 
                 "developer_certificate": "Hunter Browning"
             }
         }

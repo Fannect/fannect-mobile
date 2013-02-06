@@ -23,5 +23,4 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             else
                fc.msg.hide()
                $.mobile.changePage "linkAccounts.html", transition: "slide"
-               fc.team.redirectToSelect(hide_back: true)
          return false
