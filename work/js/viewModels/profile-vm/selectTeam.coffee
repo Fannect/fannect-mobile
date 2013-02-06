@@ -12,6 +12,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/me/teams"
             type: "GET"
+            cache: false
          , (error, teams) =>
             @is_loading(false)
             if teams.length > 0

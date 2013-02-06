@@ -1,6 +1,7 @@
 do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect) ->
    fc.ajax = (options, done) ->
       done = done or options.success
+      options.cache = options.cache or false
       options.success = (result) ->
          console.log "#{options.url}:", JSON.parse(result) 
          done null, JSON.parse(result) if done

@@ -8,6 +8,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             type: "POST"
             url: "#{fc.getLoginURL()}/v1/token"
             data: { email: email, password: pw }
+            cache: false
             success: (user) ->
                user = JSON.parse(user)
                fc.auth._loginUser(user)
@@ -40,6 +41,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             success: (user) ->
                user = JSON.parse(user)
                fc.auth._loginUser(user)
+               fc.user.update(user)
                done()
             error: (err) ->
                done(err)

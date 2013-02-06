@@ -33,6 +33,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             url: "#{fc.getResourceURL()}/v1/me/invites"
             type: "DELETE"
             data: user_id: data._id
+            cache: false
          , (err) => throw(err) if err
 
       acceptInvite: (data) =>
