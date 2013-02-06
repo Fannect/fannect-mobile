@@ -38,15 +38,6 @@ window.fannect.pages =
    ###
    "profile-page": 
       vm: vm.Profile
-      buttons: [
-         {
-            position: "left"
-            icon: "images/mobile/rosterInviteIcon.png"
-         }, {
-            position: "right"
-            icon: "images/profile/settingsIcon@2x.png"
-         }
-      ]
       scroller: false
       classes: ["no-padding"]
 

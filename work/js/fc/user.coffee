@@ -24,10 +24,20 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          if not fc.user._curr then fc.user._curr = {}
          fc.auth._refresh_token = user.refresh_token if user.refresh_token
          $.extend true, fc.user._curr, user
+         fc.user.updateInvites(user.invites)
+         fc.user._notify()
          sub fc.user._curr for sub in fc.user._subscribers
 
       clearCache: () ->
          fc.user._curr = null
+
+      updateInvites: (invites) ->
+         if not fc.user._curr then fc.user._curr = {}
+         fc.user.invites = invites
+         forge.notification.setBadgeNumber(fc.user._curr.invites?.length or 0)
+
+      subscribe: (cb) -> fc.user._subscribers.push cb if cb
+      _notify: () -> sub(fc.user._curr) for sub in fc.user._subscribers
 
       linkTwitter: (done) ->
          fc.user.get (err, user) ->

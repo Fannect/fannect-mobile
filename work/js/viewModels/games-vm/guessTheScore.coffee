@@ -57,10 +57,3 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   @pick_set(true)
                   @home_score(0)
                   @away_score(0)
-
-               if @game_data.in_progress
-                  # console.log "HIT"
-                  @scroller_text("This game is in action. Submit your score predictions prior to game time to earn points!")
-      # onPageLoad: () =>      
-      #    super
-              

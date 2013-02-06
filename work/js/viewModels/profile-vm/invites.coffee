@@ -5,6 +5,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super
          @invites = ko.observableArray()
          @no_invites = ko.observable(false)
+         @invites.subscribe () => fc.user.updateInvites(@invites())
          @load()
 
       load: () ->
@@ -26,6 +27,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       hideInvite: (element) -> $el = $(element).slideUp 400, () -> $el.remove()
       removeInvite: (data) =>
          @invites.remove(data)
+         @no_invites(@invites().length == 0)
+
          fc.ajax
             url: "#{fc.getResourceURL()}/v1/me/invites"
             type: "DELETE"
@@ -67,8 +70,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   else
                      text.push "<span class='diff'>#{t}</span>"
 
-            inv.teams_text = text.join ", "
-            @invites.push inv 
+               inv.teams_text = text.join ", "
+               @invites.push inv 
          else
             @no_invites(true)
 

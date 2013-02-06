@@ -50,7 +50,20 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             val: profile.points?.knowledge or 0
             style: "knowledge"
 
-      onPageShow: () -> setTimeout (() -> forge.launchimage.hide() if forge.is.mobile()), 200
+      onPageShow: () -> 
+         setTimeout (() -> forge.launchimage.hide() if forge.is.mobile()), 200
+         if forge.is.mobile()
+            fc.user.get (err, user) ->
+               fc.mobile.addHeaderButton
+                  position: "right"
+                  icon: "images/profile/settingsIcon@2x.png"
+                  click: -> $.mobile.changePage "settings.html", transition: "slidedown"
+               
+               fc.mobile.addHeaderButton
+                  position: "left"
+                  icon: if (user?.invites?.length > 0) then "images/mobile/rosterInviteActiveIcon.png" else "images/mobile/rosterInviteIcon.png"
+                  click: -> $.mobile.changePage "profile-invites.html", transition: "slidedown"
+
       selectTeam: () -> $.mobile.changePage "profile-selectTeam.html", transition: "slide"
       changeUserImage: () => @editing_image "profile"
       changeTeamImage: () => @editing_image "team"
@@ -103,12 +116,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                forge.file.getImage { source: "gallery", height: 800, width: 800 }, done
             else
                forge.file.getImage { source: "gallery" }, done
-
-      leftButtonClick: () ->
-         $.mobile.changePage "profile-invites.html", transition: "slidedown"
-
-      rightButtonClick: () ->
-         $.mobile.changePage "settings.html", transition: "slidedown"
 
       _uploadProfileImage: (file) =>
          file.name = "image"
