@@ -248,11 +248,6 @@
          left: 77px
       .knowledge
          left: 155px
-
-// #profile-selectTeam-chooseMethod-page
-//    .or
-//       text-align: center
-//       font-size: 1
       
 #profile-page
 #settings-page
@@ -286,6 +281,45 @@
       background: url(../images/tutorial/Tutorial_headers.png) 50% 50% no-repeat
       background-size: 220px 95px
       margin: 2px 0 8px 
+
+#profile-shout-page
+   .shout-text
+      background: url(../images/shout/shout_textBox.png)
+      background-size: 290px 141px
+      margin: 0 auto 6px
+      width: 290px
+      height: 141px
+      border: 0
+      resize: none
+      dropshadow: none
+      font-size: .9em
+      color: #000
+      text-shadow: none
+
+   &.warn
+      border: 1px #c1272d solid
+
+   .controls
+      margin: 0 auto
+      width: 290px
+
+      .letter-count
+         height: 26px
+         line-height: 26px
+         color: #bbb
+         text-shadow: 0 1px 2px #fff
+
+      .use-twitter
+         background: url(../images/shout/twitter_icon.png) no-repeat
+         background-size: 60px 26px
+         float: right
+         width: 30px
+         height: 26px
+         cursor: pointer
+
+         &.active
+            background-position: -30px
+         
 
 #profile-invites-page
    .no-invites
@@ -357,7 +391,9 @@
          background-image: url(../images/profile/leftShoutQuote@2x.png)
       .shout-quote-right
          background-image: url(../images/profile/rightShoutQuote@2x.png)
-
+   #profile-shout-page
+      .shout-text
+         background-image: url(../images/shout/shout_textBox@2x.png)
    #profile-page
       .tutorial-welcome
          background-image: url(../images/tutorial/Tutorial_welcomeBanner@2x.png)
@@ -371,4 +407,7 @@
          background-image: url(../images/tutorial/Tutorial_scoreBar@2x.png)
       .tutorial-headers
          background-image: url(../images/tutorial/Tutorial_headers@2x.png)
+   #profile-shout-page
+      .use-twitter
+         background-image: url(../images/shout/twitter_icon@2x.png)
    

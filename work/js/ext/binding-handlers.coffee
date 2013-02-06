@@ -146,4 +146,10 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
          img = ko.utils.unwrapObservable valueAccessor()
          $(element).attr("src", fc.images.getTeamUrl(img))
 
-
+   ko.bindingHandlers.forceFocus =
+      update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         val = ko.utils.unwrapObservable valueAccessor()
+         if val
+            setTimeout (-> $(element).focus()), 300
+         else
+            $(element).blur() 

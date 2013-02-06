@@ -6,7 +6,7 @@ block header
    a.tutorial-link(href="#", data-iconpos="notext", data-icon="custom", data-theme="b")
 
 block content
-   form.scrollable-content(action="/points/guessTheScore", method="post")
+   form.scrollable-content(action="/points/guessTheScore", method="post", data-ajax="false")
       .score
          .home.guess-block
             label(for="home_guess") Home
@@ -20,25 +20,47 @@ block content
                .value(data-bind="fadeIn: pick_set, duration: 400, text: away_score")
          .clear
 
-      .team-info
+      .team-info(data-bind="visible: game_data.available")
          .home.team-glass
-            .team(data-bind="text: home_team")
-            .record(data-bind="text: home_record")
+            .inner
+               .team(data-bind="text: game_data.home_team().name")
+               .record(data-bind="text: game_data.home_team().record")
          .vs
          .away.team-glass
-            .team(data-bind="text: away_team")
-            .record(data-bind="text: away_record")
+            .inner
+               .team(data-bind="text: game_data.away_team().name")
+               .record(data-bind="text: game_data.away_team().record")
          .clear
 
-      .picking(data-bind="visible: !pick_set()")
+      .next-game(data-bind="visible: !game_data.no_game_scheduled() && !game_data.available()")
+         .stadium(data-bind="text: game_data.stadium().name")
+         .next_game(data-bind="text: game_data.next_game")
+         .game-info
+            .team-info.home
+               .inner
+                  span.team(data-bind="text: game_data.home_team().name")
+            .vs-center
+            .team-info.away
+               .inner
+                  span.team(data-bind="text: game_data.away_team().name")
+         
+      .no-game-scheduled(data-bind="visible: game_data.no_game_scheduled")
+         .inner
+            span.title No game scheduled!
+            br
+            span.sub Keep checking back!
+
+      .picking(data-bind="visible: !pick_set() && game_data.available")
          button.submit-guess(type="submit", value="Submit", data-bind="click: setPick, enabled: input_valid")
 
-      .picked(data-bind="fadeIn: pick_set")
+      .picked(data-bind="fadeIn: pick_set && game_data.available()")
          .scrolling-text Your pick is set! Check back after the game to view results!
       
-      .game-preview
+      .unavailable.scrolling-text(data-bind="visible: !game_data.available()", style="display:none;") Guess the Score can only be play on game days!
+
+      .game-preview(data-bind="visible: game_data.available()")
          .title Game Preview
-         .text(data-bind="text:game_preview")
+         .text(data-bind="html: game_data.game_preview")
 
 block tutorial
    .tutorial-slider.one

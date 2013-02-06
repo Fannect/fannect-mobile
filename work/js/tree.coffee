@@ -40,6 +40,7 @@
 #= require "viewModels/profile-vm/editBraggingRights.coffee"
 #= require "viewModels/profile-vm/selectTeam.coffee"
 #= require "viewModels/profile-vm/other.coffee"
+#= require "viewModels/profile-vm/shout.coffee"
 
 #= require "viewModels/profile-vm/selectTeam-vm/chooseSport.coffee"
 #= require "viewModels/profile-vm/selectTeam-vm/chooseLeague.coffee"

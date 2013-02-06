@@ -5,61 +5,44 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       constructor: () ->
          super
          @checked_in = ko.observable()
-         @game_preview = ko.observable()
-         @available = ko.observable()
-         @next_game = ko.observable()
-         @stadium = ko.observable
-            name: null
-            location: null
-         @home_team = ko.observable
-            name: null
-            record: null
-         @away_team = ko.observable
-            name: null
-            record: null
+         @game_data = new fc.models.GameData()
          @stadium_center = null
          @user_center = null
          @user_pin = null
          @user_distance = ko.observable()
-         @in_range = ko.computed () => false#return @user_distance()? and @user_distance() < 5280
+         @in_range = ko.computed () => return @user_distance()? and @user_distance() < .5
          @miles_away = ko.computed () => 
-            return @user_distance()
-            # if @user_distance >= 1000
-
+            return (parseFloat(@user_distance()) - .5) + " mi"
 
          @load()
             
       checkIn: (data) =>
-         @checked_in true
-         # ajax call
+         if @in_range()
+            @checked_in true
+
+            fc.team.getActive (err, team) ->
+               fc.ajax
+                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/guessTheScore"
+                  type: "POST"
+                  data:
+                     home_score: @away_score() or 0
+                     away_score: @home_score() or 0
+               , (err) ->
+                  return fc.msg.show("Something went wrong.. :(") if err
 
       load: () =>
          fc.team.getActive (err, profile) =>
             return fc.msg.show("Unable to load game information!") if err
 
             fc.ajax 
-               url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/attendanceStreak/mock2"
+               url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/attendanceStreak"
                type: "GET"
             , (error, data) =>
                return fc.msg.show("Unable to load game information!") if err
 
-               @available data.available
+               @game_data.set(data)
                @checked_in data.meta?.checked_in
-               @game_preview data.preview
-               @next_game if data.game_time then dateFormat(new Date(data.game_time), "ddd, mmmm dS, h:MM TT") else "TBD"
-
-               away = { name: "Unknown", record: "" } 
-               home = { name: "Unknown", record: "" } 
-               stadium = { name: "Unknown", location: "Unknown" } 
                
-               $.extend home, data.home_team
-               $.extend away, data.away_team
-               $.extend stadium, data.stadium
-               
-               @home_team home
-               @away_team away
-               @stadium stadium
-
                if data.stadium?.lat and data.stadium?.lng 
                   @stadium_center = new google.maps.LatLng(data.stadium.lat, data.stadium.lng)
 
@@ -75,7 +58,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      minZoom: 17
                      draggable: false
 
-                  @findUserLocation() if @available()
+                  @findUserLocation() unless data.no_game_scheduled
                      
       findUserLocation: () =>
          forge.geolocation.getCurrentPosition
@@ -84,7 +67,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @user_center = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude)
 
             distance = Math.round google.maps.geometry.spherical.computeDistanceBetween(@user_center, @stadium_center)
-            @user_distance(Math.round(distance * 3.28084))
+            @user_distance(Math.round(100*(distance / 1609.34))/100)
 
             console.log @user_distance()
 

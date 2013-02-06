@@ -58,6 +58,16 @@ window.fannect.pages =
       vm: vm.Profile.ChooseWebImage
       classes: ["light-background"]
    
+   "profile-shout-page":
+      vm: vm.Profile.Shout
+      classes: ["light-background"]
+      buttons: [
+         {
+            position: "right"
+            text: "Shout It!"
+            tint: [193, 39, 45, 160]
+         }
+      ]
    ###
    # Select Team
    ###

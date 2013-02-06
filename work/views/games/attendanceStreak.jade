@@ -11,37 +11,35 @@ block content
       .right-cap
 
       .stadium-info
-         .stadium(data-bind="text: stadium().name")
-         .location(data-bind="text: stadium().location")
+         .stadium(data-bind="text: game_data.stadium().name")
+         .location(data-bind="text: game_data.stadium().location")
 
       .game-info
          .team-info.home
             .inner
-               span.team(data-bind="text: home_team().name")
+               span.team(data-bind="text: game_data.home_team().name")
                br
-               span.record(data-bind="text: home_team().record")
+               span.record(data-bind="text: game_data.home_team().record")
          .vs-center
          .team-info.away
             .inner
-               span.team(data-bind="text: away_team().name")
+               span.team(data-bind="text: game_data.away_team().name")
                br
-               span.record(data-bind="text: away_team().record")
-
-   .distance(data-bind="text: user_distance")
+               span.record(data-bind="text: game_data.away_team().record")
 
    .map-wrapper
       .map
 
    .bottom
-      .inner(data-bind="visible: in_range")
-         a.check-in(data-role="button", data-bind="visible: !checked_in() && available(), click: checkIn") Check In
-         .checked-in(data-bind="fadeIn: checked_in() && available(), duration: 500", style="display:none;") Checked In!
-         .no-game(data-bind="visible: !available()")
+      .inner
+         a.check-in(data-role="button", data-bind="visible: !checked_in() && game_data.available(), click: checkIn") Check In
+         .checked-in(data-bind="fadeIn: checked_in() && game_data.available() && in_range(), duration: 500", style="display:none;") Checked In!
+         .no-game(data-bind="visible: !game_data.available() && game_data.no_game_scheduled() || !game_data.available() && in_range()")
             .scrolling-text Check ins are only allowed on game days!
             .next-game
                span.label Next Gameday:
-               span.text(data-bind="text: next_game")
-      .distance-signage(data-bind="visible: !in_range()")
+               span.text(data-bind="text: game_data.next_game")
+      .distance-signage(data-bind="visible: !in_range() && !game_data.no_game_scheduled()")
          .only Only
          .distance(data-bind="text: miles_away")
          .bottom-text to check in!

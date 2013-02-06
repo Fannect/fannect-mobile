@@ -28,7 +28,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             return fc.msg.show("Unable to load game information!") if err
             
             fc.ajax 
-               url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace/mock2"
+               url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace"
                type: "GET"
             , (error, data) =>
                return fc.msg.show("Unable to load game information!") if err

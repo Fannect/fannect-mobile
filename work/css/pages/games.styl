@@ -46,7 +46,7 @@
 #games-guessTheScore-page
 #games-gameFace-page
    .team-info
-      width: 320px
+      width: 316px
       margin: 25px auto 0
       
       .team-glass
@@ -59,15 +59,14 @@
          text-align: center
          display: table
          position: relative
-
          .inner
             display: table-cell
             height: 100%
             width: 100%
             vertical-align: middle
-
          .team
             margin-bottom: 2px
+            font-size: .9em
          .record
             color: color-light-gray
             font-size: .8em
@@ -84,9 +83,77 @@
          width: 36px 
          height: 36px
          margin-top: 6px
-         background: url(../images/games/Overlay_VsButton.png) no-repeat 50% 0%
+         background: url(../images/games/Overlay_VsButton.png) no-repeat 50% 50%
          background-size: 36px 36px
 
+   .next-game
+      background: url(../images/games/BigTeamGlass.png) 50% 50% no-repeat
+      background-size: 301px 104px
+      margin: 10px auto 0
+      width: 301px
+      height: 104px
+      text-shadow: 0 2px 2px #000
+
+      .stadium
+         text-align: center
+         font-size: 1.3em
+         padding-top: 8px
+
+      .next_game
+         color: #c0c0c0
+         font-size: .7em
+         text-align: center
+         padding-top: 2px
+
+      .game-info
+         padding-top: 8px
+
+      .team-info
+         display: table
+         width: 40%
+         height: 50px
+         margin-top: -9px
+         text-align: center
+         &.home
+            float: left
+            margin-left: 15px
+         &.away
+            float: right
+            margin-right: 15px
+      .team
+            margin-bottom: 2px
+            font-size: .9em
+      .inner
+         display: table-cell
+         height: 100%
+         width: 100%
+         vertical-align: middle
+
+   .no-game-scheduled
+      background: url(../images/games/BigTeamGlass.png) 50% 50% no-repeat
+      background-size: 301px 104px
+      display: table
+      margin: 10px auto 0
+      width: 301px
+      height: 104px
+
+      .inner
+         display: table-cell
+         vertical-align: middle
+         height: 100%
+         width: 100%
+         white-space: normal
+         padding: 5px 22px
+         text-align: center
+         text-shadow: 0 2px 2px #000
+
+         .title
+            font-size: 1.6em
+            display: line-height
+            margin-bottom: 3px
+         .sub
+            color: #888
+            font-size: .8em
 
 
 .vs-center

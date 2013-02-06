@@ -1,0 +1,14 @@
+extend ../layout
+
+block header
+   h1(data-menu-root="profile") Choose Image
+   a(data-icon="back", data-rel="back", data-theme="b") Cancel
+   a.ui-btn-right(data-role="button", data-bind="click: rightButtonClick, showClick: true", data-theme="b") Shout It!
+
+block content
+
+   textarea.shout-text(data-bind="value: shout, valueUpdate: ['afterkeydown'], css: { 'warn': chars_remaining() < 0 }, forceFocus: is_showing", autofocus="autofocus").
+
+   .controls
+      .use-twitter(data-bind="css: { 'active': twitter_active }, click: toggleTwitter")
+      .letter-count(data-bind="text: chars_remaining")
