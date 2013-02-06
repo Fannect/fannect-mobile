@@ -11,7 +11,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @has_saved = false
 
          @face_on.subscribe (newValue) =>
-            alert("IN SUBSCRIBE");
             return if @has_saved or @meta?.face_on or @face_value() == "off"
             @has_saved = true
 

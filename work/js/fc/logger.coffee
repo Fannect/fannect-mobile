@@ -2,7 +2,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
    fc.logger =
       setup: () ->
          window.onerror = (m, u, l) ->
-            alert("ERR: m")
             fc.logger.sendError
                message: m
                url: u
