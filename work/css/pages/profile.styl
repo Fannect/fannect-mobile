@@ -142,8 +142,10 @@
       height: 63px
       width: 130px
       margin: 0 auto
-      &.active
+      &.ui-btn-active
+      &:active
          background-position: -135px
+         border: 0
 
    .shout-box
       position: relative
@@ -153,9 +155,7 @@
       width: 270px
       height: 100px
       margin: 8px auto 0px
-      // &.active
-      //    dropshadow: 0px 0px 12px #c1272d
-      //    border-radius: 5px
+
 
    .shout-text
       display: table-cell
@@ -204,12 +204,18 @@
       margin: auto
 
    .fan-dna-separator
+   .shout-separator
       width: 320px
       height: 36px
-      background: url(../images/profile/fanDNADivider.png)
       background-size: 320px 36px
       margin: 6px auto 5px auto
    
+   .shout-separator
+      background-image: url(../images/profile/ShoutDivider.png)
+
+   .fan-dna-separator
+      background-image: url(../images/profile/fanDNADivider.png)
+      
    .graph-wrapper
       background: url(../images/profile/fanDNAGraph-Box.png)
       background-size: 270px 169px
@@ -328,6 +334,7 @@
       text-align: center
       font-size: 1.3em
       margin-top: 26px
+      line-height: 1.3em
 
 #profile-chooseWebImage-page
    .web-images
@@ -379,6 +386,8 @@
          background-image: url(../images/profile/Profile_ScoreDisplay-iPhone@2x.png)!important
       .fan-dna-separator
          background-image: url(../images/profile/fanDNADivider@2x.png)!important
+      .shout-separator
+         background-image: url(../images/profile/ShoutDivider@2x.png)
       .graph-wrapper
          background-image: url(../images/profile/fanDNAGraph-Box@2x.png)
       .highlight

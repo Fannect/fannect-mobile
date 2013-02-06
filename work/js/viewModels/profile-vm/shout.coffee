@@ -36,23 +36,3 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             
       onPageShow: () =>
           super
-
-      # load: (done) ->
-
-         # fc.ajax 
-         #    url: "#{fc.getResourceURL()}/v1/me/teams"
-         #    type: "GET"
-         # , (error, teams) =>
-         #    @is_loading(false)
-         #    if teams.length > 0
-         #       @teams.push team for team in teams
-         #    else 
-         #       fc.cache.set("no_team_profile", true)
-         #       $.mobile.changePage "profile-selectTeam-chooseSport.html", transition: "slide"
-
-      # selectTeam: (data) ->
-      #    fc.team.setActive data._id, (err) ->
-      #       $.mobile.changePage "profile.html", transition: "slideup"
-
-      # rightButtonClick: () ->
-      #    $.mobile.changePage "profile-selectTeam-chooseSport.html", transition: "slide"

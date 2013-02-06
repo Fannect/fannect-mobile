@@ -22,7 +22,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       onPageShow: () =>
          @load() unless @loading
 
-
       selectUser: (data) -> fc.user.view({ user_id: data._id, action: "accept" })
       hideInvite: (element) -> $el = $(element).slideUp 400, () -> $el.remove()
       removeInvite: (data) =>
@@ -72,4 +71,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @invites.push inv 
          else
             @no_invites(true)
+
+      rightButtonClick: () => @_loadInvites()
 

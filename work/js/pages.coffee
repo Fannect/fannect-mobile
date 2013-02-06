@@ -52,8 +52,14 @@ window.fannect.pages =
 
    "profile-invites-page":
       vm: vm.Profile.Invites
+      buttons: [
+         {
+            position: "right"
+            icon: "images/icons/RefreshIcon@2x.png"
+         }
+      ]
       classes: ["light-background"]
-   
+
    "profile-chooseWebImage-page":
       vm: vm.Profile.ChooseWebImage
       classes: ["light-background"]

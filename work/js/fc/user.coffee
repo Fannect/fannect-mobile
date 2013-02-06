@@ -59,6 +59,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          , (err, data) ->
             return done() if err
             fc.user.update(twitter: false)
+            forge.prefs.set "twitter_active", false
             done(null, true)
 
       view: (options) ->

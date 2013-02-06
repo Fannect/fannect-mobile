@@ -12,7 +12,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @is_loading = ko.observable(true)
          @load()
 
-      load: () ->
+      load: () =>
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/sports/#{fc.cache.get('sport_key')}/leagues/#{fc.cache.get('league_key')}/teams"
             type: "GET"
@@ -20,12 +20,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             
             start = 0
             showResults = () =>
-               for i in [start..start+5] by 1
+               for i in [start...start+5] by 1
+                  start = i
                   if i >= teams.length
                      @is_loading(false)
                      return
-                  start = i
                   @teams.push teams[i]
+               start++
                setTimeout showResults, 5
 
             showResults()

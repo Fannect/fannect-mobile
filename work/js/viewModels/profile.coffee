@@ -11,10 +11,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @roster = ko.observable()
          @points = ko.observable()
          @rank = ko.observable()
-         @breakdown = ko.observableArray()
+         @breakdown = ko.observableArray() 
          @shout = ko.observable()
-         @new_shout = ko.observable("")
-         @shouting = ko.observable(false) 
          @load()
 
          @showProfileImagePopup = ko.computed () => @editing_image() == "profile"
@@ -38,7 +36,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @roster profile.roster or 0
          @points profile.points?.overall or 0
          @rank profile.rank or 0
-         @shout profile.shouts?[0]?.text
+         @shout profile.shouts?[0]?.text or "...silence..."
 
          # Add chart data
          @breakdown.removeAll()
@@ -84,50 +82,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       startShouting: () =>
          if @isEditable()
-            # @shouting(true)
-            
             $.mobile.changePage "profile-shout.html", transition: "slideup"
-
-            # forge.tools.getURL "shout.html", (path) ->
-            #    forge.tabs.openWithOptions 
-            #       url: path
-            #       title: "Link Twitter" 
-            
-
-            # forge.tabs.open "shout.html"
-               # url: "shout.html"
-               # pattern: "shout-done.html"
-            # , (data) ->
-            #    console.log JSON.stringify(data)
-                  # if data.url = "#{fc.getLoginURL()}/twitter/success"
-                  #    fc.user.update(twitter: true)
-                  #    done(null, true) if done
-                  # else
-                  #    done() if done
-               
-            # if fc.auth.hasAccessToken() then link()
-            # else fc.auth.getNewAccessToken (err, token) ->
-            #    if err then done() if done
-      
-      submitShout: () =>
-         # newShout = @new_shout()
-         # if newShout?.length > 0 and newShout.length <= 140
-         #    @shouting(false)
-         #    setTimeout (()=> @new_shout("")), 400
-
-         #    fc.team.updateActive({shouts: [{text: newShout}]})
-         #    fc.team.getActive (err, profile) =>
-         #       fc.ajax
-         #          url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/shouts"
-         #          type: "POST"
-         #          data: shout: newShout
-         # else
-         #    fc.msg.show("Shouts must be only 140 characters or less!")
-
-         # @shouting(false)
-
-      stopShouting: () =>
-         @shouting(false)
 
       takeImage: (data, e) =>
          if @isEditable()

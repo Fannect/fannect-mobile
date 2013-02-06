@@ -5,9 +5,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super 
          @teams = ko.observableArray []
          @is_loading = ko.observable(true)
-         @load()
-
-      load: (done) ->
+         
+      load: (done) =>
+         @is_loading(true)
+         @teams.removeAll()
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/me/teams"
             type: "GET"
@@ -25,3 +26,5 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       rightButtonClick: () ->
          $.mobile.changePage "profile-selectTeam-chooseSport.html", transition: "slide"
+
+      onPageShow: () => @load()

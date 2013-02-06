@@ -10,9 +10,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @deleteText = ko.observable()
          @showConfirm = ko.observable()
          @selectedTeam = null
-         @load()
 
       load: (done) ->
+         @teams.removeAll()
+         @is_loading(true)
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/me/teams"
             type: "GET"
@@ -31,8 +32,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       hideProfile: (element) => 
          $el = $(element).slideUp 400, () => $el.remove()
+
       removeProfile: () =>
          @showConfirm(false)
          @teams.remove @selectedTeam
          fc.team.remove @selectedTeam._id, 
          fc.team.removeFromChannel(@selectedTeam.team_id)
+
+
+      onPageShow: () => @load()

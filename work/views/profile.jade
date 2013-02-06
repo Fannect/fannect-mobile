@@ -49,16 +49,14 @@ block content
          .label Rank
          .value(data-bind="text: rank")
 
-   .shout-button(data-bind="css:{'active': shouting}, click: startShouting")
-   .shout-box(data-bind="css:{'active': shouting}")
+   .shout-separator(data-bind="visible: !isEditable()")
+
+   .shout-button(data-bind="click: startShouting, visible: isEditable(), showClick: true")
+   .shout-box
       .shout-quote-left
       .shout-quote-right
-      .shout-text(data-bind="text: shout, fadeIn: !shouting()")
-      textarea.shout-editable(data-bind="value: new_shout, valueUpdate: ['afterkeydown'], fadeIn: shouting, setFocusBlur: shouting")
-   .shout-actions(data-bind="slideInOut: shouting")
-      a(data-role="button", data-bind="click: submitShout, showClick: true") Shout It
-      a(data-role="button", data-bind="click: stopShouting, showClick: true", data-theme="b", data-mini="true") Cancel
-
+      .shout-text(data-bind="text: shout")
+      
    .fan-dna-separator
 
    .graph-wrapper
