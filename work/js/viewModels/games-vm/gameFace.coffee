@@ -11,6 +11,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @has_saved = false
 
          @face_on.subscribe (newValue) =>
+            alert("IN SUBSCRIBE");
             return if @has_saved or @meta?.face_on or @face_value() == "off"
             @has_saved = true
 
@@ -18,6 +19,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                fc.ajax
                   url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace"
                   type: "POST"
+                  data: { face_on: true }
+                  cache: false
                (err) ->
                   return fc.msg.show("Something went wrong.. :(") if err
                   fc.showScoringPopup()
@@ -31,6 +34,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             fc.ajax 
                url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace"
                type: "GET"
+               cache: false
             , (error, data) =>
                return fc.msg.show("Unable to load game information!") if err
                @meta = data.meta

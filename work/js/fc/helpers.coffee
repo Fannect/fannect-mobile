@@ -14,14 +14,14 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
          fc.mobile.setupHeader()
 
    fc.getResourceURL = () ->
-      # "http://fannect-api.herokuapp.com"
+      "http://fannect-api.herokuapp.com"
       # return "http://192.168.0.25:2100"
-      return if forge.is.web() then "http://localhost:2100" else "http://fannect-api.herokuapp.com"
+      # return if forge.is.web() then "http://localhost:2100" else "http://fannect-api.herokuapp.com"
 
    fc.getLoginURL = () ->
       # return "http://192.168.0.25:2200"
-      # "https://fannect-login.herokuapp.com"
-      return if forge.is.web() then "http://localhost:2200" else "https://fannect-login.herokuapp.com"
+      "https://fannect-login.herokuapp.com"
+      # return if forge.is.web() then "http://localhost:2200" else "https://fannect-login.herokuapp.com"
 
    fc.createPages = () ->
       for i, p of window.fannect.pages
