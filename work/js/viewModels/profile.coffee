@@ -33,7 +33,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @profile_image profile.profile_image_url or ""
          @team_image profile.team_image_url or ""
          @team_name profile.team_name
-         @roster profile.roster or 0
+         @roster profile.friends_count or 0
          @points profile.points?.overall or 0
          @rank profile.rank or 0
          @shout profile.shouts?[0]?.text or "...silence..."

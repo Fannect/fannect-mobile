@@ -20,7 +20,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   type: "POST"
                (err) ->
                   return fc.msg.show("Something went wrong.. :(") if err
-         
+                  fc.showScoringPopup()
+
          @load()
             
       load: () =>

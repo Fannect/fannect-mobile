@@ -5,6 +5,15 @@ block header
    a(href="games", data-icon="back", data-rel="back", data-theme="b") Games
    a.tutorial-link(href="#", data-iconpos="notext", data-icon="custom", data-theme="b")
    
+
+   .scorePointsInfoPopup(data-role="popup", style="width:260px; text-align: center;", class="ui-corner-all", data-overlay-theme="a", data-theme="a")
+      .ui-corner-top(data-role="header", data-theme="b")
+         h1 Scoring
+      .ui-corner-bottom.ui-content(data-role="content", data-theme="a", style)
+         h3.ui-title Points and rank will be calculated late every night! Check back tomorrow for updates!
+         a(data-role="button", data-bind="showClick: true") Ok
+
+
 block content
 
    .game-face(data-bind="css: { on: face_on() }")

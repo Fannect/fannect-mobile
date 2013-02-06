@@ -29,6 +29,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      away_score: @home_score() or 0
                , (err) ->
                   return fc.msg.show("Something went wrong.. :(") if err
+                  fc.showScoringPopup()
 
       load: () =>
          fc.team.getActive (err, profile) =>
@@ -68,8 +69,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
             distance = Math.round google.maps.geometry.spherical.computeDistanceBetween(@user_center, @stadium_center)
             @user_distance(Math.round(100*(distance / 1609.34))/100)
-
-            console.log @user_distance()
 
             if not @user_pin
                @user_pin = new google.maps.Marker(map: @map)

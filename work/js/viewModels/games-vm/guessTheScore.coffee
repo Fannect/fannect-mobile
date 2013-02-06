@@ -25,13 +25,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   away_score: @home_score() or 0
             , (err) ->
                return fc.msg.show("Something went wrong.. :(") if err
+               fc.showScoringPopup()
 
       load: () =>
          fc.team.getActive (err, profile) =>
             return fc.msg.show("Unable to load game information!") if err
 
             fc.ajax 
-               url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/guessTheScore"
+               url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/guessTheScore/mock3"
                type: "GET"
             , (error, data) =>
                return fc.msg.show("Unable to load game information!") if err

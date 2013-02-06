@@ -222,3 +222,6 @@ window.fannect.pages =
 
    "settings-manageAccounts-page":
       vm: vm.Settings.ManageAccounts
+
+   "settings-privacy-page":
+      classes: ["light-background"]

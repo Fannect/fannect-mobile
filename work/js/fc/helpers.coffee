@@ -21,7 +21,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
    fc.getLoginURL = () ->
       # return "http://192.168.0.25:2200"
       # "https://fannect-login.herokuapp.com"
-      return if forge.is.web() then "http://localhost:2200" else "http://fannect-login.herokuapp.com"
+      return if forge.is.web() then "http://localhost:2200" else "https://fannect-login.herokuapp.com"
 
    fc.createPages = () ->
       for i, p of window.fannect.pages
@@ -115,4 +115,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
 
       img.src = file
 
-
+   fc.showScoringPopup = () ->
+      forge.prefs.get "scoring_info_shown", (shown) ->
+         unless shown
+            $(".scorePointsInfoPopup", $.mobile.activePage).popup("open")
+            forge.prefs.set("scoring_info_shown", true)
