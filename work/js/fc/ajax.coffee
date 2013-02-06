@@ -11,7 +11,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             fc.auth.getNewAccessToken (err, token) ->
                options.second_try = true
                fc.ajax(options, done)
-         if (error?.status == 0 or error.statusText == "timeout")
+         else if (error?.status == 0 or error.statusText == "timeout")
             fc.msg.loading("Server timeout! Retrying...")
             fc.logger.sendError(error)
             setTimeout (() ->

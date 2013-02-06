@@ -15,13 +15,13 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                done(null, user)
             error: (err) ->
                if err.status == 401
-                  $.mobile.loading "show",
-                     text: "Invalid username and password"
-                     textonly: true
-                     theme: "a"
-                  setTimeout (() => $.mobile.loading "hide"), 1800
+                  fc.msg.show("Invalid username and password!")
                   done(null, false)
+               else if (err?.status == 0 or err.statusText == "timeout")
+                  fc.msg.loading("Server timeout! Retrying...")
+                  fc.logger.sendError(err)
                else
+                  fc.logger.sendError(err)
                   done(err)
 
          forge.ajax(options)
