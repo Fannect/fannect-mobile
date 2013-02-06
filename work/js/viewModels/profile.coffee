@@ -88,13 +88,21 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          if @isEditable()
             done = if @editing_image() == "profile" then @_uploadProfileImage else @_uploadTeamImage
             @editing_image("none")
-            forge.file.getImage source: "camera", done
-         
+
+            if forge.is.ios()
+               forge.file.getImage { source: "camera", height: 600, width: 600 }, done
+            else
+               forge.file.getImage { source: "camera" }, done
+
       chooseImage: (data, e) ->
          if @isEditable()
             done = if @editing_image() == "profile" then @_uploadProfileImage else @_uploadTeamImage
             @editing_image("none")
-            forge.file.getImage source: "gallery", done
+
+            if forge.is.ios()
+               forge.file.getImage { source: "gallery", height: 800, width: 800 }, done
+            else
+               forge.file.getImage { source: "gallery" }, done
 
       leftButtonClick: () ->
          $.mobile.changePage "profile-invites.html", transition: "slidedown"
