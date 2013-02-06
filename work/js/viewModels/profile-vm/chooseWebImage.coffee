@@ -54,9 +54,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       select: (data, event) =>
          if not @selected
             @selected = true
-
             @images()[@images.indexOf(data)].selected(true)
-
             fc.msg.loading("Uploading image...")
 
             fc.team.getActive (err, profile) =>
@@ -67,6 +65,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                , (err, data) =>
                   if err
                      fc.msg.show("Unable to upload image.")
+                     @selected = false
+                     @images()[@images.indexOf(data)].selected(false)
                   else
                      fc.msg.hide()
                      fc.team.updateActive(data)

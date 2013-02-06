@@ -12,7 +12,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @user_distance = ko.observable()
          @in_range = ko.computed () => return @user_distance()? and @user_distance() < .5
          @miles_away = ko.computed () => 
-            return (parseFloat(@user_distance()) - .5) + " mi"
+            return Math.round((parseFloat(@user_distance()) - .5) * 100) / 100 + " mi"
 
          @load()
             
@@ -68,7 +68,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @user_center = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude)
 
             distance = Math.round google.maps.geometry.spherical.computeDistanceBetween(@user_center, @stadium_center)
-            @user_distance(Math.round(100*(distance / 1609.34))/100)
+            @user_distance(distance / 1609.34)
 
             if not @user_pin
                @user_pin = new google.maps.Marker(map: @map)

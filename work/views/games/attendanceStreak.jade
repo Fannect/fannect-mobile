@@ -37,10 +37,12 @@ block content
    .map-wrapper
       .map
 
+   .counter
+
    .bottom
       .inner
-         a.check-in(data-role="button", data-bind="visible: !checked_in() && game_data.available(), click: checkIn") Check In
-         .checked-in(data-bind="fadeIn: checked_in() && game_data.available() && in_range(), duration: 500", style="display:none;") Checked In!
+         a.check-in(data-role="button", data-bind="visible: !checked_in() && in_range() && game_data.available(), click: checkIn") Check In
+         .checked-in(data-bind="fadeIn: checked_in() && game_data.available(), duration: 500", style="display:none;") Checked In!
          .no-game(data-bind="visible: !game_data.available() && game_data.no_game_scheduled() || !game_data.available() && in_range()")
             .scrolling-text Check ins are only allowed on game days!
             .next-game

@@ -16,10 +16,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       toggleTwitter: () => 
          @twitter_active(not @twitter_active())
          
-         fc.user.get (err, user) ->
-            if not user.twitter 
-               fc.user.linkTwitter (err, success) =>
-                  @twitter_active(success)
+         if @twitter_active()
+            fc.user.get (err, user) =>
+               if not user.twitter 
+                  fc.user.linkTwitter (err, success) =>
+                     @twitter_active(success)
 
       rightButtonClick: () =>
          if @chars_remaining() >= 0 and @chars_remaining() < 140
