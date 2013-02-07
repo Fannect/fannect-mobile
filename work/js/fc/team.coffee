@@ -107,7 +107,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                fc.cache.set("choose_team_options", { hide_back: true })
                $.mobile.changePage "profile-selectTeam-chooseSport.html", transition: ("slide" or options.transition)
 
-
       _addToChannel: (team_id) ->
          if forge.is.mobile()
             forge.partners.parse.push.subscribedChannels (channels) ->

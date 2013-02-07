@@ -59,6 +59,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          forge.prefs.set "scoring_info_shown", null
          forge.prefs.set "tutorial_shown", null
 
+         if forge.is.mobile()
+            forge.partners.parse.push.subscribedChannels (channels) ->
+               forge.partners.parse.push.unsubscribe(channel) for channel in channels
+                  
+
       hasAccessToken: () ->
          return fc.auth._access_token?
 

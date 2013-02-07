@@ -13,7 +13,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                type: "GET"
             , (error, user) ->
                fc.user._curr = user
-
+               fc.user._addToChannel(user._id)
                # Change stream
                if forge.is.mobile()
                   forge.reload.switchStream(user?.reload_stream or "default")
@@ -23,9 +23,12 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       update: (user) ->
          if not fc.user._curr then fc.user._curr = {}
          fc.auth._refresh_token = user.refresh_token if user.refresh_token
+         fc.user._addToChannel(user._id) if user._id != fc.user._curr?._id
+
          $.extend true, fc.user._curr, user
          fc.user.updateInvites(user.invites)
          fc.user._notify()
+
          sub fc.user._curr for sub in fc.user._subscribers
 
       clearCache: () ->
@@ -71,6 +74,13 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             fc.user.update(twitter: false)
             forge.prefs.set "twitter_active", false
             done(null, true)
+
+      _addToChannel: (user_id) ->
+         if forge.is.mobile()
+            forge.partners.parse.push.subscribedChannels (channels) ->
+               channel = "user_#{user_id}"
+               if not (channel in channels)
+                  forge.partners.parse.push.subscribe(channel)
 
       view: (options) ->
          fc.cache.set "view_other", options
