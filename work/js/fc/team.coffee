@@ -12,22 +12,25 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             done(null, fc.team._teams[teamProfileId]) if done
             return fc.team._teams[teamProfileId]
          else
-            if done and fc.team._fetching[teamProfileId]
-               fc.team._waitingFn[teamProfileId] = [] unless fc.team._waitingFn[teamProfileId]
-               fc.team._waitingFn[teamProfileId].push(done) 
-            else
-               fc.team._fetching[teamProfileId] = true
-               fc.ajax 
-                  url: "#{fc.getResourceURL()}/v1/me/teams/#{teamProfileId}"
-                  type: "GET"
-                  retry: "forever"
-               , (err, team) ->
-                  fc.team._addToChannel(team.team_id)
-                  fc.team._teams[teamProfileId] = team
-                  fc.team._notify(team)
-                  fc.team._waitingFn[teamProfileId]
-                  fc.team._doneFetching(teamProfileId, team)
-                  done(null, team) if done
+            fc.team.refresh(teamProfileId, done)
+
+      refresh: (teamProfileId, done) ->
+         if done and fc.team._fetching[teamProfileId]
+            fc.team._waitingFn[teamProfileId] = [] unless fc.team._waitingFn[teamProfileId]
+            fc.team._waitingFn[teamProfileId].push(done) 
+         else
+            fc.team._fetching[teamProfileId] = true
+            fc.ajax 
+               url: "#{fc.getResourceURL()}/v1/me/teams/#{teamProfileId}"
+               type: "GET"
+               retry: "forever"
+            , (err, team) ->
+               fc.team._addToChannel(team.team_id)
+               fc.team._teams[teamProfileId] = team
+               fc.team._notify(team)
+               fc.team._waitingFn[teamProfileId]
+               fc.team._doneFetching(teamProfileId, team)
+               done(null, team) if done
 
       _doneFetching: (teamProfileId, team) ->
          fc.team._fetching[teamProfileId] = false

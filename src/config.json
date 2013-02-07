@@ -51,12 +51,12 @@
 			"iphone-retina4": "res/splash-iphone-5mobile@2x.png"
 		}, 
 		"logging": {
-			"level": "DEBUG"
+			"level": "WARNING"
 		}, 
 		"media": true, 
 		"notification": true, 
 		"package_names": {
-			"ios": "me.fannect.Fannect"
+			"ios": "me.fannect"
 		}, 
 		"parameters": {
 			"loggly_server": "https://logs.loggly.com/inputs/3de92d03-5202-41b7-906d-f5b2c281a8d9", 

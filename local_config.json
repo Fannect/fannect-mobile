@@ -17,7 +17,7 @@
         }
     }, 
     "ios": {
-        "device": "simulator", 
+        "device": "device", 
         "simulatorsdk": "6.0", 
         "simulatorfamily": "iphone", 
         "profiles": {
