@@ -105,8 +105,10 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
 
    ko.bindingHandlers.chart = 
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
-         viewModel.chart = new fc.Chart($(element))
-
+         allBindings = allBindingsAccessor()
+         options = allBindings.chartOptions or {}
+         viewModel.chart = new fc.Chart($(element), options)
+         
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          if viewModel.chartTimeoutId then clearTimeout(viewModel.chartTimeoutId)
          data = ko.utils.unwrapObservable valueAccessor()

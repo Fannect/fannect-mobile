@@ -15,7 +15,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
 
    fc.getResourceURL = () ->
       # "http://fannect-api.herokuapp.com"
-      return "http://192.168.0.25:2100"
+      return "http://192.168.2.14:2100"
       # return if forge.is.web() then "http://localhost:2100" else "http://fannect-api.herokuapp.com"
 
    fc.getLoginURL = () ->

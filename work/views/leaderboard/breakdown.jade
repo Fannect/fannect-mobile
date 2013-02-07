@@ -8,7 +8,7 @@ block content
    .team-name(data-bind="text: name")
 
    .graph-wrapper
-      .breakdown(data-bind="chart: breakdown")
+      .breakdown(data-bind="chart: breakdown, chartOptions:{'text':'percent'}")
    .graph-base
       .highlight
       span.passion Passion

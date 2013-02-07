@@ -82,9 +82,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             forge.prefs.set "team_profile_id", null
          
          fc.ajax 
-            url: "#{fc.getResourceURL()}/v1/me/teams/#{teamProfileId}"
-            type: "DELETE"
-            cache: false
+            url: "#{fc.getResourceURL()}/v1/me/teams/#{teamProfileId}/delete"
+            type: "POST"
          , (err, data) ->
             return done(err, data) if err and done
             done(err, data) if done

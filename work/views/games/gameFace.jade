@@ -34,7 +34,7 @@ block content
       
    .next-game(data-bind="visible: !game_data.no_game_scheduled() && !game_data.available()")
       .stadium(data-bind="text: game_data.stadium().name")
-      .next_game(data-bind="text: game_data.next_game")
+      .game-time(data-bind="text: game_data.next_game")
       .game-info
          .team-info.home
             .inner

@@ -30,8 +30,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @no_invites(@invites().length == 0)
 
          fc.ajax
-            url: "#{fc.getResourceURL()}/v1/me/invites"
-            type: "DELETE"
+            url: "#{fc.getResourceURL()}/v1/me/invites/delete"
+            type: "POST"
             data: user_id: data._id
             cache: false
          , (err) => throw(err) if err
