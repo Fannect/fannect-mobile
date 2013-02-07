@@ -20,8 +20,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                fc.ajax 
                   url: "#{fc.getResourceURL()}/v1/me/teams/#{teamProfileId}"
                   type: "GET"
+                  retry: "forever"
                , (err, team) ->
-                  throw err if err
                   fc.team._addToChannel(team.team_id)
                   fc.team._teams[teamProfileId] = team
                   fc.team._notify(team)
@@ -84,6 +84,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/me/teams/#{teamProfileId}/delete"
             type: "POST"
+            data: "delete": true
          , (err, data) ->
             return done(err, data) if err and done
             done(err, data) if done

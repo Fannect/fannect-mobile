@@ -6,7 +6,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          console.log "#{options.url}:", JSON.parse(result) 
          done null, JSON.parse(result) if done
       options.error = (error) ->
-         console.error "#{options.url} (err):", error
+         forge.logging.warning "#{options.url} (err)", error
       
          if (error?.status == 401 or error?.statusCode?.toString() == "401") and not options.second_try
             fc.auth.getNewAccessToken (err, token) ->
@@ -18,6 +18,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             setTimeout (() ->
                fc.ajax(options, done)
             ), 5000
+         else if options.retry == "forever"
+            setTimeout (-> fc.ajax(options, done)), 4000
          else
             try
                console.error errText = JSON.parse error.responseText

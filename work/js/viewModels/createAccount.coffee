@@ -11,7 +11,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       createAccount: () =>
          
-         if not (@first_name() and @last_name() and email() and password())
+         if not (@first_name() and @last_name() and @email() and @password())
             return fc.msg.show("All fields are required!")
 
          if @password() != @confirm_password()

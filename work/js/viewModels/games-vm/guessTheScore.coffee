@@ -42,6 +42,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             fc.ajax 
                url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/guessTheScore"
                type: "GET"
+               retry: "forever"
             , (error, data) =>
                return fc.msg.show("Unable to load game information!") if err
                

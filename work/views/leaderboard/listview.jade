@@ -1,6 +1,6 @@
 extend ../layout
 
 block content
-   ul.pattern-bg(data-role="listview", data-bind="template: { name: getItemTemplate(), foreach: items }, listviewUpdate: items, setClass:  getListViewClass()")
+   ul.pattern-bg.leaderboard(data-role="listview", data-bind="template: { name: getItemTemplate(), foreach: items }, listviewUpdate: items, setClass:  getListViewClass()")
    .loading-more-indicator(data-bind="visible: loading_more", style="display:none;")
       

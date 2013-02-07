@@ -27,6 +27,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   data:
                      lat: @user_center?.lat()
                      lng: @user_center?.lng()
+                  retry: "forever"
                , (err) ->
                   return fc.msg.show("Something went wrong.. :(") if err
                   fc.showScoringPopup()

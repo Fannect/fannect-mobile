@@ -26,6 +26,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             fc.ajax 
                url: "#{url}#{if url.indexOf('?') >= 0 then '&' else '?' }limit=#{@limit}&skip=#{@skip}"
                type: "GET"
+               retry: "forever"
             , (error, result) =>
                setTimeout (() => @loading_more(false)), 200
                

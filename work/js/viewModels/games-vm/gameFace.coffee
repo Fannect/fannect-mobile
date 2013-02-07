@@ -33,7 +33,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             fc.ajax 
                url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace"
                type: "GET"
-               cache: false
+               retry: "forever"
             , (error, data) =>
                return fc.msg.show("Unable to load game information!") if err
                @meta = data.meta

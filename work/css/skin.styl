@@ -260,8 +260,8 @@ body
       .text-wrapper
          display: table
          padding-left: 12px
-         height: 43px;
-
+         height: 43px
+     
       .fan-name
          display: table-cell
          vertical-align: middle
@@ -286,6 +286,9 @@ body
          &.accept
             background: url(../images/icons/Button_Delete.png) 50% 50% no-repeat
             background-size: 19px 19px
+.leaderboard 
+   .text-wrapper
+      padding-right: 34px
 
 .invite-list
    .ui-link-inherit
@@ -341,6 +344,9 @@ body
       &.accept
          background: url(../images/icons/Tablecell_greenCheckmark.png) 50% 50% no-repeat
          background-size: 30px 30px
+         &.ui-btn-active
+            background: url(../images/icons/Tablecell_blueCheckmark.png) 50% 50% no-repeat
+
    .active
       .right-icon.accept
          background: url(../images/icons/Tablecell_blueCheckmark.png) 50% 50% no-repeat
@@ -531,6 +537,8 @@ body
          background-image: url(../images/icons/Button_Delete@2x.png)!important
       .accept
          background-image: url(../images/icons/Tablecell_greenCheckmark@2x.png)!important
+      .accept.ui-btn-active
+         background-image: url(../images/icons/Tablecell_blueCheckmark@2x.png)!important
       .rank
          background-image: url(../images/leaderboard/Overlay_LeaderboardRank@2x.png)!important
       .active .accept

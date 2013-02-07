@@ -6,6 +6,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @invites = ko.observableArray()
          @no_invites = ko.observable(false)
          @invites.subscribe () => fc.user.updateInvites(@invites())
+         @is_loading = ko.observable(true)
          @load()
 
       load: () ->
@@ -33,7 +34,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             url: "#{fc.getResourceURL()}/v1/me/invites/delete"
             type: "POST"
             data: user_id: data._id
-            cache: false
          , (err) => throw(err) if err
 
       acceptInvite: (data) =>
@@ -47,15 +47,19 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       _loadTeams: (done) =>
          fc.ajax
             url: "#{fc.getResourceURL()}/v1/me/teams"
+            retry: "forever"
          , (err, profiles) =>
             teams = []
             teams.push p.team_name for p in profiles
             done(null,teams)
 
       _loadInvites: (done) =>
+         @is_loading(true)
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/me/invites"
+            retry: "forever"
          , (err, users) ->
+            @is_loading(false)
             for user in users
                user.profile_image_url = "images/fannect_UserPlaceholderPic@2x.png" unless user.profile_image_url?.length > 2
             done(err, users)

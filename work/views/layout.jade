@@ -60,7 +60,7 @@ html
                   .cover
                .fan-name(data-bind="text: name")
                .teams(data-bind="html: teams_text")
-               .right-icon.accept(data-bind="click: $parent.acceptInvite, clickBubble: false")
+               .right-icon.accept(data-bind="showClick: true, click: $parent.acceptInvite, clickBubble: false")
 
       script(id="leaderboard-fan-template", type="text/html")
          li.fan(data-icon="false")
