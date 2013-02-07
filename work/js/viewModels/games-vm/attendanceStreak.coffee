@@ -13,8 +13,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @in_range = ko.computed () => return @user_distance()? and @user_distance() < .5
          @miles_away = ko.computed () => 
             return Math.round((parseFloat(@user_distance()) - .5) * 100) / 100 + " mi"
-
-         @load()
+         fc.maps.loaded () => @load()
             
       checkIn: (data) =>
          if @in_range()

@@ -7,5 +7,5 @@ block header
 
 block content
    ul.invite-list.pattern-bg(data-role="listview", data-theme="a", data-bind="template: { name:'invite-fan-template', foreach: invites, beforeRemove: hideInvite }, listviewUpdate: invites, visible: !no_invites()")
-   .no-invites(data-bind="fadeIn: no_invites", style="display:none;") Looks like no ones trying to recruit you. Get out and get noticed!
+   .no-invites(data-bind="fadeIn: no_invites", style="display:none;") Looks like no one's trying to recruit you. Get out and get noticed!
    .loading-more-indicator(data-bind="visible: is_loading")

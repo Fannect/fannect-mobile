@@ -15,7 +15,6 @@ html
 
       script(src="js/d3.js")
       script(src="js/tree.js")
-      script(src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false")
 
    - var viewDir = locals.settings.views;
    - var view = locals.filename.replace(viewDir, "").replace(".jade", "").replace(/^[\\\/]/g, "");
@@ -77,3 +76,5 @@ html
             a(data-bind="click: $parent.selectTeam, showListviewClick: true")
                .team-name(data-bind="text: full_name")
                .right-icon.rank(data-bind="text: $index() + 1")
+      
+      script(src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&callback=mapsInitialized")

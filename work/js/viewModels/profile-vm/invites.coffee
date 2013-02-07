@@ -9,7 +9,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @is_loading = ko.observable(true)
          @load()
 
-      load: () ->
+      load: () =>
          @loading = true
          loadedTeams = null
          loadedInvites = null
@@ -58,7 +58,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/me/invites"
             retry: "forever"
-         , (err, users) ->
+         , (err, users) =>
             @is_loading(false)
             for user in users
                user.profile_image_url = "images/fannect_UserPlaceholderPic@2x.png" unless user.profile_image_url?.length > 2
