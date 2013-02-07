@@ -85,7 +85,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             url: "#{fc.getResourceURL()}/v1/me/teams/#{teamProfileId}"
             type: "DELETE"
             cache: false
-            data: { "delete": "profile" }
          , (err, data) ->
             return done(err, data) if err and done
             done(err, data) if done

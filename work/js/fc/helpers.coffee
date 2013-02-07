@@ -14,8 +14,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
          fc.mobile.setupHeader()
 
    fc.getResourceURL = () ->
-      "http://fannect-api.herokuapp.com"
-      # return "http://192.168.0.25:2100"
+      # "http://fannect-api.herokuapp.com"
+      return "http://192.168.0.25:2100"
       # return if forge.is.web() then "http://localhost:2100" else "http://fannect-api.herokuapp.com"
 
    fc.getLoginURL = () ->
