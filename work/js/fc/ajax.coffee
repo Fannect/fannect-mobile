@@ -18,7 +18,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             setTimeout (() ->
                fc.ajax(options, done)
             ), 5000
-         else if options.retry == "forever"
+         else if options.retry == "forever" and error?.status != 401 and error?.statusCode?.toString() != "401"
             setTimeout (-> fc.ajax(options, done)), 4000
          else
             try
