@@ -32,7 +32,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                fc.msg.show("Your account has been updated!")
 
          fc.user.get (err, user) =>
-
             return fc.msg.show("Something went wrong! :0") if err or not user
 
             # check to see if password or email has been updated
@@ -47,12 +46,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   data.password = @password() if @password()
 
                   fc.ajax
-                     url: "#{fc.getLoginURL()}/v1/users/#{user._id}"
-                     type: "PUT"
+                     url: "#{fc.getLoginURL()}/v1/users/#{user._id}/update"
+                     type: "POST"
                      data: data
                   , (err, resp) ->
                      if resp?.status == "success"
                         fc.auth._refresh_token = resp.refresh_token
+                        fc.user.update(email: data.email) if data.email
                         fc.user.clearCache()
                      else  
                         hasError = true
@@ -66,12 +66,16 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                data.last_name = @last_name() if @last_name() != user.last_name
 
                fc.ajax
-                  url: "#{fc.getResourceURL()}/v1/me"
-                  type: "PUT"
+                  url: "#{fc.getResourceURL()}/v1/me/update"
+                  type: "POST"
                   data: data
                , (err, resp) ->
-                  if resp?.status == "success" then fc.team.clearCache()
+                  if resp?.status == "success"
+                     fc.team.clearCache()
+                     fc.user.update(data)
                   else hasError = true
                   done()
 
-            done() if count == 0
+
+
+            fc.msg.hide() if count == 0

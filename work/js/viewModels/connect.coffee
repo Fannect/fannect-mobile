@@ -9,10 +9,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @fans = ko.observableArray []
          @loading_more = ko.observable false
 
-         # @query.subscribe () =>
-         #    @fans.removeAll()
-         #    @skip = 0
-
          @query.subscribe () =>
             if @timeoutId then clearTimeout @timeoutId
             @timeoutId = setTimeout () =>
@@ -25,10 +21,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       search: () =>
          @skip = 0
          @fans.removeAll()
-         # regex = new RegExp("(|.*[\s]+)(#{@query().trim()}).*", "i")
-         # for fan in @fans
-         #    @fans.remove(fan) if not regex.test(fan.name)
-
          @load()
 
       load: (done) =>

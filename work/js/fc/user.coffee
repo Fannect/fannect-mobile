@@ -31,9 +31,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
          sub fc.user._curr for sub in fc.user._subscribers
 
-      clearCache: () ->
-         fc.user._curr = null
-
       updateInvites: (invites) ->
          if not fc.user._curr then fc.user._curr = {}
          fc.user.invites = invites

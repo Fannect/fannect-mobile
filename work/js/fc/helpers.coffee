@@ -117,3 +117,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
          unless shown
             $(".scorePointsInfoPopup", $.mobile.activePage).popup("open")
             forge.prefs.set("scoring_info_shown", true)
+
+   fc.hideScoringPopup = () ->
+      $(".scorePointsInfoPopup", $.mobile.activePage).popup("close")
+      $(".scorePointsInfoPopup a").addClass("ui-btn-active")

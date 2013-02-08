@@ -12,8 +12,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
             fc.user.get (err, user) =>
                fc.ajax 
-                  url: "#{fc.getLoginURL()}/v1/users/#{user._id}"
-                  type: "PUT"
+                  url: "#{fc.getLoginURL()}/v1/users/#{user._id}/update"
+                  type: "POST"
                   data: password: @password()
                , (err, result) =>
                   fc.msg.hide()

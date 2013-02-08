@@ -76,8 +76,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             done(err) if err
             console.log "Requesting: new access_token"
             options =
-               type: "PUT"
-               url: "#{fc.getLoginURL()}/v1/token"
+               type: "POST"
+               url: "#{fc.getLoginURL()}/v1/token/update"
                data: { refresh_token: token }
                success: (user) ->
                   console.log "Success: new access_token"
