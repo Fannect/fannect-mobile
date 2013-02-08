@@ -49,8 +49,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                forge.topbar.addButton
                   text: leftButton.text()
                   position: "left"
-                  type: "back"
                   style: "back"
+               , () -> window.history.back()
 
       addHeaderButton: (options, click) ->
          if forge.is.mobile()

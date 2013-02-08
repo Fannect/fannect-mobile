@@ -77,7 +77,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             window.fannect.mobile.addHeaderButton 
                text: "Back"
                position: "left"
-               click: () -> history.back()
+               style: "back"
+               click: () -> window.history.back()
 
 
 

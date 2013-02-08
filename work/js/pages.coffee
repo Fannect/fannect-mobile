@@ -198,7 +198,7 @@ window.fannect.pages =
       classes: ["light-background"]
 
    "leaderboard-overallFans-page":
-      vm: vm.Leaderboard.MyRoster
+      vm: vm.Leaderboard.OverallFans
       classes: ["light-background"]
 
    ###
