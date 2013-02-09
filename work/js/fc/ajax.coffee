@@ -8,17 +8,20 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       options.error = (error) ->
          forge.logging.warning "#{options.url} (err)", error
       
-         if (error?.status == 401 or error?.statusCode?.toString() == "401") and not options.second_try
-            fc.auth.getNewAccessToken (err, token) ->
-               options.second_try = true
-               fc.ajax(options, done)
+         if (error?.status == 401 or error?.statusCode?.toString() == "401")
+            if options.second_try
+               fc.auth.logout()
+            else
+               fc.auth.getNewAccessToken (err, token) ->
+                  options.second_try = true
+                  fc.ajax(options, done)
          else if (error?.status == 0 or error.statusText == "timeout")
             fc.msg.loading("Server timeout! Retrying...")
             fc.logger.sendError(error)
             setTimeout (() ->
                fc.ajax(options, done)
             ), 5000
-         else if options.retry == "forever" and error?.status != 401 and error?.statusCode?.toString() != "401"
+         else if options.retry == "forever"
             setTimeout (-> fc.ajax(options, done)), 4000
          else
             try
