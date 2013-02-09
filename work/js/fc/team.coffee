@@ -102,6 +102,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/me/teams"
             type: "GET"
+            retry: "forever"
          , (error, teams) =>
             if teams.length > 0
                fc.team.setActive teams[0]._id, () ->
