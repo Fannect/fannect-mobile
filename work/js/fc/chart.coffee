@@ -14,6 +14,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          @w = @container.width()
          @h = @container.height()
 
+         @_createGradient("gradient-passion", "#e13000", "#e01500")
+         @_createGradient("gradient-dedication", "#0090ff", "#003cff")
+         @_createGradient("gradient-knowledge", "#1cc800", "#008c0a")
+         # @_createShadow()
+
          update(data) if data
 
       update: (data) =>
@@ -31,6 +36,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                .attr("y", @h)
                .attr("width", @bar_width)
                .attr("height", 0)
+               .style("fill", (d) -> "url(#gradient-#{d.style})")
+               # .attr("filter", (d) -> "url(#dropshadow)")
                .attr("class", (d) -> d.style)
             .transition()
                .delay(100)
@@ -89,8 +96,41 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          max = 0
          (max = d.val if d.val > max) for d in @data
 
-         if max > 0
+         if max > 20
             return [-1.5, max * 1.20]
          else
-            return [-1.5, 20]
+            return [-1, 20]
+
+      # _createShadow: () =>
+      #    shadow = @chart.append("defs").append("filter")
+      #       .attr("id","dropshadow")
+      #       .attr("height","130%");
+
+      #    shadow.append("feGaussianBlur")
+      #       .attr("in","SourceAlpha")
+      #       .attr("stdDeviation","3");
+
+      #    shadow.append("feOffset")
+      #       .attr("dx","2")
+      #       .attr("dy","2")
+      #       .attr("result","offsetblur");
+
+      _createGradient: (id, start, stop) =>
+         gradient = @chart.append("svg:linearGradient")
+            .attr("id", id)
+            .attr("x1", "0%")
+            .attr("y1", "0%")
+            .attr("x2", "0%")
+            .attr("y2", "100%")
+            .attr("spreadMethod", "pad");
+          
+         gradient.append("svg:stop")
+            .attr("offset", "0%")
+            .attr("stop-color", start)
+            .attr("stop-opacity", 1);
+          
+         gradient.append("svg:stop")
+            .attr("offset", "100%")
+            .attr("stop-color", stop)
+            .attr("stop-opacity", 1);
 

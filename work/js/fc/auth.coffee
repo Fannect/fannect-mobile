@@ -74,6 +74,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       getNewAccessToken: (done) ->
          fc.auth.getRefreshToken (err, token) ->
             done(err) if err
+            if not token
+               console.log "No refresh_token"
+               return fc.redirectToLogin()
             console.log "Requesting: new access_token"
             options =
                type: "POST"

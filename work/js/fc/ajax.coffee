@@ -33,6 +33,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       if not options.no_access_token and not fc.auth.hasAccessToken() and not options.second_try
          return fc.auth.getNewAccessToken (err, token) ->
             options.second_try = true
+            options.url.replace(/access_token=.+/, "access_token=#{fc.auth.getAccessToken()}")
             fc.ajax(options, done)
 
       # Append access_token on to querystring
