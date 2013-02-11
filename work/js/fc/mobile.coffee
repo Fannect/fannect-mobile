@@ -17,7 +17,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                fc.mobile._waiting_to_activate = null
 
             button.onPressed.addListener () ->
-               $.mobile.changePage target, transition: "none"
+               $.mobile.changePage target, fc.transition("none")
          
       createButtons: () ->
          forge.tabbar.removeButtons () ->

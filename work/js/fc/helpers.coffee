@@ -74,6 +74,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
 
       return cachedIsSlow
 
+   fc.transition = (transition) ->
+      if fc.isSlow() or not transition then { transition: "none" } else  { transition: transition }
+
    fc.loading = (status) ->
       showLoading = status == "show"
       if showLoading

@@ -6,7 +6,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          # Return if user has not selected a sport
          unless fc.cache.hasKey("sport_key") and fc.cache.hasKey("league_key")
-            $.mobile.changePage "profile-selectTeam.html", transition: "none"
+            $.mobile.changePage "profile-selectTeam.html", fc.transition("none")
          
          @teams = ko.observableArray []
          @is_loading = ko.observable(true)
@@ -39,4 +39,4 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             if err?.reason == "duplicate"
                fc.msg.show("You're already a commit fan of #{data.full_name}!")
             else
-               $.mobile.changePage "profile.html", transition: "slideup"
+               $.mobile.changePage "profile.html", fc.transition("slideup")

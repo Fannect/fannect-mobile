@@ -6,7 +6,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          # Return if user has not selected a sport
          unless fc.cache.hasKey("sport_key")
-            $.mobile.changePage "profile-selectTeam.html", transition: "none"
+            $.mobile.changePage "profile-selectTeam.html", fc.transition("none")
          
          @is_loading = ko.observable(true)
          @leagues = ko.observableArray []

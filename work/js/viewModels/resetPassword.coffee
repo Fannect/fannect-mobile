@@ -22,6 +22,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   fc.msg.show("No account associated with: #{@email()}")
                else
                   fc.cache.set("reset_password_email", @email())
-                  $.mobile.changePage "resetPassword-submitTemporary.html", transition: "slide"
+                  $.mobile.changePage "resetPassword-submitTemporary.html", fc.transition("slide")
          else
             fc.msg.show("We need an email to be able to reset your password silly!")

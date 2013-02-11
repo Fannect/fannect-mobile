@@ -49,6 +49,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             if err?.reason == "duplicate"
                fc.msg.show("You're already a commit fan of #{data.full_name}!")
             else
-               $.mobile.changePage "profile.html", transition: "slideup"
+               $.mobile.changePage "profile.html", fc.transition("slideup")
 
             

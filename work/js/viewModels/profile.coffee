@@ -57,14 +57,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                fc.mobile.addHeaderButton
                   position: "right"
                   icon: "images/profile/settingsIcon@2x.png"
-                  click: -> $.mobile.changePage "settings.html", transition: "slidedown"
+                  click: -> $.mobile.changePage "settings.html", fc.transition("slidedown")
                
                fc.mobile.addHeaderButton
                   position: "left"
                   icon: if (user?.invites?.length > 0) then "images/mobile/rosterInviteActiveIcon.png" else "images/mobile/rosterInviteIcon.png"
-                  click: -> $.mobile.changePage "profile-invites.html", transition: "slidedown"
+                  click: -> $.mobile.changePage "profile-invites.html", fc.transition("slidedown")
 
-      selectTeam: () -> $.mobile.changePage "profile-selectTeam.html", transition: "slide"
+      selectTeam: () -> $.mobile.changePage "profile-selectTeam.html", fc.transition("slide")
       changeUserImage: () => @editing_image "profile"
       changeTeamImage: () => @editing_image "team"
       cancelImagePicking: () => @editing_image "none"
@@ -95,7 +95,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       startShouting: () =>
          if @isEditable()
-            $.mobile.changePage "profile-shout.html", transition: "slideup"
+            $.mobile.changePage "profile-shout.html", fc.transition("slideup")
 
       takeImage: (data, e) =>
          if @isEditable()

@@ -63,12 +63,15 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                else link()
 
       unlinkTwitter: (done) ->
+         fc.msg.loading("Unlinking Twitter account...")
          fc.ajax
             url: "#{fc.getLoginURL()}/v1/twitter/delete"
             type: "POST"
             data: "delete": true
          , (err, data) ->
+            fc.msg.hide()
             return done() if err
+            fc.msg.show("Twitter account has been unlinked")
             fc.user.update(twitter: false)
             forge.prefs.set "twitter_active", false
             done(null, true)
@@ -82,13 +85,13 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       view: (options) ->
          fc.cache.set "view_other", options
-         $.mobile.changePage "profile-other.html", transition: "slide"
+         $.mobile.changePage "profile-other.html", fc.transition("slide")
 
    $("#profile-other-page").live("pageinit", () ->
       $(@).addClass("no-padding")
    ).live("pageshow", () ->
       if not options = fc.cache.pull("view_other")
-         $.mobile.changePage "profile.html", transition: "none"
+         $.mobile.changePage "profile.html", fc.transition("none")
       else
          vm = new fc.viewModels.Profile.Other options
          ko.applyBindings vm, @

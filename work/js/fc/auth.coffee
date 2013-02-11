@@ -56,9 +56,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          forge.prefs.set "user_id", null
          forge.prefs.set "team_profile_id", null
          forge.prefs.set "twitter_active", null
-         forge.prefs.set "scoring_info_shown", null
-         forge.prefs.set "tutorial_shown", null
-
+        
          if forge.is.mobile()
             forge.partners.parse.push.subscribedChannels (channels) ->
                forge.partners.parse.push.unsubscribe(channel) for channel in channels
@@ -128,6 +126,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          ]
          
          if not ($.mobile.activePage.attr("id") in noAuth)
-            $.mobile.changePage "index.html", transition: "slidedown"
+            $.mobile.changePage "index.html", fc.transition "slidedown"
          else 
             return false

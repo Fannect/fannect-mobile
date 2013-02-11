@@ -13,7 +13,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             fc.auth.login @email(), @password(), (err, success) =>
                fc.msg.hide()
                if not err and success
-                  $.mobile.changePage "profile.html", transition: "slideup"
+                  $.mobile.changePage "profile.html", fc.transition("slideup")
                else
                   fc.msg.show("Incorrect username or password!")
          else
@@ -23,9 +23,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super
          fc.auth.isLoggedIn (err, is_logged_in) =>
             if is_logged_in
-               $.mobile.changePage "profile.html", transition: "none"
+               $.mobile.changePage "profile.html", fc.transition("none")
             else
                forge.launchimage.hide() if forge.is.mobile()
 
       rightButtonClick: () =>
-         $.mobile.changePage "createAccount.html", transition: "slide"
+         $.mobile.changePage "createAccount.html", fc.transition("slide")

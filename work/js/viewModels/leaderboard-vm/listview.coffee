@@ -50,4 +50,4 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       selectUser: (data) -> fc.user.view({ team_profile_id: data._id })
       selectTeam: (data) -> 
          fc.cache.set("leaderboard_team_id", data._id)
-         $.mobile.changePage "leaderboard-breakdownOther.html", transition: "slide"
+         $.mobile.changePage "leaderboard-breakdownOther.html", fc.transition("slide")

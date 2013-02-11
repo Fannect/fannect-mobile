@@ -106,7 +106,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          , (error, teams) =>
             if teams.length > 0
                fc.team.setActive teams[0]._id, () ->
-                  $.mobile.changePage "profile.html", transition: "slidedown"
+                  $.mobile.changePage "profile.html", fc.transition("slidedown")
             else
                fc.cache.set("choose_team_options", { hide_back: true })
                $.mobile.changePage "profile-selectTeam-chooseSport.html", transition: ("slide" or options.transition)
