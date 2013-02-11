@@ -47,18 +47,16 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
             link = () ->
                forge.tabs.openWithOptions
-                  url: "#{fc.getLoginURL()}/twitter?access_token=#{fc.auth.getAccessToken()}"
-                  pattern: "#{fc.getLoginURL()}/twitter/success"
+                  url: "#{fc.getLoginURL()}/v1/twitter?access_token=#{fc.auth.getAccessToken()}"
+                  pattern: "*://*/v1/twitter/done*"
                   title: "Link Twitter"
                , (data) ->
-                  if data.userCancelled
-                     done(null, false) if done
-                  else if data.url = "#{fc.getLoginURL()}/twitter/success"
+                  if data.url.indexOf("status=success") >= 0 #and not data.userCancelled
                      fc.user.update(twitter: true)
                      done(null, true) if done
                   else
-                     done() if done
-               
+                     done(null, false) if done
+                  
             if fc.auth.hasAccessToken() then link()
             else fc.auth.getNewAccessToken (err, token) ->
                if err then done() if done
@@ -66,7 +64,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       unlinkTwitter: (done) ->
          fc.ajax
-            url: "#{fc.getLoginURL()}/twitter/delete"
+            url: "#{fc.getLoginURL()}/v1/twitter/delete"
             type: "POST"
             data: "delete": true
          , (err, data) ->

@@ -156,6 +156,16 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
          else
             $(element).blur() 
 
+   ko.bindingHandlers.valueWithInit = 
+      init: (element, valueAccessor, allBindingsAccessor, context) ->
+         observable = valueAccessor()
+         value = element.value;
+         observable(value)
+
+         ko.bindingHandlers.value.init(element, valueAccessor, allBindingsAccessor, context)
+      update: ko.bindingHandlers.value.update
+
+
    # ko.bindingHandlers.scrollerToggle = 
    #    update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
    #       $el = $(element)

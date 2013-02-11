@@ -10,13 +10,20 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          return unless d3
          @container = container
          @options = options
-         @chart = d3.select(container.get(0)).append("svg").attr("class", "chart")
          @w = @container.width()
          @h = @container.height()
 
-         @_createGradient("gradient-passion", "#e13000", "#e01500")
-         @_createGradient("gradient-dedication", "#0090ff", "#003cff")
-         @_createGradient("gradient-knowledge", "#1cc800", "#008c0a")
+         # console.log "WIDTH", @w
+
+         @use_svg = not fc.isSlow()
+         
+         if @use_svg
+            @chart = d3.select(container.get(0)).append("svg").attr("class", "svg-chart")
+            @_createGradient("gradient-passion", "#e13000", "#e01500")
+            @_createGradient("gradient-dedication", "#0090ff", "#003cff")
+            @_createGradient("gradient-knowledge", "#1cc800", "#008c0a")
+         else
+            @chart = d3.select(container.get(0)).append("div").attr("class", "html-chart")
          # @_createShadow()
 
          update(data) if data
@@ -29,51 +36,44 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
          @bar_width = (@w / @data.length) - (10 * (@data.length - 1))
 
-         @chart.selectAll("rect")
-               .data(@data)
-            .enter().append("rect")
-               .attr("x", (d,i) => @x(i) + (10 * i))
-               .attr("y", @h)
-               .attr("width", @bar_width)
-               .attr("height", 0)
-               .style("fill", (d) -> "url(#gradient-#{d.style})")
-               # .attr("filter", (d) -> "url(#dropshadow)")
-               .attr("class", (d) -> d.style)
-            .transition()
-               .delay(100)
-               .duration(750)
-               .ease("quad-out")
-               .attr("y", (d) => @h - @y(d.val) - .5)
-               .attr("height", (d) => @y(d.val))
+         if @use_svg
+            type = "svg"
+            @chart.selectAll("rect")
+                  .data(@data)
+               .enter().append("rect")
+                  .attr("x", (d,i) => @x(i) + (10 * i))
+                  .attr("y", @h)
+                  .attr("width", @bar_width)
+                  .attr("height", 0)
+                  .style("fill", (d) -> "url(#gradient-#{d.style})")
+                  # .attr("filter", (d) -> "url(#dropshadow)")
+                  .attr("class", (d) -> d.style)
+               .transition()
+                  .delay(150)
+                  .duration(750)
+                  .ease("quad-out")
+                  .attr("y", (d) => @h - @y(d.val) - .5)
+                  .attr("height", (d) => @y(d.val))
+         else
+            type = "html"
+            @chart.selectAll("div")
+                  .data(@data)
+               .enter().append("div")
+                  .attr("class", (d) -> "bar " + d.style)
+                  .attr("style", (d,i) => 
+                     left = "left:" + (@x(i) + (10 * i)) + "px;"
+                     width = "width:" + @bar_width + "px;" 
+                     height = "height:" + @y(d.val) + "px;"
+                     return left + width + height
+                  )
 
-         updateTextFn = @_updateText[@options.text] or @_updateText["value"]
+         updateTextFn = @_updateText[type][@options.text] or @_updateText[type]["value"]
          updateTextFn.call(@)
         
       _updateText:
-         value: () ->
-            @chart.selectAll("text")
-               .data(@data)
-            .enter().append("text")
-               .attr("x", (d,i) => @x(i) + (10 * i))
-               .attr("y", (d,i) => @h)
-               .attr("dx", @bar_width / 2)
-               .attr("dy", "-.4em")
-               .attr("text-anchor", "middle")
-               .text(0)
-            .transition()
-               .delay(100)
-               .duration(750)
-               .ease("quad-out")
-               .attr("y", (d, i) => @h - @y(d.val) - .5)
-               .tween("text", (d) ->
-                  i = d3.interpolate(this.textContent, d.val)
-                  return (t) -> this.textContent = parseInt(i(t)))
-
-         percent: () ->
-            sum = 0
-            sum += d.val for d in @data 
-
-            @chart.selectAll("text")
+         svg:
+            value: () ->
+               @chart.selectAll("text")
                   .data(@data)
                .enter().append("text")
                   .attr("x", (d,i) => @x(i) + (10 * i))
@@ -88,9 +88,35 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   .ease("quad-out")
                   .attr("y", (d, i) => @h - @y(d.val) - .5)
                   .tween("text", (d) ->
-                     value = if sum > 0 then d.val / sum else 0
-                     i = d3.interpolate(this.textContent, value)
-                     return (t) -> this.textContent = parseInt(i(t) * 100) + "%")
+                     i = d3.interpolate(this.textContent, d.val)
+                     return (t) -> this.textContent = parseInt(i(t)))
+
+            percent: () ->
+               sum = 0
+               sum += d.val for d in @data 
+
+               @chart.selectAll("text")
+                     .data(@data)
+                  .enter().append("text")
+                     .attr("x", (d,i) => @x(i) + (10 * i))
+                     .attr("y", (d,i) => @h)
+                     .attr("dx", @bar_width / 2)
+                     .attr("dy", "-.4em")
+                     .attr("text-anchor", "middle")
+                     .text(0)
+                  .transition()
+                     .delay(100)
+                     .duration(750)
+                     .ease("quad-out")
+                     .attr("y", (d, i) => @h - @y(d.val) - .5)
+                     .tween("text", (d) ->
+                        value = if sum > 0 then d.val / sum else 0
+                        i = d3.interpolate(this.textContent, value)
+                        return (t) -> this.textContent = parseInt(i(t) * 100) + "%")
+         html: 
+            value: () ->
+            percent: () ->
+
 
       _getDomain: () =>
          max = 0
