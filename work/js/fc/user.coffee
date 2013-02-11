@@ -51,7 +51,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   pattern: "#{fc.getLoginURL()}/twitter/success"
                   title: "Link Twitter"
                , (data) ->
-                  if data.url = "#{fc.getLoginURL()}/twitter/success"
+                  if data.userCancelled
+                     done(null, false) if done
+                  else if data.url = "#{fc.getLoginURL()}/twitter/success"
                      fc.user.update(twitter: true)
                      done(null, true) if done
                   else
@@ -64,8 +66,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       unlinkTwitter: (done) ->
          fc.ajax
-            url: "#{fc.getLoginURL()}/twitter"
-            type: "DELETE"
+            url: "#{fc.getLoginURL()}/twitter/delete"
+            type: "POST"
+            data: "delete": true
          , (err, data) ->
             return done() if err
             fc.user.update(twitter: false)

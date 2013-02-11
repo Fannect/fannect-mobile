@@ -4,6 +4,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
    class fc.viewModels.Games.AttendanceStreak extends fc.viewModels.Base 
       constructor: () ->
          super
+         @keep_tracking = true
          @checked_in = ko.observable()
          @game_data = new fc.models.GameData()
          @stadium_center = null
@@ -60,8 +61,17 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      draggable: false
 
                   @findUserLocation() unless data.no_game_scheduled
-                     
+
+      onPageShow: () =>
+         super
+         @keep_tracking = true
+
+      onPageHide: () =>
+         super
+         @keep_tracking = false
+
       findUserLocation: () =>
+         return setTimeout (() => @findUserLocation()), 2000 unless @keep_tracking
          forge.geolocation.getCurrentPosition
             enableHighAccuracy: true
          , (pos) =>

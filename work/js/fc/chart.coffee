@@ -82,7 +82,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   .attr("y", (d, i) => @h - @y(d.val) - .5)
                   .tween("text", (d) ->
                      value = if sum > 0 then d.val / sum else 0
-                     console.log "value", value
                      i = d3.interpolate(this.textContent, value)
                      return (t) -> this.textContent = parseInt(i(t) * 100) + "%")
 
@@ -91,7 +90,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          (max = d.val if d.val > max) for d in @data
 
          if max > 0
-            return [0, max * 1.20]
+            return [-1.5, max * 1.20]
          else
             return [-1.5, 20]
 
