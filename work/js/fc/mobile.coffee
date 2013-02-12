@@ -54,7 +54,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   text: leftButton.text()
                   position: "left"
                   style: "back"
-               , () -> window.history.back()
+               , () -> $.mobile.back()
 
       addHeaderButton: (options, click) ->
          if forge.is.mobile()

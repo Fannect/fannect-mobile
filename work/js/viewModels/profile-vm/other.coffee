@@ -79,7 +79,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                text: "Back"
                position: "left"
                style: "back"
-               click: () -> window.history.back()
+               click: () -> $.mobile.back()
 
 
 

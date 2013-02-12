@@ -34,7 +34,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                done(null, team) if done
 
       refreshActive: (done) ->
-         console.log "refresh active hit"
          fc.team.getActive (err, profile) ->
             fc.team.refresh profile._id, done
 
