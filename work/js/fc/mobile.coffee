@@ -2,6 +2,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
    fc.mobile =
       _buttons: {}
       _waiting_to_activate: null
+      _header_added: false
       
       _addButton: (index, text, image, target) ->
          forge.tabbar.addButton
@@ -20,7 +21,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                forge.flurry.customEvent("#{text} Menu")
                $.mobile.changePage target, fc.transition("none")
          
-      createButtons: () ->
+      createButtons: () -> 
+         return if fc.mobile._header_added
+         fc.mobile._header_added = true
          forge.tabbar.removeButtons () ->
             fc.mobile._addButton 0, "Profile", "images/mobile/TabBar_Profile.png", "profile.html"
             fc.mobile._addButton 1, "Games", "images/mobile/TabBar_Games.png", "games.html"

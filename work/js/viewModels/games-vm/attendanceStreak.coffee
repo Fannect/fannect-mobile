@@ -20,7 +20,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       checkIn: (data) =>
          if @in_range()
             @checked_in true
-            forge.flurry.customEvent("Play Attendance Streak")
+            forge.flurry.customEvent("Play Attendance Streak", {lat:@user_center?.lat(), lng:@user_center?.lng()})
             fc.team.getActive (err, profile) =>
                fc.ajax
                   url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/attendanceStreak"

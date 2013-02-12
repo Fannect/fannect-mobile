@@ -24,7 +24,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
                @home_score(@home_score() or 0)
                @away_score(@away_score() or 0)
-               forge.flurry.customEvent("Play Guess the Score")
+               forge.flurry.customEvent("Play Guess the Score", {picked: true})
 
                fc.ajax
                   url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/guessTheScore"
@@ -48,6 +48,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                return fc.msg.show("Unable to load game information!") if err
                
                @game_data.set(data)
+               @game_data.available(true)
                @picked_at_load(data.meta?.picked or false)
                @pick_set(data.meta?.picked or false)
 

@@ -48,7 +48,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
             
             ).live("pageshow", () ->
                if scroller then scroller.scroller("start")
-               forge.flurry.customEvent("#{id} Page")
+               forge.flurry.customEvent("#{id} Page", {show: true})
                
                # add buttons to native header if mobile
                if forge.is.mobile() and page.buttons?.length > 0
@@ -92,7 +92,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
    $(".ui-page").live "pageshow", () -> if showLoading then fc.loading "show"
 
    fc.clearBindings = (context) ->
-      ko.cleanNode context
+      ko.cleanNode(context)
 
    fc.getDataURL = (file, max_width, max_height, done) ->
       canvas = document.createElement("canvas")

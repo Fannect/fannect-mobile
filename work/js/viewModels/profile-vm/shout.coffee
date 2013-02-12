@@ -25,7 +25,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       rightButtonClick: () =>
          if @chars_remaining() >= 0 and @chars_remaining() < 140
             fc.team.updateActive({shouts: [{text: @shout()}]})
-            forge.flurry.customEvent("Shouting")
+            forge.flurry.customEvent("Shouting", {shouting: true})
             history.back()
 
             fc.team.getActive (err, profile) =>

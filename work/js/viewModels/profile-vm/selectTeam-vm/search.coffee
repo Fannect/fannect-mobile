@@ -36,16 +36,20 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @teams.push t for t in teams
 
       onPageShow: () =>
+         super
          $window = $(window).scroll () =>
             if not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
                @loading_more true
                @load()
          
       onPageHide: () =>
+         super
          $(window).unbind("scroll")
 
       selectTeam: (data) -> 
+         fc.msg.loading("Creating profile...")
          fc.team.create data._id, (err) ->
+            fc.msg.hide()
             if err?.reason == "duplicate"
                fc.msg.show("You're already a commit fan of #{data.full_name}!")
             else

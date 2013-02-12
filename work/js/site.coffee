@@ -47,7 +47,6 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       if forge.is.mobile()
          $("html").addClass("is-mobile")
       else
-         console.log "HIT"
          # fake flurry for web
          forge.flurry =
             customEvent: () -> 
