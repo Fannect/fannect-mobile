@@ -17,6 +17,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                fc.mobile._waiting_to_activate = null
 
             button.onPressed.addListener () ->
+               forge.flurry.customEvent("#{text} Menu")
                $.mobile.changePage target, fc.transition("none")
          
       createButtons: () ->

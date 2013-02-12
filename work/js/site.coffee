@@ -44,11 +44,21 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       return $(".header h1", page)?.first()?.attr("data-menu-root")
 
    setup = () ->
+      if forge.is.mobile()
+         $("html").addClass("is-mobile")
+      else
+         console.log "HIT"
+         # fake flurry for web
+         forge.flurry =
+            customEvent: () -> 
+            setDemographics: () -> 
+            setLocation: () -> 
+            startTimedEvent: () ->
+            endTimedEvent: () ->
+
       fc.createPages()
       fc.mobile.createButtons()
       if fc.isSlow() then $("html").addClass("speed-up")
-      if forge.is.mobile()
-         $("html").addClass("is-mobile")
 
 
 

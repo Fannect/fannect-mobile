@@ -4,7 +4,16 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       constructor: () ->
          @email = ko.observable()
          @password = ko.observable()
+
          fc.setup()
+         @is_checking_login = true
+         fc.auth.isLoggedIn (err, is_logged_in) =>
+            @is_checking_login = false
+            if is_logged_in
+               $.mobile.changePage "profile.html", fc.transition("none")
+            else
+               forge.launchimage.hide() if forge.is.mobile()
+ 
          super
 
       login: () =>
@@ -21,6 +30,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       onPageShow: () =>
          super
+         return if @is_checking_login
          fc.auth.isLoggedIn (err, is_logged_in) =>
             if is_logged_in
                $.mobile.changePage "profile.html", fc.transition("none")

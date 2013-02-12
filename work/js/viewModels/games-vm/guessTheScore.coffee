@@ -24,6 +24,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
                @home_score(@home_score() or 0)
                @away_score(@away_score() or 0)
+               forge.flurry.customEvent("Play Guess the Score")
 
                fc.ajax
                   url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/guessTheScore"
@@ -56,5 +57,5 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                if not data.available
                   @picked_at_load(true)
                   @pick_set(true)
-                  @home_score(0)
-                  @away_score(0)
+                  @home_score(0) unless @home_score()
+                  @away_score(0) unless @away_score()

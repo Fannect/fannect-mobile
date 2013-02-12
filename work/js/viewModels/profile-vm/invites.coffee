@@ -38,6 +38,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       acceptInvite: (data) =>
          @invites.remove(data)
+         forge.flurry.customEvent("Accept Invite")
          fc.ajax
             url: "#{fc.getResourceURL()}/v1/me/invites"
             type: "POST"

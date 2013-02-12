@@ -23,7 +23,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       update: (user) ->
          if not fc.user._curr then fc.user._curr = {}
          fc.auth._refresh_token = user.refresh_token if user.refresh_token
-         fc.user._addToChannel(user._id) if user._id != fc.user._curr?._id
+
+         if user._id != fc.user._curr?._id
+            fc.user._addToChannel(user._id) 
+            forge.flurry.setDemographics(user_id: user._id)
 
          $.extend true, fc.user._curr, user
          fc.user.updateInvites(user.invites)

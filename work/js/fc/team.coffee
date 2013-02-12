@@ -62,6 +62,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          fc.team._notify(fc.team._teams[fc.team._curr])
 
       create: (team_id, done) ->
+         forge.flurry.customEvent("Create Profile", {team_id: team_id})
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/me/teams"
             type: "POST"
