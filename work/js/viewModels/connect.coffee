@@ -5,22 +5,25 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super 
          @limit = 20
          @skip = 0
-         @query = ko.observable("")
+         @query = ko.observable(fc.cache.get("last_connect_search") or "")
          @fans = ko.observableArray []
          @loading_more = ko.observable false
 
-         @query.subscribe () =>
-            if @timeoutId then clearTimeout @timeoutId
-            @timeoutId = setTimeout () =>
-               @timeoutId = null
-               @search()
-            , 400
+         if not forge.is.android()
+            @query.subscribe () =>
+               if @timeoutId then clearTimeout @timeoutId
+               @timeoutId = setTimeout () =>
+                  @timeoutId = null
+                  @search()
+               , 400
 
          @load()
 
+      androidSearch: () => @search() if forge.is.android()
       search: () =>
          @skip = 0
          @fans.removeAll()
+         fc.cache.set("last_connect_search", @query())
          @load()
 
       load: (done) =>

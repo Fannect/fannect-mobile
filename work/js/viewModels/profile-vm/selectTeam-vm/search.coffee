@@ -9,15 +9,18 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @teams = ko.observableArray []
          @loading_more = ko.observable false
 
-         @query.subscribe () =>
-            if @timeoutId then clearTimeout @timeoutId
-            @timeoutId = setTimeout () =>
-               @timeoutId = null
-               @search()
-            , 400
+         if not forge.is.android()
+            @query.subscribe () =>
+               if @timeoutId then clearTimeout @timeoutId
+               @timeoutId = setTimeout () =>
+                  @timeoutId = null
+                  @search()
+               , 400
 
          @load()
 
+      androidSearch: () => @search() if forge.is.android()
+            
       search: () =>
          @skip = 0
          @teams.removeAll()

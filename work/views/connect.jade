@@ -5,7 +5,7 @@ block header
 
 block content
    
-   input(type="search", data-bind="value: query, valueUpdate: ['afterkeydown']")
+   input(type="search", data-bind="value: query, valueUpdate: ['afterkeydown'], onEnter: androidSearch")
 
    ul.pattern-bg.has-search(data-role="listview", data-bind="template: { name:'connect-fan-template', foreach: fans }, listviewUpdate: fans, visible: fans().length > 0").fans
    .loading-more-indicator(data-bind="visible: loading_more", style="display:none;")
