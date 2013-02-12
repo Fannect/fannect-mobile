@@ -14,13 +14,14 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
          fc.mobile.setupHeader()
 
    fc.getResourceURL = () ->
-      # "http://fannect-api.herokuapp.com"
+      "http://api.fannect.me"
       # return "http://192.168.2.14:2100"
-      return if forge.is.web() then "http://localhost:2100" else "http://fannect-api.herokuapp.com"
+      # return "http://192.168.0.24:2100"
+      # return if forge.is.web() then "http://localhost:2100" else "http://api.fannect.me"
 
    fc.getLoginURL = () ->
-      # return "http://192.168.0.25:2200"
       "https://fannect-login.herokuapp.com"
+      # return "http://192.168.0.24:2200"
       # return if forge.is.web() then "http://localhost:2200" else "https://fannect-login.herokuapp.com"
 
    fc.createPages = () ->
@@ -47,6 +48,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
             
             ).live("pageshow", () ->
                if scroller then scroller.scroller("start")
+               forge.flurry.customEvent("#{id} Page", {show: true})
                
                # add buttons to native header if mobile
                if forge.is.mobile() and page.buttons?.length > 0
@@ -73,6 +75,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
 
       return cachedIsSlow
 
+   fc.transition = (transition) ->
+      if fc.isSlow() or not transition then { transition: "none" } else  { transition: transition }
+
    fc.loading = (status) ->
       showLoading = status == "show"
       if showLoading
@@ -87,7 +92,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
    $(".ui-page").live "pageshow", () -> if showLoading then fc.loading "show"
 
    fc.clearBindings = (context) ->
-      ko.cleanNode context
+      ko.cleanNode(context)
 
    fc.getDataURL = (file, max_width, max_height, done) ->
       canvas = document.createElement("canvas")
@@ -114,7 +119,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
 
    fc.showScoringPopup = () ->
       forge.prefs.get "scoring_info_shown", (shown) ->
-         unless shown
+         unless shown 
             $(".scorePointsInfoPopup", $.mobile.activePage).popup("open")
             forge.prefs.set("scoring_info_shown", true)
 

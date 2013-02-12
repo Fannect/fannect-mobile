@@ -50,21 +50,24 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             val: profile.points?.knowledge or 0
             style: "knowledge"
 
-      onPageShow: () -> 
-         setTimeout (() -> forge.launchimage.hide() if forge.is.mobile()), 200
-         if forge.is.mobile()
-            fc.user.get (err, user) ->
-               fc.mobile.addHeaderButton
-                  position: "right"
-                  icon: "images/profile/settingsIcon@2x.png"
-                  click: -> $.mobile.changePage "settings.html", transition: "slidedown"
-               
-               fc.mobile.addHeaderButton
-                  position: "left"
-                  icon: if (user?.invites?.length > 0) then "images/mobile/rosterInviteActiveIcon.png" else "images/mobile/rosterInviteIcon.png"
-                  click: -> $.mobile.changePage "profile-invites.html", transition: "slidedown"
+      _addHeaderButtons: () ->
+         fc.user.get (err, user) ->
+            fc.mobile.addHeaderButton
+               position: "right"
+               icon: "images/profile/settingsIcon@2x.png"
+               click: -> $.mobile.changePage "settings.html", fc.transition("slidedown")
+            fc.mobile.addHeaderButton
+               position: "left"
+               icon: if (user?.invites?.length > 0) then "images/mobile/rosterInviteActiveIcon.png" else "images/mobile/rosterInviteIcon.png"
+               click: -> $.mobile.changePage "profile-invites.html", fc.transition("slidedown")
 
-      selectTeam: () -> $.mobile.changePage "profile-selectTeam.html", transition: "slide"
+      onPageShow: () => 
+         super
+         setTimeout (() -> forge.launchimage.hide() if forge.is.mobile()), 200
+         fc.team.refreshActive()
+         @_addHeaderButtons() if forge.is.mobile()
+
+      selectTeam: () -> $.mobile.changePage "profile-selectTeam.html", fc.transition("slide")
       changeUserImage: () => @editing_image "profile"
       changeTeamImage: () => @editing_image "team"
       cancelImagePicking: () => @editing_image "none"
@@ -74,7 +77,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          getImage = () =>
             @editing_image("none")
-            fc.team.updateActive(profile_image_url: "images/profile/LoadingProfilePhoto@2x.png")
+            fc.team.updateActive(profile_image_url: "images/profile/LoadingProfileImage@2x.png")
             fc.msg.loading("Pulling profile image from Twitter...")
 
             fc.team.getActive (err, profile) =>
@@ -95,7 +98,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       startShouting: () =>
          if @isEditable()
-            $.mobile.changePage "profile-shout.html", transition: "slideup"
+            $.mobile.changePage "profile-shout.html", fc.transition("slideup")
 
       takeImage: (data, e) =>
          if @isEditable()
@@ -119,7 +122,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       _uploadProfileImage: (file) =>
          file.name = "image"
-         fc.team.updateActive(profile_image_url: "images/profile/LoadingProfilePhoto@2x.png")
+         fc.team.updateActive(profile_image_url: "images/profile/LoadingProfileImage@2x.png")
 
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/images/me"
@@ -132,7 +135,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       _uploadTeamImage: (file) =>
          file.name = "image"
-         fc.team.updateActive(team_image_url: "images/profile/LoadingTeamPhoto@2x.png")
+         fc.team.updateActive(team_image_url: "images/profile/LoadingTeamImage@2x.png")
 
          fc.team.getActive (err, profile) =>
             fc.ajax 

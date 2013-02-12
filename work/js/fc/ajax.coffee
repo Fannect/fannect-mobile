@@ -6,12 +6,15 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          console.log "#{options.url}:", JSON.parse(result) 
          done null, JSON.parse(result) if done
       options.error = (error) ->
-         forge.logging.warning "#{options.url} (err)", error
+         forge.logging.warning "#{options.url} (err) JSON.stringify(error)"
       
-         if (error?.status == 401 or error?.statusCode?.toString() == "401") and not options.second_try
-            fc.auth.getNewAccessToken (err, token) ->
-               options.second_try = true
-               fc.ajax(options, done)
+         if (error?.status == 401 or error?.statusCode?.toString() == "401" or error.type == "UNEXPECTED_FAILURE")
+            if options.second_try
+               fc.auth.logout()
+            else
+               fc.auth.getNewAccessToken (err, token) ->
+                  options.second_try = true
+                  fc.ajax(options, done)
          else if (error?.status == 0 or error.statusText == "timeout")
             fc.msg.loading("Server timeout! Retrying...")
             fc.logger.sendError(error)
@@ -30,6 +33,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       if not options.no_access_token and not fc.auth.hasAccessToken() and not options.second_try
          return fc.auth.getNewAccessToken (err, token) ->
             options.second_try = true
+            options.url = options.url.replace(/access_token=.+/, "access_token=#{fc.auth.getAccessToken()}")
             fc.ajax(options, done)
 
       # Append access_token on to querystring

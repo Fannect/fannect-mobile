@@ -24,12 +24,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   fc.msg.show("Unexpected failure.. :(")
                else
                   fc.user.update(user)
-                  $.mobile.changePage "resetPassword-setPassword.html", transition: "slide"
+                  $.mobile.changePage "resetPassword-setPassword.html", fc.transition("slide")
          else
             fc.msg.show("Please insert the code emailed to you!")
 
       onPageShow: () =>
          super
          unless fc.cache.hasKey("reset_password_email")
-            $.mobile.changePage "index.html", transition: "none"
+            $.mobile.changePage "index.html", fc.transition("none")
             

@@ -9,15 +9,18 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @teams = ko.observableArray []
          @loading_more = ko.observable false
 
-         @query.subscribe () =>
-            if @timeoutId then clearTimeout @timeoutId
-            @timeoutId = setTimeout () =>
-               @timeoutId = null
-               @search()
-            , 400
+         if not forge.is.android()
+            @query.subscribe () =>
+               if @timeoutId then clearTimeout @timeoutId
+               @timeoutId = setTimeout () =>
+                  @timeoutId = null
+                  @search()
+               , 400
 
          @load()
 
+      androidSearch: () => @search() if forge.is.android()
+            
       search: () =>
          @skip = 0
          @teams.removeAll()
@@ -36,19 +39,23 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @teams.push t for t in teams
 
       onPageShow: () =>
+         super
          $window = $(window).scroll () =>
             if not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
                @loading_more true
                @load()
          
       onPageHide: () =>
+         super
          $(window).unbind("scroll")
 
       selectTeam: (data) -> 
+         fc.msg.loading("Creating profile...")
          fc.team.create data._id, (err) ->
+            fc.msg.hide()
             if err?.reason == "duplicate"
                fc.msg.show("You're already a commit fan of #{data.full_name}!")
             else
-               $.mobile.changePage "profile.html", transition: "slideup"
+               $.mobile.changePage "profile.html", fc.transition("slideup")
 
             

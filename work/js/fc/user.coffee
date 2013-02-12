@@ -23,7 +23,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       update: (user) ->
          if not fc.user._curr then fc.user._curr = {}
          fc.auth._refresh_token = user.refresh_token if user.refresh_token
-         fc.user._addToChannel(user._id) if user._id != fc.user._curr?._id
+
+         if user._id != fc.user._curr?._id
+            fc.user._addToChannel(user._id) 
+            forge.flurry.setDemographics(user_id: user._id)
 
          $.extend true, fc.user._curr, user
          fc.user.updateInvites(user.invites)
@@ -33,8 +36,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       updateInvites: (invites) ->
          if not fc.user._curr then fc.user._curr = {}
-         fc.user.invites = invites
+         fc.user._curr.invites = invites
          forge.notification.setBadgeNumber(fc.user._curr.invites?.length or 0)
+         fc.user._notify()
 
       subscribe: (cb) -> fc.user._subscribers.push cb if cb
       _notify: () -> sub(fc.user._curr) for sub in fc.user._subscribers
@@ -47,27 +51,31 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
             link = () ->
                forge.tabs.openWithOptions
-                  url: "#{fc.getLoginURL()}/twitter?access_token=#{fc.auth.getAccessToken()}"
-                  pattern: "#{fc.getLoginURL()}/twitter/success"
+                  url: "#{fc.getLoginURL()}/v1/twitter?access_token=#{fc.auth.getAccessToken()}"
+                  pattern: "*://*/v1/twitter/done*"
                   title: "Link Twitter"
                , (data) ->
-                  if data.url = "#{fc.getLoginURL()}/twitter/success"
+                  if data.url.indexOf("status=success") >= 0 #and not data.userCancelled
                      fc.user.update(twitter: true)
                      done(null, true) if done
                   else
-                     done() if done
-               
+                     done(null, false) if done
+                  
             if fc.auth.hasAccessToken() then link()
             else fc.auth.getNewAccessToken (err, token) ->
                if err then done() if done
                else link()
 
       unlinkTwitter: (done) ->
+         fc.msg.loading("Unlinking Twitter account...")
          fc.ajax
-            url: "#{fc.getLoginURL()}/twitter"
-            type: "DELETE"
+            url: "#{fc.getLoginURL()}/v1/twitter/delete"
+            type: "POST"
+            data: "delete": true
          , (err, data) ->
+            fc.msg.hide()
             return done() if err
+            fc.msg.show("Twitter account has been unlinked")
             fc.user.update(twitter: false)
             forge.prefs.set "twitter_active", false
             done(null, true)
@@ -81,13 +89,13 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       view: (options) ->
          fc.cache.set "view_other", options
-         $.mobile.changePage "profile-other.html", transition: "slide"
+         $.mobile.changePage "profile-other.html", fc.transition("slide")
 
    $("#profile-other-page").live("pageinit", () ->
       $(@).addClass("no-padding")
    ).live("pageshow", () ->
       if not options = fc.cache.pull("view_other")
-         $.mobile.changePage "profile.html", transition: "none"
+         $.mobile.changePage "profile.html", fc.transition("none")
       else
          vm = new fc.viewModels.Profile.Other options
          ko.applyBindings vm, @

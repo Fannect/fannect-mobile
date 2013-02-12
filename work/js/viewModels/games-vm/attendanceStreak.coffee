@@ -4,6 +4,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
    class fc.viewModels.Games.AttendanceStreak extends fc.viewModels.Base 
       constructor: () ->
          super
+         @keep_tracking = true
          @checked_in = ko.observable()
          @game_data = new fc.models.GameData()
          @stadium_center = null
@@ -12,13 +13,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @user_distance = ko.observable()
          @in_range = ko.computed () => return @user_distance()? and @user_distance() < .5
          @miles_away = ko.computed () => 
-            return Math.round((parseFloat(@user_distance()) - .5) * 100) / 100 + " mi"
+            dis = Math.round((parseFloat(@user_distance()) - .5) * 100) / 100
+            return if isNaN(dis) then "IDK..." else dis + " mi"
          fc.maps.loaded () => @load()
             
       checkIn: (data) =>
          if @in_range()
             @checked_in true
-
+            forge.flurry.customEvent("Play Attendance Streak", {lat:@user_center?.lat(), lng:@user_center?.lng()})
             fc.team.getActive (err, profile) =>
                fc.ajax
                   url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/attendanceStreak"
@@ -60,8 +62,17 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      draggable: false
 
                   @findUserLocation() unless data.no_game_scheduled
-                     
+
+      onPageShow: () =>
+         super
+         @keep_tracking = true
+
+      onPageHide: () =>
+         super
+         @keep_tracking = false
+
       findUserLocation: () =>
+         return setTimeout (() => @findUserLocation()), 2000 unless @keep_tracking
          forge.geolocation.getCurrentPosition
             enableHighAccuracy: true
          , (pos) =>

@@ -27,8 +27,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          
          ratio = window.devicePixelRatio or 1
          parsed = url.split("/")
-         parsed[parsed.length - 2] = "q_100,w_#{w*ratio},h_#{h*ratio}"
-
+         parsed[parsed.length - 2] = "q_100,w_#{Math.ceil(w*ratio)},h_#{Math.ceil(h*ratio)}"
          return parsed.join("/")
 
      

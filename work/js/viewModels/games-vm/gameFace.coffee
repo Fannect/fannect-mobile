@@ -15,6 +15,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @has_saved = true
 
             fc.team.getActive (err, profile) =>
+               forge.flurry.customEvent("Play Gameface", {face_on: true})
                fc.ajax
                   url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace"
                   type: "POST"

@@ -12,19 +12,20 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          finish = (err, profile) =>
             throw err if err
-            @other_user_id = profile.user_id
             @is_friend(profile.is_friend) 
 
             profile.profile_image_url = "images/fannect_UserPlaceholderPic@2x.png" unless profile.profile_image_url?.length > 2
             profile.team_image_url = "images/fannect_TeamPlaceholderPic@2x.png" unless profile.team_image_url?.length > 2
 
-            @updateProfile(profile)
+            fc.user.get (err, user) =>
+               profile.is_friend = true if profile.user_id == user._id
+               @updateProfile(profile)
 
-            unless profile.is_friend
-               fc.mobile.addHeaderButton
-                  position: "right"
-                  text: if @options.action == "accept" then "Accept" else "Add"
-                  click: @rightButtonClick
+               unless profile.is_friend  
+                  fc.mobile.addHeaderButton
+                     position: "right"
+                     text: if @options.action == "accept" then "Accept" else "Add"
+                     click: @rightButtonClick
 
          fc.team.getActive (err, profile) =>
             if @options.user_id 
@@ -64,6 +65,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          if not @is_friend()
             fc.user.get (err, user) =>
                @_hideRightButton()
+               forge.flurry.customEvent("Send Invite", {sendInvite: true})
                fc.ajax
                   url: "#{fc.getResourceURL()}/v1/users/#{@other_user_id}/invite"
                   type: "POST"
@@ -78,7 +80,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                text: "Back"
                position: "left"
                style: "back"
-               click: () -> window.history.back()
+               click: () -> $.mobile.back()
 
 
 

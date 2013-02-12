@@ -34,15 +34,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             url: "#{fc.getResourceURL()}/v1/me/invites/delete"
             type: "POST"
             data: user_id: data._id
-         , (err) => throw(err) if err
 
       acceptInvite: (data) =>
          @invites.remove(data)
+         forge.flurry.customEvent("Accept Invite", {accept:true})
          fc.ajax
             url: "#{fc.getResourceURL()}/v1/me/invites"
             type: "POST"
             data: user_id: data._id
-         , (err, data) => throw(err) if err
 
       _loadTeams: (done) =>
          fc.ajax

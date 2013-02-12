@@ -15,9 +15,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             fc.team.refresh(teamProfileId, done)
 
       refresh: (teamProfileId, done) ->
-         if done and fc.team._fetching[teamProfileId]
-            fc.team._waitingFn[teamProfileId] = [] unless fc.team._waitingFn[teamProfileId]
-            fc.team._waitingFn[teamProfileId].push(done) 
+         if fc.team._fetching[teamProfileId]
+            if done
+               fc.team._waitingFn[teamProfileId] = [] unless fc.team._waitingFn[teamProfileId]
+               fc.team._waitingFn[teamProfileId].push(done) 
          else
             fc.team._fetching[teamProfileId] = true
             fc.ajax 
@@ -32,10 +33,15 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                fc.team._doneFetching(teamProfileId, team)
                done(null, team) if done
 
+      refreshActive: (done) ->
+         fc.team.getActive (err, profile) ->
+            fc.team.refresh profile._id, done
+
       _doneFetching: (teamProfileId, team) ->
          fc.team._fetching[teamProfileId] = false
          if fc.team._waitingFn[teamProfileId]?.length > 0
             d(null, team) for d in fc.team._waitingFn[teamProfileId]
+            fc.team._waitingFn[teamProfileId].length = 0
 
       getActive: (done) ->
          if fc.team._curr
@@ -48,8 +54,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   fc.team.get(fc.team._curr, done)
                else
                   fc.team.redirectToSelect(no_back: true)
-                  done(null, null) if done
-            , (err) -> throw err if err
+                  done() if done
+            , (err) -> done(err)
 
       setActive: (teamProfileId, done) ->
          fc.team._curr = teamProfileId
@@ -62,6 +68,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          fc.team._notify(fc.team._teams[fc.team._curr])
 
       create: (team_id, done) ->
+         forge.flurry.customEvent("Create Profile", {team_id: team_id})
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/me/teams"
             type: "POST"
@@ -102,10 +109,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/me/teams"
             type: "GET"
+            retry: "forever"
          , (error, teams) =>
             if teams.length > 0
                fc.team.setActive teams[0]._id, () ->
-                  $.mobile.changePage "profile.html", transition: "slidedown"
+                  $.mobile.changePage "profile.html", fc.transition("slidedown")
             else
                fc.cache.set("choose_team_options", { hide_back: true })
                $.mobile.changePage "profile-selectTeam-chooseSport.html", transition: ("slide" or options.transition)

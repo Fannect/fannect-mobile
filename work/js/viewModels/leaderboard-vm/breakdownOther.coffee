@@ -4,7 +4,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       constructor: () ->
          @team_id = @team_id or fc.cache.pull("leaderboard_team_id")
-         return $.mobile.changePage "leaderboard.html", transition: "none" unless @team_id
+         return $.mobile.changePage "leaderboard.html", fc.transition("none") unless @team_id
          super
          
       getUrl: (done) => 
