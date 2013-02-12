@@ -51,7 +51,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             style: "knowledge"
 
       onPageShow: () -> 
+         super
          setTimeout (() -> forge.launchimage.hide() if forge.is.mobile()), 200
+         fc.team.refreshActive()
          if forge.is.mobile()
             fc.user.get (err, user) ->
                fc.mobile.addHeaderButton

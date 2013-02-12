@@ -15,9 +15,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             fc.team.refresh(teamProfileId, done)
 
       refresh: (teamProfileId, done) ->
-         if done and fc.team._fetching[teamProfileId]
-            fc.team._waitingFn[teamProfileId] = [] unless fc.team._waitingFn[teamProfileId]
-            fc.team._waitingFn[teamProfileId].push(done) 
+         if fc.team._fetching[teamProfileId]
+            if done
+               fc.team._waitingFn[teamProfileId] = [] unless fc.team._waitingFn[teamProfileId]
+               fc.team._waitingFn[teamProfileId].push(done) 
          else
             fc.team._fetching[teamProfileId] = true
             fc.ajax 
@@ -32,10 +33,16 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                fc.team._doneFetching(teamProfileId, team)
                done(null, team) if done
 
+      refreshActive: (done) ->
+         console.log "refresh active hit"
+         fc.team.getActive (err, profile) ->
+            fc.team.refresh profile._id, done
+
       _doneFetching: (teamProfileId, team) ->
          fc.team._fetching[teamProfileId] = false
          if fc.team._waitingFn[teamProfileId]?.length > 0
             d(null, team) for d in fc.team._waitingFn[teamProfileId]
+            fc.team._waitingFn[teamProfileId].length = 0
 
       getActive: (done) ->
          if fc.team._curr
@@ -48,8 +55,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   fc.team.get(fc.team._curr, done)
                else
                   fc.team.redirectToSelect(no_back: true)
-                  done(null, null) if done
-            , (err) -> throw err if err
+                  done() if done
+            , (err) -> done(err)
 
       setActive: (teamProfileId, done) ->
          fc.team._curr = teamProfileId
