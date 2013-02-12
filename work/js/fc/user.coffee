@@ -36,8 +36,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       updateInvites: (invites) ->
          if not fc.user._curr then fc.user._curr = {}
-         fc.user.invites = invites
+         fc.user._curr.invites = invites
          forge.notification.setBadgeNumber(fc.user._curr.invites?.length or 0)
+         fc.user._notify()
 
       subscribe: (cb) -> fc.user._subscribers.push cb if cb
       _notify: () -> sub(fc.user._curr) for sub in fc.user._subscribers
