@@ -52,7 +52,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       _addHeaderButtons: () ->
          fc.user.get (err, user) ->
-            console.log "INVITES: #{user.invites?.length}"
             fc.mobile.addHeaderButton
                position: "right"
                icon: "images/profile/settingsIcon@2x.png"
