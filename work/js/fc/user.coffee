@@ -14,9 +14,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             , (error, user) ->
                fc.user._curr = user
                fc.user._addToChannel(user._id)
-               # Change stream
-               if forge.is.mobile()
-                  forge.reload.switchStream(user?.reload_stream or "default")
 
                done error, user
 
@@ -31,6 +28,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          $.extend true, fc.user._curr, user
          fc.user.updateInvites(user.invites)
          fc.user._notify()
+
+         # Change stream
+         if forge.is.mobile() and user?.reload_stream
+            forge.reload.switchStream(user?.reload_stream or "default")
 
          sub fc.user._curr for sub in fc.user._subscribers
 
