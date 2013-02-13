@@ -45,7 +45,15 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
 
    setup = () ->
       if forge.is.mobile()
+         $.mobile.pushStateEnabled = false
          $("html").addClass("is-mobile")
+         if forge.is.android()
+            forge.event.backPressed.addListener (close) -> 
+               if $.mobile.activePage.attr("id") == "profile-page"
+                  close()
+               else 
+                  $.mobile.back()
+            forge.event.backPressed.preventDefault()
       else
          # fake flurry for web
          forge.flurry =
@@ -57,8 +65,9 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
 
       fc.createPages()
       fc.mobile.createButtons()
-      if fc.isSlow() then $("html").addClass("speed-up")
-
+      if fc.isSlow() 
+         $("html").addClass("speed-up")
+         $.mobile.defaultPageTransition = "none"
 
 
 
