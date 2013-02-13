@@ -44,8 +44,8 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       return $(".header h1", page)?.first()?.attr("data-menu-root")
 
    setup = () ->
+      $.mobile.pushStateEnabled = false
       if forge.is.mobile()
-         $.mobile.pushStateEnabled = false
          $("html").addClass("is-mobile")
          if forge.is.android()
             forge.event.backPressed.addListener (close) -> 
