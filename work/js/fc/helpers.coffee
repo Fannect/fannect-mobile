@@ -49,7 +49,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
             ).live("pageshow", () ->
                if scroller then scroller.scroller("start")
                forge.flurry.customEvent("#{id} Page", {show: true})
-               
                # add buttons to native header if mobile
                if forge.is.mobile() and page.buttons?.length > 0
                   for button in page.buttons
