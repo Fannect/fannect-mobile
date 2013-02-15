@@ -13,6 +13,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          finish = (err, profile) =>
             throw err if err
             @is_friend(profile.is_friend) 
+            @options.user_id = profile.user_id
 
             profile.profile_image_url = "images/fannect_UserPlaceholderPic@2x.png" unless profile.profile_image_url?.length > 2
             profile.team_image_url = "images/fannect_TeamPlaceholderPic@2x.png" unless profile.team_image_url?.length > 2
@@ -20,6 +21,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             fc.user.get (err, user) =>
                profile.is_friend = true if profile.user_id == user._id
                @updateProfile(profile)
+
+               if (profile.user_id in user.invites)
+                  @options.action = "accept"
 
                unless profile.is_friend  
                   fc.mobile.addHeaderButton
@@ -56,7 +60,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.ajax
             url: "#{fc.getResourceURL()}/v1/me/invites"
             type: "POST"
-            data: user_id: @other_user_id
+            data: user_id: @options.user_id 
          , (err, data) => 
             throw(err) if err
             @showAcceptedPopup(true) if data.status == "success" 
@@ -67,7 +71,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @_hideRightButton()
                forge.flurry.customEvent("Send Invite", {sendInvite: true})
                fc.ajax
-                  url: "#{fc.getResourceURL()}/v1/users/#{@other_user_id}/invite"
+                  url: "#{fc.getResourceURL()}/v1/users/#{@options.user_id}/invite"
                   type: "POST"
                   data: inviter_user_id: user._id
                , (err, data) =>

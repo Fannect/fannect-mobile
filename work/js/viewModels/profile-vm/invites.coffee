@@ -66,8 +66,16 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       _setInvites: (teams, invites) =>
          if invites.length > 0
             text = []
-
             for inv in invites
+               # Check if invite is already listed
+               skip = false
+               for curr in @invites()
+                  if inv._id == curr._id
+                     skip = true
+                     break
+
+               continue if skip
+
                for t in inv.teams
                   if t in teams
                      text.push "<span>#{t}</span>"
@@ -79,5 +87,5 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          else
             @no_invites(true)
 
-      rightButtonClick: () => @_loadInvites()
-
+      rightButtonClick: () => 
+         @load()

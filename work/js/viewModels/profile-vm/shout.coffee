@@ -3,7 +3,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
    class fc.viewModels.Profile.Shout extends fc.viewModels.Base 
       constructor: () ->
          super 
-         @shouted = false
          @shout = ko.observable("")
          @chars_remaining = ko.computed () => 140 - @shout().length
          @twitter_active = ko.observable(false)
@@ -36,6 +35,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      shout: @shout()
                      tweet: @twitter_active()
             
-            $.mobile.back()
+            $.mobile.changePage "profile.html", fc.transition("flip")
       onPageShow: () =>
-          super
+         @shouted = false
+         super
