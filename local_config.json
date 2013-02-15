@@ -22,6 +22,10 @@
         "simulatorfamily": "iphone", 
         "profiles": {
             "DEFAULT": {
+                "provisioning_profile": "Fannect_App.mobileprovision", 
+                "developer_certificate": "Hunter Browning"
+            },
+            "release": {
                 "provisioning_profile": "Fannect_Prov.mobileprovision", 
                 "developer_certificate": "Hunter Browning"
             }
