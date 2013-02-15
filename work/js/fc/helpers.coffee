@@ -31,8 +31,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
             scroller = null
             $page = null
             
-            $("##{id}").live("pageinit", () -> 
-
+            initPage = () ->
                # apply page classes
                $page = $(@)
                if page.classes?
@@ -45,8 +44,12 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
                
                # create page scrollers
                if page.scroller then scroller = $(".scrolling-text", @).scroller()
+
+            $("##{id}").live("pageinit", initPage
             
             ).live("pageshow", () ->
+               initPage.call(@) unless vm
+
                if scroller then scroller.scroller("start")
                forge.flurry.customEvent("#{id} Page", {show: true})
                # add buttons to native header if mobile
@@ -63,7 +66,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
 
             ).live("pagebeforehide", () ->
                if scroller then scroller.scroller("stop")
+            ).live("pagehide", () ->
                vm.onPageHide() if vm
+               if page.no_cache
+                  vm = null
+                  $page.remove()
             )
       return true
 
