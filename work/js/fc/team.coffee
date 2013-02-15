@@ -37,7 +37,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       refreshActive: (done) ->
          fc.team.getActive (err, profile) ->
-            fc.team.refresh profile._id, done
+            fc.team.refresh(profile._id, done) if profile
 
       _doneFetching: (teamProfileId, team) ->
          fc.team._fetching[teamProfileId] = false
