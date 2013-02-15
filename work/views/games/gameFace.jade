@@ -34,20 +34,14 @@ block content
       .stadium(data-bind="text: game_data.stadium().name")
       .game-time(data-bind="text: game_data.next_game")
       .game-info
-         .team-info.home
-            .inner
-               span.team(data-bind="text: game_data.home_team().name")
-               //- br
-               //- span.record(data-bind="text: game_data.home_team().record")
-         .vs-center
          .team-info.away
             .inner
                span.team(data-bind="text: game_data.away_team().name")
-               //- br
-               //- span.record(data-bind="text: game_data.away_team().record")
-      //- .game-time(data-bind="text: game_data.next_game")
-      //- .coverage(data-bind="text: game_data.coverage")
-      
+         .team-info.home
+            .inner
+               span.team(data-bind="text: game_data.home_team().name")
+         .vs-center
+               
    .no-game-scheduled(data-bind="visible: game_data.no_game_scheduled")
       .inner
          span.title No game scheduled!

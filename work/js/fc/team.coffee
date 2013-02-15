@@ -7,6 +7,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       _fetching: {}
 
       get: (teamProfileId, done) ->
+
          if fc.team._teams[teamProfileId] 
             fc.team._notify(fc.team._teams[teamProfileId])
             done(null, fc.team._teams[teamProfileId]) if done
@@ -16,6 +17,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       refresh: (teamProfileId, done) ->
          if fc.team._fetching[teamProfileId]
+            console.log "Already being pulled"
             if done
                fc.team._waitingFn[teamProfileId] = [] unless fc.team._waitingFn[teamProfileId]
                fc.team._waitingFn[teamProfileId].push(done) 

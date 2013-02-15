@@ -48,12 +48,15 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       if forge.is.mobile()
          $("html").addClass("is-mobile")
          if forge.is.android()
+            $("html").addClass("android")
             forge.event.backPressed.addListener (close) -> 
                if $.mobile.activePage.attr("id") == "profile-page"
                   close()
                else 
                   $.mobile.back()
             forge.event.backPressed.preventDefault()
+         else if forge.is.ios() 
+            $("html").addClass("ios")
       else
          # fake flurry for web
          forge.flurry =
