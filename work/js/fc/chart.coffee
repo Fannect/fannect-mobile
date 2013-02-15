@@ -19,12 +19,14 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          
          if @use_svg
             @chart = d3.select(container.get(0)).append("svg").attr("class", "svg-chart")
+            @defs = @chart.append("defs")
             @_createGradient("gradient-passion", "#e13000", "#e01500")
             @_createGradient("gradient-dedication", "#0090ff", "#003cff")
             @_createGradient("gradient-knowledge", "#1cc800", "#008c0a")
          else
             @chart = d3.select(container.get(0)).append("div").attr("class", "html-chart")
          # @_createShadow()
+
 
          update(data) if data
 
@@ -142,7 +144,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       #       .attr("result","offsetblur");
 
       _createGradient: (id, start, stop) =>
-         gradient = @chart.append("svg:linearGradient")
+         gradient = @defs.append("svg:linearGradient")
             .attr("id", id)
             .attr("x1", "0%")
             .attr("y1", "0%")
