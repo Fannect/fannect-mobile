@@ -61,7 +61,7 @@ block content
          button.submit-guess(type="submit", value="Submit", data-bind="click: setPick, enabled: input_valid")
 
       .picked(data-bind="fadeIn: pick_set() && game_data.available()")
-         .scrolling-text Your pick is set! Check back after the game to view results!
+         .scrolling-text Your pick is set! Your points will be aggregated after the game!
       
       .unavailable.scrolling-text(data-bind="visible: !game_data.in_progress() && !game_data.available()", style="display:none;") Guess the Score can only be played on game days!
       .in-progress(data-bind="visible: game_data.in_progress() && !game_data.available()", style="display:none;") This game is in action. Submit your score predictions prior to game time to earn points!

@@ -108,8 +108,10 @@
 
       .game-info
          padding-top: 8px
+         position: relative
 
       .team-info
+         position: absolute
          display: table
          width: 38%
          height: 50px
@@ -118,12 +120,11 @@
          font-size: .9em
          width: 114px
          white-space: normal
+         top: 10px
          &.home
-            float: left
-            margin-left: 15px
+            left: 15px
          &.away
-            float: right
-            margin-right: 15px
+            right: 15px
       .team
             margin-bottom: 2px
             font-size: .9em
@@ -135,6 +136,11 @@
          width: 100%
          vertical-align: middle
          white-space: normal
+
+      // .android & .inner
+      //    display: table-cell
+      //    margin-top: 16px
+      //    height: 34px
 
    .no-game-scheduled
       background: url(../images/games/BigTeamGlass.png) 50% 50% no-repeat

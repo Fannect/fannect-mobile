@@ -45,7 +45,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   .attr("y", @h)
                   .attr("width", @bar_width)
                   .attr("height", 0)
-                  .style("fill", (d) -> "url(#gradient-#{d.style})")
+                  # .style("fill", (d) -> "url(#gradient-#{d.style})")
                   # .attr("filter", (d) -> "url(#dropshadow)")
                   .attr("class", (d) -> d.style)
                .transition()

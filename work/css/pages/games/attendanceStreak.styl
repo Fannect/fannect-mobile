@@ -43,6 +43,7 @@
          .game-info
             margin-top: 6px
             font-size: .7em
+            position: relative
             .team
                text-overflow: ellipsis
             .record
@@ -50,16 +51,15 @@
                color: color-light-gray
                text-overflow: ellipsis
             .team-info
+               position: absolute
                display: table
                width: 40%
                height: 50px
-               margin-top: -9px
+               top: -5px
                &.home
-                  float: left
-                  margin-left: 15px
+                  left: 10px
                &.away
-                  float: right
-                  margin-right: 15px
+                  right: 10px
                .team
                   font-size: 1.3em
                .inner

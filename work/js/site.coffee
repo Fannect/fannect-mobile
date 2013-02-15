@@ -44,16 +44,19 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       return $(".header h1", page)?.first()?.attr("data-menu-root")
 
    setup = () ->
+      $.mobile.pushStateEnabled = false
       if forge.is.mobile()
-         $.mobile.pushStateEnabled = false
          $("html").addClass("is-mobile")
          if forge.is.android()
+            $("html").addClass("android")
             forge.event.backPressed.addListener (close) -> 
                if $.mobile.activePage.attr("id") == "profile-page"
                   close()
                else 
                   $.mobile.back()
             forge.event.backPressed.preventDefault()
+         else if forge.is.ios() 
+            $("html").addClass("ios")
       else
          # fake flurry for web
          forge.flurry =

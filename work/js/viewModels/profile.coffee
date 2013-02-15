@@ -20,7 +20,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       load: () =>
          fc.team.subscribe @updateProfile
-         fc.team.getActive()
+         # fc.team.getActive()
 
       updateProfile: (profile) =>
          return unless profile
