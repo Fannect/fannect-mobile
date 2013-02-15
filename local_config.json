@@ -17,12 +17,12 @@
         }
     }, 
     "ios": {
-        "device": "simulator", 
+        "device": "device", 
         "simulatorsdk": "6.0", 
         "simulatorfamily": "iphone", 
         "profiles": {
             "DEFAULT": {
-                "provisioning_profile": "/Users/kcfcfuryrox16/Desktop/devfannect.mobileprovision", 
+                "provisioning_profile": "/Users/kcfcfuryrox16/ws/fannect-mobile/fannect_final.mobileprovision", 
                 "developer_certificate": "Hunter Browning"
             }
         }
