@@ -125,3 +125,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
    fc.hideScoringPopup = () ->
       $(".scorePointsInfoPopup", $.mobile.activePage).popup("close")
       $(".scorePointsInfoPopup a").addClass("ui-btn-active")
+
+   fc.hideUpdatePopup = () ->
+      $(".updatePopup", $.mobile.activePage).popup("close")
+      $(".updatePopup a").addClass("ui-btn-active")

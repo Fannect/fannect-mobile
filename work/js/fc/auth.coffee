@@ -104,11 +104,12 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                error: (err) ->
                   if err
                      if err?.status == 401 or err.statusCode?.toString() == "401"
-                        console.log "Failed to get access_token: Invalid refresh_token"
+                        console.log "Failed to get access_token (401): Invalid refresh_token"
                         fc.auth.logout()
                      else
                         fc.msg.show("Failed to get a response from the server...")
                         console.log "Error: failed to get access_token", err
+                        fc.auth.logout()
 
             forge.ajax(options)
 

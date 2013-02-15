@@ -22,6 +22,7 @@ html
    - var pageId = view.replace(/[\\\/]/g, "-") + "-page";
 
    body
+      
       div(id=pageId, data-role="page", data-theme="a")
 
          .header(data-role="header", data-position="fixed", data-tap-toggle="false")
@@ -32,6 +33,13 @@ html
 
          .tutorial
             block tutorial
+
+         .updatePopup(data-role="popup", style="width:260px; text-align: center;", class="ui-corner-all", data-overlay-theme="a", data-theme="a")
+            .ui-corner-top(data-role="header", data-theme="b")
+               h1 Update
+            .ui-corner-bottom.ui-content(data-role="content", data-theme="a", style)
+               h3.ui-title An update is available! Minimize and reopen the app for an auto update!
+               a(data-role="button", href="javascript:window.fannect.hideUpdatePopup();return false;") Ok
 
          .footer(data-role="footer", data-id="footer", data-position="fixed", data-tap-toggle="false")
             block footer

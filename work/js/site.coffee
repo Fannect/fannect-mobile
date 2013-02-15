@@ -47,6 +47,10 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       $.mobile.pushStateEnabled = false
       if forge.is.mobile()
          $("html").addClass("is-mobile")
+
+         forge.reload.updateReady.addListener () ->
+            $(".updatePopup", $.mobile.activePage).popup("open")
+
          if forge.is.android()
             $("html").addClass("android")
             forge.event.backPressed.addListener (close) -> 
