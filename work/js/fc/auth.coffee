@@ -2,6 +2,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
    fc.auth =
       _refresh_token: null
       _access_token: null
+      _waitingFns: []
+      _getting_access_token: false
 
       login: (email, pw, done) ->
          options =
@@ -75,7 +77,14 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             if not token
                console.log "No refresh_token"
                return fc.auth.logout()
-            console.log "Requesting: new access_token"
+
+            if fc.auth._getting_access_token
+               console.log "Requesting: new access_token already being requested"
+               return fc.auth._waitingFns.push(done)
+            else
+               fc.auth._getting_access_token = true
+               console.log "Requesting: new access_token"
+
             options =
                type: "POST"
                url: "#{fc.getLoginURL()}/v1/token/update"
@@ -85,6 +94,12 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   user = JSON.parse(user)
                   fc.user.update(user)
                   fc.auth._access_token = user.access_token
+                  
+                  # Send done
+                  fc.auth._getting_access_token = false
+                  fn(null, fc.auth._access_token) for fn in fc.auth._waitingFns
+                  fc.auth._waitingFns.length = 0
+                  
                   done(null, fc.auth._access_token) if done
                error: (err) ->
                   if err
