@@ -72,46 +72,55 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          return fc.auth._access_token
 
       getNewAccessToken: (done) ->
+         if fc.auth._getting_access_token
+            console.log "Requesting: new access_token already being requested"
+            return fc.auth._waitingFns.push(done)
+         else
+            console.log "Requesting: new access_token"
+            fc.auth._getting_access_token = true
+         
          fc.auth.getRefreshToken (err, token) ->
-            done(err) if err
+            return done(err) if err
+         
             if not token
+               fc.logger.sendLog("No refresh_token")
                console.log "No refresh_token"
                return fc.auth.logout()
 
-            if fc.auth._getting_access_token
-               console.log "Requesting: new access_token already being requested"
-               return fc.auth._waitingFns.push(done)
-            else
-               fc.auth._getting_access_token = true
-               console.log "Requesting: new access_token"
+            fc.auth._requestAccessToken token, false, (err, token) ->
+               # Send done
+               fc.auth._getting_access_token = false
+               fn(null, token) for fn in fc.auth._waitingFns
+               fc.auth._waitingFns.length = 0
+               done(null, token)
 
-            options =
-               type: "POST"
-               url: "#{fc.getLoginURL()}/v1/token/update"
-               data: { refresh_token: token }
-               success: (user) ->
-                  console.log "Success: new access_token"
-                  user = JSON.parse(user)
-                  fc.user.update(user)
-                  fc.auth._access_token = user.access_token
-                  
-                  # Send done
-                  fc.auth._getting_access_token = false
-                  fn(null, fc.auth._access_token) for fn in fc.auth._waitingFns
-                  fc.auth._waitingFns.length = 0
-                  
-                  done(null, fc.auth._access_token) if done
-               error: (err) ->
-                  if err
-                     if err?.status == 401 or err.statusCode?.toString() == "401"
-                        console.log "Failed to get access_token (401): Invalid refresh_token"
-                        fc.auth.logout()
-                     else
-                        fc.msg.show("Failed to get a response from the server...")
-                        console.log "Error: failed to get access_token", err
-                        fc.auth.logout()
+      _requestAccessToken: (token, second_try, done) ->
+         options =
+            type: "POST"
+            url: "#{fc.getLoginURL()}/v1/token/update"
+            data: { refresh_token: token }
+            success: (user) ->
+               console.log "Success: new access_token"
+               user = JSON.parse(user)
+               fc.user.update(user)
+               fc.auth._access_token = user.access_token
+               
+               done(null, fc.auth._access_token) if done
+            error: (err) ->
+               if err
+                  if err?.status == 401 or err.statusCode?.toString() == "401"
+                     console.log "Failed to get access_token (401): Invalid refresh_token"
+                     fc.logger.sendLog("Failed to get access_token (401): Invalid refresh_token")
+                     fc.auth.logout()
+                  else if second_try
+                     fc.msg.show("Failed to get a response from the server...")
+                     console.log "Error: failed to get access_token", err
+                     fc.auth.logout()
+                  else
+                     console.log "Error: failed to get access_token, retrying!", err
+                     fc.auth._requestAccessToken(token, true, done)
 
-            forge.ajax(options)
+         forge.ajax(options)
 
       getRefreshToken: (done) ->
          return done(null, fc.auth._refresh_token) if fc.auth._refresh_token 

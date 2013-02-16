@@ -8,14 +8,20 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       options.error = (error) ->
          forge.logging.warning "#{options.url} (err) JSON.stringify(error)"
       
-         if (error?.status == 401 or error?.statusCode?.toString() == "401" or error.type == "UNEXPECTED_FAILURE")
+         if (error?.status == 401 or error?.statusCode?.toString() == "401")
             if options.second_try
+               fc.logger.sendLog("Forced logout (401)")
                fc.auth.logout()
             else
                fc.auth.getNewAccessToken (err, token) ->
                   options.second_try = true
+                  
+                  # Change access_token in url 
+                  if options.url.indexOf("access_token")
+                     options.url = options.url.replace(/access_token=.+/, "access_token=#{fc.auth.getAccessToken()}")
                   fc.ajax(options, done)
-         else if (error?.status == 0 or error.statusText == "timeout")
+
+         else if (error?.status == 0 or error.statusText == "timeout" or error?.type == "UNEXPECTED_FAILURE")
             fc.msg.loading("Server timeout! Retrying...")
             fc.logger.sendError(error)
             setTimeout (() ->
@@ -25,7 +31,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             setTimeout (-> fc.ajax(options, done)), 4000
          else
             try
-               console.error errText = JSON.parse error.responseText
+               logger.sendError(errText = JSON.parse error.responseText)
             finally
                done(errText or error) if done
 
@@ -33,7 +39,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       if not options.no_access_token and not fc.auth.hasAccessToken() and not options.second_try
          return fc.auth.getNewAccessToken (err, token) ->
             options.second_try = true
-            options.url = options.url.replace(/access_token=.+/, "access_token=#{fc.auth.getAccessToken()}")
+            if options.url.indexOf("access_token")
+               options.url = options.url.replace(/access_token=.+/, "access_token=#{fc.auth.getAccessToken()}")
             fc.ajax(options, done)
 
       # Append access_token on to querystring
@@ -43,6 +50,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          else
             options.url += "?access_token=#{fc.auth.getAccessToken()}"
 
-      console.log "Requesting: #{options.url}"
+      console.log "#{options.type or 'GET'}: #{options.url}"
       
       forge.ajax(options)

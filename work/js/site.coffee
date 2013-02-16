@@ -45,6 +45,8 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
 
    setup = () ->
       $.mobile.pushStateEnabled = false
+      $.mobile.transitionFallbacks.slideout = "none"
+      
       if forge.is.mobile()
          $("html").addClass("is-mobile")
 

@@ -12,6 +12,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          fc.logger._send(log)  
          
       sendLog: (log) ->
+         if typeof log == "string"
+            log = { message: log }
          log.type = "log"
          fc.logger._send(log)  
 
