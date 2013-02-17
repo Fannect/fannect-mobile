@@ -10,7 +10,7 @@
     "android": {
         "profiles": {
             "DEFAULT": {
-                "keystore": "/Users/blakevanlandingham/Desktop/fannect-release-key.keystore", 
+                "keystore": "/Users/blakevanlandingham/ws/fannect-mobile/fannect-release-key.keystore", 
                 "keypass": "9uJ7_reVad-pRaD2", 
                 "storepass": "9uJ7_reVad-pRaD2"
             }
@@ -21,12 +21,12 @@
         "simulatorsdk": "6.0", 
         "simulatorfamily": "iphone", 
         "profiles": {
-            "DEFAULT": {
-                "provisioning_profile": "Fannect_App.mobileprovision", 
-                "developer_certificate": "Hunter Browning"
-            },
             "release": {
                 "provisioning_profile": "/Users/kcfcfuryrox16/ws/fannect-mobile/fannect_final.mobileprovision", 
+                "developer_certificate": "Hunter Browning"
+            }, 
+            "DEFAULT": {
+                "provisioning_profile": "Fannect_App.mobileprovision", 
                 "developer_certificate": "Hunter Browning"
             }
         }

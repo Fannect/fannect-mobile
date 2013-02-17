@@ -9,6 +9,7 @@
 #= require "fc/auth.coffee"
 #= require "fc/cache.coffee"
 #= require "fc/chart.coffee"
+#= require "fc/share.coffee"
 #= require "fc/images.coffee"
 #= require "fc/logger.coffee"
 #= require "fc/maps.coffee"

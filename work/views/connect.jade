@@ -2,9 +2,18 @@ extend layout
 
 block header
    h1(data-menu-root="connect") Connect
+   a.ui-btn-right(href="#sharePopup", data-rel="popup", data-role="button", data-theme="b") Share
 
 block content
-   
+
+   #sharePopup(data-role="popup", style="width:260px;", class="ui-corner-all", data-overlay-theme="a", data-theme="a", data-bind="showPopup: showConfirm")
+      .ui-corner-top(data-role="header", data-theme="b")
+         h1 Confirm Remove
+      .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
+         h3.ui-title(data-bind="html: deleteText")
+         a(data-role="button", data-bind="click: removeProfile, showClick: true") Delete
+         a(data-role="button", data-theme="c", data-bind="click: cancel, showClick: true") Cancel
+
    input(type="search", data-bind="value: query, valueUpdate: ['afterkeydown'], onEnter: androidSearch")
 
    ul.pattern-bg.has-search(data-role="listview", data-bind="template: { name:'connect-fan-template', foreach: fans }, listviewUpdate: fans, visible: fans().length > 0").fans

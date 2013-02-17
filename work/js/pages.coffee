@@ -97,6 +97,12 @@ window.fannect.pages =
    ###
    "connect-page":
       vm: vm.Connect
+      buttons: [
+         {
+            position: "right"
+            text: "Share"
+         }
+      ]
       classes: ["light-background"]
 
    "connect-connectProfile-page":
