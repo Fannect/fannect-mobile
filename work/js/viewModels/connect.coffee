@@ -60,3 +60,5 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          $(window).unbind("scroll")
 
       selectUser: (data) -> fc.user.view(team_profile_id: data._id)
+
+      rightButtonClick: () -> $("#sharePopup").popup("open")

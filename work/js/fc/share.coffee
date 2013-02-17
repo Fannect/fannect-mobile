@@ -13,5 +13,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          , (err) ->
             done(err) if err and done
             
-      # viaEmail: (done) ->
-      #    
+      viaEmail: (done) ->
+         fc.ajax
+            url: "#{fc.getResourceURL()}/v1/share/email"
+         , (err, data) ->
+            console.log "SHARED VIA EMAIL"

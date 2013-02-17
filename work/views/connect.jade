@@ -6,13 +6,13 @@ block header
 
 block content
 
-   #sharePopup(data-role="popup", style="width:260px;", class="ui-corner-all", data-overlay-theme="a", data-theme="a", data-bind="showPopup: showConfirm")
+   #sharePopup(data-role="popup", style="width:260px;", class="ui-corner-all", data-overlay-theme="a", data-theme="a", data-position-to="window")
       .ui-corner-top(data-role="header", data-theme="b")
-         h1 Confirm Remove
+         h1 Share Fannect!
       .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
-         h3.ui-title(data-bind="html: deleteText")
-         a(data-role="button", data-bind="click: removeProfile, showClick: true") Delete
-         a(data-role="button", data-theme="c", data-bind="click: cancel, showClick: true") Cancel
+         a(data-role="button", href="javascript:window.fannect.share.viaTwitter()") Share via Twitter
+         a(data-role="button", href="javascript:window.fannect.share.viaEmail()") Share via Email
+         a(data-role="button", data-theme="c", href="#", data-rel="back") Cancel
 
    input(type="search", data-bind="value: query, valueUpdate: ['afterkeydown'], onEnter: androidSearch")
 

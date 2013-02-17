@@ -7,12 +7,6 @@ window.fannect.pages =
    ##
    "index-page":
       vm: vm.Login
-      # buttons: [
-      #    {
-      #       position: "right"
-      #       text: "Create Account"
-      #    }
-      # ]
 
    "createAccount-page":
       vm: vm.CreateAccount
@@ -165,17 +159,6 @@ window.fannect.pages =
       classes: ["light-background"]
    "leaderboard-users-page":
       vm: vm.Leaderboard.Users
-      buttons: [
-         {
-            position: "left"
-            text: "Overall"
-            tint: [193,39,45,255]
-         }, {
-            position: "right"
-            text: "Roster"
-            tint: [120,120,120,255]
-         }
-      ]
       classes: ["light-background"]
 
    "leaderboard-conference-page": 
