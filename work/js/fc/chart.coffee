@@ -114,7 +114,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                      .tween("text", (d) ->
                         value = if sum > 0 then d.val / sum else 0
                         i = d3.interpolate(this.textContent, value)
-                        return (t) -> this.textContent = parseInt(i(t) * 100) + "%")
+                        return (t) -> this.textContent = (Math.round(i(t) * 1000) / 10) + "%")
          html: 
             value: () ->
             percent: () ->
