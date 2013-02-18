@@ -201,7 +201,12 @@ window.fannect.pages =
    "settings-privacy-page":
       classes: ["light-background"]
 
+   ###
+   # Share
+   ###
    "share-page":
       vm: vm.Share
       classes: ["light-background"]
 
+   "share-email-page":
+      classes: ["light-background"]

@@ -14,10 +14,15 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             done(err) if err and done
             
       viaEmail: (done) ->
+         fc.msg.loading("Sending email...")
          fc.ajax
             url: "#{fc.getResourceURL()}/v1/share/email"
          , (err, data) ->
-            console.log "SHARED VIA EMAIL"
+            fc.msg.hide()
+            if data?.status == "success"
+               $.mobile.changePage "share-email.html", transition: "slide"
+            else 
+               fc.msg.show("Unable to send an email at this time! Please try to share again later!", 2100)
 
       viaSMS: (done) ->
          forge.contact.selectAll (contact) ->

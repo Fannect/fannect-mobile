@@ -6,7 +6,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          console.log "#{options.url}:", JSON.parse(result) 
          done null, JSON.parse(result) if done
       options.error = (error) ->
-         forge.logging.warning "#{options.url} (err) JSON.stringify(error)"
+         forge.logging.warning "#{options.url} (err) #{JSON.stringify(error)}"
       
          if (error?.status == 401 or error?.statusCode?.toString() == "401")
             if options.second_try
