@@ -1,99 +1,97 @@
 {
-	"author": "blakevanlan@gmail.com", 
-	"config_version": "2", 
-	"description": "Does your team have the best fans? Of course they do! But wait... how do you prove it?  Fannect proves which teams have the best fans by quantifying what is means to be a sports fan. How? Great question.   At the core of the Fannect sports app are Fannect Games. Each of our games measure a fan\u2019s passion, dedication or knowledge.  In Fannect you can... Compete for your team alongside fellow fans by playing Fannect Games Measure your Passion, Dedication and Knowledge of your favorite teams Compare your team\u2019s fans to your rival\u2019s fans... and many others. Interact with other passionate sports fans  The Fannect Leaderboard finally answers the critical questions... Who is the top fan of your team and also amongst your roster (friends) Which team has the best fan base as a whole And much more", 
-	"homepage": "http://fannect.me", 
-	"modules": {
-		"contact": true, 
-		"display": {
-			"orientations": {
-				"android": "portrait", 
-				"ipad": "any", 
-				"iphone": "portrait"
-			}
-		}, 
-		"event": true, 
-		"facebook": {
-			"appid": "490956187613410"
-		}, 
-		"file": true, 
-		"flurry": {
-			"android_api_key": "JQN5FVPQXRCZ9SZ9B44P", 
-			"ios_api_key": "6P5NN88MGKT7C3QSK6JG"
-		}, 
-		"geolocation": true, 
-		"icons": {
-			"android": {
-				"36": "res/icon-android-36.png", 
-				"48": "res/icon-android-48.png", 
-				"72": "res/icon-android-72.png"
-			}, 
-			"ios": {
-				"114": "res/icon-ios-114.png", 
-				"144": "res/icon-ios-144.png", 
-				"512": "res/icon-ios-512.png", 
-				"57": "res/icon-ios-57.png", 
-				"72": "res/icon-ios-72.png", 
-				"prerendered": true
-			}
-		}, 
-		"is": true, 
-		"launchimage": {
-			"android": "res/splash-androidmobile@2x.png", 
-			"android-landscape": "res/splash-androidmobile@2x.png", 
-			"background-color": "#000000", 
-			"hide-manually": true, 
-			"ipad": "res/splash-androidmobile@2x.png", 
-			"ipad-landscape": "res/splash-androidmobile@2x.png", 
-			"ipad-landscape-retina": "res/splash-androidmobile@2x.png", 
-			"ipad-retina": "res/splash-androidmobile@2x.png", 
-			"iphone": "res/splash-iphone-4mobile.png", 
-			"iphone-retina": "res/splash-iphone-4mobile@2x.png", 
-			"iphone-retina4": "res/splash-iphone-5mobile@2x.png"
-		}, 
-		"logging": {
-			"level": "WARNING"
-		}, 
-		"media": true, 
-		"notification": true, 
-		"package_names": {
-			"ios": "me.fannect.Fannect"
-		}, 
-		"parameters": {
-			"loggly_server": "https://logs.loggly.com/inputs/3de92d03-5202-41b7-906d-f5b2c281a8d9", 
-			"login_server": "http://fannect-login.herokuapp.com", 
-			"resource_server": "http://fannect-api.herokuapp.com"
-		}, 
-		"prefs": true, 
-		"reload": true, 
-		"request": {
-			"permissions": [
-				"http://*/*", 
-				"https://*/*"
-			]
-		}, 
-		"requirements": {
-			"android": {
-				"minimum_version": "5"
-			}, 
-			"ios": {
-				"device_family": "iphone", 
-				"minimum_version": "4.0"
-			}
-		}, 
-		"sms": true, 
-		"tabbar": true, 
-		"tabs": true, 
-		"tools": true, 
-		"topbar": true
-	}, 
-	"name": "Fannect", 
-	"partners": {
-		"parse": {
-			"applicationId": "EP2BOLtJpCtZP1gMWc65YxIMUvum8qqjKswCESJi", 
-			"clientKey": "crkhhKCtiP0qPbsUc89hU6X5UaoXKih43HiDptIM"
-		}
-	}, 
-	"platform_version": "v1.4", 
-	"version": "1.0"
+    "author": "blakevanlan@gmail.com", 
+    "config_version": "2", 
+    "description": "Does your team have the best fans? Of course they do! But wait... how do you prove it?  Fannect proves which teams have the best fans by quantifying what is means to be a sports fan. How? Great question.   At the core of the Fannect sports app are Fannect Games. Each of our games measure a fan\u2019s passion, dedication or knowledge.  In Fannect you can... Compete for your team alongside fellow fans by playing Fannect Games Measure your Passion, Dedication and Knowledge of your favorite teams Compare your team\u2019s fans to your rival\u2019s fans... and many others. Interact with other passionate sports fans  The Fannect Leaderboard finally answers the critical questions... Who is the top fan of your team and also amongst your roster (friends) Which team has the best fan base as a whole And much more", 
+    "homepage": "http://fannect.me", 
+    "modules": {
+        "display": {
+            "orientations": {
+                "android": "portrait", 
+                "ipad": "any", 
+                "iphone": "portrait"
+            }
+        }, 
+        "event": true, 
+        "facebook": {
+            "appid": "490956187613410"
+        }, 
+        "file": true, 
+        "flurry": {
+            "android_api_key": "JQN5FVPQXRCZ9SZ9B44P", 
+            "ios_api_key": "6P5NN88MGKT7C3QSK6JG"
+        }, 
+        "geolocation": true, 
+        "icons": {
+            "android": {
+                "36": "res/icon-android-36.png", 
+                "48": "res/icon-android-48.png", 
+                "72": "res/icon-android-72.png"
+            }, 
+            "ios": {
+                "114": "res/icon-ios-114.png", 
+                "144": "res/icon-ios-144.png", 
+                "512": "res/icon-ios-512.png", 
+                "57": "res/icon-ios-57.png", 
+                "72": "res/icon-ios-72.png", 
+                "prerendered": true
+            }
+        }, 
+        "is": true, 
+        "launchimage": {
+            "android": "res/splash-androidmobile@2x.png", 
+            "android-landscape": "res/splash-androidmobile@2x.png", 
+            "background-color": "#000000", 
+            "hide-manually": true, 
+            "ipad": "res/splash-androidmobile@2x.png", 
+            "ipad-landscape": "res/splash-androidmobile@2x.png", 
+            "ipad-landscape-retina": "res/splash-androidmobile@2x.png", 
+            "ipad-retina": "res/splash-androidmobile@2x.png", 
+            "iphone": "res/splash-iphone-4mobile.png", 
+            "iphone-retina": "res/splash-iphone-4mobile@2x.png", 
+            "iphone-retina4": "res/splash-iphone-5mobile@2x.png"
+        }, 
+        "logging": {
+            "level": "WARNING"
+        }, 
+        "media": true, 
+        "notification": true, 
+        "package_names": {
+            "ios": "me.fannect.Fannect"
+        }, 
+        "parameters": {
+            "loggly_server": "https://logs.loggly.com/inputs/3de92d03-5202-41b7-906d-f5b2c281a8d9", 
+            "login_server": "http://fannect-login.herokuapp.com", 
+            "resource_server": "http://fannect-api.herokuapp.com"
+        }, 
+        "prefs": true, 
+        "reload": true, 
+        "request": {
+            "permissions": [
+                "http://*/*", 
+                "https://*/*"
+            ]
+        }, 
+        "requirements": {
+            "android": {
+                "minimum_version": "5"
+            }, 
+            "ios": {
+                "device_family": "iphone", 
+                "minimum_version": "4.0"
+            }
+        }, 
+        "tabbar": true, 
+        "tabs": true, 
+        "tools": true, 
+        "topbar": true
+    }, 
+    "name": "Fannect", 
+    "partners": {
+        "parse": {
+            "applicationId": "EP2BOLtJpCtZP1gMWc65YxIMUvum8qqjKswCESJi", 
+            "clientKey": "crkhhKCtiP0qPbsUc89hU6X5UaoXKih43HiDptIM"
+        }
+    }, 
+    "platform_version": "v1.4.29", 
+    "version": "1.0"
 }
