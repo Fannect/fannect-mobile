@@ -18,3 +18,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             url: "#{fc.getResourceURL()}/v1/share/email"
          , (err, data) ->
             console.log "SHARED VIA EMAIL"
+
+      viaSMS: (done) ->
+         forge.contact.selectAll (contact) ->
+            console.log "CONTACT #{JSON.stringify(contact)}"
+         , (err) ->
+            console.log "CONTACT ERR: #{JSON.stringify(err)}"
