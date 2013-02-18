@@ -31,7 +31,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             setTimeout (-> fc.ajax(options, done)), 4000
          else
             try
-               logger.sendError(errText = JSON.parse error.responseText)
+               fc.logger.sendError(errText = JSON.parse error.responseText)
             finally
                done(errText or error) if done
 

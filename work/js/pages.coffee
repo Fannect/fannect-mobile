@@ -94,7 +94,7 @@ window.fannect.pages =
       buttons: [
          {
             position: "right"
-            text: "Share"
+            icon: "images/mobile/ShareGlyph@2x.png"
          }
       ]
       classes: ["light-background"]
@@ -200,3 +200,8 @@ window.fannect.pages =
 
    "settings-privacy-page":
       classes: ["light-background"]
+
+   "share-page":
+      vm: vm.Share
+      classes: ["light-background"]
+

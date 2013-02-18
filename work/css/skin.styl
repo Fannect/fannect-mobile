@@ -372,7 +372,37 @@ body
             line-height: 40px
             color: color-dark-red
             padding-left: 2px
-         
+
+.share-wrap
+   margin: 20px auto 0
+   width: 274px
+   text-shadow: 0 -1px 2px #fff
+   color: #bbb
+
+   .sub-title
+      font-size: 18px
+      text-align: center
+   .share-button
+      background: url(../images/ShareButtons.png)
+      background-size: 548px 186px
+      width: 274px
+      height: 62px
+      margin: 6px 0
+      border: 0
+      cursor: pointer
+      &.sms
+         background-position: 0 0
+         &.ui-btn-active
+            background-position: -274px 0
+      &.email
+         background-position: 0 -62px
+         &.ui-btn-active
+            background-position: -274px -62px
+      &.twitter
+         background-position: 0 -124px
+         &.ui-btn-active
+            background-position: -274px -124px
+
 .tutorial-link .ui-icon.ui-icon-custom
    background: url(../images/tutorial/InfoButton@2x.png) no-repeat
    background-size: 18px 18px
@@ -546,6 +576,8 @@ body
          background-image: url(../images/leaderboard/Overlay_LeaderboardRank@2x.png)!important
       .active .accept
          background-image: url(../images/icons/Tablecell_blueCheckmark@2x.png)!important
+   .share-button
+      background-image: url(../images/ShareButtons@2x.png)!important
 
    .tutorial-link .ui-icon.ui-icon-custom
       background-image: url(../images/tutorial/InfoButton@2x.png)!important
