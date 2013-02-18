@@ -2,20 +2,16 @@ extend layout
 
 block header
    h1(data-menu-root="connect") Connect
-   a.ui-btn-right(href="#sharePopup", data-rel="popup", data-role="button", data-theme="b") Share
+   a.ui-btn-right(href="share.html", data-role="button", data-theme="b", data-transition="slide") Share
 
 block content
-
-   #sharePopup(data-role="popup", style="width:260px;", class="ui-corner-all", data-overlay-theme="a", data-theme="a", data-position-to="window")
-      .ui-corner-top(data-role="header", data-theme="b")
-         h1 Share Fannect!
-      .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
-         a(data-role="button", href="javascript:window.fannect.share.viaTwitter()") Share via Twitter
-         a(data-role="button", href="javascript:window.fannect.share.viaEmail()") Share via Email
-         a(data-role="button", href="javascript:window.fannect.share.viaSMS()") Share SMS
-         a(data-role="button", data-theme="c", href="#", data-rel="back") Cancel
 
    input(type="search", data-bind="value: query, valueUpdate: ['afterkeydown'], onEnter: androidSearch")
 
    ul.pattern-bg.has-search(data-role="listview", data-bind="template: { name:'connect-fan-template', foreach: fans }, listviewUpdate: fans, visible: fans().length > 0").fans
    .loading-more-indicator(data-bind="visible: loading_more", style="display:none;")
+
+   .share-wrap(data-bind="fadeIn: show_sharing", style="display:none;")
+      .sub-title Share Fannect via
+      .share-button.twitter(data-bind="showClick: true, click: shareViaTwitter")
+      .share-button.email(data-bind="showClick: true, click: shareViaEmail")

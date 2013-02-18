@@ -8,9 +8,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @query = ko.observable(fc.cache.get("last_connect_search") or "")
          @fans = ko.observableArray []
          @loading_more = ko.observable false
+         @show_sharing = ko.observable false
 
          if not forge.is.android()
             @query.subscribe () =>
+               @show_sharing(false)
                if @timeoutId then clearTimeout @timeoutId
                @timeoutId = setTimeout () =>
                   @timeoutId = null
@@ -32,6 +34,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          finished = (error, fans) =>
             setTimeout () => 
                @loading_more false
+               @show_sharing(@fans().length == 0)
             , 200
 
             @skip += @limit
@@ -61,4 +64,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       selectUser: (data) -> fc.user.view(team_profile_id: data._id)
 
-      rightButtonClick: () -> $("#sharePopup").popup("open")
+      rightButtonClick: () -> $.mobile.changePage "share.html", transition: "slide"
+      shareViaTwitter: () -> fc.share.viaTwitter()
+      shareViaEmail: () -> fc.share.viaEmail()
+      shareViaSMS: () -> fc.share.viaSMS()

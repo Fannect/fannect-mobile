@@ -32,6 +32,7 @@
 #= require "viewModels/profile.coffee"
 #= require "viewModels/leaderboard.coffee"
 #= require "viewModels/connect.coffee"
+#= require "viewModels/share.coffee"
 
 #= require "viewModels/profile-vm/invites.coffee"
 #= require "viewModels/profile-vm/chooseWebImage.coffee"

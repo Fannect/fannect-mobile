@@ -7,5 +7,11 @@ block header
 
 block content
    ul.invite-list.pattern-bg(data-role="listview", data-theme="a", data-bind="template: { name:'invite-fan-template', foreach: invites, beforeRemove: hideInvite }, listviewUpdate: invites, visible: !no_invites()")
-   .no-invites(data-bind="fadeIn: no_invites", style="display:none;") Looks like no one's trying to recruit you. Get out and get noticed!
    .loading-more-indicator(data-bind="visible: is_loading")
+   .no-invites(data-bind="fadeIn: no_invites", style="display:none;") 
+      p Looks like no one's trying to recruit you. Get out and get noticed!
+      .share-wrap
+         .sub-title Share Fannect via
+         .share-button.twitter(data-bind="showClick: true, click: shareViaTwitter")
+         .share-button.email(data-bind="showClick: true, click: shareViaEmail")
+         //- .share-button.sms(data-bind="showClick: true, click: shareViaSMS")

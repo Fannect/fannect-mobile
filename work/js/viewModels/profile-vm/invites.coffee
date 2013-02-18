@@ -89,3 +89,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       rightButtonClick: () => 
          @load()
+
+      shareViaTwitter: () -> fc.share.viaTwitter()
+      shareViaEmail: () -> fc.share.viaEmail()
+      shareViaSMS: () -> fc.share.viaSMS()
