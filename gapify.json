@@ -23,6 +23,9 @@
          "from":"work/css/lib/normalize.css",
          "to":"{out}/css/lib/normalize.css"
       }, {
+         "from":"work/css/lib/token-input.css",
+         "to":"{out}/css/lib/token-input.css"
+      }, {
          "from":"work/images",
          "to":"{out}/images"
       }, {

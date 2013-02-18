@@ -25,7 +25,5 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                fc.msg.show("Unable to send an email at this time! Please try to share again later!", 2100)
 
       viaSMS: (done) ->
-         forge.contact.selectAll (contact) ->
-            console.log "CONTACT #{JSON.stringify(contact)}"
-         , (err) ->
-            console.log "CONTACT ERR: #{JSON.stringify(err)}"
+         $.mobile.changePage "share-sms.html", transition: "slide"
+            

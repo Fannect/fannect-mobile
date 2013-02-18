@@ -210,3 +210,7 @@ window.fannect.pages =
 
    "share-email-page":
       classes: ["light-background"]
+
+   "share-sms-page":
+      vm: vm.Share.SMS
+      classes: ["light-background"]

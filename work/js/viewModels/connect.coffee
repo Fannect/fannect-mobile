@@ -28,10 +28,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.cache.set("last_connect_search", @query())
          @load()
 
-      load: (done) =>
+      load: () =>
          @loading_more true
 
-         finished = (error, fans) =>
+         finished = (err, fans) =>
+            return if err
             setTimeout () => 
                @loading_more false
                @show_sharing(@fans().length == 0)
@@ -39,8 +40,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
             @skip += @limit
             @fans.push fan for fan in fans
-            done null, fans if done
-
+            
          fc.team.getActive (err, profile) =>
             if @query()?.length > 0
                fc.ajax 
@@ -59,11 +59,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @loading_more true
                @load()
          
-      onPageHide: () =>
-         $(window).unbind("scroll")
-
+      onPageHide: () => $(window).unbind("scroll")
       selectUser: (data) -> fc.user.view(team_profile_id: data._id)
-
       rightButtonClick: () -> $.mobile.changePage "share.html", transition: "slide"
       shareViaTwitter: () -> fc.share.viaTwitter()
       shareViaEmail: () -> fc.share.viaEmail()

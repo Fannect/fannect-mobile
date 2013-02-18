@@ -179,6 +179,19 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
       update: ko.bindingHandlers.value.update
 
 
+   ko.bindingHandlers.textToken =
+      update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         options = ko.utils.unwrapObservable valueAccessor()
+         $el = $(element) 
+        
+         if (source = ko.utils.unwrapObservable(options.source)) and source.length > 0 and not $el.data("textToken-init")
+            $el.data("textToken-init", true)
+            $el.tokenInput source,
+               onAdd: () -> options.value($el.tokenInput("get"))
+               hintText: false
+               searchingText: false
+               resultsFilter: options.filterFn
+
    # ko.bindingHandlers.scrollerToggle = 
    #    update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
    #       $el = $(element)
