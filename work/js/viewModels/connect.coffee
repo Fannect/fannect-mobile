@@ -9,10 +9,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @fans = ko.observableArray []
          @loading_more = ko.observable false
          @show_sharing = ko.observable false
+         @show_roster_title = ko.observable(@query().length == 0)
 
          if not forge.is.android()
             @query.subscribe () =>
                @show_sharing(false)
+               @show_roster_title(false)
                if @timeoutId then clearTimeout @timeoutId
                @timeoutId = setTimeout () =>
                   @timeoutId = null
@@ -35,6 +37,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             return if err
             setTimeout () => 
                @loading_more false
+               @show_roster_title(@fans().length > 0 && @query().length == 0)
                @show_sharing(@fans().length == 0)
             , 200
 
