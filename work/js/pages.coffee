@@ -94,7 +94,7 @@ window.fannect.pages =
       buttons: [
          {
             position: "right"
-            icon: "images/mobile/ShareGlyph@2x.png"
+            text: "Share"
          }
       ]
       classes: ["light-background"]

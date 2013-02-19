@@ -7,7 +7,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       _fetching: {}
 
       get: (teamProfileId, done) ->
-
          if fc.team._teams[teamProfileId] 
             fc.team._notify(fc.team._teams[teamProfileId])
             done(null, fc.team._teams[teamProfileId]) if done

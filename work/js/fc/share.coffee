@@ -1,5 +1,5 @@
 do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect) ->
-   twitterText = ""
+   twitterText = "Think your team has the best fans? Download @Fannect to prove it!"
    twitterLink = "http://www.fannect.me"
 
    fc.share =
