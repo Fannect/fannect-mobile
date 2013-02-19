@@ -20,8 +20,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       load: () =>
          fc.team.subscribe @updateProfile
-         # fc.team.getActive()
-
+         
       updateProfile: (profile) =>
          return unless profile
 
@@ -65,6 +64,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super
          setTimeout (() -> forge.launchimage.hide() if forge.is.mobile()), 200
          fc.team.refreshActive()
+         fc.push.activate()
          @_addHeaderButtons() if forge.is.mobile()
 
       selectTeam: () -> $.mobile.changePage "profile-selectTeam.html", fc.transition("slide")

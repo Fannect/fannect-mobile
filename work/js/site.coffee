@@ -45,7 +45,12 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
 
    setup = () ->
       $.mobile.pushStateEnabled = false
+      $.mobile.transitionFallbacks.slide = "none"
+      $.mobile.transitionFallbacks.slidein = "none"
       $.mobile.transitionFallbacks.slideout = "none"
+      $.mobile.transitionFallbacks.flip = "none"
+      $.mobile.transitionFallbacks.flipin = "none"
+      $.mobile.transitionFallbacks.flipout = "none"
       
       if forge.is.mobile()
          $("html").addClass("is-mobile")
@@ -78,6 +83,6 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
          $("html").addClass("speed-up")
          $.mobile.defaultPageTransition = "none"
 
-
+      fc.push.setup()
 
       

@@ -14,18 +14,17 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
          $(".footer ." + menu + "-menu").addClass("ui-btn-active").addClass("ui-btn-persist")
       else
          fc.mobile.setActiveMenu menu
-         fc.mobile.setupHeader()
 
    fc.getResourceURL = () ->
-      "http://api.fannect.me"
+      # "http://api.fannect.me"
       # return "http://192.168.2.14:2100"
       # return "http://192.168.0.24:2100"
-      # return if forge.is.web() then "http://localhost:2100" else "http://api.fannect.me"
+      return if forge.is.web() then "http://localhost:2100" else "http://api.fannect.me"
 
    fc.getLoginURL = () ->
-      "https://fannect-login.herokuapp.com"
+      # "https://fannect-login.herokuapp.com"
       # return "http://192.168.0.24:2200"
-      # return if forge.is.web() then "http://localhost:2200" else "https://fannect-login.herokuapp.com"
+      return if forge.is.web() then "http://localhost:2200" else "https://fannect-login.herokuapp.com"
 
    fc.createPages = () ->
       for i, p of window.fannect.pages
@@ -55,15 +54,20 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
 
                if scroller then scroller.scroller("start")
                forge.flurry.customEvent("#{id} Page", {show: true})
-               # add buttons to native header if mobile
-               if forge.is.mobile() and page.buttons?.length > 0
-                  for button in page.buttons
-                     unless button.click
-                        if button.position == "left"
-                           button.click = vm.leftButtonClick
-                        else 
-                           button.click = vm.rightButtonClick
-                     fc.mobile.addHeaderButton button
+   
+               if forge.is.mobile() 
+                  fc.mobile.clearButtons()
+                  fc.mobile.setupHeader()
+
+                  # add buttons to native header if mobile
+                  if page.buttons?.length > 0
+                     for button in page.buttons
+                        unless button.click
+                           if button.position == "left"
+                              button.click = vm.leftButtonClick
+                           else 
+                              button.click = vm.rightButtonClick
+                        fc.mobile.addHeaderButton button
 
                vm.onPageShow() if vm
 

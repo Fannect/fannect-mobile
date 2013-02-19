@@ -63,4 +63,4 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   else
                      fc.msg.hide()
                      fc.team.updateActive(data)
-                     $.mobile.changePage "profile.html", fc.transition("slideup")
+                     $.mobile.changePage "profile.html", transition: "slideup"

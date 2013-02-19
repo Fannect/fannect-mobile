@@ -36,11 +36,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                type: "GET"
                retry: "forever"
             , (error, data) =>
-               return fc.msg.show("Unable to load game information!") if err
+               return fc.msg.show("Unable to load game information!") if error
                @meta = data.meta
                @face_value(if data.meta?.face_on then "on" else "off")
                @game_data.set(data)
-
 
       onPageShow: () =>
          super

@@ -45,7 +45,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                type: "GET"
                retry: "forever"
             , (error, data) =>
-               return fc.msg.show("Unable to load game information!") if err
+               return fc.msg.show("Unable to load game information!") if error
                
                @game_data.set(data)
                @picked_at_load(data.meta?.picked or false)
