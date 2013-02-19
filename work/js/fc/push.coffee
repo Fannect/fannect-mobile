@@ -11,10 +11,14 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                if message.event == "invite"
                   waiting = () -> $.mobile.changePage "profile-invites.html", transition: "slidedown"
          
-               waiting() if waiting and is_active
+               if waiting and is_active
+                  waiting()
+                  waiting = null
 
       activate: () -> 
          if not is_active
             is_active = true
-            waiting() if waiting
+            if waiting
+               waiting() 
+               waiting = null
 
