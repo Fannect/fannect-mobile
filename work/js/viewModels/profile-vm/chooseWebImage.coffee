@@ -57,7 +57,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   data: image_url: data.url
                , (err, data) =>
                   if err
-                     fc.msg.show("Unable to upload image.")
+                     fc.msg.show("Unable to upload image due to copyright.")
                      @selected = false
                      @images()[@images.indexOf(data)].selected(false)
                   else
