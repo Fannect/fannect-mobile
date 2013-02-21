@@ -57,12 +57,27 @@ block content
          option(value="on") On
 
 block tutorial
-   .tutorial-slider.one
+   .tutorial-slider.two
       .tutorial-item
          .tutorial-content
             .tutorial-close
-            .tutorial-title GAMEFACE
+            .tutorial-next
+            .tutorial-pos-indicator
+               .dot.active
+               .dot
             .tutorial-gameface-sketch
             p Turn on your gameface on gamedays and earn points for keeping your head in the game!
             .tutorial-switch
+
+      .tutorial-item
+         .tutorial-content
+            .tutorial-close
+            .tutorial-done
+            .tutorial-prev
+            .tutorial-pos-indicator
+               .dot
+               .dot.active
+            .tutorial-title SCORING RULES
+            p.scoring Earn one passion point per game by turning your GameFace on!
+            .plus-one
 

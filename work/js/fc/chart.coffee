@@ -121,13 +121,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
 
       _getDomain: () =>
-         max = 0
+         max = 18
          (max = d.val if d.val > max) for d in @data
-
-         if max > 20
-            return [-1.5, max * 1.20]
-         else
-            return [-1, 20]
+         return [-1.5, max * 1.20]
 
       # _createShadow: () =>
       #    shadow = @chart.append("defs").append("filter")
