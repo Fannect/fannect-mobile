@@ -818,12 +818,11 @@ $.TokenList = function (input, url_or_data, settings) {
                 for (var i = results.length - 1; i >= 0; i--) {
                     (function (index) {
                         count++
-                        settings.resultsFilter(results[index], function (item) {
-                            if (item) filteredResults.push(item)
-                            console.log("item", item);
-                            console.log("count", count - 1);
-                            console.log("count", count - 1);
-
+                        settings.resultsFilter(results[index], function (items) {
+                            if (items.length > 0)
+                                for (var i = items.length - 1; i >= 0; i--) {
+                                    filteredResults.push(items[i]);
+                                };
                             if (--count == 0 && i == 0) {
                                 cache.add(cache_key, filteredResults);
                                 populate_dropdown(query, filteredResults);
