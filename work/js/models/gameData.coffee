@@ -23,7 +23,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          @set(data) if data
 
-      set: (data) ->
+      set: (data) =>
          @available data.available or false
          @in_progress data.in_progress or false
          @game_preview data.preview

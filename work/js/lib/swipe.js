@@ -18,6 +18,7 @@
   this.index = this.options.startSlide || 0;
   this.speed = this.options.speed || 300;
   this.callback = this.options.callback || function() {};
+  this.onSlideStart = this.options.onSlideStart || function() {};
   this.delay = this.options.auto || 0;
 
   // reference dom elements
@@ -124,6 +125,8 @@ Swipe.prototype = {
 
   prev: function(delay) {
 
+    this.onSlideStart();
+
     // cancel next scheduled automatic transition, if any
     this.delay = delay || 0;
     clearTimeout(this.interval);
@@ -134,6 +137,8 @@ Swipe.prototype = {
   },
 
   next: function(delay) {
+
+    this.onSlideStart();
 
     // cancel next scheduled automatic transition, if any
     this.delay = delay || 0;
@@ -200,6 +205,8 @@ Swipe.prototype = {
       time: Number( new Date() )
 
     };
+
+    this.onSlideStart();
 
     // used for testing first onTouchMove event
     this.isScrolling = undefined;

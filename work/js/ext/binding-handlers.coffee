@@ -192,13 +192,66 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
                searchingText: false
                resultsFilter: options.filterFn
 
-   # ko.bindingHandlers.scrollerToggle = 
-   #    update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
-   #       $el = $(element)
-   #       if $el.hasClass("ui-scroller")
-   #          if ko.utils.unwrapObservable valueAccessor()
-   #             $el.show().scroller("start")
-   #          else
-   #             $el.hide().scroller("stop")
+   ko.bindingHandlers.swipe = 
+      init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
+         options = ko.utils.unwrapObservable valueAccessor()
+
+         setup = () ->
+            unless $(element).is(":visible")
+               return setTimeout(setup, 10) 
+
+            slider_items = $(element).children()
+            index = 0
+            
+            next = $(".next", element).click (e) ->
+               if slider.getPos() < options.count - 1
+                  e.stopPropagation()
+                  slider.next()
+
+            prev = $(".prev", element).addClass("inactive").click (e) ->
+               if slider.getPos() > 0
+                  e.stopPropagation()
+                  slider.prev()
+
+            title = $(".title", element).text(options.titles[0])
+            sliderElement = $(".swipe-wrap", element).addClass("count-#{options.count}")
+
+            slider = new Swipe sliderElement.get(0), 
+               speed: 500 
+               callback: () ->
+                  # called at the end of every transition
+                  prevIndex = index
+                  index = slider.getPos()
+
+                  active = $(slider_items[index])
+
+                  options.show(index, active.data("is_init") or false)
+                  active.addClass("active").removeClass("inactive").data("is_init", true)
+                  
+                  # Change title
+                  title.text(options.titles[index]).fadeIn(300)
+
+                  if prevIndex != index
+                     options.hide(prevIndex)
+                     $(slider_items[prevIndex]).removeClass("active").addClass("inactive")
+
+                  if index == 0
+                     prev.addClass("inactive")
+                  else
+                     prev.removeClass("inactive")
+
+                  if index == options.count - 1 
+                     next.addClass("inactive")
+                  else
+                     next.removeClass("inactive")
+            
+               onSlideStart: () ->
+                  title.fadeOut 300
+               
+
+         setup()
+
+         
+
 
 

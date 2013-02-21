@@ -41,7 +41,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/attendanceStreak"
                type: "GET"
             , (error, data) =>
-               return fc.msg.show("Unable to load game information!") if err
+               return fc.msg.show("Unable to load game information!") if error
 
                @game_data.set(data)
                @checked_in data.meta?.checked_in
@@ -88,7 +88,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             setTimeout (() => @findUserLocation()), 2000
 
          , (err) ->
-            fc.msg.show("Unable to get your location... :(")
+            fc.msg.show("Unable to get your location. Please make sure that location services are enabled!", 3000)
 
 
 

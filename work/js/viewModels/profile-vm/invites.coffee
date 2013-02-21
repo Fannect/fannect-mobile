@@ -7,7 +7,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @no_invites = ko.observable(false)
          @invites.subscribe () => fc.user.updateInvites(@invites())
          @is_loading = ko.observable(true)
-         @load()
 
       load: () =>
          @loading = true
@@ -84,12 +83,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
                inv.teams_text = text.join ", "
                @invites.push inv 
+               @no_invites(false)
          else
             @no_invites(true)
 
-      rightButtonClick: () => 
-         @load()
+         @loading = false
 
+      rightButtonClick: () => @load()
       shareViaTwitter: () -> fc.share.viaTwitter()
       shareViaEmail: () -> fc.share.viaEmail()
       shareViaSMS: () -> fc.share.viaSMS()

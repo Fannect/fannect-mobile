@@ -13,6 +13,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @rank = ko.observable()
          @breakdown = ko.observableArray() 
          @shout = ko.observable()
+         @shout_date = ko.observable()
          @load()
 
          @showProfileImagePopup = ko.computed () => @editing_image() == "profile"
@@ -20,8 +21,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       load: () =>
          fc.team.subscribe @updateProfile
-         # fc.team.getActive()
-
+         
       updateProfile: (profile) =>
          return unless profile
 
@@ -38,6 +38,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @rank profile.rank or 0
          @shout profile.shouts?[0]?.text or "...silence..."
 
+         if profile.shouts?[0]?._id
+            # Check if the person just shouted
+            if not ((date = profile.shouts?[0]?._id) instanceof Date)
+               date = new Date(parseInt(date.toString().substring(0,8), 16) * 1000)
+            @shout_date dateFormat(date, " mm/dd/yyyy h:MM TT")
+            
          # Add chart data
          @breakdown.removeAll()
          @breakdown.push
@@ -65,6 +71,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super
          setTimeout (() -> forge.launchimage.hide() if forge.is.mobile()), 200
          fc.team.refreshActive()
+         fc.push.activate()
          @_addHeaderButtons() if forge.is.mobile()
 
       selectTeam: () -> $.mobile.changePage "profile-selectTeam.html", fc.transition("slide")
@@ -73,6 +80,24 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       cancelImagePicking: () => @editing_image "none"
       isEditable: () -> return true
 
+      startShouting: () =>
+         if @isEditable()
+            $.mobile.changePage "profile-shout.html", fc.transition("slideup")
+
+
+      # HANDLING SLIDER
+      secondaryHide: (index) =>
+         console.log "HIDE INDEX", index
+
+      secondaryShow: (index, has_init) =>
+
+
+         console.log "SHOW INDEX", index
+         console.log "FIRST SHOW", has_init
+
+      secondaryTitles: ["Fan DNA", "else"]
+
+      # HANDLING IMAGES
       pullTwitterImage: () =>
 
          getImage = () =>
@@ -95,10 +120,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             return fc.msg.show("Unable to pull to fetch profile!") if err
             if user?.twitter then getImage()
             else fc.user.linkTwitter (err, success) => getImage() if success
-
-      startShouting: () =>
-         if @isEditable()
-            $.mobile.changePage "profile-shout.html", fc.transition("slideup")
 
       takeImage: (data, e) =>
          if @isEditable()

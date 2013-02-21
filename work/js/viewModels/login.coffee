@@ -10,7 +10,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.auth.isLoggedIn (err, is_logged_in) =>
             @is_checking_login = false
             if is_logged_in
-               $.mobile.changePage "profile.html", fc.transition("none")
+               $.mobile.changePage "profile.html", transition: "none"
             else
                forge.launchimage.hide() if forge.is.mobile()
  
@@ -33,9 +33,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          return if @is_checking_login
          fc.auth.isLoggedIn (err, is_logged_in) =>
             if is_logged_in
-               $.mobile.changePage "profile.html", fc.transition("none")
+               $.mobile.changePage "profile.html", transition: "none"
             else
                forge.launchimage.hide() if forge.is.mobile()
 
       rightButtonClick: () =>
-         $.mobile.changePage "createAccount.html", fc.transition("slide")
+         $.mobile.changePage "createAccount.html", transition: "slide"

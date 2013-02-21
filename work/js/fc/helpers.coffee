@@ -14,7 +14,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
          $(".footer ." + menu + "-menu").addClass("ui-btn-active").addClass("ui-btn-persist")
       else
          fc.mobile.setActiveMenu menu
-         fc.mobile.setupHeader()
 
    fc.getResourceURL = () ->
       "http://api.fannect.me"
@@ -55,15 +54,20 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
 
                if scroller then scroller.scroller("start")
                forge.flurry.customEvent("#{id} Page", {show: true})
-               # add buttons to native header if mobile
-               if forge.is.mobile() and page.buttons?.length > 0
-                  for button in page.buttons
-                     unless button.click
-                        if button.position == "left"
-                           button.click = vm.leftButtonClick
-                        else 
-                           button.click = vm.rightButtonClick
-                     fc.mobile.addHeaderButton button
+   
+               if forge.is.mobile() 
+                  fc.mobile.clearButtons()
+                  fc.mobile.setupHeader()
+
+                  # add buttons to native header if mobile
+                  if page.buttons?.length > 0
+                     for button in page.buttons
+                        unless button.click
+                           if button.position == "left"
+                              button.click = vm.leftButtonClick
+                           else 
+                              button.click = vm.rightButtonClick
+                        fc.mobile.addHeaderButton button
 
                vm.onPageShow() if vm
 

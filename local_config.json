@@ -26,8 +26,8 @@
                 "developer_certificate": "Hunter Browning"
             }, 
             "DEFAULT": {
-                "provisioning_profile": "ad_hoc.mobileprovision", 
-                "developer_certificate": "Hunter Browning"
+                "provisioning_profile": "dev.mobileprovision", 
+                "developer_certificate": "Hunter Browning (53E563684P)"
             }
         }
     }

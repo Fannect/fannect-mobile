@@ -188,6 +188,9 @@ window.fannect.pages =
    ###
    # Settings
    ###
+   "settings-page":
+      classes: []
+
    "settings-removeProfiles-page":
       vm: vm.Settings.RemoveProfiles
       classes: ["dark-background"]

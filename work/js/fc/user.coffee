@@ -100,6 +100,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       else
          vm = new fc.viewModels.Profile.Other options
          ko.applyBindings vm, @
+         fc.mobile.setupHeader()
+         fc.mobile.clearButtons()
          fc.mobile.addHeaderButton
             position: "left"
             type: "back"

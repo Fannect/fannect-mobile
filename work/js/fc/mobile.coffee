@@ -1,4 +1,7 @@
 do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect) ->
+   left_header_button = null
+   right_header_button = null
+
    fc.mobile =
       _buttons: {}
       _waiting_to_activate: null
@@ -18,8 +21,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                fc.mobile._waiting_to_activate = null
 
             button.onPressed.addListener () ->
-               forge.flurry.customEvent("#{text} Menu")
-               $.mobile.changePage target, fc.transition("none")
+               forge.flurry.customEvent("#{text} Menu", show: true)
+               $.mobile.changePage target, transition: "none"
          
       createButtons: () -> 
          return if fc.mobile._header_added
@@ -50,13 +53,28 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             leftButton = $("a[data-rel=back]", header)
 
             if leftButton.length > 0
-               forge.topbar.addButton
+               fc.mobile.addHeaderButton
                   text: leftButton.text()
                   position: "left"
                   style: "back"
-               , () -> $.mobile.back()
+                  click: () -> $.mobile.back()
+
+      clearButtons: (position) ->
+         leftHeaderButton = null
+         rightHeaderButton = null
 
       addHeaderButton: (options, click) ->
          if forge.is.mobile()
-            cb = cb or options.click
-            forge.topbar.addButton options, cb
+            options.click = click or options.click
+            
+            leftHeaderButton = options if options.position == "left"
+            rightHeaderButton = options if options.position == "right"
+
+            forge.topbar.addButton options, options.click, (err) ->
+               if err
+                  forge.topbar.removeButtons () ->
+                     fc.mobile.addHeaderButton leftHeaderButton if leftHeaderButton
+                     fc.mobile.addHeaderButton rightHeaderButton if rightHeaderButton
+
+
+

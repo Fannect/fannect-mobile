@@ -6,6 +6,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @is_friend = ko.observable(false)
          @showSentPopup = ko.observable(false)
          @showAcceptedPopup = ko.observable(false)
+         @showAlreadySentPopup = ko.observable(false)
          super
 
       load: () =>
@@ -61,8 +62,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             url: "#{fc.getResourceURL()}/v1/me/invites"
             type: "POST"
             data: user_id: @options.user_id 
-         , (err, data) => 
-            throw(err) if err
+         , (err, data) =>
             @showAcceptedPopup(true) if data.status == "success" 
 
       _sendInvite: () =>
@@ -75,7 +75,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   type: "POST"
                   data: inviter_user_id: user._id
                , (err, data) =>
-                  throw err if err
+                  @showAlreadySentPopup(true) if err
                   @showSentPopup(true) if data.status == "success" 
                
       _hideRightButton: () =>

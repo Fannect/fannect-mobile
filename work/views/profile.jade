@@ -56,16 +56,25 @@ block content
       .shout-quote-left
       .shout-quote-right
       .shout-text(data-bind="text: shout")
+      .shout-date(data-bind="text: shout_date")
       
-   .fan-dna-separator
+   .secondary-slider.swipe-slider(data-bind="swipe: { hide: secondaryHide, show: secondaryShow, count: 2, titles: secondaryTitles }")
+      .swipe-header
+         .title
+         .next
+         .prev
+      .swipe-wrap
+         .swipe-content
+            .swipe-item
+               .graph-wrapper
+                  .breakdown(data-bind="chart: breakdown")
+            .swipe-item
+               p here is some junk
+               
+   //- .fan-dna-separator
 
-   .graph-wrapper
-      .breakdown(data-bind="chart: breakdown")
-   //- .graph-base
-   //-    .highlight
-   //-    span.passion Passion
-   //-    span.dedication Dedication
-   //-    span.knowledge Knowledge
+   //- .graph-wrapper
+   //-    .breakdown(data-bind="chart: breakdown")
 
 block tutorial
    .tutorial-slider.four

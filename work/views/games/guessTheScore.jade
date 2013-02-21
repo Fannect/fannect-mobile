@@ -5,12 +5,12 @@ block header
    a(href="games", data-icon="back", data-rel="back", data-theme="b") Games
    a.tutorial-link(href="#", data-iconpos="notext", data-icon="custom", data-theme="b")
 
-   .scorePointsInfoPopup(data-role="popup", style="width:260px; text-align: center;", class="ui-corner-all", data-overlay-theme="a", data-theme="a")
+   #guessTheScorePointsPopup.scorePointsInfoPopup(data-role="popup", style="width:260px; text-align: center;", class="ui-corner-all", data-overlay-theme="a", data-theme="a")
       .ui-corner-top(data-role="header", data-theme="b")
          h1 Scoring
       .ui-corner-bottom.ui-content(data-role="content", data-theme="a", style)
          h3.ui-title Points and rank will be calculated late every night! Check back tomorrow for updates!
-         a(data-role="button", href="javascript:window.fannect.hideScoringPopup();return false;") Ok
+         a(data-role="button", href="javascript:window.fannect.hideScoringPopup();") Ok
 
 block content
    form.scrollable-content(action="/points/guessTheScore", method="post", data-ajax="false")
@@ -71,11 +71,88 @@ block content
          .text(data-bind="html: game_data.game_preview")
 
 block tutorial
-   .tutorial-slider.one
+   .tutorial-slider.two
       .tutorial-item
          .tutorial-content
             .tutorial-close
-            .tutorial-title GUESS THE SCORE
+            .tutorial-next
+            .tutorial-pos-indicator
+               .dot.active
+               .dot
+               .dot
             .tutorial-score-picker
             p Use these selectors to submit your score prediction before the game begins!
             .tutorial-submit-button
+      .tutorial-item
+         .tutorial-content
+            .tutorial-close
+            .tutorial-next
+            .tutorial-prev
+            .tutorial-pos-indicator
+               .dot
+               .dot.active
+               .dot
+            .tutorial-title SCORING RULES
+            p.large We take the total difference of your home and away scores from the real scores and award knowledge points based on our breakdown on the following page.
+
+      .tutorial-item
+         .tutorial-content
+            .tutorial-close
+            .tutorial-done
+            .tutorial-prev
+            .tutorial-pos-indicator
+               .dot
+               .dot
+               .dot.active
+            .tutorial-title.breakdown BREAKDOWN
+               
+            //- basketball
+            .tutorial-points-table(data-bind="visible: sport_key() == '15008000'")
+               .score-differentials
+                  .differential 0
+                  .differential 1-5
+                  .differential 6-10
+                  .differential 11-15
+                  .differential 16-18
+                  .differential 19+
+
+            //- football
+            .tutorial-points-table(data-bind="visible: sport_key() == '15003000'")
+               .score-differentials
+                  .differential 0
+                  .differential 1-3
+                  .differential 4-6
+                  .differential 7-13
+                  .differential 14-18
+                  .differential 19+
+
+            //- baseball
+            .tutorial-points-table(data-bind="visible: sport_key() == '15007000'")
+               .score-differentials
+                  .differential 0
+                  .differential 1
+                  .differential 2
+                  .differential 3
+                  .differential 4
+                  .differential 5+
+
+            //- soccer
+            .tutorial-points-table-4(data-bind="visible: sport_key() == '15054000'")
+               .score-differentials
+                  .differential 0
+                  .differential 1-2
+                  .differential 3-4
+                  .differential 5+
+
+            //- hockey
+            .tutorial-points-table-4(data-bind="visible: sport_key() == '15031000'")
+               .score-differentials
+                  .differential 0
+                  .differential 1-2
+                  .differential 3-4
+                  .differential 5+
+
+
+
+
+      
