@@ -13,6 +13,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @rank = ko.observable()
          @breakdown = ko.observableArray() 
          @shout = ko.observable()
+         @shout_date = ko.observable()
          @load()
 
          @showProfileImagePopup = ko.computed () => @editing_image() == "profile"
@@ -37,6 +38,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @rank profile.rank or 0
          @shout profile.shouts?[0]?.text or "...silence..."
 
+         if profile.shouts?[0]?._id
+            # Check if the person just shouted
+            if not ((date = profile.shouts?[0]?._id) instanceof Date)
+               date = new Date(parseInt(date.toString().substring(0,8), 16) * 1000)
+            @shout_date dateFormat(date, " mm/dd/yyyy h:MM TT")
+            
          # Add chart data
          @breakdown.removeAll()
          @breakdown.push
