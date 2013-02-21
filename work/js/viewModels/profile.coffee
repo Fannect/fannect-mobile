@@ -80,6 +80,24 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       cancelImagePicking: () => @editing_image "none"
       isEditable: () -> return true
 
+      startShouting: () =>
+         if @isEditable()
+            $.mobile.changePage "profile-shout.html", fc.transition("slideup")
+
+
+      # HANDLING SLIDER
+      secondaryHide: (index) =>
+         console.log "HIDE INDEX", index
+
+      secondaryShow: (index, has_init) =>
+
+
+         console.log "SHOW INDEX", index
+         console.log "FIRST SHOW", has_init
+
+      secondaryTitles: ["Fan DNA", "else"]
+
+      # HANDLING IMAGES
       pullTwitterImage: () =>
 
          getImage = () =>
@@ -102,10 +120,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             return fc.msg.show("Unable to pull to fetch profile!") if err
             if user?.twitter then getImage()
             else fc.user.linkTwitter (err, success) => getImage() if success
-
-      startShouting: () =>
-         if @isEditable()
-            $.mobile.changePage "profile-shout.html", fc.transition("slideup")
 
       takeImage: (data, e) =>
          if @isEditable()

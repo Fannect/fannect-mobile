@@ -236,7 +236,44 @@
          height: 151px
          margin: 0 auto
          padding-top: 12px
-   
+
+   .secondary-slider
+      margin-top: 20px
+      .swipe-header
+         position:relative
+         background: url(../images/profile/profile_SectionSwitch.png)
+         background-size: 312px 55px
+         width: 312px
+         height: 55px
+         margin: 0 auto
+         .title
+            font-size
+            position:absolute
+            height: 52px
+            text-align:center
+            left: 50px
+            right: 50px
+            line-height: 52px
+            font-family: JerseyM54, Helvetica, Arial
+            font-size: 1.3em
+         .next
+            background: url(../images/profile/rightArrow_Active.png) 50% 50% no-repeat
+            right: 2px
+            &.inactive
+               background: url(../images/profile/rightArrow_Inactive.png) 50% 50% no-repeat
+         .prev
+            background: url(../images/profile/leftArrow_Active.png) 50% 50% no-repeat
+            left: 2px
+            &.inactive
+               background: url(../images/profile/leftArrow_Inactive.png) 50% 50% no-repeat
+         .next
+         .prev
+            position: absolute
+            background-size: 13px 20px !important
+            width: 47px
+            height: 52px
+            top: 0
+
 #profile-page
 #settings-page
    .tutorial-welcome
@@ -394,6 +431,19 @@
          background-image: url(../images/profile/leftShoutQuote@2x.png)!important
       .shout-quote-right
          background-image: url(../images/profile/rightShoutQuote@2x.png)!important
+
+      .secondary-slider
+         .swipe-header
+            background-image: url(../images/profile/profile_SectionSwitch@2x.png)!important
+         .next
+            background-image: url(../images/profile/rightArrow_Active@2x.png)!important
+            &.inactive
+               background-image: url(../images/profile/rightArrow_Inactive@2x.png)!important
+         .prev
+            background-image: url(../images/profile/leftArrow_Active@2x.png)!important
+            &.inactive
+               background-image: url(../images/profile/leftArrow_Inactive@2x.png)!important
+
    #profile-shout-page
       .shout-text
          background-image: url(../images/shout/shout_textBox@2x.png)!important

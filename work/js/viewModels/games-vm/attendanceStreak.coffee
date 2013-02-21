@@ -88,7 +88,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             setTimeout (() => @findUserLocation()), 2000
 
          , (err) ->
-            fc.msg.show("Unable to get your location... :(")
+            fc.msg.show("Unable to get your location. Please make sure that location services are enabled!", 3000)
 
 
 
