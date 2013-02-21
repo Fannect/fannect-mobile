@@ -3,13 +3,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
    class fc.viewModels.Games.GuessTheScore extends fc.viewModels.Base 
       constructor: () ->
          super
-
          @game_data = new fc.models.GameData()
          @picked_at_load = ko.observable()
          @pick_set = ko.observable()
          @home_score = ko.observable()
          @away_score = ko.observable()
-         @scroller_text = ko.observable("Guess the Score can only be play on game days!")
+         @sport_key = ko.observable("15008000") # defaults to basketball
          @input_valid = ko.computed () =>
             return @home_score() >= 0 and @away_score() >= 0
 
@@ -39,6 +38,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       load: () =>
          fc.team.getActive (err, profile) =>
             return fc.msg.show("Unable to load game information!") if err
+
+            @sport_key(profile.sport_key) if profile?.sport_key?.length > 0
 
             fc.ajax 
                url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/guessTheScore"
