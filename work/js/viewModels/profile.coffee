@@ -14,6 +14,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @breakdown = ko.observableArray() 
          @shout = ko.observable()
          @shout_date = ko.observable()
+         @next_game = ko.observable(new fc.models.NextGame())
          @load()
 
          @showProfileImagePopup = ko.computed () => @editing_image() == "profile"
@@ -85,17 +86,37 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             $.mobile.changePage "profile-shout.html", fc.transition("slideup")
 
 
+      sliderOptions: () =>
+         if @isEditable()
+            return { 
+               hide: @sliderHide, 
+               show: @sliderShow, 
+               count: 2, 
+               titles: [ "Next Game", "Fan DNA" ] 
+            }
+         else
+            return { 
+               hide: @sliderHide, 
+               show: @sliderShow, 
+               count: 1, 
+               titles: [ "Fan DNA" ] 
+            }
+
       # HANDLING SLIDER
-      secondaryHide: (index) =>
+      sliderHide: (index) =>
          console.log "HIDE INDEX", index
 
-      secondaryShow: (index, has_init) =>
+      sliderShow: (index, has_init) =>
+         index++ unless @isEditable()
 
-
-         console.log "SHOW INDEX", index
-         console.log "FIRST SHOW", has_init
-
-      secondaryTitles: ["Fan DNA", "else"]
+         if index == 0 and not has_init
+            fc.team.getActive (err, profile) =>
+               fc.ajax
+                  url: "#{fc.getResourceURL()}/v1/teams/#{profile.team_id}?content=next_game"
+                  cache: true
+               , (err, next_game) =>
+                  @next_game().set(next_game)
+                  @next_game.valueHasMutated()
 
       # HANDLING IMAGES
       pullTwitterImage: () =>

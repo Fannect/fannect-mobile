@@ -213,42 +213,44 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
                   e.stopPropagation()
                   slider.prev()
 
-            title = $(".title", element).text(options.titles[0])
+            title = $(".title", element)
             sliderElement = $(".swipe-wrap", element).addClass("count-#{options.count}")
+
+            onSlideEnd = () ->
+               # called at the end of every transition
+               prevIndex = index
+               index = slider.getPos()
+
+               active = $(slider_items[index])
+
+               options.show(index, active.data("is_init") or false)
+               active.addClass("active").removeClass("inactive").data("is_init", true)
+               
+               # Change title
+               title.text(options.titles[index]).fadeIn(300)
+
+               if prevIndex != index
+                  options.hide(prevIndex)
+                  $(slider_items[prevIndex]).removeClass("active").addClass("inactive")
+
+               if index == 0
+                  prev.addClass("inactive")
+               else
+                  prev.removeClass("inactive")
+
+               if index == options.count - 1 
+                  next.addClass("inactive")
+               else
+                  next.removeClass("inactive")
 
             slider = new Swipe sliderElement.get(0), 
                speed: 500 
-               callback: () ->
-                  # called at the end of every transition
-                  prevIndex = index
-                  index = slider.getPos()
-
-                  active = $(slider_items[index])
-
-                  options.show(index, active.data("is_init") or false)
-                  active.addClass("active").removeClass("inactive").data("is_init", true)
-                  
-                  # Change title
-                  title.text(options.titles[index]).fadeIn(300)
-
-                  if prevIndex != index
-                     options.hide(prevIndex)
-                     $(slider_items[prevIndex]).removeClass("active").addClass("inactive")
-
-                  if index == 0
-                     prev.addClass("inactive")
-                  else
-                     prev.removeClass("inactive")
-
-                  if index == options.count - 1 
-                     next.addClass("inactive")
-                  else
-                     next.removeClass("inactive")
-            
+               callback: onSlideEnd
                onSlideStart: () ->
                   title.fadeOut 300
-               
 
+            onSlideEnd()
+               
          setup()
 
          

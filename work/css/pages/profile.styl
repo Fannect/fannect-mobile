@@ -230,12 +230,66 @@
       background-size: 298px 208px
       width: 298px
       height: 208px
-      margin: -3px auto 0
+      margin: 0 auto
       .breakdown 
          width: 220px
          height: 151px
          margin: 0 auto
          padding-top: 12px
+
+   .next-game
+      position: relative
+      background: url(../images/profile/nextGame.png)
+      background-size: 292px 183px
+      width: 292px
+      height: 183px
+      margin: 4px auto 0
+      
+      .game-date
+         position:absolute
+         top: 12px
+         left: 41px
+         right: 26px
+         text-align: center
+      .team-wrap
+         position:absolute
+         display:table
+         top: 56px
+         width: 110px
+         height: 44px
+         text-align: center
+         font-size: 12px
+         &.away
+            right: 15px
+         &.home
+            left: 17px
+      .team-name
+         display:table-cell
+         vertical-align: middle
+      .stadium-name
+      .stadium-location
+      .time-and-coverage-wrap
+         position:absolute
+         text-align:center
+         left: 17px
+         right: 15px
+      .stadium-name
+         font-size: 11px
+         top: 102px
+      .stadium-location
+         color: #999
+         font-size: 10px
+         top: 118px
+      .time-and-coverage-wrap
+         display:table
+         top: 129px
+         font-size: 12px
+         height: 30px
+         width: 260px
+         .time-and-coverage
+            display: table-cell
+            vertical-align: middle
+            font-weight: lighter
 
    .secondary-slider
       margin-top: 20px
@@ -256,6 +310,7 @@
             line-height: 52px
             font-family: JerseyM54, Helvetica, Arial
             font-size: 1.3em
+            color: #c0c0c0
          .next
             background: url(../images/profile/rightArrow_Active.png) 50% 50% no-repeat
             right: 2px
@@ -431,6 +486,9 @@
          background-image: url(../images/profile/leftShoutQuote@2x.png)!important
       .shout-quote-right
          background-image: url(../images/profile/rightShoutQuote@2x.png)!important
+
+      .next-game
+         background-image: url(../images/profile/nextGame@2x.png)!important
 
       .secondary-slider
          .swipe-header

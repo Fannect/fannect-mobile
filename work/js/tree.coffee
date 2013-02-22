@@ -23,6 +23,7 @@
 #= require "fc/user.coffee"
 
 #= require "models/gameData.coffee"
+#= require "models/nextGame.coffee"
 
 #= require "ext/binding-handlers.coffee"
 #= require "ext/text-scroller.coffee"
