@@ -3,7 +3,7 @@
       .icon
          position: relative
          float: left
-         top: 4px
+         top: 5px
          left: 5px
       a
          margin-left: 28px
@@ -24,7 +24,28 @@
    &.privacy
       background-position: -136px 0
 
+#settings-manageProfiles-page
+   .dark-pattern-bg span 
+      margin-left: 52px
+   .sport-icon
+      left: 40px
+   .left-icon
+      position: absolute
+      top: 0
+      left: -2px
+      bottom: 0
+      width: 38px            
+      margin: 0
+      &.cancel
+         background: url(../images/icons/Button_Delete.png) 50% 50% no-repeat
+         background-size: 19px 19px
+
 #settings-privacy-page
    color: #888
    text-shadow: none
    font-size: .8em
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5)
+   #settings-manageProfiles-page
+      .left-icon.cancel
+         background-image: url(../images/icons/Button_Delete@2x.png)

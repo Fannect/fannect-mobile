@@ -81,6 +81,17 @@ block content
             .swipe-item
                .graph-wrapper
                   .breakdown(data-bind="chart: breakdown")
+            .swipe-item
+               .activity
+                  .activity-list(data-bind="foreach: events.events")
+                     .activity-item
+                        .activity-icon(data-bind="setClass: type")
+                        .points(data-bind="html: points_text, setClass: points_category")
+                        .summary(data-bind="html: summary")
+                        .date(data-bind="text: date_text")
+                  .no-activity(data-bind="fadeIn: !events.has_more() && events.events().length == 0", style="display:none;") No activity here!
+                  a.load-more(data-role="button", data-mini="true", data-bind="fadeIn: events.has_more() && !events.is_loading(), hideInstant: true, click: events.load, showClick: true", style="display:none;") Load More
+                  .loading-more-indicator(data-bind="visible: events.is_loading")
 
    //- .fan-dna-separator
 
@@ -131,7 +142,7 @@ block tutorial
                .dot
             p.left Upload your profile picture here so other fans know who you are
             .tutorial-profile-sketch
-            p.left Show your spirit by uploading a team photo or logo for your favorite team here
+            p.left Show your spirit by uploading a team photo for your favorite team here
       .tutorial-item
          .tutorial-content
             .tutorial-close

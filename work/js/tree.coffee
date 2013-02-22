@@ -24,6 +24,7 @@
 
 #= require "models/gameData.coffee"
 #= require "models/nextGame.coffee"
+#= require "models/events.coffee"
 
 #= require "ext/binding-handlers.coffee"
 #= require "ext/text-scroller.coffee"
@@ -67,7 +68,7 @@
 #= require "viewModels/leaderboard-vm/myRoster.coffee"
 #= require "viewModels/leaderboard-vm/overallFans.coffee"
 
-#= require "viewModels/settings-vm/removeProfiles.coffee"
+#= require "viewModels/settings-vm/manageProfiles.coffee"
 #= require "viewModels/settings-vm/account.coffee"
 #= require "viewModels/settings-vm/manageAccounts.coffee"
 

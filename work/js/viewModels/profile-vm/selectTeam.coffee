@@ -5,6 +5,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super 
          @teams = ko.observableArray []
          @is_loading = ko.observable(true)
+         @load()
          
       load: (done) =>
          @is_loading(true)
@@ -21,13 +22,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   @teams.push(team) 
             else 
                fc.cache.set("no_team_profile", true)
-               $.mobile.changePage "profile-selectTeam-chooseSport.html", fc.transition("slide")
+               $.mobile.changePage "profile-selectTeam-chooseSport.html", transition: "slide"
 
       selectTeam: (data) ->
          fc.team.setActive data._id, (err) ->
-            $.mobile.changePage "profile.html", fc.transition("slideup")
+            $.mobile.changePage "profile.html", transition: "slideup"
 
       rightButtonClick: () ->
-         $.mobile.changePage "profile-selectTeam-chooseSport.html", fc.transition("slide")
-
-      onPageShow: () => @load()
+         $.mobile.changePage "profile-selectTeam-chooseSport.html", transition: "slide"

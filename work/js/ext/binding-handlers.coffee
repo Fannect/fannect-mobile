@@ -144,7 +144,7 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
    ko.bindingHandlers.setClass = 
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
          c = ko.utils.unwrapObservable valueAccessor()
-         $(element).addClass(c)
+         $(element).addClass(c?.replace(/_/g,"-"))
 
    ko.bindingHandlers.thumbnailSrc =
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
@@ -200,7 +200,6 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
             unless $(element).is(":visible")
                return setTimeout(setup, 10) 
 
-            slider_items = $(element).children()
             index = 0
             
             next = $(".next", element).click (e) ->
@@ -215,15 +214,16 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
 
             title = $(".title", element)
             sliderElement = $(".swipe-wrap", element).addClass("count-#{options.count}")
-
-            onSlideEnd = () ->
+            
+            onSlideEnd = (e, i, active) ->
                # called at the end of every transition
                prevIndex = index
-               index = slider.getPos()
+               index = i
 
-               active = $(slider_items[index])
+               active = $(active)
 
                options.show(index, active.data("is_init") or false)
+               $(slider.slides).removeClass("active").addClass("inactive")
                active.addClass("active").removeClass("inactive").data("is_init", true)
                
                # Change title
@@ -231,7 +231,6 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
 
                if prevIndex != index
                   options.hide(prevIndex)
-                  $(slider_items[prevIndex]).removeClass("active").addClass("inactive")
 
                if index == 0
                   prev.addClass("inactive")
@@ -249,7 +248,7 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
                onSlideStart: () ->
                   title.fadeOut 300
 
-            onSlideEnd()
+            onSlideEnd(null, slider.getPos(), slider.element)
                
          setup()
 
