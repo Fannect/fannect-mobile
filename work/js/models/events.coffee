@@ -86,7 +86,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
             for event in events
                # continue if there is not enough information to display event
-               continue unless event.meta.team_name?
+               # continue unless event.meta.team_name?
 
                for e in @events()
                   dupl = false

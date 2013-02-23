@@ -14,6 +14,16 @@ html
       link(rel="stylesheet", href="css/lib/token-input.css")
       link(rel="stylesheet", href="css/skin.css")
 
+      script(type="text/javascript")
+         window.mapsInitialized = function () {
+            if (window.fannect && window.fannect.maps) {
+               window.fannect.maps._hasLoaded = true
+               window.fannect.maps.notify()
+            } else
+               window.mapsLoaded = true
+            
+         };
+
       script(src="js/d3.js")
       script(src="js/tree.js")
 

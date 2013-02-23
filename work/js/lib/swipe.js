@@ -88,6 +88,7 @@ Swipe.prototype = {
     }
 
     // set start position and force translate to remove initial flickering
+    this.hasMovement = true
     this.slide(this.index, 0); 
 
     // restore the visibility of the slider element
@@ -114,6 +115,8 @@ Swipe.prototype = {
     // set new index to allow for expression arguments
     this.index = index;
 
+    if (!this.hasMovement) this.callback(null, this.index, this.slides[this.index]);
+    this.hasMovement = false
   },
 
   getPos: function() {
@@ -254,13 +257,15 @@ Swipe.prototype = {
       // translate immediately 1-to-1
       this.element.style.MozTransform = this.element.style.webkitTransform = 'translate3d(' + (this.deltaX - this.index * this.width) + 'px,0,0)';
       
+      this.hasMovement = true
+
       e.stopPropagation();
     }
 
   },
 
   onTouchEnd: function(e) {
-
+    
     // determine if slide attempt triggers next/prev slide
     var isValidSlide = 
           Number(new Date()) - this.start.time < 250      // if slide duration is less than 250ms
