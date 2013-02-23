@@ -144,7 +144,7 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
    ko.bindingHandlers.setClass = 
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
          c = ko.utils.unwrapObservable valueAccessor()
-         $(element).addClass(c)
+         $(element).addClass(c?.replace(/_/g,"-"))
 
    ko.bindingHandlers.thumbnailSrc =
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
@@ -200,7 +200,6 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
             unless $(element).is(":visible")
                return setTimeout(setup, 10) 
 
-            slider_items = $(element).children()
             index = 0
             
             next = $(".next", element).click (e) ->
@@ -213,42 +212,44 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
                   e.stopPropagation()
                   slider.prev()
 
-            title = $(".title", element).text(options.titles[0])
+            title = $(".title", element)
             sliderElement = $(".swipe-wrap", element).addClass("count-#{options.count}")
+            
+            onSlideEnd = (e, i, active) ->
+               # called at the end of every transition
+               prevIndex = index
+               index = i
+
+               active = $(active)
+
+               options.show(index, active.data("is_init") or false)
+               $(slider.slides).removeClass("active").addClass("inactive")
+               active.addClass("active").removeClass("inactive").data("is_init", true)
+               
+               # Change title
+               title.text(options.titles[index]).stop().fadeIn({ opacity: 1 }, 300)
+
+               if prevIndex != index
+                  options.hide(prevIndex)
+
+               if index == 0
+                  prev.addClass("inactive")
+               else
+                  prev.removeClass("inactive")
+
+               if index == options.count - 1 
+                  next.addClass("inactive")
+               else
+                  next.removeClass("inactive")
 
             slider = new Swipe sliderElement.get(0), 
                speed: 500 
-               callback: () ->
-                  # called at the end of every transition
-                  prevIndex = index
-                  index = slider.getPos()
-
-                  active = $(slider_items[index])
-
-                  options.show(index, active.data("is_init") or false)
-                  active.addClass("active").removeClass("inactive").data("is_init", true)
-                  
-                  # Change title
-                  title.text(options.titles[index]).fadeIn(300)
-
-                  if prevIndex != index
-                     options.hide(prevIndex)
-                     $(slider_items[prevIndex]).removeClass("active").addClass("inactive")
-
-                  if index == 0
-                     prev.addClass("inactive")
-                  else
-                     prev.removeClass("inactive")
-
-                  if index == options.count - 1 
-                     next.addClass("inactive")
-                  else
-                     next.removeClass("inactive")
-            
+               callback: onSlideEnd
                onSlideStart: () ->
-                  title.fadeOut 300
-               
+                  title.fadeOut 300 unless title.is(':animated')
 
+            onSlideEnd(null, slider.getPos(), slider.element)
+               
          setup()
 
          

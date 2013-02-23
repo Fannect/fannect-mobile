@@ -14,6 +14,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @breakdown = ko.observableArray() 
          @shout = ko.observable()
          @shout_date = ko.observable()
+         @next_game = ko.observable(new fc.models.NextGame())
+         @events = new fc.models.Events()
          @load()
 
          @showProfileImagePopup = ko.computed () => @editing_image() == "profile"
@@ -28,6 +30,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          if @isEditable()
             profile.profile_image_url = "images/profile/Profile_tapToAddProfilePhoto@2x.png" unless profile.profile_image_url?.length > 2
             profile.team_image_url = "images/profile/Profile_tapToAddTeamPhoto@2x.png" unless profile.team_image_url?.length > 2
+            @events.setup(profile._id, "You")
+         else
+            @events.setup(profile._id, profile.name)
 
          @name profile.name or "&nbsp;"
          @profile_image profile.profile_image_url or ""
@@ -37,11 +42,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @points profile.points?.overall or 0
          @rank profile.rank or 0
          @shout profile.shouts?[0]?.text or "...silence..."
-
+        
          if profile.shouts?[0]?._id
             # Check if the person just shouted
             if not ((date = profile.shouts?[0]?._id) instanceof Date)
-               date = new Date(parseInt(date.toString().substring(0,8), 16) * 1000)
+               date = fc.parseId(date)
             @shout_date dateFormat(date, " mm/dd/yyyy h:MM TT")
             
          # Add chart data
@@ -85,17 +90,40 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             $.mobile.changePage "profile-shout.html", fc.transition("slideup")
 
 
+      sliderOptions: () =>
+         if @isEditable()
+            return { 
+               hide: @sliderHide, 
+               show: @sliderShow, 
+               count: 3, 
+               titles: [ "Next Game", "Fan DNA", "Activity" ] 
+            }
+         else
+            return { 
+               hide: @sliderHide, 
+               show: @sliderShow, 
+               count: 2, 
+               titles: [ "Fan DNA", "Activity" ] 
+            }
+
       # HANDLING SLIDER
-      secondaryHide: (index) =>
-         console.log "HIDE INDEX", index
+      sliderHide: (index) =>
 
-      secondaryShow: (index, has_init) =>
+      sliderShow: (index, has_init) =>
+         index++ unless @isEditable()
 
+         if index == 0 and not has_init
+            fc.team.getActive (err, profile) =>
+               fc.ajax
+                  url: "#{fc.getResourceURL()}/v1/teams/#{profile.team_id}?content=next_game"
+                  cache: true
+               , (err, next_game) =>
+                  @next_game().set(next_game)
+                  @next_game.valueHasMutated()
 
-         console.log "SHOW INDEX", index
-         console.log "FIRST SHOW", has_init
+         if index == 2 and not has_init
+            @events.load()
 
-      secondaryTitles: ["Fan DNA", "else"]
 
       # HANDLING IMAGES
       pullTwitterImage: () =>

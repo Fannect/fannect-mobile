@@ -58,19 +58,41 @@ block content
       .shout-text(data-bind="text: shout")
       .shout-date(data-bind="text: shout_date")
       
-   .secondary-slider.swipe-slider(data-bind="swipe: { hide: secondaryHide, show: secondaryShow, count: 2, titles: secondaryTitles }")
+   .secondary-slider.swipe-slider(data-bind="swipe: sliderOptions()")
       .swipe-header
          .title
          .next
          .prev
       .swipe-wrap
          .swipe-content
+            // ko if: isEditable()
+            .swipe-item
+               .next-game
+                  .game-date(data-bind="text: next_game().game_date")
+                  .team-wrap.home
+                     .team-name(data-bind="text: next_game().home_team")
+                  .team-wrap.away
+                     .team-name(data-bind="text: next_game().away_team")
+                  .stadium-name(data-bind="text: next_game().stadium_name")
+                  .stadium-location(data-bind="text: next_game().stadium_location")
+                  .time-and-coverage-wrap
+                     .time-and-coverage(data-bind="text: next_game().time_and_coverage")
+            // /ko
             .swipe-item
                .graph-wrapper
                   .breakdown(data-bind="chart: breakdown")
             .swipe-item
-               p here is some junk
-               
+               .activity
+                  .activity-list(data-bind="foreach: events.events")
+                     .activity-item
+                        .activity-icon(data-bind="setClass: type")
+                        .points(data-bind="html: points_text, setClass: points_category")
+                        .summary(data-bind="html: summary")
+                        .date(data-bind="text: date_text")
+                  .no-activity(data-bind="fadeIn: !events.has_more() && events.events().length == 0", style="display:none;") No activity here!
+                  a.load-more(data-role="button", data-mini="true", data-bind="fadeIn: events.has_more() && !events.is_loading(), hideInstant: true, click: events.load, showClick: true", style="display:none;") Load More
+                  .loading-more-indicator(data-bind="visible: events.is_loading")
+
    //- .fan-dna-separator
 
    //- .graph-wrapper
@@ -120,7 +142,7 @@ block tutorial
                .dot
             p.left Upload your profile picture here so other fans know who you are
             .tutorial-profile-sketch
-            p.left Show your spirit by uploading a team photo or logo for your favorite team here
+            p.left Show your spirit by uploading a team photo for your favorite team here
       .tutorial-item
          .tutorial-content
             .tutorial-close

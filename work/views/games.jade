@@ -4,6 +4,16 @@ block header
    h1(data-menu-root="games") Games
 
 block content
+
+   #lockedMessage(data-role="popup", style="width:260px;", class="ui-corner-all", data-overlay-theme="a", data-theme="a", data-position-to="window", data-transition="pop")
+      .ui-corner-top(data-role="header", data-theme="b")
+         h1 Locked Game
+      .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
+         p More games will be unlocked as fanbases grow! Share with your friends to help us out!
+         a(href="share.html", data-role="button", data-transition="slide") Share
+         a(data-role="button", href="games.html", data-rel="back", data-theme="c") Not Now
+
+
    ul.pattern-bg(data-role="listview")
       li
          a(href="games-attendanceStreak.html", data-transition="slide")
@@ -24,42 +34,42 @@ block content
                .inner
                   span.game-name Gameface
       li.locked
-         a
+         a(href="#lockedMessage", data-rel="popup")
             .chain
             .icon-gamecell.locked
             .text
                .inner
                   span.game-name Watch Party
       li.locked
-         a
+         a(href="#lockedMessage", data-rel="popup")
             .chain
             .icon-gamecell.locked
             .text
                .inner
                   span.game-name Gameday Pics
       li.locked
-         a
+         a(href="#lockedMessage", data-rel="popup")
             .chain
             .icon-gamecell.locked
             .text
                .inner
                   span.game-name Impact Players
       li.locked
-         a
+         a(href="#lockedMessage", data-rel="popup")
             .chain
             .icon-gamecell.locked
             .text
                .inner
                   span.game-name Team Trivia
       li.locked
-         a
+         a(href="#lockedMessage", data-rel="popup")
             .chain
             .icon-gamecell.locked
             .text
                .inner
                   span.game-name Tailgate King
       li.locked
-         a
+         a(href="#lockedMessage", data-rel="popup")
             .chain
             .icon-gamecell.locked
             .text

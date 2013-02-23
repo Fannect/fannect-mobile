@@ -27,7 +27,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @available data.available or false
          @in_progress data.in_progress or false
          @game_preview data.preview
-         @next_game if data.game_time then dateFormat(new Date(data.game_time), "ddd, mmmm dS, h:MM TT") else "TBD"
+         @next_game if data.game_time then dateFormat(new Date(data.game_time), "dddd, mmmm dS, h:MM TT") else "TBD"
 
          if data.away_team
             away = { name: "Unknown", record: "" } 

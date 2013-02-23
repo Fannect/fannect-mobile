@@ -138,13 +138,12 @@
 
    .shout-button
       background: url(../images/profile/Shout.png) no-repeat
-      background-size: 265px 63px
-      height: 63px
-      width: 130px
-      margin: 0 auto
+      background-size: 540px 83px
+      height: 83px
+      width: 270px
+      margin: 0 auto 3px
       &.ui-btn-active
-      &:active
-         background-position: -135px
+         background-position: -270px 0
          border: 0
 
    .shout-box
@@ -169,7 +168,7 @@
       position: absolute
       bottom: 7px
       white-space: nowrap
-      font-size: .7em
+      font-size: 10px
       right: 10px
       color: #777
       font-weight: lighter
@@ -230,12 +229,150 @@
       background-size: 298px 208px
       width: 298px
       height: 208px
-      margin: -3px auto 0
+      margin: 0 auto
       .breakdown 
          width: 220px
          height: 151px
          margin: 0 auto
          padding-top: 12px
+
+   .next-game
+      position: relative
+      background: url(../images/profile/nextGame.png)
+      background-size: 292px 183px
+      width: 292px
+      height: 183px
+      margin: 4px auto 0
+      
+      .game-date
+         position:absolute
+         top: 12px
+         left: 41px
+         right: 26px
+         text-align: center
+      .team-wrap
+         position:absolute
+         display:table
+         top: 56px
+         width: 110px
+         height: 44px
+         text-align: center
+         font-size: 12px
+         &.away
+            right: 15px
+         &.home
+            left: 17px
+      .team-name
+         display:table-cell
+         vertical-align: middle
+      .stadium-name
+      .stadium-location
+      .time-and-coverage-wrap
+         position:absolute
+         text-align:center
+         left: 17px
+         right: 15px
+      .stadium-name
+         font-size: 11px
+         top: 102px
+      .stadium-location
+         color: #999
+         font-size: 10px
+         top: 118px
+      .time-and-coverage-wrap
+         display:table
+         top: 129px
+         font-size: 12px
+         height: 30px
+         width: 260px
+         .time-and-coverage
+            display: table-cell
+            vertical-align: middle
+            font-weight: lighter
+
+   .swipe-item.inactive
+      .activity-list
+         max-height: 200px
+   .activity
+      position: relative
+      width: 265px
+      margin: 10px auto 0
+      border: 2px solid #777
+      dropshadow: 0 0 5px #000
+      background: #fff url(../images/Pattern_FabricKnit.png)
+      background-size: 4px 4px
+      
+      .no-activity
+         margin: 10px
+         color: #555
+         text-align:center
+         height: 42px
+         line-height: 42px
+         font-size: 20px
+         text-shadow: 0 2px 0 #fff
+
+      .load-more
+         margin: 10px
+      
+      .loading-more-indicator
+         margin: 5px auto 5px
+
+      .activity-list
+         .activity-item
+            font-weight: lighter
+            height: 78px
+            position:relative
+            background-highlight()
+            border-bottom: 2px solid #bbb
+            color: #000
+            text-shadow: 0 2px 0 #fff
+            .activity-icon
+               position: absolute
+               background: url(../images/icons/icons-gamecell-small.png) no-repeat
+               background-size: 202px 48px
+               height: 48px
+               width: 48px
+               top: 8px
+               left: 12px
+               &.attendence-streak
+                  background-position: 0 0
+               &.game-face
+                  background-position: -52px 0
+               &.guess-the-score
+                  background-position: -102px 0
+            .points
+               position:absolute
+               font-size: 10px
+               left: 2px
+               top: 59px 
+               font-family: JerseyM54
+               width: 65px
+               white-space: nowrap
+               text-align: center
+               &.passion
+                  color: #e01500
+               &.dedication
+                  color: #003cff
+               &.knowledge
+                  color: #008c0a
+               .plus
+                  font-family: Arial
+                  font-style: italic
+            .summary
+               position:absolute
+               left: 72px
+               top: 10px
+               right: 10px
+               height: 40px
+               font-size: 10px
+               line-height: 13px
+            .date
+               position:absolute
+               bottom: 6px
+               right: 8px
+               font-size: 10px
+               font-weight: lighter
+               color: #555
 
    .secondary-slider
       margin-top: 20px
@@ -256,6 +393,7 @@
             line-height: 52px
             font-family: JerseyM54, Helvetica, Arial
             font-size: 1.3em
+            color: #c0c0c0
          .next
             background: url(../images/profile/rightArrow_Active.png) 50% 50% no-repeat
             right: 2px
@@ -432,6 +570,15 @@
       .shout-quote-right
          background-image: url(../images/profile/rightShoutQuote@2x.png)!important
 
+      .next-game
+         background-image: url(../images/profile/nextGame@2x.png)!important
+
+      .activity
+         background-image: url(../images/Pattern_FabricKnit@2x.png)!important
+      .activity-icon
+         background-image: url(../images/icons/icons-gamecell-small@2x.png)!important
+
+
       .secondary-slider
          .swipe-header
             background-image: url(../images/profile/profile_SectionSwitch@2x.png)!important
@@ -447,7 +594,9 @@
    #profile-shout-page
       .shout-text
          background-image: url(../images/shout/shout_textBox@2x.png)!important
+   
    #profile-page
+   #settings-page
       .tutorial-welcome
          background-image: url(../images/tutorial/Tutorial_welcomeBanner@2x.png)!important
       .tutorial-fannect-logo

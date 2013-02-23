@@ -26,7 +26,6 @@ window.fannect.pages =
    "resetPassword-submitTemporary-page":
       vm: vm.ResetPassword.SubmitTemporary
 
-
    ###
    # Profile
    ###
@@ -191,8 +190,14 @@ window.fannect.pages =
    "settings-page":
       classes: []
 
-   "settings-removeProfiles-page":
-      vm: vm.Settings.RemoveProfiles
+   "settings-manageProfiles-page":
+      vm: vm.Settings.ManageProfiles
+      buttons: [
+         {
+            position: "right"
+            text: "Add"
+         }
+      ]
       classes: ["dark-background"]
 
    "settings-account-page":

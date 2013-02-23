@@ -1,0 +1,46 @@
+@import "../lib/mixins"
+@import "../lib/variables"
+
+#profile-selectTeam-page
+#settings-manageProfiles-page
+   .dark-pattern-bg
+      a
+         position: relative
+      span
+         margin-left: 28px 
+
+   .sport-icon
+      position:absolute
+      background: url(../images/icons/sports-icons.png) no-repeat
+      background-size: 120px 20px
+      width: 20px
+      height: 20px
+      top: 50%
+      margin-top: -10px
+
+      // baseball
+      &.sport-15007000
+         background-position: 0 0
+
+      // basketball
+      &.sport-15008000 
+         background-position: -25px 0
+         
+      // football
+      &.sport-15003000
+         background-position: -50px 0
+      
+      // soccer
+      &.sport-15054000
+         background-position: -75px 0
+
+      // hockey
+      &.sport-15031000
+         background-position: -100px 0
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5)
+   #profile-selectTeam-page
+   #settings-manageProfiles-page
+      .sport-icon
+         background-image: url(../images/icons/sports-icons@2x.png) !important
+   

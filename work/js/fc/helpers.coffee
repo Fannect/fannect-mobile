@@ -107,6 +107,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
    fc.clearBindings = (context) ->
       ko.cleanNode(context)
 
+   fc.parseId = (_id) ->
+      return new Date(parseInt(_id.substring(0,8), 16) * 1000)
+
    fc.getDataURL = (file, max_width, max_height, done) ->
       canvas = document.createElement("canvas")
       context = canvas.getContext("2d")

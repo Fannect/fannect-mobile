@@ -2,7 +2,8 @@ extend ../layout
 
 block header
    a(href="profile.html", data-icon="back", data-rel="back", data-theme="b") Back
-   h1(data-menu-root="profile") Remove Team
+   h1(data-menu-root="profile") Manage Teams
+   a.ui-btn-right(href="profile-selectTeam-chooseSport.html", data-role="button", data-icon="plus", data-transition="slide", data-theme="b") Add
 
 block content
 
@@ -15,8 +16,11 @@ block content
          a(data-role="button", data-theme="c", data-bind="click: cancel, showClick: true") Cancel
 
    ul.dark-pattern-bg(data-role="listview", data-theme="b", data-bind="template: { foreach: teams, beforeRemove: hideProfile }, listviewUpdate: teams")
-      li(data-icon="false")
-         a(data-bind="click: $parent.confirmDelete, text: team_name, showListviewClick: true")
+      li
+         a(data-bind="click: $parent.selectTeam, showListviewClick: true")
+            .left-icon.cancel(data-bind="click: $parent.confirmDelete, clickBubble: false")
+            .sport-icon(data-bind="setClass: sport_key")
+            span(data-bind="text: team_name")
    .loading-more-indicator(data-bind="visible: is_loading")
 
 

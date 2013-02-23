@@ -2,7 +2,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
    fc.viewModels.Settings = {}
 
-   class fc.viewModels.Settings.RemoveProfiles extends fc.viewModels.Base 
+   class fc.viewModels.Settings.ManageProfiles extends fc.viewModels.Base 
       constructor: () ->
          super 
          @teams = ko.observableArray []
@@ -10,6 +10,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @deleteText = ko.observable()
          @showConfirm = ko.observable()
          @selectedTeam = null
+         @load()
 
       load: (done) ->
          @teams.removeAll()
@@ -20,8 +21,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             cache: false
          , (error, teams) =>
             @is_loading(false)
-            @teams.push team for team in teams
-        
+            for team in teams
+               team.sport_key = "sport-#{team.sport_key or '15008000'}"
+               @teams.push(team)
+
       confirmDelete: (data) =>
          @selectedTeam = data
          @deleteText("<span style='font-weight:normal'>Are you sure you want to delete your profile for</span> #{data.team_name}<span style='font-weight:normal'>?</span>")
@@ -40,5 +43,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.team.remove @selectedTeam._id, 
          fc.team.removeFromChannel(@selectedTeam.team_id)
 
+      selectTeam: (data) ->
+         fc.team.setActive data._id, (err) ->
+            $.mobile.changePage "profile.html", transition: "slideup"
 
-      onPageShow: () => @load()
+      rightButtonClick: () ->
+         $.mobile.changePage "profile-selectTeam-chooseSport.html", transition: "slide"

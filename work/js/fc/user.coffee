@@ -95,6 +95,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
    $("#profile-other-page").live("pageinit", () ->
       $(@).addClass("no-padding")
    ).live("pageshow", () ->
+      forge.flurry.customEvent("#profile-other-page", {show: true})
+
       if not options = fc.cache.pull("view_other")
          $.mobile.changePage "profile.html", fc.transition("none")
       else
