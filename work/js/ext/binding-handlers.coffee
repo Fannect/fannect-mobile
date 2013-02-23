@@ -217,8 +217,6 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
             
             onSlideEnd = (e, i, active) ->
                # called at the end of every transition
-               console.log "TOUCH ENDED MADE IT HERE"
-
                prevIndex = index
                index = i
 
@@ -229,7 +227,7 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
                active.addClass("active").removeClass("inactive").data("is_init", true)
                
                # Change title
-               title.text(options.titles[index]).stop().fadeIn(300)
+               title.text(options.titles[index]).stop().fadeIn({ opacity: 1 }, 300)
 
                if prevIndex != index
                   options.hide(prevIndex)
@@ -248,8 +246,7 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
                speed: 500 
                callback: onSlideEnd
                onSlideStart: () ->
-                  console.log "TOUCH STARTED MADE IT HERE"
-                  title.fadeOut 300
+                  title.fadeOut 300 unless title.is(':animated')
 
             onSlideEnd(null, slider.getPos(), slider.element)
                

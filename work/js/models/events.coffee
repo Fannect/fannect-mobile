@@ -10,29 +10,22 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
    eventSummary =
       attendance_streak: (e, name) ->
-         my_team = if e.meta.is_home then e.meta.home_team else e.meta.away_team
-         opponent = if e.meta.is_home then e.meta.away_team else e.meta.home_team
          e.summary = "#{name} scored <b>#{e.points} Points</b> by checking in to 
-            #{e.stadium_name} for #{my_team} vs #{opponent}!"
+            #{e.stadium_name} for #{e.meta.team_name} vs #{e.meta.opponent}!"
 
       guess_the_score: (e, name) ->
-         my_team = if e.meta.is_home then e.meta.home_team else e.meta.away_team
-         opponent = if e.meta.is_home then e.meta.away_team else e.meta.home_team
          my_score = if e.meta.is_home then e.meta.home_score else e.meta.away_score
          opponent_score = if e.meta.is_home then e.meta.away_score else e.meta.home_score
-         my_actual_score = if e.meta.is_home then e.meta.home_actual_score else e.meta.away_actual_score
-         opponent_actual_score = if e.meta.is_home then e.meta.away_actual_score else e.meta.home_actual_score
+         my_actual_score = if e.meta.is_home then e.meta.actual_home_score else e.meta.actual_away_score
+         opponent_actual_score = if e.meta.is_home then e.meta.actual_away_score else e.meta.actual_home_score
 
          e.summary = "#{name} scored <b>#{e.points} Points</b> by guessing a score of 
-            #{my_score}-#{opponent_score} for #{my_team} vs #{opponent}! 
+            #{my_score}-#{opponent_score} for #{e.meta.team_name} vs #{e.meta.opponent}! 
             (#{my_actual_score}-#{opponent_actual_score})"
 
       game_face: (e, name) ->
-         my_team = if e.is_home then e.home_team else e.away_team
-         opponent = if e.is_home then e.away_team else e.home_team
-
          e.summary = "#{name} scored <b>#{e.points} Points</b> by turning on your game face
-            for #{my_team} vs #{opponent}!"
+            for #{e.meta.team_name} vs #{e.meta.opponent}!"
 
    eventPointsEarned = (e) ->
       for cat, points of e.points_earned
@@ -86,7 +79,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
             for event in events
                # continue if there is not enough information to display event
-               # continue unless event.meta.team_name?
+               continue unless event.meta.team_name?
 
                for e in @events()
                   dupl = false

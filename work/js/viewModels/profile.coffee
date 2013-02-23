@@ -112,10 +112,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       sliderShow: (index, has_init) =>
          index++ unless @isEditable()
 
-         forge.logging.debug "HIT SHOW"
-         forge.logging.debug "INDEX #{index}"
-         forge.logging.debug "HAS_INIT #{has_init}"
-
          if index == 0 and not has_init
             fc.team.getActive (err, profile) =>
                fc.ajax

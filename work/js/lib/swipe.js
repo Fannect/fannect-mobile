@@ -283,6 +283,9 @@ Swipe.prototype = {
       // call slide function with slide end value based on isValidSlide and isPastBounds tests
       this.slide( this.index + ( isValidSlide && !isPastBounds ? (this.deltaX < 0 ? 1 : -1) : 0 ), this.speed );
 
+    } else {
+      if (!this.hasMovement) this.callback(null, this.index, this.slides[this.index]);
+      this.hasMovement = false
     }
     
     e.stopPropagation();
