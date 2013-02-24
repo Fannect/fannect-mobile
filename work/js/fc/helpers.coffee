@@ -48,18 +48,17 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
                if page.scroller then scroller = $(".scrolling-text", @).scroller()
 
             $("##{id}").live("pageinit", initPage
-            
+            ).live("pagebeforeshow", () ->
+               fc.mobile.setupHeader()
             ).live("pageshow", () ->
                initPage.call(@) unless vm
-
                if scroller then scroller.scroller("start")
                forge.flurry.customEvent("#{id} Page", {show: true})
    
-               if forge.is.mobile() 
-                  fc.mobile.clearButtons()
-                  fc.mobile.setupHeader()
-
+               if forge.is.mobile()
                   # add buttons to native header if mobile
+                  fc.mobile.setupBackButton()
+
                   if page.buttons?.length > 0
                      for button in page.buttons
                         unless button.click
@@ -73,6 +72,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
 
             ).live("pagebeforehide", () ->
                if scroller then scroller.scroller("stop")
+               fc.mobile.clearButtons() if forge.is.mobile()
             ).live("pagehide", () ->
                vm.onPageHide() if vm
                if page.no_cache

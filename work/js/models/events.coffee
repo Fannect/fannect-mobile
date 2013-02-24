@@ -24,7 +24,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             (#{my_actual_score}-#{opponent_actual_score})"
 
       game_face: (e, name) ->
-         e.summary = "#{name} scored <b>#{e.points} Points</b> by turning on your game face
+         e.summary = "#{name} scored <b>#{e.points} Points</b> by turning on 
+            #{if name == 'you' then 'your' else 'their'} game face
             for #{e.meta.team_name} vs #{e.meta.opponent}!"
 
    eventPointsEarned = (e) ->

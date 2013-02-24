@@ -27,6 +27,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                type: "GET"
                retry: "forever"
             , (err, team) ->
+               # Redirect to select team if 404 
+               if err?.status == 404 or err?.statusCode?.toString() == "404"
+                  return fc.team.redirectToSelect() 
+               
                fc.team._addToChannel(team.team_id)
                fc.team._teams[teamProfileId] = team
                fc.team._notify(team)
@@ -54,8 +58,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   fc.team._curr = teamProfileId
                   fc.team.get(fc.team._curr, done)
                else
-                  fc.team.redirectToSelect(no_back: true)
-                  done() if done
+                  fc.team.redirectToSelect(no_back: true, done)
             , (err) -> done(err)
 
       setActive: (teamProfileId, done) ->
@@ -105,7 +108,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       _notify: (team) -> sub team for sub in fc.team._subscribers
 
       # options - hide_back: [false]
-      redirectToSelect: (options) ->
+      redirectToSelect: (options, done) ->
          # check if profiles already exist
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/me/teams"
@@ -114,7 +117,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          , (error, teams) =>
             if teams.length > 0
                fc.team.setActive teams[0]._id, () ->
-                  $.mobile.changePage "profile.html", fc.transition("slidedown")
+                  fc.team.getActive(done) if done
+                  $.mobile.changePage "profile.html", transition: "slidedown"
             else
                fc.cache.set("choose_team_options", { hide_back: true })
                $.mobile.changePage "profile-selectTeam-chooseSport.html", transition: ("slide" or options.transition)

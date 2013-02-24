@@ -1,6 +1,7 @@
 do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect) ->
-   left_header_button = null
-   right_header_button = null
+   leftHeaderButton = null
+   rightHeaderButton = null
+   removingButtons = false
 
    fc.mobile =
       _buttons: {}
@@ -46,22 +47,34 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       setupHeader: () ->
          if forge.is.mobile()
-            forge.topbar.removeButtons()
             header = $(".header", $.mobile.activePage).get(0)
             forge.topbar.setTitle $("h1", header).text()
+            fc.mobile.clearButtons()
 
-            leftButton = $("a[data-rel=back]", header)
+      setupBackButton: () ->
+         if forge.is.mobile()
+            leftButton = $(".header a[data-rel=back]", $.mobile.activePage)
 
             if leftButton.length > 0
                fc.mobile.addHeaderButton
                   text: leftButton.text()
                   position: "left"
                   style: "back"
-                  click: () -> $.mobile.back()
+                  click: () -> 
+                     $.mobile.back()
+                     fc.mobile.clearButtons()
 
-      clearButtons: (position) ->
+      clearButtons: () ->
          leftHeaderButton = null
          rightHeaderButton = null
+         return if removingButtons
+         removingButtons = true
+         forge.topbar.removeButtons () ->
+            removingButtons = false
+            fc.mobile.addHeaderButton leftHeaderButton if leftHeaderButton
+            fc.mobile.addHeaderButton rightHeaderButton if rightHeaderButton
+         , () ->
+            fc.mobile.clearButtons()
 
       addHeaderButton: (options, click) ->
          if forge.is.mobile()
@@ -70,11 +83,14 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             leftHeaderButton = options if options.position == "left"
             rightHeaderButton = options if options.position == "right"
 
+            return if removingButtons
+            console.log "MADE IT HERE"
+
             forge.topbar.addButton options, options.click, (err) ->
                if err
                   forge.topbar.removeButtons () ->
-                     fc.mobile.addHeaderButton leftHeaderButton if leftHeaderButton
-                     fc.mobile.addHeaderButton rightHeaderButton if rightHeaderButton
+                     # fc.mobile.addHeaderButton leftHeaderButton if leftHeaderButton
+                     # fc.mobile.addHeaderButton rightHeaderButton if rightHeaderButton
 
 
 
