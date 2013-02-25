@@ -1,6 +1,5 @@
 do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
-   fc.viewModels.Games = {}
-
+   
    class fc.viewModels.Games.AttendanceStreak extends fc.viewModels.Base 
       constructor: () ->
          super

@@ -35,6 +35,7 @@
 #= require "viewModels/linkAccounts.coffee"
 #= require "viewModels/profile.coffee"
 #= require "viewModels/leaderboard.coffee"
+#= require "viewModels/games.coffee"
 #= require "viewModels/connect.coffee"
 #= require "viewModels/share.coffee"
 

@@ -112,6 +112,7 @@ window.fannect.pages =
    # Games
    ###
    "games-page":
+      vm: vm.Games
       classes: ["light-background"]
 
    "games-guessTheScore-page":
