@@ -84,13 +84,17 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             rightHeaderButton = options if options.position == "right"
 
             return if removingButtons
-            console.log "MADE IT HERE"
 
             forge.topbar.addButton options, options.click, (err) ->
                if err
-                  forge.topbar.removeButtons () ->
-                     # fc.mobile.addHeaderButton leftHeaderButton if leftHeaderButton
-                     # fc.mobile.addHeaderButton rightHeaderButton if rightHeaderButton
-
+                  setTimeout ->
+                     forge.topbar.removeButtons () ->
+                        if leftHeaderButton and not leftHeaderButton.second_try
+                           leftHeaderButton.second_try = true
+                           fc.mobile.addHeaderButton leftHeaderButton 
+                        if rightHeaderButton and not rightHeaderButton.second_try
+                           fc.mobile.addHeaderButton rightHeaderButton
+                           rightHeaderButton.second_try = true
+                  , 15
 
 

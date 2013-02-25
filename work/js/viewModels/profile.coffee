@@ -74,9 +74,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       onPageShow: () => 
          super
-         setTimeout (() -> forge.launchimage.hide() if forge.is.mobile()), 200
+         if forge.is.mobile()
+            setTimeout (-> 
+               forge.launchimage.hide() 
+               fc.push.activate()
+            ), 200
          fc.team.refreshActive()
-         fc.push.activate()
          @_addHeaderButtons() if forge.is.mobile()
 
       selectTeam: () -> $.mobile.changePage "profile-selectTeam.html", fc.transition("slide")
