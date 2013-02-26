@@ -6,30 +6,32 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          # Return if user has not selected a sport
          unless fc.cache.hasKey("sport_key") and fc.cache.hasKey("league_key")
-            $.mobile.changePage "profile-selectTeam.html", fc.transition("none")
+            $.mobile.changePage "profile-selectTeam.html", transition: "none"
          
          @teams = ko.observableArray []
          @is_loading = ko.observable(true)
-         @load()
-
-      load: () =>
-         fc.ajax 
+         @infinite = new fc.models.Infinite
             url: "#{fc.getResourceURL()}/v1/sports/#{fc.cache.get('sport_key')}/leagues/#{fc.cache.get('league_key')}/teams"
-            type: "GET"
-         , (error, teams) =>
-            
-            start = 0
-            showResults = () =>
-               for i in [start...start+5] by 1
-                  start = i
-                  if i >= teams.length
-                     @is_loading(false)
-                     return
-                  @teams.push teams[i]
-               start++
-               setTimeout showResults, 5
+            element_height: 43
 
-            showResults()
+      # load: () =>
+      #    fc.ajax 
+      #       url: "#{fc.getResourceURL()}/v1/sports/#{fc.cache.get('sport_key')}/leagues/#{fc.cache.get('league_key')}/teams"
+      #       type: "GET"
+      #    , (error, teams) =>
+            
+      #       start = 0
+      #       showResults = () =>
+      #          for i in [start...start+5] by 1
+      #             start = i
+      #             if i >= teams.length
+      #                @is_loading(false)
+      #                return
+      #             @teams.push teams[i]
+      #          start++
+      #          setTimeout showResults, 5
+
+      #       showResults()
             
       selectTeam: (data) -> 
          fc.msg.loading("Creating profile...")
@@ -39,4 +41,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             if err?.reason == "duplicate"
                fc.msg.show("You're already a commit fan of #{data.full_name}!")
             else
-               $.mobile.changePage "profile.html", fc.transition("slideup")
+               $.mobile.changePage "profile.html", transition: "slideup"
+
+      onPageShow: () => @infinite.bind()
+      onPageHide: () => @infinite.unbind()

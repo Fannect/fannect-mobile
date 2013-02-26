@@ -178,6 +178,15 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
          ko.bindingHandlers.value.init(element, valueAccessor, allBindingsAccessor, context)
       update: ko.bindingHandlers.value.update
 
+   ko.bindingHandlers.height =
+      update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         $(element).height ko.utils.unwrapObservable valueAccessor()
+
+   ko.bindingHandlers.top = 
+      init: (element) ->
+         $(element).css("position", "absolute")
+      update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         $(element).css("top", ko.utils.unwrapObservable(valueAccessor()) + "px")
 
    ko.bindingHandlers.textToken =
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
@@ -251,6 +260,8 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
             onSlideEnd(null, slider.getPos(), slider.element)
                
          setup()
+
+
 
          
 
