@@ -16,12 +16,19 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @visible_count = Math.ceil(@view_height / @element_height) + 2 * @visible_above
          @limit = options.limit
          @skip = 0
+         @scrollbar = new iScroll "selectTeamScroll",
+            onScrollMove: @_moveUpdate
+            onScrollEnd: @_moveUpdate
+            hScroll: false
+            useTransition:true
 
          @data = []
          @offset = ko.observable(0)
          @visible = ko.observableArray()
          @loading = ko.observable()
          @container_height = 0
+
+         
 
          @_setOffset()
          @load()
@@ -42,15 +49,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @data = results
                @_setContainerHeight()
                @_setVisible()
-
+               setTimeout (() => @scrollbar.refresh()), 0
 
       bind: () =>
-         movement = () =>
-            @_setOffset()
-            @_setVisible()
-
-         $window = $(window).bind "scroll.infinite", movement
-         $doc = $(document).bind "touchmove.infinite", movement
+         # $window = $(window).bind "scroll.infinite", @_moveUpdate
+         # $doc = $(document).bind "touchmove.infinite", @_moveUpdate
             # if not @loading() and $window.scrollTop() > $(document).height() - $window.height() - 150
             #    @loading true
             #    @load()
@@ -63,8 +66,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       _setContainerHeight: () =>
          @container_height = @data.length * @element_height
 
+      _moveUpdate: () =>
+         @_setOffset()
+         @_setVisible()
+
       _setOffset: () =>
-         offset = $(window).scrollTop() - @top_offset
+         offset = -@scrollbar.y - @top_offset
          offset = 0 if offset < 0
          @offset(offset)
 

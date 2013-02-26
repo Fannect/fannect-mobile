@@ -5,9 +5,10 @@ block header
    h1(data-menu-root="profile") Select Team
    
 block content
-   ul.dark-pattern-bg(data-role="listview", data-theme="b", data-filter-theme="b", data-bind="foreach: infinite.visible, listviewUpdate: infinite.visible, height: infinite.container_height")
-      //- li
-      li(data-bind="top: index * $parent.infinite.element_height")
-         a(data-bind="click: $parent.selectTeam, text: data.full_name, showListviewClick: true")
-   .loading-more-indicator(data-bind="visible: infinite.loading")
+   #selectTeamScroll(style="height: 450px; margin: -15px; padding: 15px;")
+      ul.dark-pattern-bg(data-role="listview", data-theme="b", data-filter-theme="b", data-bind="foreach: infinite.visible, listviewUpdate: infinite.visible, height: infinite.container_height")
+         //- li
+         li(data-bind="top: index * $parent.infinite.element_height")
+            a(data-bind="click: $parent.selectTeam, text: data.full_name, showListviewClick: true")
+      .loading-more-indicator(data-bind="visible: infinite.loading")
      

@@ -4,6 +4,7 @@
 #= require "lib/ua-parser.js"
 #= require "lib/date.js"
 #= require "lib/jquery.tokeninput.js"
+#= require "lib/iscroll.js"
 
 #= require "fc/helpers.coffee"
 #= require "fc/ajax.coffee"
