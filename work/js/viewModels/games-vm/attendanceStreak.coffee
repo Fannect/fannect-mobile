@@ -13,7 +13,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @in_range = ko.computed () => return @user_distance()? and @user_distance() < .5
          @miles_away = ko.computed () => 
             dis = Math.round((parseFloat(@user_distance()) - .5) * 100) / 100
-            return if isNaN(dis) then "IDK..." else dis + " mi"
+            return if isNaN(dis) then "loading..." else dis + " mi"
          fc.maps.loaded () => @load()
             
       checkIn: (data) =>
