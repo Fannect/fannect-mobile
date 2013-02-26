@@ -45,14 +45,20 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
 
       bind: () =>
-         $window = $(window).scroll () =>
+         movement = () =>
             @_setOffset()
             @_setVisible()
+
+         $window = $(window).bind "scroll.infinite", movement
+         $doc = $(document).bind "touchmove.infinite", movement
             # if not @loading() and $window.scrollTop() > $(document).height() - $window.height() - 150
             #    @loading true
             #    @load()
 
-      unbind: () -> $(window).unbind("scroll")
+
+      unbind: () -> 
+         $(window).unbind("scroll.infinite")
+         $(document).unbind("touchmove.infinite")
 
       _setContainerHeight: () =>
          @container_height = @data.length * @element_height
