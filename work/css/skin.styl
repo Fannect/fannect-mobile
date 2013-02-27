@@ -11,14 +11,13 @@
    src: url(../fonts/Journal.ttf)
 
 html
-body
+   -webkit-overflow-scrolling: touch
    -webkit-touch-callout: none
    -webkit-user-select: none
    -khtml-user-select: none
    -moz-user-select: none
    -ms-user-select: none
    user-select: none
-   -webkit-overflow-scrolling: touch
    -webkit-tap-highlight-color:rgba(0,0,0,0)
 
 .clear
@@ -64,6 +63,7 @@ body
 //    background-size: 720px 1280px
 
 .ui-page
+   // -webkit-backface-visibility: hidden;
    background: url(../images/Tilable-Background03.png) 50% 0
    background-size: 500px 50px
 
@@ -383,7 +383,7 @@ body
       text-align: center
    .share-button
       background: url(../images/ShareButtons.png)
-      background-size: 548px 186px
+      background-size: 553px 186px
       width: 275px
       height: 62px
       margin: 6px 0
@@ -392,15 +392,15 @@ body
       &.sms
          background-position: 0 0
          &.ui-btn-active
-            background-position: -274px 0
+            background-position: -279px 0
       &.email
          background-position: 0 -62px
          &.ui-btn-active
-            background-position: -274px -62px
+            background-position: -279px -62px
       &.twitter
          background-position: 0 -124px
          &.ui-btn-active
-            background-position: -274px -124px
+            background-position: -270px -124px
 
 .tutorial-link .ui-icon.ui-icon-custom
    background: url(../images/tutorial/InfoButton@2x.png) no-repeat

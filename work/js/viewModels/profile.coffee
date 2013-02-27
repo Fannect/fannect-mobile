@@ -77,7 +77,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          if forge.is.mobile()
             setTimeout (-> 
                forge.launchimage.hide() 
-               fc.push.activate()
             ), 200
          fc.team.refreshActive()
          @_addHeaderButtons() if forge.is.mobile()

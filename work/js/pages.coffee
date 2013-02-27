@@ -151,6 +151,28 @@ window.fannect.pages =
       scroller: true
       classes: ["no-padding"]
 
+   "games-gameFace-motivateSelect-page":
+      vm: vm.Games.GameFace.MotivateSelect
+      # buttons: [
+      #    {
+      #       icon: "images/mobile/InfoButton@2x.png"
+      #       position: "right"
+      #       click: () -> window.fannect.tutorial.show()
+      #    }
+      # ]
+      classes: ["light-background"]
+
+   "games-gameFace-motivateMessage-page":
+      vm: vm.Games.GameFace.MotivateMessage
+      # buttons: [
+      #    {
+      #       icon: "images/mobile/InfoButton@2x.png"
+      #       position: "right"
+      #       click: () -> window.fannect.tutorial.show()
+      #    }
+      # ]
+      classes: ["light-background"]
+
    ###
    # Leaderboard
    ###

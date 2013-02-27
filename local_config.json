@@ -21,10 +21,6 @@
         "simulatorsdk": "6.0", 
         "simulatorfamily": "iphone", 
         "profiles": {
-            "release": {
-                "provisioning_profile": "fannect_final.mobileprovision", 
-                "developer_certificate": "Hunter Browning"
-            }, 
             "DEFAULT": {
                 "provisioning_profile": "dev.mobileprovision", 
                 "developer_certificate": "Hunter Browning (53E563684P)"

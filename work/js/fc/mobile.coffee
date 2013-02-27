@@ -61,9 +61,14 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   position: "left"
                   style: "back"
                   click: () -> 
-                     $.mobile.back()
                      fc.mobile.clearButtons()
-
+                     if (href = leftButton.attr("href"))
+                        $.mobile.changePage href, 
+                           transition: leftButton.attr("data-transition") or "slide"
+                           reverse: true
+                     else
+                        $.mobile.back()
+                     
       clearButtons: () ->
          leftHeaderButton = null
          rightHeaderButton = null
@@ -73,8 +78,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             removingButtons = false
             fc.mobile.addHeaderButton leftHeaderButton if leftHeaderButton
             fc.mobile.addHeaderButton rightHeaderButton if rightHeaderButton
-         , () ->
-            fc.mobile.clearButtons()
+         , (err) ->
+            fc.mobile.clearButtons() if err
 
       addHeaderButton: (options, click) ->
          if forge.is.mobile()

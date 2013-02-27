@@ -61,6 +61,8 @@
 #= require "viewModels/games-vm/gameFace.coffee"
 #= require "viewModels/games-vm/guessTheScore.coffee"
 
+#= require "viewModels/games-vm/gameFace-vm/motivateSelect.coffee"
+
 #= require "viewModels/leaderboard-vm/listview.coffee"
 #= require "viewModels/leaderboard-vm/conference.coffee"
 #= require "viewModels/leaderboard-vm/league.coffee"

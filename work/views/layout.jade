@@ -68,6 +68,15 @@ html
                .text-wrapper
                   .fan-name(data-bind="text: name")
 
+      script(id="motivate-fan-template", type="text/html")
+         li.fan(data-bind="css:{'selected':selected,'face-on':gameface_on,'face-off':has_motivator}")
+            a(data-bind="click: $parent.selectUser")
+               .image-wrap
+                  img.profile-image(data-bind="thumbnailSrc: profile_image_url")
+                  .cover
+               .text-wrapper
+                  .fan-name(data-bind="text: name")
+
       script(id="invite-fan-template", type="text/html")
          li.invite-item(data-icon="false")
             a(data-bind="click: $parent.selectUser, showListviewClick: true")

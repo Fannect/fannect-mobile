@@ -10,7 +10,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             forge.event.messagePushed.addListener (message) ->
                if message.event == "invite"
                   waiting = () -> $.mobile.changePage "profile-invites.html", transition: "slidedown"
-         
+               else if message.event == "gameface"
+                  waiting = () -> 
+                     fc.cache.set("gameface_motivation", message.motivation)
+                     $.mobile.changePage "games-gameface.html", transition: "slidedown"
+
                if waiting and is_active
                   waiting()
                   waiting = null
@@ -21,4 +25,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             if waiting
                waiting() 
                waiting = null
+               return true
+
+         return false
 

@@ -1,8 +1,8 @@
 extend ../layout
 
 block header
-   h1(data-menu-root="games") Gameface
-   a(href="games", data-icon="back", data-rel="back", data-theme="b") Games
+   h1(data-menu-root="games") GameFace
+   a(href="games.html", data-icon="back", data-rel="back", data-theme="b") Games
    a.tutorial-link(href="#", data-iconpos="notext", data-icon="custom", data-theme="b")
 
    #gameFacePointsPopup.scorePointsInfoPopup(data-role="popup", style="width:260px; text-align: center;", class="ui-corner-all", data-overlay-theme="a", data-theme="a")
@@ -14,7 +14,7 @@ block header
 
 block content
 
-   .game-face(data-bind="css: { on: face_on() }")
+   .game-face(data-bind="css: { on: face_on }")
 
    .team-info(data-bind="visible: game_data.available")
       .home.team-glass
@@ -55,6 +55,8 @@ block content
       select(id="gameFaceSwitch", data-role="slider", data-bind="value: face_value, disableSlider: face_on() || !game_data.available(), sliderUpdate: face_on")
          option(value="off") Off
          option(value="on") On
+
+   a.motivate(data-role="button", href="games-gameFace-motivateSelect.html", data-bind="fadeIn: face_on", style="display:none;", data-transition="slide") Motivate!
 
 block tutorial
    .tutorial-slider.two

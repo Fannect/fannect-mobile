@@ -1,0 +1,12 @@
+extend ../../layout
+
+block header
+   a(href="games-gameFace.html", data-icon="back", data-rel="back", data-theme="b") Back
+   h1(data-menu-root="games") Motivate
+   
+block content
+
+   input(type="search", data-bind="value: query, valueUpdate: ['afterkeydown'], onEnterOrBlur: androidSearch")
+
+   ul.pattern-bg.has-search(data-role="listview", data-bind="template: { name:'motivate-fan-template', foreach: fans }, listviewUpdate: fans, visible: fans().length > 0").fans
+   .loading-more-indicator(data-bind="visible: loading_more", style="display:none;")

@@ -11,7 +11,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
    eventSummary =
       attendance_streak: (e, name) ->
          e.summary = "#{name} scored <b>#{e.points} Points</b> by checking in to 
-            #{e.stadium_name} for #{e.meta.team_name} vs #{e.meta.opponent}!"
+            #{e.meta.stadium_name} for #{e.meta.team_name} vs #{e.meta.opponent}!"
 
       guess_the_score: (e, name) ->
          my_score = if e.meta.is_home then e.meta.home_score else e.meta.away_score
