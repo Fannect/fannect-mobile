@@ -11,9 +11,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @is_checking_login = false
 
             if is_logged_in
-               if fc.push.activate()
-                  forge.launchimage.hide() if forge.is.mobile()
-               else
+               if not fc.push.activate()
                   $.mobile.changePage "profile.html", transition: "none"
             else
                forge.launchimage.hide() if forge.is.mobile()

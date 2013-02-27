@@ -32,6 +32,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          else
             try
                fc.logger.sendError(errText = JSON.parse error.responseText)
+            catch e
+               fc.logger.sendError(error.responseText)
             finally
                done(errText or error) if done
 

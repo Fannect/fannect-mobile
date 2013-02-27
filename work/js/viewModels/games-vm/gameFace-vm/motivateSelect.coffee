@@ -87,7 +87,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace/motivate"
                type: "POST"
                data: 
-                  motivatees: @selected_fans()
+                  motivatees: @selected_fans
             
             $.mobile.changePage "games-gameFace.html", transition: "flip"
 
