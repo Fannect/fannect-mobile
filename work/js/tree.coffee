@@ -21,6 +21,7 @@
 #= require "fc/team.coffee"
 #= require "fc/tutorial.coffee"
 #= require "fc/user.coffee"
+#= require "fc/verified.coffee"
 
 #= require "models/gameData.coffee"
 #= require "models/nextGame.coffee"
