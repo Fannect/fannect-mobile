@@ -65,6 +65,7 @@ html
                .image-wrap
                   img.profile-image(data-bind="thumbnailSrc: profile_image_url")
                   .cover
+                  .verified-icon(data-bind="setClass: $data.verified")
                .text-wrapper
                   .fan-name(data-bind="text: name")
 
@@ -74,6 +75,7 @@ html
                .image-wrap
                   img.profile-image(data-bind="thumbnailSrc: profile_image_url")
                   .cover
+                  .verified-icon(data-bind="setClass: $data.verified")
                .text-wrapper
                   .fan-name(data-bind="text: name")
 
@@ -84,6 +86,7 @@ html
                .image-wrap
                   img.profile-image(data-bind="thumbnailSrc: profile_image_url")
                   .cover
+                  .verified-icon(data-bind="setClass: $data.verified")
                .fan-name(data-bind="text: name")
                .teams(data-bind="html: teams_text")
                .right-icon.accept(data-bind="showClick: true, click: $parent.acceptInvite, clickBubble: false")
@@ -94,6 +97,7 @@ html
                .image-wrap
                   img.profile-image(data-bind="thumbnailSrc: profile_image_url")
                   .cover
+                  .verified-icon(data-bind="setClass: $data.verified")
                .text-wrapper
                   .fan-name(data-bind="text: name")
                .right-icon.rank(data-bind="text: $index() + 1")

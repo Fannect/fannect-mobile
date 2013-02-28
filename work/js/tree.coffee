@@ -75,6 +75,10 @@
 #= require "viewModels/settings-vm/account.coffee"
 #= require "viewModels/settings-vm/manageAccounts.coffee"
 
+#= require "viewModels/settings-vm/verified-vm/player.coffee"
+#= require "viewModels/settings-vm/verified-vm/coach.coffee"
+#= require "viewModels/settings-vm/verified-vm/authority.coffee"
+
 #= require "viewModels/share-vm/sms.coffee"
 
 #= require "pages.coffee"

@@ -232,6 +232,18 @@ window.fannect.pages =
    "settings-privacy-page":
       classes: ["light-background"]
 
+   "settings-verified-page": 
+      classes: []
+
+   "settings-verified-player-page":
+      vm: vm.Settings.Verified.Player 
+
+   "settings-verified-coach-page":
+      vm: vm.Settings.Verified.Coach
+
+   "settings-verified-authority-page":
+      vm: vm.Settings.Verified.Authority
+
    ###
    # Share
    ###

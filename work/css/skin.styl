@@ -184,6 +184,25 @@ html
       border-bottom: 1px solid #444
       z-index: 50
 
+.explanation
+   padding: 12px
+   border: 1px #ccc solid
+   border-radius: 5px
+   background-color: rgba(100,100,100,.6)
+   margin: 10px 0 20px
+   font-weight: normal
+   color: #ccc
+   font-size: .9em
+   text-align: center
+   text-shadow: 0 1px 1px #000
+   line-height: 1.3em
+
+   strong
+      color: #c1272d
+
+   &.left
+      text-align: left
+
 .pattern-bg 
    &.has-search
       margin-top: 0px
@@ -238,25 +257,6 @@ html
 
 .fans
    .fan
-      .image-wrap
-         position: absolute
-         width: 43px
-         height: 43px
-         border-radius: 5px
-         top: 50%
-         margin-top: -21px
-         .profile-image
-            width: 43px
-            height: 43px
-            border-radius: 5px
-         .cover
-            position: absolute
-            top: 0
-            left: 0
-            width: 43px
-            height: 43px
-            border-radius: 5px
-            dropshadow: inset 1px 2px 3px rgba(0,0,0,0.6), 0 1px 2px rgba(255, 255, 255, 0.8), 0 -1px 1px rgba(0, 0, 0, 0.8)
       .text-wrapper
          display: table
          padding-left: 55px
@@ -291,31 +291,36 @@ html
    .text-wrapper
       padding-right: 34px
 
-.invite-list
-   .ui-link-inherit
-      padding-right: 42px!important
-   // a
-   //    padding-right: 42px
-   .image-wrap
-      position: absolute
-      top: 50%
-      left: 40px
-      margin-top: -21.5px
+.image-wrap
+   position: absolute
+   margin-top: -21.5px
+   width: 43px
+   height: 43px
+   top: 50%
+   border-radius: 5px
+   .profile-image
       width: 43px
       height: 43px
       border-radius: 5px
-      .profile-image
-         width: 43px
-         height: 43px
-         border-radius: 5px
-      .cover
-         position: absolute
-         top: 0
-         left: 0
-         width: 43px
-         height: 43px
-         border-radius: 5px
-         dropshadow: inset 1px 2px 3px rgba(0,0,0,0.6), 0 1px 2px rgba(255, 255, 255, 0.8), 0 -1px 1px rgba(0, 0, 0, 0.8)
+   .cover
+      position: absolute
+      top: 0
+      left: 0
+      width: 43px
+      height: 43px
+      border-radius: 5px
+      dropshadow: inset 1px 2px 3px rgba(0,0,0,0.6), 0 1px 2px rgba(255, 255, 255, 0.8), 0 -1px 1px rgba(0, 0, 0, 0.8)
+   .verified-icon
+      position: absolute
+      right: -13px
+      bottom: -8px
+
+.invite-list
+   .ui-link-inherit
+      padding-right: 42px!important
+   .image-wrap
+      left: 40px
+
    .fan-name
       font-size: 1.3em
       padding-left: 84px
@@ -448,9 +453,10 @@ html
    .share-button
       background-image: url(../images/ShareButtons@2x.png)!important
 
-@import "charts"
-@import "swipeSlider"
-@import "tutorial"
+@import "elements/charts"
+@import "elements/swipeSlider"
+@import "elements/tutorial"
+@import "elements/verified"
 
 @import "pages/login"
 @import "pages/profile"
