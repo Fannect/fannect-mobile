@@ -1,12 +1,13 @@
 .verified-icon
    display:none
-   background-image: url(../images/verified/Listview@2x.png) no-repeat
+   background: url(../images/verified/Listview.png) no-repeat
    background-size: 30px 25px
    width: 30px
    height: 25px
 
    &.player-basketball
    &.coach-basketball
+   &.fannect-squad
       display:block
       background-position: 0 0 
 
@@ -14,6 +15,15 @@
       display:block
       background-position: -35px 0 
 
+.verified-badge
+   line-height: 25px
+   height: 25px
+   .verified-icon
+      float: left
+   .verified-text
+      margin-left: 32px 
+      font-size: 13px
+
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
    .verified
-      background-image: url(../images/verified/Listview@2x.png)
+      background-image: url(../images/verified/Listview@2x.png)!important

@@ -146,7 +146,7 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
             setTimeout (() -> parent.removeClass("ui-btn-active")), duration
 
    ko.bindingHandlers.setClass = 
-      init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
+      update: (element, valueAccessor, allBindingsAccessor, viewModel) ->
          c = ko.utils.unwrapObservable valueAccessor()
          $(element).addClass(c?.replace(/_/g,"-"))
 

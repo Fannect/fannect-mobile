@@ -11,6 +11,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @roster = ko.observable()
          @points = ko.observable()
          @rank = ko.observable()
+         @verified = ko.observable()
          @breakdown = ko.observableArray() 
          @shout = ko.observable()
          @shout_date = ko.observable()
@@ -41,6 +42,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @roster profile.friends_count or 0
          @points profile.points?.overall or 0
          @rank profile.rank or 0
+         @verified profile.verified or ""
          @shout profile.shouts?[0]?.text or "...silence..."
         
          if profile.shouts?[0]?._id
