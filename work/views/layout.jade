@@ -65,6 +65,17 @@ html
                .image-wrap
                   img.profile-image(data-bind="thumbnailSrc: profile_image_url")
                   .cover
+                  .verified-icon(data-bind="setClass: $data.verified")
+               .text-wrapper
+                  .fan-name(data-bind="text: name")
+
+      script(id="motivate-fan-template", type="text/html")
+         li.fan(data-bind="css:{'selected':selected,'face-on':gameface_on,'face-off':has_motivator}")
+            a(data-bind="click: $parent.selectUser")
+               .image-wrap
+                  img.profile-image(data-bind="thumbnailSrc: profile_image_url")
+                  .cover
+                  .verified-icon(data-bind="setClass: $data.verified")
                .text-wrapper
                   .fan-name(data-bind="text: name")
 
@@ -75,6 +86,7 @@ html
                .image-wrap
                   img.profile-image(data-bind="thumbnailSrc: profile_image_url")
                   .cover
+                  .verified-icon(data-bind="setClass: $data.verified")
                .fan-name(data-bind="text: name")
                .teams(data-bind="html: teams_text")
                .right-icon.accept(data-bind="showClick: true, click: $parent.acceptInvite, clickBubble: false")
@@ -85,6 +97,7 @@ html
                .image-wrap
                   img.profile-image(data-bind="thumbnailSrc: profile_image_url")
                   .cover
+                  .verified-icon(data-bind="setClass: $data.verified")
                .text-wrapper
                   .fan-name(data-bind="text: name")
                .right-icon.rank(data-bind="text: $index() + 1")

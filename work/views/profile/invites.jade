@@ -2,7 +2,7 @@ extend ../layout
 
 block header
    h1(data-menu-root="profile") Invites
-   a(href="profile.html", data-icon="back", data-rel="back", data-theme="b") Profile
+   a(href="profile.html", data-icon="back", data-rel="back", data-theme="b", data-transition="slidedown") Profile
    a.ui-btn-right(data-bind="click: rightButtonClick", data-role="button", data-icon="refresh", data-transition="slide", data-theme="b", data-iconpos="notext")
 
 block content
@@ -11,7 +11,7 @@ block content
    .no-invites(data-bind="fadeIn: no_invites", style="display:none;") 
       p Looks like no one's trying to recruit you. Get out and get noticed!
       .share-wrap
-         .sub-title Share Fannect via
+         .sub-title Recruit More Fans!
          .share-button.twitter(data-bind="showClick: true, click: shareViaTwitter")
          .share-button.email(data-bind="showClick: true, click: shareViaEmail")
          //- .share-button.sms(data-bind="showClick: true, click: shareViaSMS, visible: forge.is.ios()")

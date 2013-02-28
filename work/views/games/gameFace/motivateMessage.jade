@@ -1,0 +1,10 @@
+extend ../../layout
+
+block header
+   a(href="games-gameFace-motivateSelect.html", data-icon="back", data-rel="back", data-theme="b") GameFace
+   h1(data-menu-root="games") Message
+   
+block content
+
+   p Here you can customize your motivation message to get your friends' heads in the game!
+   textarea.message(data-bind="value: message, valueUpdate: ['afterkeydown'], css: { 'warn': chars_remaining() < 0 }, forceFocus: is_showing", autofocus="autofocus").

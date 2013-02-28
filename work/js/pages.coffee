@@ -112,6 +112,7 @@ window.fannect.pages =
    # Games
    ###
    "games-page":
+      vm: vm.Games
       classes: ["light-background"]
 
    "games-guessTheScore-page":
@@ -149,6 +150,28 @@ window.fannect.pages =
       ]
       scroller: true
       classes: ["no-padding"]
+
+   "games-gameFace-motivateSelect-page":
+      vm: vm.Games.GameFace.MotivateSelect
+      # buttons: [
+      #    {
+      #       icon: "images/mobile/InfoButton@2x.png"
+      #       position: "right"
+      #       click: () -> window.fannect.tutorial.show()
+      #    }
+      # ]
+      classes: ["light-background"]
+
+   "games-gameFace-motivateMessage-page":
+      vm: vm.Games.GameFace.MotivateMessage
+      # buttons: [
+      #    {
+      #       icon: "images/mobile/InfoButton@2x.png"
+      #       position: "right"
+      #       click: () -> window.fannect.tutorial.show()
+      #    }
+      # ]
+      classes: ["light-background"]
 
    ###
    # Leaderboard
@@ -208,6 +231,18 @@ window.fannect.pages =
 
    "settings-privacy-page":
       classes: ["light-background"]
+
+   "settings-verified-page": 
+      classes: []
+
+   "settings-verified-player-page":
+      vm: vm.Settings.Verified.Player 
+
+   "settings-verified-coach-page":
+      vm: vm.Settings.Verified.Coach
+
+   "settings-verified-authority-page":
+      vm: vm.Settings.Verified.Authority
 
    ###
    # Share

@@ -131,15 +131,19 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
 
    ko.bindingHandlers.showClick = 
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
+         duration = ko.utils.unwrapObservable valueAccessor()
+         duration = 250 if typeof duration != "number"
          link = $(element).click () ->
             link.addClass("ui-btn-active")
-            setTimeout (() -> link.removeClass("ui-btn-active")), 250
+            setTimeout (() -> link.removeClass("ui-btn-active")), duration
 
    ko.bindingHandlers.showListviewClick = 
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
+         duration = ko.utils.unwrapObservable valueAccessor()
+         duration = 400 if typeof duration != "number"
          link = $(element).click () ->
             parent = link.parents(".ui-btn").addClass("ui-btn-active")
-            setTimeout (() -> parent.removeClass("ui-btn-active")), 400
+            setTimeout (() -> parent.removeClass("ui-btn-active")), duration
 
    ko.bindingHandlers.setClass = 
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->

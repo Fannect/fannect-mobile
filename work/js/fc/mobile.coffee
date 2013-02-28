@@ -61,9 +61,14 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   position: "left"
                   style: "back"
                   click: () -> 
-                     $.mobile.back()
                      fc.mobile.clearButtons()
-
+                     if (href = leftButton.attr("href"))
+                        $.mobile.changePage href, 
+                           transition: leftButton.attr("data-transition") or "slide"
+                           reverse: true
+                     else
+                        $.mobile.back()
+                     
       clearButtons: () ->
          leftHeaderButton = null
          rightHeaderButton = null
@@ -73,8 +78,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             removingButtons = false
             fc.mobile.addHeaderButton leftHeaderButton if leftHeaderButton
             fc.mobile.addHeaderButton rightHeaderButton if rightHeaderButton
-         , () ->
-            fc.mobile.clearButtons()
+         , (err) ->
+            fc.mobile.clearButtons() if err
 
       addHeaderButton: (options, click) ->
          if forge.is.mobile()
@@ -84,13 +89,17 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             rightHeaderButton = options if options.position == "right"
 
             return if removingButtons
-            console.log "MADE IT HERE"
 
             forge.topbar.addButton options, options.click, (err) ->
                if err
-                  forge.topbar.removeButtons () ->
-                     # fc.mobile.addHeaderButton leftHeaderButton if leftHeaderButton
-                     # fc.mobile.addHeaderButton rightHeaderButton if rightHeaderButton
-
+                  setTimeout ->
+                     forge.topbar.removeButtons () ->
+                        if leftHeaderButton and not leftHeaderButton.second_try
+                           leftHeaderButton.second_try = true
+                           fc.mobile.addHeaderButton leftHeaderButton 
+                        if rightHeaderButton and not rightHeaderButton.second_try
+                           fc.mobile.addHeaderButton rightHeaderButton
+                           rightHeaderButton.second_try = true
+                  , 15
 
 

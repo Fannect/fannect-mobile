@@ -35,6 +35,7 @@
 #= require "viewModels/linkAccounts.coffee"
 #= require "viewModels/profile.coffee"
 #= require "viewModels/leaderboard.coffee"
+#= require "viewModels/games.coffee"
 #= require "viewModels/connect.coffee"
 #= require "viewModels/share.coffee"
 
@@ -60,6 +61,8 @@
 #= require "viewModels/games-vm/gameFace.coffee"
 #= require "viewModels/games-vm/guessTheScore.coffee"
 
+#= require "viewModels/games-vm/gameFace-vm/motivateSelect.coffee"
+
 #= require "viewModels/leaderboard-vm/listview.coffee"
 #= require "viewModels/leaderboard-vm/conference.coffee"
 #= require "viewModels/leaderboard-vm/league.coffee"
@@ -71,6 +74,10 @@
 #= require "viewModels/settings-vm/manageProfiles.coffee"
 #= require "viewModels/settings-vm/account.coffee"
 #= require "viewModels/settings-vm/manageAccounts.coffee"
+
+#= require "viewModels/settings-vm/verified-vm/player.coffee"
+#= require "viewModels/settings-vm/verified-vm/coach.coffee"
+#= require "viewModels/settings-vm/verified-vm/authority.coffee"
 
 #= require "viewModels/share-vm/sms.coffee"
 

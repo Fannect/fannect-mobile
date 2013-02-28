@@ -4,6 +4,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
    fc.share =
       viaTwitter: (done) ->
+         forge.flurry.customEvent("Twitter Share", {show: true})
          forge.tabs.openWithOptions
             url: "https://twitter.com/intent/tweet?url=#{escape(twitterLink)}&text=#{escape(twitterText)}"
             pattern: "*://twitter.com/intent/tweet/complete*"
@@ -14,6 +15,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             done(err) if err and done
             
       viaEmail: (done) ->
+         forge.flurry.customEvent("Email Share", {show: true})
          fc.msg.loading("Sending email...")
          fc.ajax
             url: "#{fc.getResourceURL()}/v1/share/email"
@@ -25,5 +27,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                fc.msg.show("Unable to send an email at this time! Please try to share again later!", 2100)
 
       viaSMS: (done) ->
+         forge.flurry.customEvent("SMS Share", {show: true})
          $.mobile.changePage "share-sms.html", transition: "slide"
             

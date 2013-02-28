@@ -1,0 +1,25 @@
+extend ../layout
+
+block header
+   a(href="settings.html", data-icon="back", data-rel="back", data-theme="b") Back
+   h1(data-menu-root="profile") Verfication
+
+block content
+   .explanation.left
+      | Are you a collegiate or pro athlete? Coach or sports authority? If so, we think
+      | you should be recognized. Fill out the respective form below to request verification.
+      | Our team will evaluate your request based on our requirements and notify
+      | you if you become verified.
+
+      ul
+         li 
+            | <strong>Athlete</strong>: current or retired collegiate or professional player
+         li 
+            | <strong>Coach</strong>: current or retired collegiate or professional coach
+         li 
+            | <strong>Sports Authority</strong>: sports media member, announcer, sports writer or blogger
+
+   ul(data-role="listview", data-inset="true")
+      li: a(href="settings-verified-player.html", data-transition="slide") Player
+      li: a(href="settings-verified-coach.html", data-transition="slide") Coach
+      li: a(href="settings-verified-authority.html", data-transition="slide") Sports Authority

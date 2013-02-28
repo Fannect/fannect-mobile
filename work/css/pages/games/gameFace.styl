@@ -7,7 +7,7 @@
       background-size: 370.5px 184px
       width: 184px
       height: 184px
-      margin 15px auto 10px
+      margin: 0px auto -5px
       background-position: 0 0
       &.on
          background-position: -186px -185px
@@ -33,27 +33,64 @@
       background: url(../images/tutorial/Tutorial_onSwitch.png) 50% 0 no-repeat
       background-size: 163px 54px
       margin: 8px 0
+   
+   .tutorial-title
+      margin: 20px 0 15px
 
-   .plus-one
-      background: url(../images/tutorial/Tutorial_plus1.png) 50% 0 no-repeat
-      background-size: 141px 106px
-      height: 106px
-      margin: 8px 0
-
+   p.intro
+      font-size: .9em
    p.scoring
       margin-top: 18px
       font-size: 1.2em
       line-height: 1.2em
 
+   .motivate
+      margin: 20px auto 0
+      width: 250px
+
+#games-gameFace-motivateSelect-page
+   .pattern-bg
+      li
+         .ui-icon-arrow-r
+            background: url(../images/games/gameFace/checkbox.png) no-repeat
+            background-size: 83px 39px
+            width: 39px
+            height: 39px
+            margin-top: -19.5px
+            background-position: -44px 0
+
+         &.selected
+            .ui-icon-arrow-r
+               background-position: 0 0
+         &.face-on
+         &.face-off
+            .ui-icon-arrow-r
+               margin-top: -9px
+               background: url(../images/games/gameFace/gameface_sprite_small.png) no-repeat
+               background-size: 95px 22px
+               background-position: -50px 0
+               width: 45px
+               height: 22px
+         &.face-on
+            .ui-icon-arrow-r
+               background-position: 0 0
+
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
    #games-gameFace-page
       .game-face
-         background-image: url(../images/games/gameFace/Gameface_Sprite@2x.png)
+         background-image: url(../images/games/gameFace/Gameface_Sprite@2x.png)!important
       .no-game-scheduled
-         background-image: url(../images/games/BigTeamGlass@2x.png)
+         background-image: url(../images/games/BigTeamGlass@2x.png)!important
       .tutorial-gameface-sketch
-         background-image: url(../images/tutorial/Tutorial_gamefaceIcon@2x.png)
+         background-image: url(../images/tutorial/Tutorial_gamefaceIcon@2x.png)!important
       .tutorial-switch
-         background-image: url(../images/tutorial/Tutorial_onSwitch@2x.png)
-      .plus-one
-         background-image: url(../images/tutorial/Tutorial_plus1@2x.png)
+         background-image: url(../images/tutorial/Tutorial_onSwitch@2x.png)!important
+
+   #games-gameFace-motivateSelect-page
+      li
+         .ui-icon-arrow-r
+            background-image: url(../images/games/gameFace/checkbox@2x.png)!important
+         &.face-off
+         &.face-on
+            .ui-icon-arrow-r
+               background-image: url(../images/games/gameFace/gameface_sprite_small@2x.png)!important

@@ -10,6 +10,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @loading_more = ko.observable false
          @show_sharing = ko.observable false
          @show_roster_title = ko.observable(@query().length == 0)
+         @has_more = true
 
          if not forge.is.android()
             @query.subscribe () =>
@@ -25,6 +26,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       androidSearch: () => @search() if forge.is.android()
       search: () =>
+         @has_more = true
          @skip = 0
          @fans.removeAll()
          fc.cache.set("last_connect_search", @query())
@@ -41,6 +43,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @show_sharing(@fans().length == 0)
             , 200
 
+            @has_more = fans.length == @limit
             @skip += @limit
             @fans.push fan for fan in fans
             
@@ -58,7 +61,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       onPageShow: () =>
          $window = $(window).scroll () =>
-            if not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
+            if not @loading_more() and @has_more and $window.scrollTop() > $(document).height() - $window.height() - 150
                @loading_more true
                @load()
          
