@@ -19,6 +19,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          if data.game_time 
             @time_and_coverage = dateFormat(data.game_time, "h:MM TT")
-            @time_and_coverage += " - #{data.coverage}"
+            @time_and_coverage += " - #{data.coverage}" if data.coverage
          else  
             @time_and_coverage = ""

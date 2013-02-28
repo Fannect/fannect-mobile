@@ -24,8 +24,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             (#{my_actual_score}-#{opponent_actual_score})"
 
       game_face: (e, name) ->
-         e.summary = "#{name} scored <b>#{e.points} Points</b> by turning on 
-            GameFace for #{e.meta.team_name} vs #{e.meta.opponent}!"
+         if e.meta.motivated_count > 0
+            e.summary = "#{name} scored <b>#{e.points} Points</b> by turning on 
+               GameFace and motivating #{e.meta.motivated_count} others 
+               for #{e.meta.team_name} vs #{e.meta.opponent}!"
+         else
+            e.summary = "#{name} scored <b>#{e.points} Points</b> by turning on 
+               GameFace for #{e.meta.team_name} vs #{e.meta.opponent}!"
 
    eventPointsEarned = (e) ->
       for cat, points of e.points_earned

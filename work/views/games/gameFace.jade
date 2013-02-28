@@ -56,7 +56,7 @@ block content
          option(value="off") Off
          option(value="on") On
 
-   a.motivate(data-role="button", href="games-gameFace-motivateSelect.html", data-bind="fadeIn: face_on", style="display:none;", data-transition="slide") Motivate Your Roster!
+   a.motivate(data-role="button", href="games-gameFace-motivateSelect.html", data-bind="fadeIn: face_on() && game_data.available()", style="display:none;", data-transition="slide") Motivate Your Roster!
 
 block tutorial
    .tutorial-slider.two
@@ -68,7 +68,7 @@ block tutorial
                .dot.active
                .dot
             .tutorial-gameface-sketch
-            p Turn on your gameface on gamedays and earn points for keeping your head in the game!
+            p.intro Turn on your GameFace on gamedays to show your passion and motivate others for extra points!
             .tutorial-switch
 
       .tutorial-item
@@ -79,7 +79,25 @@ block tutorial
             .tutorial-pos-indicator
                .dot
                .dot.active
-            .tutorial-title SCORING RULES
-            p.scoring Earn one passion point per game by turning your GameFace on!
-            .plus-one
+            .tutorial-title BREAKDOWN
+            //- p.scoring Earn one passion point per game by turning your GameFace on!
 
+            .tutorial-points-table
+               .point-header Points Awarded
+               .score-header Requirements
+
+               .point-levels
+                  .level +1
+                  .level +2
+                  .level +3
+                  .level +4
+                  .level +5
+                  .level +6
+               .score-levels
+                  .level GameFace On!
+                  .level Motivate 2-3 others
+                  .level Motivate 4-6 others
+                  .level Motivate 7-10 others
+                  .level Motivate 11-15 others
+                  .level Motivate 16+ others
+                  

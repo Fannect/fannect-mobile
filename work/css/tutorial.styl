@@ -1,0 +1,199 @@
+.tutorial-link .ui-icon.ui-icon-custom
+   background: url(../images/tutorial/InfoButton@2x.png) no-repeat
+   background-size: 18px 18px
+
+.tutorial
+   font-family: Journal, Helvetica, Arial, sans-serif
+   position: fixed
+   padding-top: 50px
+   top: 0
+   width: 100%
+   height: 100%
+   z-index: 2000
+   background: rgba(0,0,0,.5)
+   display: none
+   .tutorial-slider
+      height: 344px
+      &.one
+         width: 100%
+         .tutorial-item
+            width: 100%
+      &.two
+         width: 200%
+         .tutorial-item
+            width: 50%
+      &.three
+         width: 300%
+         .tutorial-item
+            width: 33.33333333%
+      &.four
+         width: 400%
+         .tutorial-item
+            width: 25%
+      &.five
+         width: 500%
+         .tutorial-item
+            width: 20%
+   .tutorial-item
+      float: left
+      height: 100%
+      background: url(../images/tutorial/Tutorial_chalkboard.png) 50% 0 no-repeat
+      background-size: 304px 344px
+      font-size: 1.3em
+      line-height: 1.1em
+      text-align: center
+   .tutorial-content
+      position: relative
+      margin: 0 auto
+      padding: 22px 16px 22px
+      width: 258px
+      height: 307px
+   .tutorial-close
+      position: absolute
+      background: url(../images/tutorial/Tutorial_exitButton.png) 50% 50% no-repeat
+      background-size: 27px 31px
+      top: -6px
+      right: -9px
+      width: 60px
+      height: 60px
+      cursor: pointer
+      &:active
+         background-image: url(../images/tutorial/tutorial_redX.png)
+   .tutorial-done
+      position: absolute
+      background: url(../images/tutorial/TutorialDoneButton.png) 50% 50% no-repeat
+      background-size: 48px 27px
+      width: 60px
+      height: 60px
+      cursor: pointer
+      right: 4px
+      bottom: 10px
+
+   .tutorial-title
+      font-size: 1.3em
+      text-align: center
+   .tutorial-next
+   .tutorial-prev
+      position: absolute
+      bottom: 27px
+      width: 30px
+      height: 21px
+      background-size: 30px 21px
+      cursor: pointer
+   .tutorial-next
+      right: 10px
+      background-image: url(../images/tutorial/Tutorial_nextArrow.png)
+   .tutorial-prev
+      left: 10px
+      background-image: url(../images/tutorial/Tutorial_backArrow.png)
+   .tutorial-pos-indicator
+      position: absolute
+      bottom: 0
+      left: 50%
+      width: 96px
+      height: 67px
+      margin-left: -52.5px 
+      background: url(../images/tutorial/Tutorial_dotShelf.png) 0 0 no-repeat
+      background-size: 105px 67px
+      .dot
+         display: inline-block
+         position: relative
+         top: 15px
+         width: 12px
+         height: 12px
+         background: url(../images/tutorial/Tutorial_openPageIndicator.png) 50% 50% no-repeat
+         background-size: 12px 12px
+         &.active
+            background-image: url(../images/tutorial/Tutorial_currentPageIndicator.png)
+            background-size: 9px 9px
+   p
+      margin: 0
+      -webkit-margin-before: 0
+      -webkit-margin-after: 0
+   p.medium
+      font-size: 1.2em
+      line-height: 1.1em
+      margin-bottom: 2px
+   p.large
+      font-size: 1.4em
+      line-height: 1.3em
+      margin-bottom: 4px
+   ol
+      position:relative
+      left: 15px
+      list-style: decimal outside
+      text-align: left
+   .tutorial-submit-button
+      height: 55px
+      background: url(../images/tutorial/Tutorial_submitButton.png) 50% 0 no-repeat
+      background-size: 225px 55px
+      margin-top: 8px
+
+.is-mobile .tutorial
+   padding-top: 20px
+
+.tutorial-points-table
+   position: relative
+   background: url(../images/tutorial/Tutorial_EmptyFrame.png) 50% 0 no-repeat
+   background-size: 258px 196px
+   width: 258px
+   height: 196px
+   margin-left: 2px
+
+   .point-levels
+   .score-levels
+      position:absolute
+      top: 0
+      right:0
+      width: 120px
+      text-align: left
+      padding-top: 30px
+   .point-levels
+      left:18px
+      right:auto
+
+   .point-header
+   .score-header
+   .level 
+      height: 25px
+      line-height: 25px
+      text-shadow: none
+      font-size: .8em
+
+   .score-header
+   .point-header
+      position: absolute
+      font-size: .9em
+      width: 114px
+      top: 3px
+      left 9px
+
+   .score-header
+      left: 128px
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5)
+   .tutorial-link .ui-icon.ui-icon-custom
+      background-image: url(../images/tutorial/InfoButton@2x.png)!important
+   .tutorial-item
+      background-image: url(../images/tutorial/Tutorial_chalkboard@2x.png)!important
+   .tutorial-close
+      background-image: url(../images/tutorial/Tutorial_exitButton@2x.png)!important
+      &:active
+         background-image: url(../images/tutorial/tutorial_redX@2x.png)!important
+   .tutorial-done
+      background-image: url(../images/tutorial/TutorialDoneButton@2x.png)!important
+   .tutorial-next
+         background-image: url(../images/tutorial/Tutorial_nextArrow@2x.png)!important
+   .tutorial-prev
+         background-image: url(../images/tutorial/Tutorial_backArrow@2x.png)!important
+   .tutorial-pos-indicator
+      background-image: url(../images/tutorial/Tutorial_dotShelf@2x.png)!important
+      .dot
+         background-image: url(../images/tutorial/Tutorial_openPageIndicator@2x.png)!important
+         &.active
+            background-image: url(../images/tutorial/Tutorial_currentPageIndicator@2x.png)!important
+   .tutorial-submit-button
+      background-image: url(../images/tutorial/Tutorial_submitButton@2x.png)!important
+
+   .tutorial-points-table
+         background-image: url(../images/tutorial/Tutorial_EmptyFrame@2x.png)!important
