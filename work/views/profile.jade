@@ -31,8 +31,8 @@ block content
       .user-wrap(data-bind="click: changeUserImage, clickBubble: false")
          img(data-bind="profileSrc:profile_image", width="140", height="140")
          .cover
-      .verified-wrap
-         .verified-badge(data-bind="fadeIn: verified", style="display:none;")
+      .verified-wrap(data-bind="fadeIn: verified", style="display:none;")
+         .verified-badge
             .verified-icon(data-bind="setClass: verified")
             .verified-text(data-bind="text: window.fannect.verified(verified())")
 
