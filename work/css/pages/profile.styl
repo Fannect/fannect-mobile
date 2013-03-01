@@ -72,10 +72,19 @@
             border-radius: 10px
             z-index: 300
 
-      .verified-badge
+      .verified-wrap
          position:absolute
-         bottom: 24px
-         left: 160px
+         background: url(../images/profile/badge_Shelf.png) no-repeat
+         background-size: 320px 38px
+         width: 320px
+         height: 38px
+         bottom: 22px
+
+         .verified-badge
+            position:absolute
+            top: 50%
+            margin-top: -12.5px
+            left: 160px
 
    .name
       font-size: 1.8em
@@ -584,6 +593,8 @@
       .activity-icon
          background-image: url(../images/icons/icons-gamecell-small@2x.png)!important
 
+      .verified-wrap
+         background-image: url(../images/profile/badge_Shelf@2x.png)!important
 
       .secondary-slider
          .swipe-header
