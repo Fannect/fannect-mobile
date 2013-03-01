@@ -26,61 +26,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
       # return "http://192.168.0.24:2200"
       # return if forge.is.web() then "http://localhost:2200" else "https://fannect-login.herokuapp.com"
 
-   fc.createPages = () ->
-      for i, p of window.fannect.pages
-         do (id = i, page = p) ->
-            vm = null 
-            scroller = null
-            $page = null
-            
-            initPage = () ->
-               # apply page classes
-               $page = $(@)
-               if page.classes?
-                  $page.addClass(c) for c in page.classes
-
-               # create viewmodel and bind to page
-               if page.vm?
-                  vm = new page.vm()
-                  ko.applyBindings vm, @
-               
-               # create page scrollers
-               if page.scroller then scroller = $(".scrolling-text", @).scroller()
-
-            $("##{id}").live("pageinit", initPage
-            ).live("pagebeforeshow", () ->
-               fc.mobile.setupHeader()
-            ).live("pageshow", () ->
-               initPage.call(@) unless vm
-               if scroller then scroller.scroller("start")
-               forge.flurry.customEvent("#{id} Page", {show: true})
-   
-               if forge.is.mobile()
-                  # add buttons to native header if mobile
-                  fc.mobile.setupBackButton()
-
-                  if page.buttons?.length > 0
-                     for button in page.buttons
-                        unless button.click
-                           if button.position == "left"
-                              button.click = vm.leftButtonClick
-                           else 
-                              button.click = vm.rightButtonClick
-                        fc.mobile.addHeaderButton button
-
-               vm.onPageShow() if vm
-
-            ).live("pagebeforehide", () ->
-               if scroller then scroller.scroller("stop")
-               fc.mobile.clearButtons() if forge.is.mobile()
-            ).live("pagehide", () ->
-               vm.onPageHide() if vm
-               if page.no_cache
-                  vm = null
-                  $page.remove()
-            )
-      return true
-
    fc.isSlow = () ->
       unless cachedIsSlow?
          result = new UAParser().getResult()
@@ -103,9 +48,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
          $.mobile.loading "hide"
 
    $(".ui-page").live "pageshow", () -> if showLoading then fc.loading "show"
-
-   fc.clearBindings = (context) ->
-      ko.cleanNode(context)
 
    fc.parseId = (_id) ->
       return new Date(parseInt(_id.substring(0,8), 16) * 1000)
@@ -142,7 +84,3 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
    fc.hideScoringPopup = () ->
       $(".scorePointsInfoPopup", $.mobile.activePage).popup("close")
       $(".scorePointsInfoPopup a").addClass("ui-btn-active")
-
-   fc.hideUpdatePopup = () ->
-      $(".updatePopup", $.mobile.activePage).popup("close")
-      $(".updatePopup a").addClass("ui-btn-active")

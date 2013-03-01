@@ -16,6 +16,7 @@
 #= require "fc/maps.coffee"
 #= require "fc/mobile.coffee"
 #= require "fc/msg.coffee"
+#= require "fc/nav.coffee"
 #= require "fc/push.coffee"
 #= require "fc/setup.coffee"
 #= require "fc/team.coffee"

@@ -33,7 +33,7 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
             forge.prefs.set "tutorial_shown", shown
 
    ).live "pageremove", () ->
-      fc.clearBindings @
+      ko.cleanNode @
 
    $(".tutorial-link").live "click", (e) ->
       e.stopPropagation()
@@ -56,7 +56,10 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
          $("html").addClass("is-mobile")
 
          forge.reload.updateReady.addListener () ->
-            $(".updatePopup", $.mobile.activePage).popup("open")
+            dialog = $(".updatePopup", $.mobile.activePage).first()
+            text = "An Auto-Update is available! Minimize and reopen the app! No need to go to the #{if forge.is.ios() then 'App' else 'Play'} Store. These changes may be subtle."
+            $("h3.ui-title", dialog).text(text)
+            dialog.popup("open")
 
          if forge.is.android()
             $("html").addClass("android")
@@ -77,7 +80,7 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
             startTimedEvent: () ->
             endTimedEvent: () ->
 
-      fc.createPages()
+      fc.nav.setup()
       fc.mobile.createButtons()
       if fc.isSlow() 
          $("html").addClass("speed-up")
