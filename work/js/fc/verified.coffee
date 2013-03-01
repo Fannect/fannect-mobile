@@ -9,6 +9,5 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       else if type.indexOf("authority") != -1
          return "Authority"
       else if type == "fannect_squad"
-         return ""
-         # return "Fannect Squad"
+         return "Fannect Squad"
       return ""
