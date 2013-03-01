@@ -31,9 +31,10 @@ block content
       .user-wrap(data-bind="click: changeUserImage, clickBubble: false")
          img(data-bind="profileSrc:profile_image", width="140", height="140")
          .cover
-      .verified-badge(data-bind="fadeIn: verified", style="display:none;")
-         .verified-icon(data-bind="setClass: verified")
-         .verified-text(data-bind="text: window.fannect.verified(verified())")
+      .verified-wrap(data-bind="fadeIn: verified", style="display:none;")
+         .verified-badge
+            .verified-icon(data-bind="setClass: verified")
+            .verified-text(data-bind="text: window.fannect.verified(verified())")
 
    .name(data-bind="html: name")
 
