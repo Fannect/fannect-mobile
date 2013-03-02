@@ -123,7 +123,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       vm = cachedVMs[id]
 
       # save position of window
-      vm.prev_scroll_top = $(window).scrollTop()
+      vm.prev_scroll_top = $(window).scrollTop() if vm
 
       # stop all scrollers
       $(".scrolling-text", $page).scroller("start") if page.scroller 

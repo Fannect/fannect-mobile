@@ -14,7 +14,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @miles_away = ko.computed () => 
             dis = Math.round((parseFloat(@user_distance()) - .5) * 100) / 100
             return if isNaN(dis) then "loading..." else dis + " mi"
-         fc.maps.loaded () => @load()
             
       checkIn: (data) =>
          if @in_range()
@@ -33,34 +32,35 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   fc.showScoringPopup()
 
       load: () =>
-         fc.team.getActive (err, profile) =>
-            return fc.msg.show("Unable to load game information!") if err
+         fc.maps.loaded () => 
+            fc.team.getActive (err, profile) =>
+               return fc.msg.show("Unable to load game information!") if err
 
-            fc.ajax 
-               url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/attendanceStreak"
-               type: "GET"
-            , (error, data) =>
-               return fc.msg.show("Unable to load game information!") if error
+               fc.ajax 
+                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/attendanceStreak"
+                  type: "GET"
+               , (error, data) =>
+                  return fc.msg.show("Unable to load game information!") if error
 
-               @game_data.set(data)
-               @checked_in data.meta?.checked_in
-               
-               if data.stadium?.lat and data.stadium?.lng 
-                  @stadium_center = new google.maps.LatLng(data.stadium.lat, data.stadium.lng)
+                  @game_data.set(data)
+                  @checked_in data.meta?.checked_in
+                  
+                  if data.stadium?.lat and data.stadium?.lng 
+                     @stadium_center = new google.maps.LatLng(data.stadium.lat, data.stadium.lng)
 
-                  @map = new google.maps.Map $("#games-attendanceStreak-page .map").get(0), 
-                     zoom: 17
-                     mapTypeId: google.maps.MapTypeId.SATELLITE
-                     disableDefaultUI: true
-                     disableDoubleClickZoom: true
-                     center: @stadium_center
-                     scrollwheel: false
-                     panControl: false
-                     maxZoom: 17
-                     minZoom: 17
-                     draggable: false
+                     @map = new google.maps.Map $("#games-attendanceStreak-page .map").get(0), 
+                        zoom: 17
+                        mapTypeId: google.maps.MapTypeId.SATELLITE
+                        disableDefaultUI: true
+                        disableDoubleClickZoom: true
+                        center: @stadium_center
+                        scrollwheel: false
+                        panControl: false
+                        maxZoom: 17
+                        minZoom: 17
+                        draggable: false
 
-                  @findUserLocation() unless data.no_game_scheduled
+                     @findUserLocation() unless data.no_game_scheduled
 
       onPageShow: () =>
          super

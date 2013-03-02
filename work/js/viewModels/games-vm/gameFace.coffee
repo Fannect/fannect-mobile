@@ -24,9 +24,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                (err) ->
                   return fc.msg.show("Something went wrong.. :(") if err
                   fc.showScoringPopup()
-
-         @load()
-            
+  
       load: () =>
          fc.team.getActive (err, profile) =>
             return fc.msg.show("Unable to load game information!") if err

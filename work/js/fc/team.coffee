@@ -11,10 +11,12 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          d(null, team) for d in waitingFn[teamProfileId]
          waitingFn[teamProfileId].length = 0
 
-   notifyTeamUpdated = (team) -> sub team for sub in teamUpdatedSubscribers
+   notifyTeamUpdated = (team) -> 
+      for sub in teamUpdatedSubscribers
+          sub(team) if sub
    notifyActiveChanged = (profile) -> 
-      console.log "Notifying active changed: ", profile.team_name
-      sub(profile) if sub for sub in activeChangedSubscribers
+      for sub in activeChangedSubscribers
+         sub(profile) if sub 
 
    addToChannel = (team_id) ->
       if forge.is.mobile()

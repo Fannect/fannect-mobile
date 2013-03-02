@@ -20,9 +20,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             if loadedTeams then @_setInvites(loadedTeams, invs)
             else loadedInvites = invs
 
-      onPageShow: () =>
-         @load() unless @loading
-
       selectUser: (data) -> fc.user.view({ user_id: data._id, action: "accept" })
       hideInvite: (element) -> $el = $(element).slideUp 400, () -> $el.remove()
       removeInvite: (data) =>
