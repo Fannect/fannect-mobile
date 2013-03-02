@@ -8,7 +8,6 @@
 #= require "fc/helpers.coffee"
 #= require "fc/ajax.coffee"
 #= require "fc/auth.coffee"
-#= require "fc/cache.coffee"
 #= require "fc/chart.coffee"
 #= require "fc/share.coffee"
 #= require "fc/images.coffee"

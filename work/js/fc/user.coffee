@@ -87,26 +87,3 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                channel = "user_#{user_id}"
                if not (channel in channels)
                   forge.partners.parse.push.subscribe(channel)
-
-      view: (options) ->
-         fc.cache.set "view_other", options
-         $.mobile.changePage "profile-other.html", fc.transition("slide")
-
-   $("#profile-other-page").live("pageinit", () ->
-      $(@).addClass("no-padding")
-   ).live("pageshow", () ->
-      forge.flurry.customEvent("#profile-other-page", {show: true})
-
-      if not options = fc.cache.pull("view_other")
-         $.mobile.changePage "profile.html", fc.transition("none")
-      else
-         vm = new fc.viewModels.Profile.Other options
-         ko.applyBindings vm, @
-         fc.mobile.setHeaderText()
-         fc.mobile.clearButtons()
-         fc.mobile.addHeaderButton
-            position: "left"
-            type: "back"
-            style: "back"
-            text: "Back"
-   )

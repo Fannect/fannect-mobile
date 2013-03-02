@@ -1,8 +1,7 @@
 do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
    class fc.viewModels.Profile.Other extends fc.viewModels.Profile
-      constructor: (options) ->
-         @options = options
+      constructor: () ->
          @is_friend = ko.observable(false)
          @showSentPopup = ko.observable(false)
          @showAcceptedPopup = ko.observable(false)
@@ -11,11 +10,15 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       setup: () =>
       load: () =>
+         @is_friend(false)
+         @showSentPopup(false)
+         @showAcceptedPopup(false)
+         @showAlreadySentPopup(false)
 
          finish = (err, profile) =>
             throw err if err
             @is_friend(profile.is_friend) 
-            @options.user_id = profile.user_id
+            @params.user_id = profile.user_id
 
             profile.profile_image_url = "images/fannect_UserPlaceholderPic@2x.png" unless profile.profile_image_url?.length > 2
             profile.team_image_url = "images/fannect_TeamPlaceholderPic@2x.png" unless profile.team_image_url?.length > 2
@@ -25,24 +28,24 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @updateProfile(profile)
 
                if (profile.user_id in user.invites)
-                  @options.action = "accept"
+                  @params.action = "accept"
 
                unless profile.is_friend  
                   fc.mobile.addHeaderButton
                      position: "right"
-                     text: if @options.action == "accept" then "Accept" else "Add"
+                     text: if @params.action == "accept" then "Accept" else "Add"
                      click: @rightButtonClick
 
          fc.team.getActive (err, profile) =>
-            if @options.user_id 
+            if @params.user_id 
                fc.ajax
-                  url: "#{fc.getResourceURL()}/v1/teamprofiles?user_id=#{@options.user_id}&friends_with=#{profile._id}"
+                  url: "#{fc.getResourceURL()}/v1/teamprofiles?user_id=#{@params.user_id}&friends_with=#{profile._id}"
                   type: "GET"
                , finish
             else
-               if @options.team_profile_id == profile._id then @is_friend(true)
+               if @params.team_profile_id == profile._id then @is_friend(true)
                fc.ajax 
-                  url: "#{fc.getResourceURL()}/v1/teamprofiles/#{@options.team_profile_id}?is_friend_of=#{profile._id}"
+                  url: "#{fc.getResourceURL()}/v1/teamprofiles/#{@params.team_profile_id}?is_friend_of=#{profile._id}"
                   type: "GET"
                , finish
 
@@ -52,7 +55,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       changeTeamImage: () -> return false
 
       rightButtonClick: () =>
-         if @options.action == "accept"
+         if @params.action == "accept"
             @_acceptInvite()
          else
             @_sendInvite()
@@ -62,7 +65,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.ajax
             url: "#{fc.getResourceURL()}/v1/me/invites"
             type: "POST"
-            data: user_id: @options.user_id 
+            data: user_id: @params.user_id 
          , (err, data) =>
             @showAcceptedPopup(true) if data.status == "success" 
 
@@ -72,7 +75,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @_hideRightButton()
                forge.flurry.customEvent("Send Invite", {sendInvite: true})
                fc.ajax
-                  url: "#{fc.getResourceURL()}/v1/users/#{@options.user_id}/invite"
+                  url: "#{fc.getResourceURL()}/v1/users/#{@params.user_id}/invite"
                   type: "POST"
                   data: inviter_user_id: user._id
                , (err, data) =>

@@ -17,37 +17,36 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   @search()
                , 400
 
-         @load()
-
-      androidSearch: () => @search() if forge.is.android()
-            
+      androidSearch: () => @search() if forge.is.android()  
       search: () =>
          @skip = 0
          @teams.removeAll()
-         @load()
+         @loadTeams()
 
-      load: () =>
+      loadTeams: () =>
          return unless @query()?.length > 0
          @loading_more true
+         query = @query()
 
          fc.ajax 
-            url: "#{fc.getResourceURL()}/v1/sports/#{fc.cache.get('sport_key')}/teams?limit=#{@limit}&skip=#{@skip}&q=#{escape(@query())}"
+            url: "#{fc.getResourceURL()}/v1/sports/#{@params.sport_key}/teams?limit=#{@limit}&skip=#{@skip}&q=#{escape(query)}"
             type: "GET"
          , (err, teams) =>
             return fc.msg.show("Unable to load teams!") if err
+            return if query != @query()
             @skip += @limit
             @teams.push t for t in teams
 
       onPageShow: () =>
          super
-         $window = $(window).scroll () =>
+         $window = $(window).bind "scroll.searchTeams", () =>
             if not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
-               @loading_more true
-               @load()
+               @loadTeams()
          
       onPageHide: () =>
          super
-         $(window).unbind("scroll")
+         $(window).unbind("scroll.searchTeams")
+         @query("")
 
       selectTeam: (data) -> 
          fc.msg.loading("Creating profile...")
@@ -56,6 +55,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             if err?.reason == "duplicate"
                fc.msg.show("You're already a commit fan of #{data.full_name}!")
             else
-               $.mobile.changePage "profile.html", fc.transition("slideup")
+               $.mobile.changePage "profile.html", transition: "slideup"
 
             

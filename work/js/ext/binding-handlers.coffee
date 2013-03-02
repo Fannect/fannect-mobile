@@ -28,6 +28,25 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
          else
             $(element).slideUp duration
 
+   ko.bindingHandlers.href = 
+      update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         options = ko.utils.unwrapObservable valueAccessor()
+         
+         params = []
+         for key, val of ko.utils.unwrapObservable(options.params)
+            params.push("#{key}=#{val}")
+
+         $(element).attr("href", "#{options.url}?#{params.join('&')}")
+   
+   ko.bindingHandlers.params = 
+      update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         params = []
+         for key, val of ko.utils.unwrapObservable valueAccessor()
+            params.push("#{key}=#{val}")
+
+         $el = $(element)
+         $el.attr("href", "#{$el.attr('href')}?#{params.join('&')}")
+               
    ko.bindingHandlers.setFocusBlur =
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          valueUnwrapped = ko.utils.unwrapObservable valueAccessor()

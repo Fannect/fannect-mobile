@@ -33,6 +33,10 @@ window.fannect.pages =
       vm: vm.Profile
       classes: ["no-padding"]
 
+   "profile-other-page":
+      vm: vm.Profile.Other
+      classes: ["no-padding"]
+
    "profile-invites-page":
       vm: vm.Profile.Invites
       buttons: [
@@ -158,25 +162,18 @@ window.fannect.pages =
 
    "games-gameFace-motivateSelect-page":
       vm: vm.Games.GameFace.MotivateSelect
-      # buttons: [
-      #    {
-      #       icon: "images/mobile/InfoButton@2x.png"
-      #       position: "right"
-      #       click: () -> window.fannect.tutorial.show()
-      #    }
-      # ]
+      buttons: [
+         {
+            position: "right"
+            text: "Motivate!"
+            tint: [193, 39, 45, 160]
+         }
+      ]
       classes: ["light-background"]
 
-   "games-gameFace-motivateMessage-page":
-      vm: vm.Games.GameFace.MotivateMessage
-      # buttons: [
-      #    {
-      #       icon: "images/mobile/InfoButton@2x.png"
-      #       position: "right"
-      #       click: () -> window.fannect.tutorial.show()
-      #    }
-      # ]
-      classes: ["light-background"]
+   # "games-gameFace-motivateMessage-page":
+   #    vm: vm.Games.GameFace.MotivateMessage
+   #    classes: ["light-background"]
 
    ###
    # Leaderboard

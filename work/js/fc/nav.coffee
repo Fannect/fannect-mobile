@@ -15,13 +15,16 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          # so coffeescript doesn't return the collected loop
          return true 
 
-      parseQueryString: () ->
-         parsed = $.mobile.parseUrl(window.location.hash)
-         return parseQueryStringToObject(parsed.search)
+      getCurrentQueryString: () ->
+         fc.parseQueryString($.mobile.activePage.data("url"))
 
-      parseQueryStringToObject: (qs) ->
+      parseQueryString: (url) ->
+         parsed = $.mobile.path.parseUrl(url)
          obj = {}
-         qs = qs.replace("?", "")
+         qs = parsed.search?.replace("?", "")
+
+         # return empty object if no querystring
+         return obj unless qs?
 
          for section in qs.split("&")
             parts = section.split("=")
@@ -57,13 +60,14 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          vm = cachedVMs[id] = new page.vm()
 
       # bind to page
-      ko.applyBindings vm, @ if vm?
+      if vm?
+         ko.applyBindings vm, @
+         vm.url = $page.data("url")
+         vm.params = fc.nav.parseQueryString(vm.url)
+         vm.load()
          
       # create page scrollers
       $(".scrolling-text", $page).scroller() if page.scroller 
-
-      # call load
-      vm.load() if vm
 
    pageBeforeShow = () ->
       $page = $(@)

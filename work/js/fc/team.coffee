@@ -138,14 +138,13 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             url: "#{fc.getResourceURL()}/v1/me/teams"
             type: "GET"
             retry: "forever"
-         , (error, teams) =>
+         , (err, teams) =>
             if teams.length > 0
                fc.team.setActive teams[0]._id, () ->
                   fc.team.getActive(done) if done
                   $.mobile.changePage "profile.html", transition: "slidedown"
             else
-               fc.cache.set("choose_team_options", { hide_back: true })
-               $.mobile.changePage "profile-selectTeam-chooseSport.html", transition: ("slide" or options.transition)
+               $.mobile.changePage "profile-selectTeam-chooseSport.html?hide_back=true", transition: ("slide" or options.transition)
 
       onActiveChanged: (cb) -> activeChangedSubscribers.push(cb)
       

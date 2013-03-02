@@ -12,14 +12,24 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          @items = ko.observableArray()
          @loading_more = ko.observable false
-         @load()
+   
+         # Load immediately
+         @loadFans()
+
+         # reload results if team profile changes
+         fc.team.onActiveChanged () =>
+            @previous_scroll_top = 0
+            @items.removeAll
+            @skip = 0
+            @no_more_results = false
+            @loadFans()
 
       getUrl: (url) -> throw "getUrl must be overridden!"
       getItemTemplate: () -> return "getItemTemplate must be overridden!"
       getListViewClass: () -> return "getListViewClass must be overridden!"
       extractList: (data) -> return data
-
-      load: () =>
+      
+      loadFans: () =>
          return if @no_more_results
          @loading_more(true)
          @getUrl (url) =>
@@ -41,13 +51,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             return true
 
       onPageShow: () ->
-         $window = $(window).scroll () =>
+         $window = $(window).bind "scroll.leaderboard", () =>
             if not @loading_more() and not @no_more_results and $window.scrollTop() > $(document).height() - $window.height() - 150
-               @load()
+               @loadFans()
 
-      onPageHide: () => $(window).unbind("scroll")
+      onPageHide: () => $(window).unbind("scroll.leaderboard")
 
-      selectUser: (data) -> fc.user.view({ team_profile_id: data._id })
+      selectUser: (data) -> 
+         $.mobile.changePage "profile-other.html?team_profile_id=#{data._id}", transition:"slide"
       selectTeam: (data) -> 
-         fc.cache.set("leaderboard_team_id", data._id)
-         $.mobile.changePage "leaderboard-breakdownOther.html", fc.transition("slide")
+         $.mobile.changePage "leaderboard-breakdownOther.html?team_id=#{data._id}", transition:"slide"

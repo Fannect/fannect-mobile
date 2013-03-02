@@ -7,6 +7,6 @@ block header
 block content
    ul.dark-pattern-bg(data-role="listview", data-theme="b", data-filter="true", data-filter-theme="b", data-bind="foreach: leagues, listviewUpdate: leagues")
       li
-         a(href="profile-selectTeam-chooseTeam.html", data-bind="click: $parent.selectLeague, text: league_name", data-transition="slide")
+         a(href="profile-selectTeam-chooseTeam.html", data-bind="params:{sport_key:$parent.params.sport_key, league_key:leaguekey}, text: league_name", data-transition="slide")
    .loading-more-indicator(data-bind="visible: is_loading")
      

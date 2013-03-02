@@ -7,7 +7,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @email = ko.observable()
          @password = ko.observable()
          @confirm_password = ko.observable()
-         @load()
          super
 
       load: () =>
@@ -20,7 +19,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @email user.email
 
       update: () =>
-         fc.msg.loading("Updating accout...")
+         fc.msg.loading("Updating account...")
 
          count = 0
          hasError = false
@@ -75,7 +74,5 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      fc.user.update(data)
                   else hasError = true
                   done()
-
-
 
             fc.msg.hide() if count == 0

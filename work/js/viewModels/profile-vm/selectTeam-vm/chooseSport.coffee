@@ -18,7 +18,4 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       onPageShow: () ->
          super
-         options = fc.cache.pull("choose_team_options") or {}
-         forge.topbar.removeButtons() if options.hide_back
-
-      selectSport: (data) -> fc.cache.set("sport_key", data.sport_key)
+         forge.topbar.removeButtons() if @params.hide_back

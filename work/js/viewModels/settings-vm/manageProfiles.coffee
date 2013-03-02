@@ -10,8 +10,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @deleteText = ko.observable()
          @showConfirm = ko.observable()
          @selectedTeam = null
-         @load()
-
+         
       load: (done) ->
          @teams.removeAll()
          @is_loading(true)

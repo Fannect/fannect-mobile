@@ -13,7 +13,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                url: "#{fc.getLoginURL()}/v1/token"
                type: "POST"
                data: 
-                  email: fc.cache.pull("reset_password_email")
+                  email: @params.email
                   password: @password()
                no_access_token: true
             , (err, user) ->
@@ -24,12 +24,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   fc.msg.show("Unexpected failure.. :(")
                else
                   fc.user.update(user)
-                  $.mobile.changePage "resetPassword-setPassword.html", fc.transition("slide")
+                  $.mobile.changePage "resetPassword-setPassword.html", transition: "slide"
          else
             fc.msg.show("Please insert the code emailed to you!")
 
       onPageShow: () =>
          super
-         unless fc.cache.hasKey("reset_password_email")
-            $.mobile.changePage "index.html", fc.transition("none")
+         unless @params.email
+            $.mobile.changePage "index.html", transition: "none"
             

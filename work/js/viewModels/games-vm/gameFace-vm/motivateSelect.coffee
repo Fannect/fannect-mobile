@@ -19,28 +19,30 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   @search()
                , 400
 
-         @load()
-
+      load: () => 
+         @query("")
+         @search()
       androidSearch: () => @search() if forge.is.android()
       search: () =>
          @skip = 0
          @has_more = true
          @fans.removeAll()
-         @load()
+         @loadFans()
 
-      load: () =>
+      loadFans: () =>
          @loading_more true
 
+         query = @query()
          fc.team.getActive (err, profile) =>
             url = "#{fc.getResourceURL()}/v1/teams/#{profile.team_id}/users?limit=#{@limit}&skip=#{@skip}&friends_of=#{profile._id}&content=gameface"
-            if @query()?.length > 0
-               url += "&q=#{escape(@query())}"
+            if query?.length > 0
+               url += "&q=#{escape(query)}"
 
             fc.ajax 
                url: url
                type: "GET"
             , (err, fans) =>
-               return if err
+               return if err or query != @query()
                setTimeout () => 
                   @loading_more false
                , 200
@@ -54,21 +56,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       onPageShow: () =>
          super
-         $window = $(window).scroll () =>
+         $window = $(window).bind "scroll.motivateSelect", () =>
             if not @loading_more() and @has_more and $window.scrollTop() > $(document).height() - $window.height() - 150
                @loading_more true
-               @load()
+               @loadFans()
 
-         fc.mobile.addHeaderButton {
-            position: "right"
-            text: "Motivate!"
-            tint: [193, 39, 45, 160]
-            click: @rightButtonClick
-         }
-         
       onPageHide: () => 
          super
-         $(window).unbind("scroll")
+         $(window).unbind("scroll.motivateSelect")
 
       selectUser: (data) => 
          return if data.gameface_on or data.has_motivator
@@ -82,6 +77,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @_addSelected(data._id)
 
       rightButtonClick: () => 
+         selected_fans = @selected_fans
+         @selected_fans = []
          fc.team.getActive (err, profile) =>
             fc.ajax
                url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace/motivate"
