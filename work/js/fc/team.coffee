@@ -1,27 +1,47 @@
 do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect) ->
+
+   teamUpdatedSubscribers = []
+   activeChangedSubscribers = []
+   waitingFn = {}
+   fetching = {}
+
+   doneFetching = (teamProfileId, team) ->
+      fetching[teamProfileId] = false
+      if waitingFn[teamProfileId]?.length > 0
+         d(null, team) for d in waitingFn[teamProfileId]
+         waitingFn[teamProfileId].length = 0
+
+   notifyTeamUpdated = (team) -> sub team for sub in teamUpdatedSubscribers
+   notifyActiveChanged = (profile) -> 
+      console.log "Notifying active changed: ", profile.team_name
+      sub(profile) if sub for sub in activeChangedSubscribers
+
+   addToChannel = (team_id) ->
+      if forge.is.mobile()
+         forge.partners.parse.push.subscribedChannels (channels) ->
+            channel = "team_#{team_id}"
+            if not (channel in channels)
+               forge.partners.parse.push.subscribe(channel)
+
    fc.team =
       _teams: {}
       _curr: null
-      _subscribers: []
-      _waitingFn: {}
-      _fetching: {}
 
       get: (teamProfileId, done) ->
          if fc.team._teams[teamProfileId] 
-            fc.team._notify(fc.team._teams[teamProfileId])
             done(null, fc.team._teams[teamProfileId]) if done
             return fc.team._teams[teamProfileId]
          else
             fc.team.refresh(teamProfileId, done)
 
       refresh: (teamProfileId, done) ->
-         if fc.team._fetching[teamProfileId]
+         if fetching[teamProfileId]
             console.log "Already being pulled"
             if done
-               fc.team._waitingFn[teamProfileId] = [] unless fc.team._waitingFn[teamProfileId]
-               fc.team._waitingFn[teamProfileId].push(done) 
+               waitingFn[teamProfileId] = [] unless waitingFn[teamProfileId]
+               waitingFn[teamProfileId].push(done) 
          else
-            fc.team._fetching[teamProfileId] = true
+            fetching[teamProfileId] = true
             fc.ajax 
                url: "#{fc.getResourceURL()}/v1/me/teams/#{teamProfileId}"
                type: "GET"
@@ -31,22 +51,16 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                if err?.status == 404 or err?.statusCode?.toString() == "404"
                   return fc.team.redirectToSelect() 
                
-               fc.team._addToChannel(team.team_id)
+               addToChannel(team.team_id)
                fc.team._teams[teamProfileId] = team
-               fc.team._notify(team)
-               fc.team._waitingFn[teamProfileId]
-               fc.team._doneFetching(teamProfileId, team)
+               notifyTeamUpdated(team) if fc.team._curr == team._id
+               waitingFn[teamProfileId]
+               doneFetching(teamProfileId, team)
                done(null, team) if done
 
       refreshActive: (done) ->
          fc.team.getActive (err, profile) ->
             fc.team.refresh(profile._id, done) if profile
-
-      _doneFetching: (teamProfileId, team) ->
-         fc.team._fetching[teamProfileId] = false
-         if fc.team._waitingFn[teamProfileId]?.length > 0
-            d(null, team) for d in fc.team._waitingFn[teamProfileId]
-            fc.team._waitingFn[teamProfileId].length = 0
 
       getActive: (done) ->
          if fc.team._curr
@@ -62,14 +76,23 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             , (err) -> done(err)
 
       setActive: (teamProfileId, done) ->
-         fc.team._curr = teamProfileId
-         forge.prefs.set "team_profile_id", teamProfileId
-         fc.team.get teamProfileId, done
+         if fc.team._curr != teamProfileId
+            fc.team._curr = teamProfileId
+            console.log "CHANGING PROFILE TO:", teamProfileId
+            forge.prefs.set "team_profile_id", teamProfileId
+            fc.team.get teamProfileId, (err, profile) ->
+               notifyActiveChanged(profile)
+               notifyTeamUpdated(profile)
+               console.log "RETRIEVED PROFILE FROM:", teamProfileId
+               console.log "PROFILE", profile
+               done(null, profile)
+         else
+            fc.team.getActive(done)
 
       updateActive: (update) ->
          throw "Cannot update team before it has been fetched" unless fc.team._curr
          $.extend true, fc.team._teams[fc.team._curr], update
-         fc.team._notify(fc.team._teams[fc.team._curr])
+         notifyTeamUpdated(fc.team._teams[fc.team._curr])
 
       create: (team_id, done) ->
          forge.flurry.customEvent("Create Profile", {team_id: team_id})
@@ -79,10 +102,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             data: team_id: team_id
          , (err, team) ->
             return done(err) if err and done
-            fc.team._addToChannel(team_id)
             fc.team._teams[team._id] = team
             fc.team.setActive team._id, false
-            fc.team._notify(team)
+            notifyTeamUpdated(team)
+            addToChannel(team_id)
             done(null, team) if done
 
       clearCache: () ->
@@ -104,9 +127,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             done(err, data) if done
 
       removeFromChannel: (team_id) -> forge.partners.parse.push.unsubscribe("team_#{team_id}") if forge.is.mobile()
-      subscribe: (cb) -> fc.team._subscribers.push cb if cb
-      _notify: (team) -> sub team for sub in fc.team._subscribers
-
+      onTeamUpdated: (cb) -> teamUpdatedSubscribers.push cb if cb
+      
       # options - hide_back: [false]
       redirectToSelect: (options, done) ->
          # check if profiles already exist
@@ -123,9 +145,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                fc.cache.set("choose_team_options", { hide_back: true })
                $.mobile.changePage "profile-selectTeam-chooseSport.html", transition: ("slide" or options.transition)
 
-      _addToChannel: (team_id) ->
-         if forge.is.mobile()
-            forge.partners.parse.push.subscribedChannels (channels) ->
-               channel = "team_#{team_id}"
-               if not (channel in channels)
-                  forge.partners.parse.push.subscribe(channel)
+      onActiveChanged: (cb) -> activeChangedSubscribers.push(cb)
+      
+  
+

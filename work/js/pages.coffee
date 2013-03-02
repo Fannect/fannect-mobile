@@ -31,7 +31,6 @@ window.fannect.pages =
    ###
    "profile-page": 
       vm: vm.Profile
-      scroller: false
       classes: ["no-padding"]
 
    "profile-invites-page":
@@ -51,8 +50,13 @@ window.fannect.pages =
    "profile-shout-page":
       vm: vm.Profile.Shout
       classes: ["light-background"]
-      buttons: []
-      no_cache: true
+      buttons: [
+         {
+            position: "right"
+            text: "Shout It!"
+            tint: [193, 39, 45, 160]
+         }
+      ]
    ###
    # Select Team
    ###
@@ -97,6 +101,7 @@ window.fannect.pages =
          }
       ]
       classes: ["light-background"]
+      auto_scroll: true
 
    "connect-connectProfile-page":
       vm: vm.Connect.ConnectProfile

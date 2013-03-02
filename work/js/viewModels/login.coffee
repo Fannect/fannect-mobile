@@ -4,19 +4,17 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       constructor: () ->
          @email = ko.observable()
          @password = ko.observable()
-
          fc.setup()
-         @is_checking_login = true
-         fc.auth.isLoggedIn (err, is_logged_in) =>
-            @is_checking_login = false
+         super
 
-            if is_logged_in
+      load: () =>
+         fc.auth.isLoggedIn (err, loggedIn) =>
+            if loggedIn
                if not fc.push.activate()
                   $.mobile.changePage "profile.html", transition: "none"
             else
                forge.launchimage.hide() if forge.is.mobile()
- 
-         super
+
 
       login: () =>
          if @email()?.length > 1 and @password()?.length > 1
@@ -29,15 +27,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   fc.msg.show("Incorrect username or password!")
          else
             fc.msg.show("We need your email and password to log you in!")
-
-      onPageShow: () =>
-         super
-         return if @is_checking_login
-         fc.auth.isLoggedIn (err, is_logged_in) =>
-            if is_logged_in
-               $.mobile.changePage "profile.html", transition: "none"
-            else
-               forge.launchimage.hide() if forge.is.mobile()
 
       rightButtonClick: () =>
          $.mobile.changePage "createAccount.html", transition: "slide"

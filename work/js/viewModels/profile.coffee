@@ -17,16 +17,22 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @shout_date = ko.observable()
          @next_game = ko.observable(new fc.models.NextGame())
          @events = new fc.models.Events()
-         @load()
-
+         
          @showProfileImagePopup = ko.computed () => @editing_image() == "profile"
          @showTeamImagePopup = ko.computed () => @editing_image() == "team"
 
-      load: () =>
-         fc.team.subscribe @updateProfile
+         @setup()
          
+      setup: () =>
+         fc.team.onTeamUpdated @updateProfile
+         fc.team.getActive (err, profile) => 
+            return fc.msg.show("Unable to load profile!") if err
+            @updateProfile(profile)
+
       updateProfile: (profile) =>
          return unless profile
+
+         console.log "updated"
 
          if @isEditable()
             profile.profile_image_url = "images/profile/Profile_tapToAddProfilePhoto@2x.png" unless profile.profile_image_url?.length > 2
@@ -84,15 +90,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @_addHeaderButtons() if forge.is.mobile()
 
       selectTeam: () -> $.mobile.changePage "profile-selectTeam.html", fc.transition("slide")
-      changeUserImage: () => @editing_image "profile"
-      changeTeamImage: () => @editing_image "team"
+      changeUserImage: () => console.log("USER PROFILE SELECT"); @editing_image "profile"
+      changeTeamImage: () => console.log("TEAM PROFILE SELECT"); @editing_image "team"
       cancelImagePicking: () => @editing_image "none"
       isEditable: () -> return true
 
       startShouting: () =>
          if @isEditable()
-            $.mobile.changePage "profile-shout.html", fc.transition("slideup")
-
+            $.mobile.changePage "profile-shout.html", transition: "slideup"
 
       sliderOptions: () =>
          if @isEditable()

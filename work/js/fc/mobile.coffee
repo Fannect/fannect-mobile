@@ -45,13 +45,12 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          else
             forge.tabbar.hide () -> $.mobile.activePage.css("min-height", $("body").height())
 
-      setupHeader: () ->
+      setHeaderText: () ->
          if forge.is.mobile()
-            header = $(".header", $.mobile.activePage).get(0)
-            forge.topbar.setTitle $("h1", header).text()
+            forge.topbar.setTitle(fc.getHeaderText($.mobile.activePage))
             fc.mobile.clearButtons()
 
-      setupBackButton: () ->
+      setBackButton: () ->
          if forge.is.mobile()
             leftButton = $(".header a[data-rel=back]", $.mobile.activePage)
 

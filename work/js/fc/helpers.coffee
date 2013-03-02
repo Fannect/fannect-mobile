@@ -26,6 +26,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
       # return "http://192.168.0.24:2200"
       # return if forge.is.web() then "http://localhost:2200" else "https://fannect-login.herokuapp.com"
 
+   fc.getMenuRoot = (page) -> return $(".header h1", page)?.first()?.attr("data-menu-root")
+   fc.getHeaderText = (page) -> return $(".header h1", page).text()
+
    fc.isSlow = () ->
       unless cachedIsSlow?
          result = new UAParser().getResult()

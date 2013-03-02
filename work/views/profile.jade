@@ -2,7 +2,7 @@ extend layout
 
 block header
    h1(data-menu-root="profile") Profile
-   a.ui-btn-left(href="profile-invites.html", data-role="button", data-iconpos="notext", data-icon="custom", data-theme="b", data-shadow="false")
+   a.ui-btn-left(href="profile-invites.html", data-role="button", data-iconpos="notext", data-icon="custom", data-theme="b", data-shadow="false", data-transition="slidedown")
    a.ui-btn-right(href="settings.html", data-role="button", data-transition="slidedown", data-theme="b", data-iconpos="notext", data-icon="gear") Edit
 
    #changeProfileImagePopup(data-role="popup", style="width:260px;", class="ui-corner-all", data-overlay-theme="a", data-theme="a", data-bind="showPopup: showProfileImagePopup")
@@ -20,7 +20,7 @@ block header
       .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
          a(data-role="button", data-bind="click: takeImage, visible: window.forge.is.mobile(), showClick: true") Take Picture
          a(data-role="button", data-bind="click: chooseImage, visible: window.forge.is.mobile(), showClick: true") Choose from Library
-         a(href="profile-chooseWebImage.html", data-role="button") Choose from Web
+         a(href="profile-chooseWebImage.html", data-role="button", data-transition="slidedown") Choose from Web
          a(data-role="button", data-theme="c", data-bind="click: cancelImagePicking, showClick: true") Cancel
 
 block content

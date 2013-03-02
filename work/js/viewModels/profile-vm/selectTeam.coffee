@@ -5,7 +5,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super 
          @teams = ko.observableArray []
          @is_loading = ko.observable(true)
-         @load()
          
       load: (done) =>
          @is_loading(true)

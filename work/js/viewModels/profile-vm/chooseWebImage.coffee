@@ -5,7 +5,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super
          @limit = 20
          @skip = 0
-         @has_loaded = false
+         @has_searched = false
          @timeoutId = null
          @selected = false
          
@@ -13,30 +13,33 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @images = ko.observableArray []
          @query = ko.observable()
 
+         @query.subscribe () => @images.removeAll()
+
       search: () ->
          @skip = 0
          @images.removeAll()
 
-         if @query().length > 0 then @load @query()
-         else @has_loaded = false
+         if @query().length > 0 then @loadImages @query()
+         else @has_searched = false
 
       onPageShow: () =>
-         $window = $(window).scroll () =>
-            if @has_loaded and not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
-               @load @query()
+         $window = $(window).bind "scroll.chooseWebImage", () =>
+            if @has_searched and not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
+               @loadImages @query()
 
       onPageHide: () =>
-         $(window).unbind("scroll")
+         $(window).unbind("scroll.chooseWebImage")
 
-      load: (query, done) ->
+      loadImages: (query, done) ->
          @loading_more true
+
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/images/bing?q=#{escape(query)}&limit=#{@limit}&skip=#{@skip}"
             type: "GET"
          , (error, data) =>
             if query == @query()
                setTimeout (() => @loading_more(false)), 200 # wait for images to load fully
-               @has_loaded = true
+               @has_searched = true
                @skip += @limit
                for image in data
                   image.selected = ko.observable(false)
@@ -56,11 +59,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   type: "POST"
                   data: image_url: data.url
                , (err, data) =>
+                  fc.msg.hide()
+
                   if err
                      fc.msg.show("Unable to upload image due to copyright.")
                      @selected = false
                      @images()[@images.indexOf(data)].selected(false)
                   else
-                     fc.msg.hide()
                      fc.team.updateActive(data)
-                     $.mobile.changePage "profile.html", transition: "slideup"
+                     $.mobile.changePage "profile.html", 
+                        transition: "slidedown"
+                        reverse: true

@@ -9,6 +9,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @showAlreadySentPopup = ko.observable(false)
          super
 
+      setup: () =>
       load: () =>
 
          finish = (err, profile) =>

@@ -21,7 +21,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   waiting = null
 
       activate: () -> 
-         return unless forge.is.mobile()
+         return false unless forge.is.mobile()
          if not is_active
             is_active = true
             if waiting

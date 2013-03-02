@@ -3,54 +3,28 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
    $(document).ready () ->
       setup()
 
-   $(".ui-page").live("pagecreate", () ->
-      if forge.is.mobile()
-         # Hide header and footer
-         $(".header", @).removeAttr("data-role data-position data-tap-toggle").css(display: "none")
-         $(".footer", @).removeAttr("data-role data-position data-tap-toggle").css(display: "none")
-
-   ).live("pagebeforeshow", () ->
-      # check if logged in
-      if $.mobile.activePage.attr("id") != "index-page"
-         fc.auth.isLoggedIn()
-
-      fc.setActiveMenu getMenu @
-
-   ).live("pageshow", () ->
-      tutorial_pages = [ 
-         "profile-page", 
-         "games-attendanceStreak-page", 
-         "games-gameFace-page", 
-         "games-guessTheScore-page" 
-      ]
-      
-      currentId = $.mobile.activePage.attr("id")
-      
-      forge.prefs.get "tutorial_shown", (shown = []) ->
-         if currentId in tutorial_pages and not (currentId in shown)
-            shown.push currentId
-            fc.tutorial.show()
-            forge.prefs.set "tutorial_shown", shown
-
-   ).live "pageremove", () ->
-      ko.cleanNode @
-
    $(".tutorial-link").live "click", (e) ->
       e.stopPropagation()
       fc.tutorial.show()
       return false
-      
-   getMenu = (page) ->
-      return $(".header h1", page)?.first()?.attr("data-menu-root")
 
    setup = () ->
+
+      # disable all transitions for better faster Android experience
       $.mobile.pushStateEnabled = false
       $.mobile.transitionFallbacks.slide = "none"
       $.mobile.transitionFallbacks.slidein = "none"
       $.mobile.transitionFallbacks.slideout = "none"
+      $.mobile.transitionFallbacks.slideupin = "none"
+      $.mobile.transitionFallbacks.slideout = "none"
       $.mobile.transitionFallbacks.flip = "none"
       $.mobile.transitionFallbacks.flipin = "none"
       $.mobile.transitionFallbacks.flipout = "none"
+      $.mobile.transitionFallbacks.slidedown = "none"
+      $.mobile.transitionFallbacks.slidefade = "none"
+      $.mobile.transitionFallbacks.slideup = "none"
+      $.mobile.transitionFallbacks.flow = "none"
+      $.mobile.transitionFallbacks.turn = "none"
       
       if forge.is.mobile()
          $("html").addClass("is-mobile")
@@ -72,7 +46,7 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
          else if forge.is.ios() 
             $("html").addClass("ios")
       else
-         # fake flurry for web
+         # stub out flurry for web
          forge.flurry =
             customEvent: () -> 
             setDemographics: () -> 
@@ -80,8 +54,10 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
             startTimedEvent: () ->
             endTimedEvent: () ->
 
+
       fc.nav.setup()
       fc.mobile.createButtons()
+
       if fc.isSlow() 
          $("html").addClass("speed-up")
          $.mobile.defaultPageTransition = "none"
