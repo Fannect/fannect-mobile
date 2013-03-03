@@ -5,16 +5,17 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          @path = path 
          @transition_to = transition_to or "slide"
          @transition_back = transition_back or transition_to or "slide"
-      go: (transition) =>
-         $changePage @path, transition: transition or @transition_to
+      go: (transition, reverse) =>
+         $changePage @path, {transition: transition or @transition_to, reverse:reverse}
       back: (transition) =>
          $changePage @path, { transition: transition or @transition_back, reverse: true }
 
    class HistoryPath 
       constructor: (root) -> @history = [new HistoryEntry(root, "none")]
       push: (entry) => 
-         @current().transition_back = entry.transition_to
-         @history.push(entry)
+         curr = @current()
+         curr.transition_back = entry.transition_to
+         @history.push(entry) unless curr.path == entry.path
       current: () => @history[@history.length - 1]
       hasBack: () => @history.length > 1
       empty: () => @history.length = 1
@@ -49,15 +50,12 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          $.mobile.back = fc.nav.goBack
          $.mobile.changePage = (toPage, options = {}) ->
 
-            console.log "TOPAGE", toPage
-            console.log "OPTIONS", options
-
             # Add to history if not silent
-            if not options.silent and historyPaths[activeHistoryPath] and typeof toPage == "string" 
+            if not options.silent and historyPaths[activeHistoryPath] and typeof toPage == "string" and options.role != "popup"
                entry = new HistoryEntry(toPage, options.transition)
                historyPaths[activeHistoryPath].push(entry)
 
-            console.log historyPaths[activeHistoryPath].history
+               console.log "HISTORY", JSON.stringify(historyPaths[activeHistoryPath].history)
 
             $changePage.apply(this, arguments) 
                
@@ -71,10 +69,25 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       getActiveHistoryName: () -> return activeHistoryPath
       
+      backToRoot: (options = {}) ->
+         historyPaths[activeHistoryPath].empty()
+         entry = historyPaths[activeHistoryPath].current()
+         console.log "BACK TO ROOT HISTORY", JSON.stringify(historyPaths[activeHistoryPath].history)
+         entry.go(options.transition or "none", options.reverse or false)
+         
+      changeActiveHistoryOrBack: (name, options) ->
+         if activeHistoryPath == name
+            historyPaths[activeHistoryPath].empty()
+            entry = historyPaths[activeHistoryPath].current()
+            entry.back()
+         else
+            fc.nav.changeActiveHistory(name, options)
+
       changeActiveHistory: (name, options = {}) ->
          activeHistoryPath = name
          historyPaths[activeHistoryPath].empty() if options.empty
          entry = historyPaths[activeHistoryPath].current()
+         console.log "ACTIVE HISTORY", JSON.stringify(historyPaths[name].history)
          entry.go(options.transition or "none")
 
       clearHistory: () -> v.empty() for k, v of historyPaths
@@ -86,6 +99,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             $(".footer ." + menu + "-menu").addClass("ui-btn-active").addClass("ui-btn-persist")
          else
             fc.mobile.setActiveMenu menu
+
+      closePopup: () ->
+         historyPaths[activeHistoryPath].current().go("pop")
 
       # Utility methods
       getCurrentQueryString: () ->

@@ -20,7 +20,7 @@ block header
       .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
          a(data-role="button", data-bind="click: takeImage, visible: window.forge.is.mobile(), showClick: true") Take Picture
          a(data-role="button", data-bind="click: chooseImage, visible: window.forge.is.mobile(), showClick: true") Choose from Library
-         a(href="profile-chooseWebImage.html", data-role="button", data-transition="slidedown") Choose from Web
+         a(href="profile-chooseWebImage.html", data-role="button", data-bind="click: chooseWebImage", data-transition="slidedown") Choose from Web
          a(data-role="button", data-theme="c", data-bind="click: cancelImagePicking, showClick: true") Cancel
 
 block content

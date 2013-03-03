@@ -29,8 +29,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   retry: "forever"
                , (err) ->
                   return fc.msg.show("Something went wrong.. :(") if err
-                  fc.showScoringPopup()
-
+              
       load: () =>
          fc.maps.loaded () => 
             fc.team.getActive (err, profile) =>

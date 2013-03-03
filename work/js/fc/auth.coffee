@@ -125,11 +125,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       getRefreshToken: (done) ->
          return done(null, fc.auth._refresh_token) if fc.auth._refresh_token 
          
-         console.log "GETTING_TOKEN"
          forge.prefs.get "refresh_token"
          , (refresh_token) ->
-            console.log "REFRESH_TOKEN #{refresh_token}"
-            
             if not refresh_token
                didRedirect = fc.auth.redirectToLogin()
                return done(null, false) if not didRedirect and done

@@ -38,5 +38,4 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      shout: shout_text
                      tweet: @twitter_active()
             
-            $.mobile.changePage "profile.html", fc.transition("flip")
-
+            fc.nav.backToRoot({transition:"slideup"})

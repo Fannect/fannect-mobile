@@ -24,7 +24,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       selectTeam: (data) ->
          fc.team.setActive data._id, (err) ->
-            $.mobile.changePage "profile.html", transition: "slideup"
-
+            fc.nav.backToRoot(transition:"slideup")
+            
       rightButtonClick: () ->
          $.mobile.changePage "profile-selectTeam-chooseSport.html", transition: "slide"

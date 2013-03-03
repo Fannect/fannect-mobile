@@ -13,7 +13,7 @@ block content
       .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
          h3.ui-title(data-bind="html: deleteText")
          a(data-role="button", data-bind="click: removeProfile, showClick: true") Delete
-         a(data-role="button", data-rel="back", data-theme="c", data-bind="click: cancel, showClick: true") Cancel
+         a(data-role="button", href="javascript:fannect.nav.closePopup()", data-bind="showClick:true", data-theme="c") Cancel
 
    ul.dark-pattern-bg(data-role="listview", data-theme="b", data-bind="template: { foreach: teams, beforeRemove: hideProfile }, listviewUpdate: teams")
       li

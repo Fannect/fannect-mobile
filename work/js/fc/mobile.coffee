@@ -27,7 +27,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
             button.onPressed.addListener () ->
                forge.flurry.customEvent("#{text} Menu", show: true)
-               fc.nav.changeActiveHistory(historyPath)
+               fc.nav.changeActiveHistoryOrBack(historyPath)
 
       createButtons: () -> 
          return if fc.mobile._header_added

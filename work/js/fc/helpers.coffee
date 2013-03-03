@@ -67,13 +67,3 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
          done null, data
 
       img.src = file
-
-   fc.showScoringPopup = () ->
-      forge.prefs.get "scoring_info_shown", (shown) ->
-         unless shown 
-            $(".scorePointsInfoPopup", $.mobile.activePage).popup("open")
-            forge.prefs.set("scoring_info_shown", true)
-
-   fc.hideScoringPopup = () ->
-      $(".scorePointsInfoPopup", $.mobile.activePage).popup("close")
-      $(".scorePointsInfoPopup a").addClass("ui-btn-active")

@@ -15,7 +15,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          @query.subscribe () => @images.removeAll()
 
-      search: () ->
+      search: () =>
          @skip = 0
          @images.removeAll()
 
@@ -67,6 +67,4 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      @images()[@images.indexOf(data)].selected(false)
                   else
                      fc.team.updateActive(data)
-                     $.mobile.changePage "profile.html", 
-                        transition: "slidedown"
-                        reverse: true
+                     fc.nav.goBack()

@@ -93,9 +93,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @_addHeaderButtons() if forge.is.mobile()
 
       selectTeam: () -> $.mobile.changePage "profile-selectTeam.html", fc.transition("slide")
-      changeUserImage: () => console.log("USER PROFILE SELECT"); @editing_image "profile"
-      changeTeamImage: () => console.log("TEAM PROFILE SELECT"); @editing_image "team"
+      changeUserImage: () => @editing_image "profile"
+      changeTeamImage: () => @editing_image "team"
       cancelImagePicking: () => @editing_image "none"
+      chooseWebImage: () => @editing_image "none"
       isEditable: () -> return true
 
       startShouting: () =>
