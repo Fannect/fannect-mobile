@@ -69,8 +69,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             val: profile.points?.knowledge or 0
             style: "knowledge"
 
-         console.log @breakdown()
-
       _addHeaderButtons: () ->
          fc.user.get (err, user) ->
             fc.mobile.addHeaderButton

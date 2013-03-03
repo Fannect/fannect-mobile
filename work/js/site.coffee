@@ -64,4 +64,13 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
 
       fc.push.setup()
 
+      # force page removal of first page from DOM
+      $(document).bind "pagechange.firstpageremove", (toPage, info) ->
+         if ($.mobile.firstPage and info.options.fromPage and ($.mobile.firstPage == info.options.fromPage))
+            $.mobile.firstPage.remove()
+
+            # We only need to remove 1 time from DOM, so unbind the unused event
+            $(document).unbind("pagechange.firstpageremove")
+        
+
       

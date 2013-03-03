@@ -17,13 +17,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   password: @password()
                no_access_token: true
             , (err, user) ->
-               console.log "err", err
-               console.log "user", user
                fc.msg.hide()
                if err
                   fc.msg.show("Unexpected failure.. :(")
                else
                   fc.user.update(user)
+                  @password("")
                   $.mobile.changePage "resetPassword-setPassword.html", transition: "slide"
          else
             fc.msg.show("Please insert the code emailed to you!")
@@ -31,5 +30,4 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       onPageShow: () =>
          super
          unless @params.email
-            $.mobile.changePage "index.html", transition: "none"
-            
+            fc.nav.changeActiveHistory("none")

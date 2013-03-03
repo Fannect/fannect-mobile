@@ -49,13 +49,12 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          $changePage = $.mobile.changePage
          $.mobile.back = fc.nav.goBack
          $.mobile.changePage = (toPage, options = {}) ->
-
             # Add to history if not silent
             if not options.silent and historyPaths[activeHistoryPath] and typeof toPage == "string" and options.role != "popup"
                entry = new HistoryEntry(toPage, options.transition)
                historyPaths[activeHistoryPath].push(entry)
 
-               console.log "HISTORY", JSON.stringify(historyPaths[activeHistoryPath].history)
+               console.log "HISTORY", historyPaths[activeHistoryPath].history.length
 
             $changePage.apply(this, arguments) 
                
@@ -69,10 +68,16 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       getActiveHistoryName: () -> return activeHistoryPath
       
+      buildHistory: (name, entries, transition) ->
+         activeHistoryPath = name
+         history = historyPaths[activeHistoryPath]
+         history.empty()
+         history.push(entry) for entry in entries
+         history.current().go(transition or "slidedown")
+
       backToRoot: (options = {}) ->
          historyPaths[activeHistoryPath].empty()
          entry = historyPaths[activeHistoryPath].current()
-         console.log "BACK TO ROOT HISTORY", JSON.stringify(historyPaths[activeHistoryPath].history)
          entry.go(options.transition or "none", options.reverse or false)
          
       changeActiveHistoryOrBack: (name, options) ->
@@ -84,11 +89,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             fc.nav.changeActiveHistory(name, options)
 
       changeActiveHistory: (name, options = {}) ->
+         historyPaths[name].empty() if options.empty
+         if activeHistoryPath != name or historyPaths[name].hasBack()
+            entry = historyPaths[name].current()
+            entry.go(options.transition or "none")
          activeHistoryPath = name
-         historyPaths[activeHistoryPath].empty() if options.empty
-         entry = historyPaths[activeHistoryPath].current()
-         console.log "ACTIVE HISTORY", JSON.stringify(historyPaths[name].history)
-         entry.go(options.transition or "none")
 
       clearHistory: () -> v.empty() for k, v of historyPaths
 
@@ -188,7 +193,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       if forge.is.mobile()
 
          # add back buttons if exist on page
-         fc.mobile.setBackButton()
+         fc.mobile.setBackButton() unless vm?.params?.hide_back
 
          # add buttons from configuration
          if page.buttons?.length > 0

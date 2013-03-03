@@ -36,10 +36,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @teams.remove @selectedTeam
          fc.team.remove @selectedTeam._id, 
          fc.team.removeFromChannel(@selectedTeam.team_id)
+         fc.nav.closePopup()
 
       selectTeam: (data) ->
          fc.team.setActive data._id, (err) ->
-            $.mobile.changePage "profile.html", transition: "slideup"
-
+            fc.nav.backToRoot(transition:"slideup")
+            
       rightButtonClick: () ->
          $.mobile.changePage "profile-selectTeam-chooseSport.html", transition: "slide"

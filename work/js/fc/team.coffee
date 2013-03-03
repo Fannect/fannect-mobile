@@ -5,6 +5,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
    waitingFn = {}
    fetching = {}
 
+   checkingForTeams = false
+   waitingForTeamsFn = []
+
    doneFetching = (teamProfileId, team) ->
       fetching[teamProfileId] = false
       if waitingFn[teamProfileId]?.length > 0
@@ -73,19 +76,16 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   fc.team._curr = teamProfileId
                   fc.team.get(fc.team._curr, done)
                else
-                  fc.team.redirectToSelect(no_back: true, done)
+                  fc.team.redirectToSelect(done)
             , (err) -> done(err)
 
       setActive: (teamProfileId, done) ->
          if fc.team._curr != teamProfileId
             fc.team._curr = teamProfileId
-            console.log "CHANGING PROFILE TO:", teamProfileId
             forge.prefs.set "team_profile_id", teamProfileId
             fc.team.get teamProfileId, (err, profile) ->
                notifyActiveChanged(profile)
                notifyTeamUpdated(profile)
-               console.log "RETRIEVED PROFILE FROM:", teamProfileId
-               console.log "PROFILE", profile
                done(null, profile) if done
          else
             fc.team.getActive(done)
@@ -132,18 +132,28 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       
       # options - hide_back: [false]
       redirectToSelect: (options, done) ->
+
+         waitingForTeamsFn.push(done) if done
+         return if checkingForTeams
+         
          # check if profiles already exist
+         checkingForTeams = true
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/me/teams"
             type: "GET"
-            retry: "forever"
          , (err, teams) =>
-            if teams.length > 0
+            checkingForTeams = false
+
+            if teams.length > 0 and not err
                fc.team.setActive teams[0]._id, () ->
-                  fc.team.getActive(done) if done
-                  $.mobile.changePage "profile.html", transition: "slidedown"
+                  if waitingForTeamsFn.length > 0
+                     fc.team.getActive (err, profile) ->
+                        fn(err,profile) for fn in waitingForTeamsFn 
+                     waitingForTeamsFn.length = 0
+                  fc.nav.backToRoot(transition:"slidedown")
             else
-               $.mobile.changePage "profile-selectTeam-chooseSport.html?hide_back=true", transition: ("slide" or options.transition)
+               if $.mobile.activePage.data("url").indexOf("profile-selectTeam-chooseSport.html") == -1
+                  $.mobile.changePage "profile-selectTeam-chooseSport.html?hide_back=true", transition: ("slide" or options.transition)
 
       onActiveChanged: (cb) -> activeChangedSubscribers.push(cb)
       

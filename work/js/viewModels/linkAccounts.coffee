@@ -6,9 +6,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          if fc.auth.hasAccessToken()
             fc.user.linkTwitter (err,success) ->
                if success
-                  $.mobile.changePage "profile-selectTeam-chooseSport.html?hide_back=true&hide_menu=true", transition:"slide"
+                  $.mobile.changePage "profile-selectTeam-chooseSport.html?hide_back=true", transition:"slide"
          else
             fc.msg.show("Unable to access Twitter login servers!")
-
-      skip: () =>
-         $.mobile.changePage "profile-selectTeam-chooseSport.html?hide_back=true", transition:"slide"

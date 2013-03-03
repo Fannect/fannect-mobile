@@ -7,7 +7,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       resetPassword: () =>
          if email = @email()
-            @email("")
             fc.msg.loading("Resetting password...")
 
             fc.ajax
@@ -21,6 +20,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                if err
                   fc.msg.show("No account associated with: #{email}")
                else
+                  @email("")
                   $.mobile.changePage "resetPassword-submitTemporary.html?email=#{email}", transition:"slide"
          else
             fc.msg.show("We need an email to be able to reset your password silly!")

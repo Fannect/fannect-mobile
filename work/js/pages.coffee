@@ -182,17 +182,16 @@ window.fannect.pages =
    "leaderboard-page": 
       vm: vm.Leaderboard
       classes: ["light-background"]
-   "leaderboard-users-page":
-      vm: vm.Leaderboard.Users
-      classes: ["light-background"]
-
+   
    "leaderboard-conference-page": 
       vm: vm.Leaderboard.Conference
       classes: ["light-background"]
+      auto_scroll: true
 
    "leaderboard-league-page": 
       vm: vm.Leaderboard.League
       classes: ["light-background"]
+      auto_scroll: true
 
    "leaderboard-breakdown-page":
       vm: vm.Leaderboard.Breakdown
@@ -205,10 +204,12 @@ window.fannect.pages =
    "leaderboard-myRoster-page":
       vm: vm.Leaderboard.MyRoster
       classes: ["light-background"]
+      auto_scroll: true
 
    "leaderboard-overallFans-page":
       vm: vm.Leaderboard.OverallFans
       classes: ["light-background"]
+      auto_scroll: true
 
    ###
    # Settings

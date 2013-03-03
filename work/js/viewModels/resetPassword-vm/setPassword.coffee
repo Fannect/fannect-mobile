@@ -20,6 +20,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   if err
                      fc.msg.show("Unable to update password. :(")
                   else
+                     @password("")
+                     @confirmPassword("")
                      fc.auth._refresh_token = result.refresh_token
                      fc.nav.changeActiveHistory("profile", transition: "slideup")
          else

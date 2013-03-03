@@ -152,7 +152,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          ]
          
          if not ($.mobile.activePage.attr("id") in noAuth)
-            fc.nav.clearHistory()
-            fc.nav.changeActiveHistory("none", transition: "slidedown")
+            fc.nav.changeActiveHistory("none", transition: "slidedown", emptry:true)
          else 
             return false
