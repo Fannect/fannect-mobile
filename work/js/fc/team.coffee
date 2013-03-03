@@ -47,7 +47,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             fc.ajax 
                url: "#{fc.getResourceURL()}/v1/me/teams/#{teamProfileId}"
                type: "GET"
-               retry: "forever"
             , (err, team) ->
                # Redirect to select team if 404 
                if err?.status == 404 or err?.statusCode?.toString() == "404"
@@ -87,7 +86,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                notifyTeamUpdated(profile)
                console.log "RETRIEVED PROFILE FROM:", teamProfileId
                console.log "PROFILE", profile
-               done(null, profile)
+               done(null, profile) if done
          else
             fc.team.getActive(done)
 
@@ -105,7 +104,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          , (err, team) ->
             return done(err) if err and done
             fc.team._teams[team._id] = team
-            fc.team.setActive team._id, false
+            fc.team.setActive team._id
             notifyTeamUpdated(team)
             addToChannel(team_id)
             done(null, team) if done

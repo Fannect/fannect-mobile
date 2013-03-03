@@ -1,19 +1,9 @@
 do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
    showLoading = false
    cachedIsSlow = null
-   currentMenu = null
 
    fc = window.fannect = 
       viewModels: {}
-
-   fc.setActiveMenu = (menu) ->
-      menu = currentMenu if menu == "current"
-      currentMenu = menu
-      if forge.is.web()
-         $(".footer .ui-btn-active").removeClass("ui-btn-active").removeClass("ui-btn-persist")
-         $(".footer ." + menu + "-menu").addClass("ui-btn-active").addClass("ui-btn-persist")
-      else
-         fc.mobile.setActiveMenu menu
 
    fc.getResourceURL = () ->
       "http://api.fannect.me"

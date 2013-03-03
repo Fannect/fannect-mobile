@@ -55,10 +55,10 @@ html
             block footer
                div(data-role="navbar")
                   ul
-                     li: a.profile-menu(href="profile.html", data-icon="custom", data-transition="none") Profile
-                     li: a.games-menu(href="games.html", data-icon="custom", data-transition="none") Games
-                     li: a.leaderboard-menu(href="leaderboard.html", data-icon="custom", data-transition="none") Leaderboard
-                     li: a.connect-menu(href="connect.html", data-icon="custom", data-transition="none") Connect
+                     li: a.profile-menu(href="javascript:fannect.nav.changeActiveHistory('profile')", data-icon="custom") Profile
+                     li: a.games-menu(href="javascript:fannect.nav.changeActiveHistory('games')", data-icon="custom") Games
+                     li: a.leaderboard-menu(href="javascript:fannect.nav.changeActiveHistory('leaderboard')", data-icon="custom") Leaderboard
+                     li: a.connect-menu(href="javascript:fannect.nav.changeActiveHistory('connect')", data-icon="custom") Connect
                  
       script(id="connect-fan-template", type="text/html")
          li.fan

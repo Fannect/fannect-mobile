@@ -20,8 +20,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   team.sport_key = "sport-#{team.sport_key or '15008000'}"
                   @teams.push(team) 
             else 
-               fc.cache.set("no_team_profile", true)
-               $.mobile.changePage "profile-selectTeam-chooseSport.html", transition: "slide"
+               $.mobile.changePage "profile-selectTeam-chooseSport.html?hide_back=true", transition: "slide"
 
       selectTeam: (data) ->
          fc.team.setActive data._id, (err) ->

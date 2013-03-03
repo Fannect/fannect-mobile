@@ -32,8 +32,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       updateProfile: (profile) =>
          return unless profile
 
-         console.log "updated"
-
          if @isEditable()
             profile.profile_image_url = "images/profile/Profile_tapToAddProfilePhoto@2x.png" unless profile.profile_image_url?.length > 2
             profile.team_image_url = "images/profile/Profile_tapToAddTeamPhoto@2x.png" unless profile.team_image_url?.length > 2
@@ -56,7 +54,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             if not ((date = profile.shouts?[0]?._id) instanceof Date)
                date = fc.parseId(date)
             @shout_date dateFormat(date, " mm/dd/yyyy h:MM TT")
-            
+         else
+            @shout_date("")
+
          # Add chart data
          @breakdown.removeAll()
          @breakdown.push
@@ -68,6 +68,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @breakdown.push
             val: profile.points?.knowledge or 0
             style: "knowledge"
+
+         console.log @breakdown()
 
       _addHeaderButtons: () ->
          fc.user.get (err, user) ->
@@ -82,12 +84,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       onPageShow: () => 
          super
-         if forge.is.mobile()
-            setTimeout (-> 
-               forge.launchimage.hide() 
-            ), 200
-         fc.team.refreshActive()
-         @_addHeaderButtons() if forge.is.mobile()
+         if @isEditable()
+            if forge.is.mobile()
+               setTimeout (-> 
+                  forge.launchimage.hide() 
+               ), 200
+            fc.team.refreshActive()
+            @_addHeaderButtons() if forge.is.mobile()
 
       selectTeam: () -> $.mobile.changePage "profile-selectTeam.html", fc.transition("slide")
       changeUserImage: () => console.log("USER PROFILE SELECT"); @editing_image "profile"

@@ -8,13 +8,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super
 
       load: () =>
+         fc.nav.clearHistory()
          fc.auth.isLoggedIn (err, loggedIn) =>
             if loggedIn
                if not fc.push.activate()
-                  $.mobile.changePage "profile.html", transition: "none"
+                  fc.nav.changeActiveHistory("profile")
             else
                forge.launchimage.hide() if forge.is.mobile()
-
 
       login: () =>
          if @email()?.length > 1 and @password()?.length > 1
@@ -22,11 +22,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             fc.auth.login @email(), @password(), (err, success) =>
                fc.msg.hide()
                if not err and success
-                  $.mobile.changePage "profile.html", fc.transition("slideup")
+                  fc.nav.changeActiveHistory("profile", transition: "slideup")
                else
                   fc.msg.show("Incorrect username or password!")
          else
             fc.msg.show("We need your email and password to log you in!")
-
-      rightButtonClick: () =>
-         $.mobile.changePage "createAccount.html", transition: "slide"

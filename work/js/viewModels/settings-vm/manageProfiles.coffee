@@ -8,7 +8,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @teams = ko.observableArray []
          @is_loading = ko.observable(true)
          @deleteText = ko.observable()
-         @showConfirm = ko.observable()
          @selectedTeam = null
          
       load: (done) ->
@@ -27,17 +26,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       confirmDelete: (data) =>
          @selectedTeam = data
          @deleteText("<span style='font-weight:normal'>Are you sure you want to delete your profile for</span> #{data.team_name}<span style='font-weight:normal'>?</span>")
-         @showConfirm(true)
-
-      cancel: () =>
-         @showConfirm(false)
-         @selectedTeam = null
+         
+      cancel: () => @selectedTeam = null
 
       hideProfile: (element) => 
          $el = $(element).slideUp 400, () => $el.remove()
 
       removeProfile: () =>
-         @showConfirm(false)
          @teams.remove @selectedTeam
          fc.team.remove @selectedTeam._id, 
          fc.team.removeFromChannel(@selectedTeam.team_id)

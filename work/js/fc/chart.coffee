@@ -13,8 +13,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          @w = @container.width()
          @h = @container.height()
 
-         # console.log "WIDTH", @w
-
          @use_svg = not fc.isSlow()
          
          if @use_svg
@@ -50,6 +48,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   # .style("fill", (d) -> "url(#gradient-#{d.style})")
                   # .attr("filter", (d) -> "url(#dropshadow)")
                   .attr("class", (d) -> d.style)
+
+            @chart.selectAll("rect")
+                  .data(@data)
                .transition()
                   .delay(150)
                   .duration(750)
@@ -61,13 +62,16 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             @chart.selectAll("div")
                   .data(@data)
                .enter().append("div")
-                  .attr("class", (d) -> "bar " + d.style)
-                  .attr("style", (d,i) => 
-                     left = "left:" + (@x(i) + (10 * i)) + "px;"
-                     width = "width:" + @bar_width + "px;" 
-                     height = "height:" + @y(d.val) + "px;"
-                     return left + width + height
-                  )
+
+            @chart.selectAll("div")
+                  .data(@data)
+               .attr("class", (d) -> "bar " + d.style)
+               .attr("style", (d,i) => 
+                  left = "left:" + (@x(i) + (10 * i)) + "px;"
+                  width = "width:" + @bar_width + "px;" 
+                  height = "height:" + @y(d.val) + "px;"
+                  return left + width + height
+               )
 
          updateTextFn = @_updateText[type][@options.text] or @_updateText[type]["value"]
          updateTextFn.call(@)
@@ -84,6 +88,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   .attr("dy", "-.4em")
                   .attr("text-anchor", "middle")
                   .text(0)
+
+               @chart.selectAll("text")
+                  .data(@data)
                .transition()
                   .delay(100)
                   .duration(750)
@@ -106,6 +113,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                      .attr("dy", "-.4em")
                      .attr("text-anchor", "middle")
                      .text(0)
+
+               @chart.selectAll("text")
+                     .data(@data)
                   .transition()
                      .delay(100)
                      .duration(750)

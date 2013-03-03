@@ -5,8 +5,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super          
          @teams = ko.observableArray []
          @is_loading = ko.observable(true)
-         @load()
-
+         
       load: () =>
          # Return if user has not selected a sport
          unless (@params.sport_key and @params.league_key)
@@ -37,6 +36,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             if err?.reason == "duplicate"
                fc.msg.show("You're already a commit fan of #{data.full_name}!")
             else
-               $.mobile.changePage "profile.html", transition: "slideup"
+               fc.nav.changeActiveHistory("profile", transition: "slideup", empty: true)
 
       onPageHide: () => @teams.removeAll()

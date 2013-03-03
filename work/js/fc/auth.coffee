@@ -54,10 +54,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          fc.auth._refresh_token = null
          fc.team._curr = null
          fc.user._curr = null
-         forge.prefs.set "refresh_token", null, fc.auth.redirectToLogin, fc.auth.redirectToLogin
          forge.prefs.set "user_id", null
          forge.prefs.set "team_profile_id", null
          forge.prefs.set "twitter_active", null
+         forge.prefs.set "refresh_token", null, fc.auth.redirectToLogin, fc.auth.redirectToLogin
         
          if forge.is.mobile()
             forge.partners.parse.push.subscribedChannels (channels) ->
@@ -155,6 +155,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          ]
          
          if not ($.mobile.activePage.attr("id") in noAuth)
-            $.mobile.changePage "index.html", fc.transition "slidedown"
+            fc.nav.clearHistory()
+            fc.nav.changeActiveHistory("none", transition: "slidedown")
          else 
             return false

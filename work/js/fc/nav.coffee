@@ -1,5 +1,37 @@
 do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect) ->
    
+   class HistoryEntry
+      constructor: (path, transition_to, transition_back) ->
+         @path = path 
+         @transition_to = transition_to or "slide"
+         @transition_back = transition_back or transition_to or "slide"
+      go: (transition) =>
+         $changePage @path, transition: transition or @transition_to
+      back: (transition) =>
+         $changePage @path, { transition: transition or @transition_back, reverse: true }
+
+   class HistoryPath 
+      constructor: (root) -> @history = [new HistoryEntry(root, "none")]
+      push: (entry) => 
+         @current().transition_back = entry.transition_to
+         @history.push(entry)
+      current: () => @history[@history.length - 1]
+      hasBack: () => @history.length > 1
+      empty: () => @history.length = 1
+      getBack: () => 
+         @history.pop() if @hasBack()
+         return @current()
+
+   # Handle navigation
+   $changePage = null
+   activeHistoryPath = "none"
+   historyPaths = 
+      none: new HistoryPath("index.html")
+      profile: new HistoryPath("profile.html")
+      games: new HistoryPath("games.html")
+      leaderboard: new HistoryPath("leaderboard.html")
+      connect: new HistoryPath("connect.html")
+
    fc.nav =
       setup: () ->
          # Loop through all of the pages and attach handlers
@@ -12,9 +44,50 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             .live("pagebeforehide", pageBeforeHide)
             .live("pagehide", pageHide)
          
-         # so coffeescript doesn't return the collected loop
-         return true 
+         # intercept changePage 
+         $changePage = $.mobile.changePage
+         $.mobile.back = fc.nav.goBack
+         $.mobile.changePage = (toPage, options = {}) ->
 
+            console.log "TOPAGE", toPage
+            console.log "OPTIONS", options
+
+            # Add to history if not silent
+            if not options.silent and historyPaths[activeHistoryPath] and typeof toPage == "string" 
+               entry = new HistoryEntry(toPage, options.transition)
+               historyPaths[activeHistoryPath].push(entry)
+
+            console.log historyPaths[activeHistoryPath].history
+
+            $changePage.apply(this, arguments) 
+               
+      # History Management
+      HistoryEntry: HistoryEntry
+
+      hasBack: () -> return historyPaths[activeHistoryPath].hasBack()
+      goBack: () ->
+         entry = historyPaths[activeHistoryPath].getBack()
+         entry.back() 
+
+      getActiveHistoryName: () -> return activeHistoryPath
+      
+      changeActiveHistory: (name, options = {}) ->
+         activeHistoryPath = name
+         historyPaths[activeHistoryPath].empty() if options.empty
+         entry = historyPaths[activeHistoryPath].current()
+         entry.go(options.transition or "none")
+
+      clearHistory: () -> v.empty() for k, v of historyPaths
+
+      setActiveMenu: (hide) ->
+         menu = if hide then "none" else activeHistoryPath 
+         if forge.is.web()
+            $(".footer .ui-btn-active").removeClass("ui-btn-active").removeClass("ui-btn-persist")
+            $(".footer ." + menu + "-menu").addClass("ui-btn-active").addClass("ui-btn-persist")
+         else
+            fc.mobile.setActiveMenu menu
+
+      # Utility methods
       getCurrentQueryString: () ->
          fc.parseQueryString($.mobile.activePage.data("url"))
 
@@ -61,11 +134,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       # bind to page
       if vm?
-         ko.applyBindings vm, @
          vm.url = $page.data("url")
          vm.params = fc.nav.parseQueryString(vm.url)
+         ko.applyBindings vm, @
          vm.load()
-         
+
       # create page scrollers
       $(".scrolling-text", $page).scroller() if page.scroller 
 
@@ -78,7 +151,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       fc.auth.isLoggedIn() unless id == "index-page"
 
       # sets the active menu
-      fc.setActiveMenu fc.getMenuRoot @
+      fc.nav.setActiveMenu(vm?.params?.hide_menu or false)
 
       # Add text to native header
       fc.mobile.setHeaderText()

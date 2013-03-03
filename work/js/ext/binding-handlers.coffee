@@ -36,6 +36,7 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
          for key, val of ko.utils.unwrapObservable(options.params)
             params.push("#{key}=#{val}")
 
+
          $(element).attr("href", "#{options.url}?#{params.join('&')}")
    
    ko.bindingHandlers.params = 

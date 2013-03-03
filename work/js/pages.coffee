@@ -79,6 +79,7 @@ window.fannect.pages =
       classes: ["dark-background"]
 
    "profile-selectTeam-chooseMethod-page":
+      vm: vm.Base
       classes: ["dark-background"]
 
    "profile-selectTeam-chooseLeague-page":

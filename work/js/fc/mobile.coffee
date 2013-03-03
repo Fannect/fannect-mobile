@@ -3,12 +3,16 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
    rightHeaderButton = null
    removingButtons = false
 
+   waitingForClear = []
+
    fc.mobile =
       _buttons: {}
       _waiting_to_activate: null
       _header_added: false
       
-      _addButton: (index, text, image, target) ->
+      _addButton: (index, text, image, historyPath) ->
+         console.log "NAME: #{name}"
+         console.log "TEXT: #{text}"
          forge.tabbar.addButton
             icon: image,
             text: text,
@@ -23,19 +27,19 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
             button.onPressed.addListener () ->
                forge.flurry.customEvent("#{text} Menu", show: true)
-               $.mobile.changePage target, transition: "none"
-         
+               fc.nav.changeActiveHistory(historyPath)
+
       createButtons: () -> 
          return if fc.mobile._header_added
          fc.mobile._header_added = true
          forge.tabbar.removeButtons () ->
-            fc.mobile._addButton 0, "Profile", "images/mobile/TabBar_Profile.png", "profile.html"
-            fc.mobile._addButton 1, "Games", "images/mobile/TabBar_Games.png", "games.html"
-            fc.mobile._addButton 2, (if forge.is.android() then "Leaders" else "Leaderboard"), "images/mobile/TabBar_Leaderboard.png", "leaderboard.html"
-            fc.mobile._addButton 3, "Connect", "images/mobile/TabBar_Connect.png", "connect.html"
+            fc.mobile._addButton 0, "Profile", "images/mobile/TabBar_Profile.png", "profile"
+            fc.mobile._addButton 1, "Games", "images/mobile/TabBar_Games.png", "games"
+            fc.mobile._addButton 2, (if forge.is.android() then "Leaders" else "Leaderboard"), "images/mobile/TabBar_Leaderboard.png", "leaderboard"
+            fc.mobile._addButton 3, "Connect", "images/mobile/TabBar_Connect.png", "connect"
          
       setActiveMenu: (name) ->
-         if name
+         if name and name != "none"
             name = name.toLowerCase()
             forge.tabbar.show()
             
@@ -59,26 +63,27 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   text: leftButton.text()
                   position: "left"
                   style: "back"
-                  click: () -> 
-                     fc.mobile.clearButtons()
-                     if (href = leftButton.attr("href"))
-                        $.mobile.changePage href, 
-                           transition: leftButton.attr("data-transition") or "slide"
-                           reverse: true
-                     else
-                        $.mobile.back()
+                  click: () -> fc.mobile.clearButtons -> fc.nav.goBack()
                      
-      clearButtons: () ->
+      clearButtons: (done) ->
          leftHeaderButton = null
          rightHeaderButton = null
+
+         waitingForClear.push(done) if done
          return if removingButtons
+         
          removingButtons = true
          forge.topbar.removeButtons () ->
+            fn() for fn in waitingForClear   
+            waitingForClear.length = 0
             removingButtons = false
             fc.mobile.addHeaderButton leftHeaderButton if leftHeaderButton
             fc.mobile.addHeaderButton rightHeaderButton if rightHeaderButton
          , (err) ->
-            fc.mobile.clearButtons() if err
+            if err
+               fn() for fn in waitingForClear   
+               waitingForClear.length = 0
+               fc.mobile.clearButtons()
 
       addHeaderButton: (options, click) ->
          if forge.is.mobile()

@@ -69,6 +69,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       onPageHide: () =>
          super
          @keep_tracking = false
+         @map = null
 
       findUserLocation: () =>
          return setTimeout (() => @findUserLocation()), 2000 unless @keep_tracking
