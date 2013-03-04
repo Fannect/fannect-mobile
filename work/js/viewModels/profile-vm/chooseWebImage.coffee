@@ -68,3 +68,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   else
                      fc.team.updateActive(data)
                      fc.nav.goBack()
+
+      onPageHide: () =>
+         @selected = false
+         @images.removeAll()
