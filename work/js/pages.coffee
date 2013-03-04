@@ -183,11 +183,6 @@ window.fannect.pages =
       vm: vm.Leaderboard
       classes: ["light-background"]
    
-   "leaderboard-conference-page": 
-      vm: vm.Leaderboard.Conference
-      classes: ["light-background"]
-      auto_scroll: true
-
    "leaderboard-league-page": 
       vm: vm.Leaderboard.League
       classes: ["light-background"]

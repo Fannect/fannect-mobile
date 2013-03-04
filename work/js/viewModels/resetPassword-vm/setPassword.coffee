@@ -6,6 +6,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @confirmPassword = ko.observable()
          super
 
+      load: () =>
+         @password("")
+         @confirmPassword("")
+
       submitPassword: () =>
          if @password() and @password() == @confirmPassword()
             fc.msg.loading("Updating password...")
@@ -20,9 +24,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   if err
                      fc.msg.show("Unable to update password. :(")
                   else
-                     @password("")
-                     @confirmPassword("")
                      fc.auth._refresh_token = result.refresh_token
+                     forge.prefs.set "refresh_token", result.refresh_token
                      fc.nav.changeActiveHistory("profile", transition: "slideup")
          else
             fc.msg.show("Your passwords don't match!")
