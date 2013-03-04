@@ -12,8 +12,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @input_valid = ko.computed () =>
             return @home_score() >= 0 and @away_score() >= 0
 
-         @load()
-
       setPick: () =>
          if @input_valid()
             @pick_set(true)
@@ -33,8 +31,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      away_score: @away_score()
                , (err) ->
                   return fc.msg.show("Something went wrong.. :(") if err
-                  fc.showScoringPopup()
-
+                  
       load: () =>
          fc.team.getActive (err, profile) =>
             return fc.msg.show("Unable to load game information!") if err

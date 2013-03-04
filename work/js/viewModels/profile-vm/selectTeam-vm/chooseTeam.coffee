@@ -2,22 +2,19 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
    class fc.viewModels.Profile.SelectTeam.ChooseTeam extends fc.viewModels.Base 
       constructor: () ->
-         super 
-
-         # Return if user has not selected a sport
-         unless fc.cache.hasKey("sport_key") and fc.cache.hasKey("league_key")
-            $.mobile.changePage "profile-selectTeam.html", fc.transition("none")
-         
+         super          
          @teams = ko.observableArray []
          @is_loading = ko.observable(true)
-         @load()
-
+         
       load: () =>
+         # Return if user has not selected a sport
+         unless (@params.sport_key and @params.league_key)
+            return $.mobile.changePage "profile-selectTeam.html", transition:"none"
+
          fc.ajax 
-            url: "#{fc.getResourceURL()}/v1/sports/#{fc.cache.get('sport_key')}/leagues/#{fc.cache.get('league_key')}/teams"
+            url: "#{fc.getResourceURL()}/v1/sports/#{@params.sport_key}/leagues/#{@params.league_key}/teams"
             type: "GET"
          , (error, teams) =>
-            
             start = 0
             showResults = () =>
                for i in [start...start+5] by 1
@@ -39,4 +36,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             if err?.reason == "duplicate"
                fc.msg.show("You're already a commit fan of #{data.full_name}!")
             else
-               $.mobile.changePage "profile.html", fc.transition("slideup")
+               fc.nav.backToRoot(transition:"slideup")
+               
+      onPageHide: () => @teams.removeAll()

@@ -24,7 +24,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       rightButtonClick: () =>
          if @chars_remaining() >= 0 and @chars_remaining() < 140
-            fc.team.updateActive({shouts: [{_id: new Date(), text: @shout()}]})
+            shout_text = @shout()
+            @shout("")
+
+            fc.team.updateActive({shouts: [{_id: new Date(), text: shout_text}]})
             forge.flurry.customEvent("Shouting", {shouting: true})
 
             fc.team.getActive (err, profile) =>
@@ -32,16 +35,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/shouts"
                   type: "POST"
                   data: 
-                     shout: @shout()
+                     shout: shout_text
                      tweet: @twitter_active()
             
-            $.mobile.changePage "profile.html", fc.transition("flip")
-
-      onPageShow: () =>
-         super
-         fc.mobile.addHeaderButton {
-            position: "right"
-            text: "Shout It!"
-            tint: [193, 39, 45, 160]
-            click: @rightButtonClick
-         }
+            fc.nav.backToRoot({transition:"slideup"})

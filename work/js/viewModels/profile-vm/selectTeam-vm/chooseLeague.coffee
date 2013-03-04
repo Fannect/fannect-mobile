@@ -3,22 +3,19 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
    class fc.viewModels.Profile.SelectTeam.ChooseLeague extends fc.viewModels.Base 
       constructor: () ->
          super 
-
-         # Return if user has not selected a sport
-         unless fc.cache.hasKey("sport_key")
-            $.mobile.changePage "profile-selectTeam.html", fc.transition("none")
-         
          @is_loading = ko.observable(true)
          @leagues = ko.observableArray []
-         @load()
-
-      load: (done) ->
+      
+      load: () =>
+         # Return if user has not selected a sport
+         unless @params.sport_key
+            return $.mobile.changePage "profile-selectTeam.html", transition: "none"
+         
          fc.ajax 
-            url: "#{fc.getResourceURL()}/v1/sports/#{fc.cache.get('sport_key')}/leagues"
+            url: "#{fc.getResourceURL()}/v1/sports/#{@params.sport_key}/leagues"
             type: "GET"
          , (error, leagues) =>
             @is_loading(false)
             @leagues.push league for league in leagues
-            done null, leagues if done
-
-      selectLeague: (data) -> fc.cache.set("league_key", data.league_key)
+            
+      onPageHide: () => @leagues.removeAll()

@@ -20,7 +20,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   if err
                      fc.msg.show("Unable to update password. :(")
                   else
+                     @password("")
+                     @confirmPassword("")
                      fc.auth._refresh_token = result.refresh_token
-                     $.mobile.changePage "profile.html", fc.transition("slideup")
+                     fc.nav.changeActiveHistory("profile", transition: "slideup")
          else
             fc.msg.show("Your passwords don't match!")

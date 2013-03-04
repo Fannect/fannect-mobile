@@ -1,5 +1,22 @@
 do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect) ->
    fc.tutorial =
+
+      autoShow: () ->
+         tutorial_pages = [ 
+            "profile-page", 
+            "games-attendanceStreak-page", 
+            "games-gameFace-page", 
+            "games-guessTheScore-page" 
+         ]
+         
+         currentId = $.mobile.activePage.attr("id")
+         
+         forge.prefs.get "tutorial_shown", (shown = []) ->
+            if currentId in tutorial_pages and not (currentId in shown)
+               shown.push currentId
+               fc.tutorial.show()
+               forge.prefs.set "tutorial_shown", shown
+
       show: () ->
          $tutorial = $(".tutorial", $.mobile.activePage).fadeIn(400)
          

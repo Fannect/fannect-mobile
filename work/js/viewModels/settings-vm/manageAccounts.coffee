@@ -4,8 +4,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       
       constructor: () ->
          @twitter_linked = ko.observable(false)
-         fc.user.get (err, user) => @twitter_linked(user.twitter)
          super
+
+      load: () ->
+         fc.user.get (err, user) => @twitter_linked(user.twitter)
 
       linkTwitter: () =>
          fc.user.linkTwitter (err, success) =>

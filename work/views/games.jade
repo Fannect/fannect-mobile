@@ -11,7 +11,7 @@ block content
       .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
          p More games will be unlocked as fanbases grow! Share with your friends to help us out!
          a(data-bind="click: showShare, showClick: true", data-role="button") Share
-         a(data-role="button", href="games.html", data-rel="back", data-theme="c") Not Now
+         a(data-role="button", href="javascript:fannect.nav.closePopup()", data-bind="showClick:true", data-theme="c") Not Now
 
 
    ul.pattern-bg(data-role="listview")

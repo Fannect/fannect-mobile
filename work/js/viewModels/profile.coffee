@@ -17,14 +17,18 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @shout_date = ko.observable()
          @next_game = ko.observable(new fc.models.NextGame())
          @events = new fc.models.Events()
-         @load()
-
+         
          @showProfileImagePopup = ko.computed () => @editing_image() == "profile"
          @showTeamImagePopup = ko.computed () => @editing_image() == "team"
 
-      load: () =>
-         fc.team.subscribe @updateProfile
+         @setup()
          
+      setup: () =>
+         fc.team.onTeamUpdated @updateProfile
+         fc.team.getActive (err, profile) => 
+            return fc.msg.show("Unable to load profile!") if err
+            @updateProfile(profile)
+
       updateProfile: (profile) =>
          return unless profile
 
@@ -50,7 +54,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             if not ((date = profile.shouts?[0]?._id) instanceof Date)
                date = fc.parseId(date)
             @shout_date dateFormat(date, " mm/dd/yyyy h:MM TT")
-            
+         else
+            @shout_date("")
+
          # Add chart data
          @breakdown.removeAll()
          @breakdown.push
@@ -76,23 +82,24 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       onPageShow: () => 
          super
-         if forge.is.mobile()
-            setTimeout (-> 
-               forge.launchimage.hide() 
-            ), 200
-         fc.team.refreshActive()
-         @_addHeaderButtons() if forge.is.mobile()
+         if @isEditable()
+            if forge.is.mobile()
+               setTimeout (-> 
+                  forge.launchimage.hide() 
+               ), 200
+            fc.team.refreshActive()
+            @_addHeaderButtons() if forge.is.mobile()
 
       selectTeam: () -> $.mobile.changePage "profile-selectTeam.html", fc.transition("slide")
       changeUserImage: () => @editing_image "profile"
       changeTeamImage: () => @editing_image "team"
       cancelImagePicking: () => @editing_image "none"
+      chooseWebImage: () => @editing_image "none"
       isEditable: () -> return true
 
       startShouting: () =>
          if @isEditable()
-            $.mobile.changePage "profile-shout.html", fc.transition("slideup")
-
+            $.mobile.changePage "profile-shout.html", transition: "slideup"
 
       sliderOptions: () =>
          if @isEditable()

@@ -7,18 +7,18 @@ block header
 
 block content
 
-   #confirmDelete(data-role="popup", style="width:260px;", class="ui-corner-all", data-overlay-theme="a", data-theme="a", data-bind="showPopup: showConfirm")
+   #confirmDelete(data-role="popup", style="width:260px;", class="ui-corner-all", data-overlay-theme="a", data-theme="a")
       .ui-corner-top(data-role="header", data-theme="b")
          h1 Confirm Remove
       .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
          h3.ui-title(data-bind="html: deleteText")
          a(data-role="button", data-bind="click: removeProfile, showClick: true") Delete
-         a(data-role="button", data-theme="c", data-bind="click: cancel, showClick: true") Cancel
+         a(data-role="button", href="javascript:fannect.nav.closePopup()", data-bind="showClick:true", data-theme="c") Cancel
 
    ul.dark-pattern-bg(data-role="listview", data-theme="b", data-bind="template: { foreach: teams, beforeRemove: hideProfile }, listviewUpdate: teams")
       li
          a(data-bind="click: $parent.selectTeam, showListviewClick: true")
-            .left-icon.cancel(data-bind="click: $parent.confirmDelete, clickBubble: false")
+            .left-icon.cancel(data-bind="click: $parent.confirmDelete, showPopupOnClick: '#confirmDelete', clickBubble: false", data-rel="popup")
             .sport-icon(data-bind="setClass: sport_key")
             span(data-bind="text: team_name")
    .loading-more-indicator(data-bind="visible: is_loading")

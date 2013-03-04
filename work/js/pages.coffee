@@ -31,7 +31,10 @@ window.fannect.pages =
    ###
    "profile-page": 
       vm: vm.Profile
-      scroller: false
+      classes: ["no-padding"]
+
+   "profile-other-page":
+      vm: vm.Profile.Other
       classes: ["no-padding"]
 
    "profile-invites-page":
@@ -51,8 +54,13 @@ window.fannect.pages =
    "profile-shout-page":
       vm: vm.Profile.Shout
       classes: ["light-background"]
-      buttons: []
-      no_cache: true
+      buttons: [
+         {
+            position: "right"
+            text: "Shout It!"
+            tint: [193, 39, 45, 160]
+         }
+      ]
    ###
    # Select Team
    ###
@@ -71,6 +79,7 @@ window.fannect.pages =
       classes: ["dark-background"]
 
    "profile-selectTeam-chooseMethod-page":
+      vm: vm.Base
       classes: ["dark-background"]
 
    "profile-selectTeam-chooseLeague-page":
@@ -97,6 +106,7 @@ window.fannect.pages =
          }
       ]
       classes: ["light-background"]
+      auto_scroll: true
 
    "connect-connectProfile-page":
       vm: vm.Connect.ConnectProfile
@@ -153,25 +163,18 @@ window.fannect.pages =
 
    "games-gameFace-motivateSelect-page":
       vm: vm.Games.GameFace.MotivateSelect
-      # buttons: [
-      #    {
-      #       icon: "images/mobile/InfoButton@2x.png"
-      #       position: "right"
-      #       click: () -> window.fannect.tutorial.show()
-      #    }
-      # ]
+      buttons: [
+         {
+            position: "right"
+            text: "Motivate!"
+            tint: [193, 39, 45, 160]
+         }
+      ]
       classes: ["light-background"]
 
-   "games-gameFace-motivateMessage-page":
-      vm: vm.Games.GameFace.MotivateMessage
-      # buttons: [
-      #    {
-      #       icon: "images/mobile/InfoButton@2x.png"
-      #       position: "right"
-      #       click: () -> window.fannect.tutorial.show()
-      #    }
-      # ]
-      classes: ["light-background"]
+   # "games-gameFace-motivateMessage-page":
+   #    vm: vm.Games.GameFace.MotivateMessage
+   #    classes: ["light-background"]
 
    ###
    # Leaderboard
@@ -179,17 +182,16 @@ window.fannect.pages =
    "leaderboard-page": 
       vm: vm.Leaderboard
       classes: ["light-background"]
-   "leaderboard-users-page":
-      vm: vm.Leaderboard.Users
-      classes: ["light-background"]
-
+   
    "leaderboard-conference-page": 
       vm: vm.Leaderboard.Conference
       classes: ["light-background"]
+      auto_scroll: true
 
    "leaderboard-league-page": 
       vm: vm.Leaderboard.League
       classes: ["light-background"]
+      auto_scroll: true
 
    "leaderboard-breakdown-page":
       vm: vm.Leaderboard.Breakdown
@@ -202,10 +204,12 @@ window.fannect.pages =
    "leaderboard-myRoster-page":
       vm: vm.Leaderboard.MyRoster
       classes: ["light-background"]
+      auto_scroll: true
 
    "leaderboard-overallFans-page":
       vm: vm.Leaderboard.OverallFans
       classes: ["light-background"]
+      auto_scroll: true
 
    ###
    # Settings

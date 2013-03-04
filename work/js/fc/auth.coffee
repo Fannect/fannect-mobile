@@ -54,10 +54,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          fc.auth._refresh_token = null
          fc.team._curr = null
          fc.user._curr = null
-         forge.prefs.set "refresh_token", null, fc.auth.redirectToLogin, fc.auth.redirectToLogin
          forge.prefs.set "user_id", null
          forge.prefs.set "team_profile_id", null
          forge.prefs.set "twitter_active", null
+         forge.prefs.set "refresh_token", null, fc.auth.redirectToLogin, fc.auth.redirectToLogin
         
          if forge.is.mobile()
             forge.partners.parse.push.subscribedChannels (channels) ->
@@ -128,8 +128,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          forge.prefs.get "refresh_token"
          , (refresh_token) ->
             if not refresh_token
-               didRedirect = fc.auth.redirectToLogin() unless refresh_token
-               done(null, false) unless didRedirect and done
+               didRedirect = fc.auth.redirectToLogin()
+               return done(null, false) if not didRedirect and done
 
             fc.auth._refresh_token = refresh_token
             done null, refresh_token
@@ -143,6 +143,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             done null, (token?.length > 0) if done
 
       redirectToLogin: () ->
+
          noAuth = [
             "index-page", 
             "createAccount-page", 
@@ -151,6 +152,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          ]
          
          if not ($.mobile.activePage.attr("id") in noAuth)
-            $.mobile.changePage "index.html", fc.transition "slidedown"
+            fc.nav.changeActiveHistory("none", transition: "slidedown", emptry:true)
          else 
             return false

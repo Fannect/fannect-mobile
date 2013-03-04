@@ -8,7 +8,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @selected_contacts = ko.observable()
          @contacts = ko.observableArray()
          # @contacts([{id: "1", displayName: "Blake VanLan"}, {id: "2", displayName: "Blake VanLandingham"}, {id: "2", displayName: "Bla VanLandingham"}])
-         @load()
 
       load: () =>
          forge.contact.selectAll (contacts) =>

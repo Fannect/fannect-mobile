@@ -33,4 +33,4 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                fc.msg.show("Failed to create an account...")
                fc.logger.sendError(err)
             else
-               $.mobile.changePage "linkAccounts.html", fc.transition("slide")
+               $.mobile.changePage "linkAccounts.html", transition:"slide"

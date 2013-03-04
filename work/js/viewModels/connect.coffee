@@ -5,13 +5,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super 
          @limit = 20
          @skip = 0
-         @query = ko.observable(fc.cache.get("last_connect_search") or "")
+         @query = ko.observable("")
          @fans = ko.observableArray []
          @loading_more = ko.observable false
          @show_sharing = ko.observable false
          @show_roster_title = ko.observable(@query().length == 0)
          @has_more = true
 
+         # set up instant search for everything but Androids
          if not forge.is.android()
             @query.subscribe () =>
                @show_sharing(false)
@@ -22,21 +23,29 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   @search()
                , 400
 
-         @load()
+         # Load roster immediately
+         @loadFans()
+
+         # reload results if team profile changes
+         fc.team.onActiveChanged () =>
+            @previous_scroll_top = 0
+            @search()
 
       androidSearch: () => @search() if forge.is.android()
       search: () =>
          @has_more = true
          @skip = 0
          @fans.removeAll()
-         fc.cache.set("last_connect_search", @query())
-         @load()
+         @loadFans()
 
-      load: () =>
+      loadFans: () =>
          @loading_more true
 
+         # use this to make sure the returned data is relevant
+         cached_query = @query()
+
          finished = (err, fans) =>
-            return if err
+            return if err or @query() != cached_query
             setTimeout () => 
                @loading_more false
                @show_roster_title(@fans().length > 0 && @query().length == 0)
@@ -50,7 +59,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.team.getActive (err, profile) =>
             if @query()?.length > 0
                fc.ajax 
-                  url: "#{fc.getResourceURL()}/v1/teams/#{profile.team_id}/users?limit=#{@limit}&skip=#{@skip}&q=#{escape(@query())}"
+                  url: "#{fc.getResourceURL()}/v1/teams/#{profile.team_id}/users?limit=#{@limit}&skip=#{@skip}&q=#{escape(cached_query)}"
                   type: "GET"
                , finished
             else
@@ -60,13 +69,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                , finished
 
       onPageShow: () =>
-         $window = $(window).scroll () =>
+         $window = $(window).bind "scroll.connectpage", () =>
             if not @loading_more() and @has_more and $window.scrollTop() > $(document).height() - $window.height() - 150
                @loading_more true
-               @load()
+               @loadFans()
          
-      onPageHide: () => $(window).unbind("scroll")
-      selectUser: (data) -> fc.user.view(team_profile_id: data._id)
+      onPageHide: () => $(window).unbind("scroll.connectpage")
+      selectUser: (data) -> $.mobile.changePage "profile-other.html?team_profile_id=#{data._id}", transition:"slide"
       rightButtonClick: () -> $.mobile.changePage "share.html", transition: "slide"
       shareViaTwitter: () -> fc.share.viaTwitter()
       shareViaEmail: () -> fc.share.viaEmail()
