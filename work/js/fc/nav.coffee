@@ -3,11 +3,13 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
    class HistoryEntry
       constructor: (path, transition_to, transition_back) ->
          @path = path 
+         @height = 0
          @transition_to = transition_to or "slide"
          @transition_back = transition_back or transition_to or "slide"
       go: (transition, reverse) =>
          $changePage @path, {transition: transition or @transition_to, reverse:reverse}
       back: (transition) =>
+         # $.mobile.activePage.height(@height) if @height > 0
          $changePage @path, { transition: transition or @transition_back, reverse: true }
 
    class HistoryPath 
@@ -15,6 +17,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       push: (entry) => 
          curr = @current()
          curr.transition_back = entry.transition_to
+         # curr.height = $.mobile.activePage.height()
          @history.push(entry) unless curr.path == entry.path
       current: () => @history[@history.length - 1]
       hasBack: () => @history.length > 1
@@ -55,8 +58,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                entry = new HistoryEntry(toPage, options.transition)
                historyPaths[activeHistoryPath].push(entry)
 
-               console.log JSON.stringify historyPaths[activeHistoryPath].history
-               
             $changePage.apply(this, arguments) 
                
       # History Management
@@ -73,6 +74,12 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       getActiveHistoryName: () -> return activeHistoryPath
       
+      # replacePage: (toPage, options = {}) ->
+      #    entry = historyPaths[activeHistoryPath].current()
+      #    entry.path = toPage
+      #    entry.transition_to = options.transition or "none"
+      #    entry.go()
+
       buildHistory: (name, entries, transition) ->
          activeHistoryPath = name
          history = historyPaths[activeHistoryPath]
@@ -85,11 +92,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          entry = historyPaths[activeHistoryPath].current()
          entry.go(options.transition or "none", options.reverse or false)
          
-      changeActiveHistoryOrBack: (name, options) ->
+      changeActiveHistoryOrBack: (name, options = {}) ->
          if activeHistoryPath == name
             historyPaths[activeHistoryPath].empty()
             entry = historyPaths[activeHistoryPath].current()
-            entry.back()
+            entry.back(options.transition)
          else
             fc.nav.changeActiveHistory(name, options)
 
@@ -171,6 +178,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
    pageBeforeShow = () ->
       $page = $(@)
       id = $page.attr("id")
+      page = fc.pages[$page.attr("id")]
       vm = cachedVMs[id]
 
       # check if logged in and redirect if not
@@ -181,6 +189,13 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       # Add text to native header
       fc.mobile.setHeaderText()
+
+      # scroll to previous position
+      # if page.auto_scroll and vm?.prev_scroll_top
+      #    $page.height($(window).height() + vm?.prev_scroll_top)
+      #    # console.log "SCROLLING TO", vm.prev_scroll_top
+      #    $.mobile.silentScroll(vm.prev_scroll_top)
+
 
    pageShow = () ->
       $page = $(@)

@@ -13,16 +13,17 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @items = ko.observableArray()
          @loading_more = ko.observable false
    
-         # Load immediately
-         @loadFans()
-
          # reload results if team profile changes
          fc.team.onActiveChanged () =>
             @previous_scroll_top = 0
-            @items.removeAll
+            @items.removeAll()
             @skip = 0
             @no_more_results = false
             @loadFans()
+         
+         # Load immediately
+         @loadFans()
+
 
       getUrl: (url) -> throw "getUrl must be overridden!"
       getItemTemplate: () -> return "getItemTemplate must be overridden!"

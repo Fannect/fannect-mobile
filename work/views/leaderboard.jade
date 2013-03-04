@@ -5,10 +5,8 @@ block header
 
 block content
    ul.pattern-bg(data-role="listview")
-      li(data-bind="visible: is_college")
-         a(href="leaderboard-conference.html", data-transition="slide") Conference Standings
-      li(data-bind="visible: !is_college()")
-         a(href="leaderboard-league.html", data-transition="slide") League Standings
+      li
+         a(href="leaderboard-league.html", data-transition="slide", data-bind="text: league_text") League Standings
       li
          a(href="leaderboard-breakdown.html", data-transition="slide") Fanbase DNA
       li
