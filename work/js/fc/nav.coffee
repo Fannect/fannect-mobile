@@ -54,8 +54,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                entry = new HistoryEntry(toPage, options.transition)
                historyPaths[activeHistoryPath].push(entry)
 
-               console.log "HISTORY", historyPaths[activeHistoryPath].history.length
-
             $changePage.apply(this, arguments) 
                
       # History Management

@@ -38,4 +38,4 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      shout: shout_text
                      tweet: @twitter_active()
             
-            fc.nav.backToRoot({transition:"slideup"})
+            fc.nav.backToRoot({transition:"flip"})
