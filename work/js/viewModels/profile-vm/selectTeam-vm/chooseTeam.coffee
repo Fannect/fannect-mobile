@@ -36,6 +36,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             if err?.reason == "duplicate"
                fc.msg.show("You're already a commit fan of #{data.full_name}!")
             else
-               fc.nav.backToRoot(transition:"slideup")
+               fc.nav.changeActiveHistoryOrBack("profile", transition:"slideup")
                
       onPageHide: () => @teams.removeAll()

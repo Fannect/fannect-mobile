@@ -130,10 +130,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       removeFromChannel: (team_id) -> forge.partners.parse.push.unsubscribe("team_#{team_id}") if forge.is.mobile()
       onTeamUpdated: (cb) -> teamUpdatedSubscribers.push cb if cb
       
-      # options - hide_back: [false]
-      redirectToSelect: (options, done) ->
-
+      redirectToSelect: (done) ->
          waitingForTeamsFn.push(done) if done
+         
          return if checkingForTeams
          
          # check if profiles already exist
@@ -145,10 +144,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             checkingForTeams = false
 
             if teams.length > 0 and not err
-               fc.team.setActive teams[0]._id, () ->
+               fc.team.setActive teams[0]._id, (err, profile) ->
                   if waitingForTeamsFn.length > 0
-                     fc.team.getActive (err, profile) ->
-                        fn(err,profile) for fn in waitingForTeamsFn 
+                     fn(err, profile) for fn in waitingForTeamsFn 
                      waitingForTeamsFn.length = 0
                   fc.nav.backToRoot(transition:"slidedown")
             else

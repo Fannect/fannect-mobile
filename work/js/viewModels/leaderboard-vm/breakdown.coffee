@@ -29,5 +29,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   val: team.points?.knowledge or 0
                   style: "knowledge"
                   
-               console.log @breakdown()
+      onPageHide: () =>
+         @breakdown.removeAll()
 

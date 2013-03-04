@@ -12,6 +12,7 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
 
       # disable all transitions for better faster Android experience
       $.mobile.pushStateEnabled = false
+      $.mobile.hashListeningEnabled = false
       $.mobile.transitionFallbacks.slide = "none"
       $.mobile.transitionFallbacks.slidein = "none"
       $.mobile.transitionFallbacks.slideout = "none"

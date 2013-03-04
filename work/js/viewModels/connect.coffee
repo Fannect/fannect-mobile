@@ -9,7 +9,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @fans = ko.observableArray []
          @loading_more = ko.observable false
          @show_sharing = ko.observable false
-         @show_roster_title = ko.observable(@query().length == 0)
+         @show_roster_title = ko.observable(true)
+         @show_roster_empty = ko.observable(false)
          @has_more = true
 
          # set up instant search for everything but Androids
@@ -17,6 +18,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @query.subscribe () =>
                @show_sharing(false)
                @show_roster_title(false)
+               @show_roster_empty(false)
                if @timeoutId then clearTimeout @timeoutId
                @timeoutId = setTimeout () =>
                   @timeoutId = null
@@ -48,8 +50,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             return if err or @query() != cached_query
             setTimeout () => 
                @loading_more false
-               @show_roster_title(@fans().length > 0 && @query().length == 0)
-               @show_sharing(@fans().length == 0)
+               @show_roster_title(@fans().length > 0 && cached_query.length == 0)
+               @show_roster_empty(@fans().length == 0 and cached_query.length == 0)
+               @show_sharing(@fans().length == 0 and cached_query.length > 0)
             , 200
 
             @has_more = fans.length == @limit
