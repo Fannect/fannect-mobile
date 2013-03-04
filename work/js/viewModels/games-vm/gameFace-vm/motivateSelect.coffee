@@ -22,6 +22,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       load: () => 
          @query("")
          @search()
+
       androidSearch: () => @search() if forge.is.android()
       search: () =>
          @skip = 0
@@ -84,9 +85,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace/motivate"
                type: "POST"
                data: 
-                  motivatees: @selected_fans
+                  motivatees: selected_fans
             
-            $.mobile.changePage "games-gameFace.html", transition: "flip"
+            fc.nav.goBack("flip")
 
       _removeSelected: (id) => @selected_fans.splice(@selected_fans.indexOf(id),1)
       _addSelected: (id) => @selected_fans.push(id)

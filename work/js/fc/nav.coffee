@@ -64,13 +64,13 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       HistoryEntry: HistoryEntry
 
       hasBack: () -> return historyPaths[activeHistoryPath].hasBack()
-      goBack: () ->
+      goBack: (transition) ->
          if window.location.href?.indexOf("ui-state=dialog") != -1
             window.location.href = window.location.href.replace("ui-state=dialog", "")
             return historyPaths[activeHistoryPath].current().go("pop")
             
          entry = historyPaths[activeHistoryPath].getBack()
-         entry.back() 
+         entry.back(transition) 
 
       getActiveHistoryName: () -> return activeHistoryPath
       
