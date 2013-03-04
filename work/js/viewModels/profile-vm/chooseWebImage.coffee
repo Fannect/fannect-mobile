@@ -15,6 +15,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          @query.subscribe () => @images.removeAll()
 
+      load: () =>
+         @selected = false
+         @query("")
+         @images.removeAll()
+
       search: () =>
          @skip = 0
          @images.removeAll()
@@ -68,7 +73,3 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   else
                      fc.team.updateActive(data)
                      fc.nav.goBack()
-
-      onPageHide: () =>
-         @selected = false
-         @images.removeAll()
