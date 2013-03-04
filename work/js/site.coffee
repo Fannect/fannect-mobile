@@ -39,10 +39,13 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
          if forge.is.android()
             $("html").addClass("android")
             forge.event.backPressed.addListener (close) -> 
-               if $.mobile.activePage.attr("id") == "profile-page"
-                  close()
-               else 
-                  $.mobile.back()
+               if fc.nav.hasBack()
+                  fc.nav.goBack()
+               else
+                  if fc.nav.getActiveHistoryName() == "profile" or fc.nav.getActiveHistoryName() == "none"
+                     close()
+                  else
+                     fc.nav.changeActiveHistory("profile", empty:true)
             forge.event.backPressed.preventDefault()
          else if forge.is.ios() 
             $("html").addClass("ios")
@@ -54,7 +57,6 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
             setLocation: () -> 
             startTimedEvent: () ->
             endTimedEvent: () ->
-
 
       fc.nav.setup()
       fc.mobile.createButtons()

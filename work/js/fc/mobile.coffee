@@ -11,8 +11,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       _header_added: false
       
       _addButton: (index, text, image, historyPath) ->
-         console.log "NAME: #{name}"
-         console.log "TEXT: #{text}"
          forge.tabbar.addButton
             icon: image,
             text: text,
