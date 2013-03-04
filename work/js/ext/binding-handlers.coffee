@@ -116,6 +116,8 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
                   $el.popup "open",
                      transition: "pop"
                      positionTo: "window"
+                     history: false
+                     changeHash: false
                else
                   $el.popup "close"
 

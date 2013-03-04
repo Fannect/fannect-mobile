@@ -10,20 +10,20 @@ block header
          h1 Request Sent
       .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
          h3.ui-title Roster Request has been sent!
-         a(data-role="button", data-rel="back", data-theme="c", data-bind="showClick: true") Done
+         a(data-role="button", data-theme="c", data-bind="click: closePopup, showClick: true") Done
 
    #requestAlreadySentPopup(data-role="popup", data-bind="showPopup: showAlreadySentPopup", style="max-width:400px;", class="ui-corner-all", data-overlay-theme="a", data-theme="a")
       .ui-corner-top(data-role="header", data-theme="b")
          h1 Already Sent
       .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
          h3.ui-title Roster Request has already been sent!
-         a(data-role="button", data-rel="back", data-theme="c", data-bind="showClick: true") Done
+         a(data-role="button", data-theme="c", data-bind="click: closePopup, showClick: true") Done
 
    #requestAcceptedPopup(data-role="popup", data-bind="showPopup: showAcceptedPopup", style="max-width:400px;", class="ui-corner-all", data-overlay-theme="a", data-theme="a")
       .ui-corner-top(data-role="header", data-theme="b")
          h1 Accepted!
       .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
          h3.ui-title(data-bind="html: 'You are now friends with ' + name() + ' !'") 
-         a(data-role="button", data-rel="back", data-theme="c", data-bind="showClick: true") Done
+         a(data-role="button", data-theme="c", data-bind="click: closePopup, showClick: true") Done
    
          

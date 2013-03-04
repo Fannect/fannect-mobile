@@ -50,10 +50,13 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          $.mobile.back = fc.nav.goBack
          $.mobile.changePage = (toPage, options = {}) ->
             # Add to history if not silent
-            if not options.silent and historyPaths[activeHistoryPath] and typeof toPage == "string" and options.role != "popup"
+
+            if not options.silent and historyPaths[activeHistoryPath] and typeof toPage == "string" and options.role != "popup" and options.transition != "pop"
                entry = new HistoryEntry(toPage, options.transition)
                historyPaths[activeHistoryPath].push(entry)
 
+               console.log JSON.stringify historyPaths[activeHistoryPath].history
+               
             $changePage.apply(this, arguments) 
                
       # History Management
@@ -61,6 +64,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       hasBack: () -> return historyPaths[activeHistoryPath].hasBack()
       goBack: () ->
+         if window.location.href?.indexOf("ui-state=dialog") != -1
+            window.location.href = window.location.href.replace("ui-state=dialog", "")
+            return historyPaths[activeHistoryPath].current().go("pop")
+            
          entry = historyPaths[activeHistoryPath].getBack()
          entry.back() 
 

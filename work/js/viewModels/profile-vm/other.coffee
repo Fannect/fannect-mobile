@@ -19,7 +19,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             throw err if err
             @is_friend(profile.is_friend) 
             @params.user_id = profile.user_id
-
+ 
             profile.profile_image_url = "images/fannect_UserPlaceholderPic@2x.png" unless profile.profile_image_url?.length > 2
             profile.team_image_url = "images/fannect_TeamPlaceholderPic@2x.png" unless profile.team_image_url?.length > 2
 
@@ -30,7 +30,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                if (profile.user_id in user.invites)
                   @params.action = "accept"
 
-               unless profile.is_friend  
+               unless (profile.is_friend or profile.is_invited)
                   fc.mobile.addHeaderButton
                      position: "right"
                      text: if @params.action == "accept" then "Accept" else "Add"
@@ -79,8 +79,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   type: "POST"
                   data: inviter_user_id: user._id
                , (err, data) =>
-                  @showAlreadySentPopup(true) if err
-                  @showSentPopup(true) if data.status == "success" 
+                  return @showAlreadySentPopup(true) if err
+                  @showSentPopup(true) if data?.status == "success" 
+
+      closePopup: () =>
+         @showSentPopup(false) if @showSentPopup()
+         @showAcceptedPopup(false) if @showAcceptedPopup()
+         @showAlreadySentPopup(false) if @showAlreadySentPopup()
                
       _hideRightButton: () =>
          forge.topbar.removeButtons () ->
@@ -91,25 +96,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                click: () -> $.mobile.back()
 
       onPageHide: () =>
-         # Clear profile and make it ready for the next person
          @updateProfile({})
          @events = new fc.models.Events()
-         # updateProfile: (profile) =>
-         # return unless profile
-
-         # if @isEditable()
-         #    profile.profile_image_url = "images/profile/Profile_tapToAddProfilePhoto@2x.png" unless profile.profile_image_url?.length > 2
-         #    profile.team_image_url = "images/profile/Profile_tapToAddTeamPhoto@2x.png" unless profile.team_image_url?.length > 2
-         #    @events.setup(profile._id, "You")
-         # else
-         #    @events.setup(profile._id, profile.name)
-
-         # @name profile.name or "&nbsp;"
-         # @profile_image profile.profile_image_url or ""
-         # @team_image profile.team_image_url or ""
-         # @team_name profile.team_name
-         # @roster profile.friends_count or 0
-         # @points profile.points?.overall or 0
-         # @rank profile.rank or 0
-         # @verified profile.verified or ""
-         # @shout profile.shouts?[0]?.text or "...silence..."
+        
