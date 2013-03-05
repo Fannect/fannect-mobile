@@ -26,6 +26,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   else
                      fc.auth._refresh_token = result.refresh_token
                      forge.prefs.set "refresh_token", result.refresh_token
-                     fc.nav.changeActiveHistory("profile", transition: "slideup")
+                     fc.nav.changeActiveHistory("profile", {transition: "slideup", empty:true})
          else
             fc.msg.show("Your passwords don't match!")

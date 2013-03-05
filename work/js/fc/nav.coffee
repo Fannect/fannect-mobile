@@ -137,6 +137,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             obj[parts[0]] = parts[1]
 
          return obj
+
+      getVM: (id) -> cachedVMs[id]
          
    # hold a reference to all viewmodels
    # - required so that memory does not leak as new viewmodels are 

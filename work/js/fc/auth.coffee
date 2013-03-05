@@ -59,11 +59,13 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          forge.prefs.set "twitter_active", null
          forge.prefs.set "refresh_token", null, fc.auth.redirectToLogin, fc.auth.redirectToLogin
         
+         # Clear profile viewmodel
+         fc.nav.getVM("profile-page")?.updateProfile({})
+
          if forge.is.mobile()
             forge.partners.parse.push.subscribedChannels (channels) ->
                forge.partners.parse.push.unsubscribe(channel) for channel in channels
                   
-
       hasAccessToken: () ->
          return fc.auth._access_token?
 
@@ -152,6 +154,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          ]
          
          if not ($.mobile.activePage.attr("id") in noAuth)
-            fc.nav.changeActiveHistory("none", transition: "slidedown", emptry:true)
+            fc.nav.changeActiveHistory("none", transition: "slidedown", empty:true)
          else 
             return false
