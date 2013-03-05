@@ -108,15 +108,16 @@ window.fannect.pages =
       classes: ["light-background"]
       auto_scroll: true
 
-   "connect-connectProfile-page":
-      vm: vm.Connect.ConnectProfile
+   "connect-huddle-page"
+      vm: vm.Connect.Huddle
       buttons: [
          {
             position: "right"
-            text: "Add"
+            text: "New"
          }
       ]
-      classes: ["no-padding"]      
+      classes: ["light-background"]      
+      auto_scroll: true
 
    ###
    # Games

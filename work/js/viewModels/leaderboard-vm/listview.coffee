@@ -6,8 +6,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @limit = 20
          @skip = 0
          @no_more_results = false
-         
-         @prev_scroll = 0
          @track_scrolling = true
 
          @items = ko.observableArray()
