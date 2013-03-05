@@ -50,9 +50,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      data: data
                   , (err, resp) ->
                      if resp?.status == "success"
-                        fc.auth._refresh_token = resp.refresh_token
+                        fc.auth.updateRefreshToken(resp.refresh_token)
                         fc.user.update(email: data.email) if data.email
-                        fc.user.clearCache()
                      else  
                         hasError = true
                      done()
@@ -70,7 +69,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   data: data
                , (err, resp) ->
                   if resp?.status == "success"
-                     fc.team.clearCache()
                      fc.user.update(data)
                   else hasError = true
                   done()

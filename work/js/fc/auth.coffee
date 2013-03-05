@@ -34,7 +34,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          fc.auth._access_token = user.access_token
          forge.prefs.set "refresh_token", user.refresh_token
          forge.prefs.set "user_id", user._id
-         
+
+      updateRefreshToken: (refresh_token) ->
+         fc.auth._refresh_token = refresh_token
+         forge.prefs.set "refresh_token", refresh_token
+
       createAccount: (user, done) ->
          options = 
             type: "POST"
