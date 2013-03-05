@@ -8,11 +8,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          @face_value = ko.observable "off"
          @face_on = ko.computed () => @face_value()?.toLowerCase() == "on"
-         @has_saved = false
-
+         
          @face_on.subscribe (newValue) =>
-            return if @has_saved or @meta?.face_on or @face_value() == "off"
-            @has_saved = true
+            return if @meta?.face_on or @face_value() == "off"
+            @meta?.face_on = true
 
             fc.team.getActive (err, profile) =>
                forge.flurry.customEvent("Play Gameface", {face_on: true})
@@ -23,7 +22,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   cache: false
                (err) ->
                   return fc.msg.show("Something went wrong.. :(") if err
-                  
+
       load: () =>
          fc.team.getActive (err, profile) =>
             return fc.msg.show("Unable to load game information!") if err
@@ -31,7 +30,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             fc.ajax 
                url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace"
                type: "GET"
-               retry: "forever"
             , (error, data) =>
                return fc.msg.show("Unable to load game information!") if error
                @meta = data.meta
