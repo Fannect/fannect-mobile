@@ -229,8 +229,6 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
          options = ko.utils.unwrapObservable valueAccessor()
 
-            
-
          setup = () ->
             unless $(element).is(":visible")
                return setTimeout(setup, 10) 
@@ -262,7 +260,8 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
                active.addClass("active").removeClass("inactive").data("is_init", true)
                
                # Change title
-               title.text(options.titles[index]).stop().fadeIn({ opacity: 1 }, 300)
+               if options.titles
+                  title.text(options.titles[index]).stop().fadeIn({ opacity: 1 }, 300)
 
                if prevIndex != index
                   options.hide(prevIndex)

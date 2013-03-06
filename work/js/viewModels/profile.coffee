@@ -184,14 +184,17 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          file.name = "image"
          fc.team.updateActive(profile_image_url: "images/profile/LoadingProfileImage@2x.png")
 
-         fc.ajax 
-            url: "#{fc.getResourceURL()}/v1/images/me"
-            type: "POST"
-            files: [file]
-            timeout: 120000
-         , (err, data) ->
-            return fc.msg.show("Unable to upload your image at this time!") if err
-            fc.team.updateActive(data) if data.profile_image_url
+         fc.images.uploadProfile file, (err, data) ->
+            forge.logging.critical "PROFILE IMAGE: #{JSON.stringify(data)}"
+
+         # fc.ajax 
+         #    url: "#{fc.getResourceURL()}/v1/images/me"
+         #    type: "POST"
+         #    files: [file]
+         #    timeout: 120000
+         # , (err, data) ->
+         #    return fc.msg.show("Unable to upload your image at this time!") if err
+         #    fc.team.updateActive(data) if data.profile_image_url
 
       _uploadTeamImage: (file) =>
          file.name = "image"

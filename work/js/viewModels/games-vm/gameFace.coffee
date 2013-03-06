@@ -19,7 +19,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace"
                   type: "POST"
                   data: { face_on: true }
-                  cache: false
                (err) ->
                   return fc.msg.show("Something went wrong.. :(") if err
 

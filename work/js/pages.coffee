@@ -98,7 +98,6 @@ window.fannect.pages =
    # Connect
    ###
    "connect-page":
-      vm: vm.Connect
       buttons: [
          {
             position: "right"
@@ -108,7 +107,18 @@ window.fannect.pages =
       classes: ["light-background"]
       auto_scroll: true
 
-   "connect-huddle-page"
+   "connect-roster-page":
+      vm: vm.Connect.Roster
+      buttons: [
+         {
+            position: "right"
+            text: "Share"
+         }
+      ]
+      classes: ["light-background"]
+      auto_scroll: true
+
+   "connect-huddle-page":
       vm: vm.Connect.Huddle
       buttons: [
          {
@@ -116,7 +126,38 @@ window.fannect.pages =
             text: "New"
          }
       ]
-      classes: ["light-background"]      
+      classes: ["light-background"]
+      auto_scroll: true
+
+   "connect-huddle-newTopic-page":
+      vm: vm.Connect.Huddle.NewTopic
+      # buttons: [
+      #    {
+      #       position: "right"
+      #       text: "New"
+      #    }
+      # ]
+      classes: ["light-background"] 
+
+   "connect-huddle-newReply-page":
+      vm: vm.Connect.Huddle.NewReply
+      # buttons: [
+      #    {
+      #       position: "right"
+      #       text: "New"
+      #    }
+      # ]
+      classes: ["light-background"] 
+
+   "connect-huddle-replies-page":
+      vm: vm.Connect.Huddle.Replies
+      # buttons: [
+      #    {
+      #       position: "right"
+      #       text: "New"
+      #    }
+      # ]
+      classes: ["light-background"] 
       auto_scroll: true
 
    ###

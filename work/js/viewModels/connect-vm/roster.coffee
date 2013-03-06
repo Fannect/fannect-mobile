@@ -1,6 +1,8 @@
 do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
    
-   class fc.viewModels.Connect extends fc.viewModels.Base 
+   fc.viewModels.Connect = {} unless fc.viewModels.Connect
+
+   class fc.viewModels.Connect.Roster extends fc.viewModels.Base 
       constructor: () ->
          super 
          @limit = 20

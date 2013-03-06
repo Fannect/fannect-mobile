@@ -1,0 +1,13 @@
+extend ../../layout
+
+block header
+   h1(data-menu-root="connect") New Reply
+   a(data-icon="back", data-rel="back", data-theme="b") Back
+   a.ui-btn-right(data-role="button", data-theme="b", data-bind="click: rightButtonClick") Post It
+
+block content
+   .topic(data-bind="text: topic")
+   .owner
+      | Started by <span data-bind="text: owner"></span>
+
+   textarea.message(data-bind="value: message, valueUpdate: ['afterkeydown']", placeholder="Enter your reply")

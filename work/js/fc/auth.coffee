@@ -10,7 +10,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             type: "POST"
             url: "#{fc.getLoginURL()}/v1/token"
             data: { email: email, password: pw }
-            cache: false
             success: (user) ->
                user = JSON.parse(user)
                fc.auth._loginUser(user)
@@ -21,7 +20,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   fc.msg.show("Invalid username and password!")
                   done(null, false)
                else if (err?.status == 0 or err.statusText == "timeout")
-                  fc.msg.loading("Server timeout! Retrying...")
                   fc.logger.sendError(err)
                else
                   fc.logger.sendError(err)

@@ -2,38 +2,41 @@ extend ../layout
 
 block header
    h1(data-menu-root="connect") Huddle
+   a(href="connect.html", data-icon="back", data-rel="back", data-theme="b") Back
+   a.ui-btn-right(href="connect-huddle-newTopic.html", data-role="button", data-theme="b", data-transition="slide") New Topic
+
    
 block content
 
-   .categories.swipe-slider(data-bind="swipe: sliderOptions()")
-      .swipe-wrap
-         .swipe-content
-            .swipe-item
-               .next-game
-                  .game-date(data-bind="text: next_game().game_date")
-                  .team-wrap.home
-                     .team-name(data-bind="text: next_game().home_team")
-                  .team-wrap.away
-                     .team-name(data-bind="text: next_game().away_team")
-                  .stadium-name(data-bind="text: next_game().stadium_name")
-                  .stadium-location(data-bind="text: next_game().stadium_location")
-                  .time-and-coverage-wrap
-                     .time-and-coverage(data-bind="text: next_game().time_and_coverage")
-            .swipe-item
-               .graph-wrapper
-                  .breakdown(data-bind="chart: breakdown")
-            .swipe-item
+   .header-section
+      .team_name(data-bind="text: team_name")
+      .sort-by
+         .oldest(data-bind="css:{'active':sort_by()=='oldest'}, click: sortByOldest") Oldest
+         .most-active(data-bind="css:{'active':sort_by()=='most_active'}, click: sortByMostActive") Most Active
+         .newest(data-bind="css:{'active':sort_by()=='newest'}, click: sortByNewest") Newest
 
-   input(type="search", data-bind="value: query, valueUpdate: ['afterkeydown'], onEnterOrBlur: androidSearch")
+      .categories.swipe-slider(data-bind="swipe: sliderOptions()")
+         .prev: .arrow
+         .next: .arrow
+         .swipe-wrap
+            .swipe-content
+               .swipe-item All Huddles
+               .swipe-item Team Huddles
+               .swipe-item Roster Huddles
+               .swipe-item My Huddles
 
-   .my-roster-title(data-bind="slideInOut: show_roster_title") My Roster
-   .my-roster-title(data-bind="slideInOut: show_roster_empty") Your Roster is Empty
+   ul.pattern-bg(data-role="listview", data-bind="foreach: huddles, listviewUpdate: huddles, visible: huddles().length > 0").huddles
+      li.huddle
+         a(href="connect-huddle-replies.html", data-bind="params:{'huddle_id': _id}, showListviewClick: true", data-transition="slide")
+            .verified-icon(data-bind="setClass: $data.owner_verified")
+            .topic(data-bind="text: topic")
+            .owner 
+               | Started by <span data-bind="text: owner_name"></span>
+            .meta
+               span.count
+                  | <span data-bind="text: reply_count + (reply_count > 1 ? ' Replies' : ' Reply') "></span>
+               .stars
+            .date
+               | Last Comment <span class="day" data-bind="text: date"></span> at <span data-bind="text: time"></span>
 
-   ul.pattern-bg.has-search(data-role="listview", data-bind="template: { name:'connect-fan-template', foreach: fans }, listviewUpdate: fans, visible: fans().length > 0").fans
    .loading-more-indicator(data-bind="visible: loading_more", style="display:none;")
-
-   .share-wrap(data-bind="fadeIn: show_sharing", style="display:none;")
-      .sub-title Recruit More Fans!
-      .share-button.twitter(data-bind="showClick: true, click: shareViaTwitter")
-      .share-button.email(data-bind="showClick: true, click: shareViaEmail")
-      //- .share-button.sms(data-bind="showClick: true, click: shareViaSMS")

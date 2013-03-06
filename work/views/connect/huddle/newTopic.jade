@@ -1,0 +1,10 @@
+extend ../../layout
+
+block header
+   h1(data-menu-root="connect") New Topic
+   a(href="connect-huddle.html", data-icon="back", data-rel="back", data-theme="b") Back
+   a.ui-btn-right(data-bind="click: rightButtonClick", data-role="button", data-theme="b") Huddle Up
+
+block content
+   input.topic(type="text", data-bind="value: topic, valueUpdate: ['afterkeydown']", placeholder="Enter your topic")
+   textarea.message(data-bind="value: message, valueUpdate: ['afterkeydown']", placeholder="Enter your message")

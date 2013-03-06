@@ -1,2 +1,217 @@
+.ios
+   #connect-huddle-page
+   #connect-huddle-replies-page
+      .header-section
+         background: url(../images/Background_PerforatedMetal.png) 50% 0
+         background-size:320px 568px
 #connect-huddle-page
+#connect-huddle-replies-page
+   .header-section
+      margin: -15px -15px 0 -15px
+      background: url(../images/Tilable-Background03.png) 50% 0
+      background-size: 500px 50px
+     
+#connect-huddle-page
+   .team_name
+      color: #fff
+      font-size: 28px
+      font-weight:bold
+      height: 38px
+      line-height: 38px
+      white-space: nowrap
+      text-align: center
+      padding-top:4px
+   .sort-by
+      position:relative
+      width: 320px
+      height: 32px
+      line-height: 32px
+      font-size: 12px
+      color: #888
+      margin: 0 auto
+      .oldest
+      .most-active
+      .newest
+         position:absolute
+         width: 100px
+         text-align: center
+         cursor:pointer
+         z-index: 10
+      .oldest
+         left: 16px
+      .most-active
+         margin-left: -50px
+         left: 50%
+      .newest   
+         right: 14px
+      .active
+         color: #ddd
+
+   .categories
+      height: 64px
+      background: url(../images/connect/huddle/SliderMiddleSliver@2x.png)
+      background-size: 2px 64px
+      margin-top:-14px
+      position: relative
+      .next
+      .prev
+         position:absolute
+         cursor:pointer
+         top:14px
+         width:50px
+         height:50px
+         z-index:10
+         .arrow
+            position: absolute
+            background-size: 13px 20px !important
+            width: 13px
+            height: 20px
+            top:16px
+      .next
+         background: url(../images/connect/huddle/RightSliderBox.png) 0 0 
+         background-size: 50px 50px
+         right: 0
+         .arrow
+            right:15px
+            background: url(../images/profile/rightArrow_Active.png) 50% 50% no-repeat
+         &.inactive
+            .arrow
+               background: url(../images/profile/rightArrow_Inactive.png) 50% 50% no-repeat
+      .prev
+         background: url(../images/connect/huddle/LeftSliderBox.png) 0 0 
+         background-size: 50px 50px
+         left:0
+         .arrow
+            left:15px
+            background: url(../images/profile/leftArrow_Active.png) 50% 50% no-repeat
+         &.inactive
+            .arrow
+               background: url(../images/profile/leftArrow_Inactive.png) 50% 50% no-repeat
+      .swipe-wrap
+         height:50px
+         padding-top:14px
+         width:100%
+         .swipe-item
+            height:50px
+            line-height:50px
+            font-family:JerseyM54
+            text-align:center
+            font-size:22px
+
+#connect-huddle-replies-page
+   .header-section
+      .topic
+         padding: 8px 0 4px
+         font-size: 18px
+         color:#fff
+         text-align:center
+         font-weight:bold
+      .owner
+         padding-bottom: 8px
+         font-size: 11px
+         color:#bbb
+         text-align:center
+      .pages
+         height: 64px
+         background: url(../images/connect/huddle/SliderMiddleSliver@2x.png)
+         background-size: 2px 64px
+         margin-top:-14px
+         position: relative
+
+.huddles
+   margin-top: 0 !important
+   .huddle
+      position: relative
+      a.ui-link-inherit
+         min-height: 70px
+      .topic
+         white-space: normal
+      .owner
+         color: #141b1e
+         font-size: 11px
+         font-weight: lighter
+         padding:5px 0 15px
+      &.ui-btn-active
+         .owner   
+            color: #fff!important
+      .date
+      .meta
+         position:absolute
+         bottom: 8px
+         color: #c1272d
+         font-size: 11px
+         font-weight: lighter
+      .meta
+         left: 15px
+      .date
+         right: 15px
+         .day
+            font-weight: bold
+            color: #c1272d
+
+.replies
+   margin-top: 0 !important
+   .reply
+      position: relative
+      .content
+         white-space: normal
+         margin-bottom: 18px
+      .owner
+         position:absolute
+         left: 15px
+         bottom: 8px
+         color: #141b1e
+         font-size: 11px
+         font-weight: lighter
+      .date
+         position:absolute
+         right: 15px
+         bottom: 8px
+         color: #c1272d
+         font-size: 11px
+         font-weight: lighter
+         .day
+            font-weight: bold
+            color: #c1272d
+
+#connect-huddle-newReply-page
+   .topic
+      font-weight: bold
+      color: #2f3e46
+      text-shadow: 0 1px 0 #fff
+      font-size: 20px
+      margin-bottom: 2px
+   .owner
+      color: #141b1e
+      font-size: 11px
+      font-weight: lighter
+      text-shadow: 0 1px 0 #fff
+      margin-bottom: 15px
+   .message
+      resize: vertical
+
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5)
+   #connect-huddle-page
+      .header-section
+         background-image: url(../images/Tilable-Background03@2x.png)
+   .ios
+      #connect-huddle-page
+         .header-section
+            background-image: url(../images/Background_PerforatedMetal@2x.png)
    
+   #connect-huddle-page
+      .next
+         background-image: url(../images/connect/huddle/RightSliderBox@2x.png) !important
+         .arrow
+            background-image: url(../images/profile/rightArrow_Active@2x.png) !important
+          &.inactive
+            .arrow
+               background-image: url(../images/profile/rightArrow_Inactive@2x.png) !important
+      .prev
+         background-image: url(../images/connect/huddle/LeftSliderBox@2x.png) !important
+         .arrow
+            background-image: url(../images/profile/leftArrow_Active@2x.png) !important
+          &.inactive
+            .arrow
+               background-image: url(../images/profile/leftArrow_Inactive@2x.png) !important

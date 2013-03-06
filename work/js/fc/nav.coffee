@@ -36,6 +36,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       leaderboard: new HistoryPath("leaderboard.html")
       connect: new HistoryPath("connect.html")
 
+   cachedParams = {}
+
    fc.nav =
       setup: () ->
          # Loop through all of the pages and attach handlers
@@ -64,12 +66,13 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       HistoryEntry: HistoryEntry
 
       hasBack: () -> return historyPaths[activeHistoryPath].hasBack()
-      goBack: (transition) ->
+      goBack: (transition, params) ->
          if window.location.href?.indexOf("ui-state=dialog") != -1
             window.location.href = window.location.href.replace("ui-state=dialog", "")
             return historyPaths[activeHistoryPath].current().go("pop")
             
          entry = historyPaths[activeHistoryPath].getBack()
+         fc.nav.pushCachedParams(entry.path, params)
          entry.back(transition) 
 
       getActiveHistoryName: () -> return activeHistoryPath
@@ -139,6 +142,20 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          return obj
 
       getVM: (id) -> cachedVMs[id]
+
+      pushCachedParams: (url, params) ->
+         parsed = $.mobile.path.parseUrl(url)
+         cachedParams[parsed.pathname+parsed.search] = params
+
+      popCachedParams: (url, extend = {}) ->
+         params = cachedParams[url]
+         return unless params
+         extend[k] = v for k, v of params
+         delete cachedParams[url]
+         return extend
+
+      peekCachedParams: (url) ->
+         return cachedParams[url]
          
    # hold a reference to all viewmodels
    # - required so that memory does not leak as new viewmodels are 
@@ -171,6 +188,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       if vm?
          vm.url = $page.data("url")
          vm.params = fc.nav.parseQueryString(vm.url)
+         fc.nav.popCachedParams(vm.url, vm.params)
          ko.applyBindings vm, @
          vm.load()
 
