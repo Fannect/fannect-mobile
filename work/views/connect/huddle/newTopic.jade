@@ -6,5 +6,5 @@ block header
    a.ui-btn-right(data-bind="click: rightButtonClick", data-role="button", data-theme="b") Huddle Up
 
 block content
-   input.topic(type="text", data-bind="value: topic, valueUpdate: ['afterkeydown']", placeholder="Enter your topic")
-   textarea.message(data-bind="value: message, valueUpdate: ['afterkeydown']", placeholder="Enter your message")
+   input.inset-input.topic(type="text", data-bind="value: topic, valueUpdate: ['afterkeydown']", placeholder="Enter your topic")
+   textarea.inset-input.message(data-bind="value: message, valueUpdate: ['afterkeydown']", placeholder="Enter your message")
