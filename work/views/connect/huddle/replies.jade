@@ -12,7 +12,12 @@ block content
       .owner
          | Started by <span data-bind="text: owner"></span>
 
-      .pages
+      .page-controls
+         .current-page(data-bind="html: current_page_text")
+         .first(data-bind="click: firstPage"): .arrow
+         .prev(data-bind="click: prevPage, css:{'active': current_page() != 0}"): .arrow
+         .next(data-bind="click: nextPage, css:{'active': current_page() != page_count()}"): .arrow
+         .last(data-bind="click: lastPage"): .arrow
 
    ul.pattern-bg(data-role="listview", data-bind="foreach: replies, listviewUpdate: replies, visible: replies().length > 0").replies
       li.reply

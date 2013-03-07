@@ -92,6 +92,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          else
             fc.team.getActive(done)
 
+      updateTeam: (teamProfileId, update) ->
+         $.extend true, fc.team._teams[teamProfileId], update
+         if teamProfileId == fc.team._curr
+            notifyTeamUpdated(fc.team._teams[fc.team._curr])
+
       updateActive: (update) ->
          throw "Cannot update team before it has been fetched" unless fc.team._curr
          $.extend true, fc.team._teams[fc.team._curr], update

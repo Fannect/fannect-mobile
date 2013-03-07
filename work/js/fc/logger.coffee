@@ -2,7 +2,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
    fc.logger =
       setup: () ->
          window.onerror = (m, u, l) ->
-            forge.logging.critical "HIT ERROR", m
+            forge.logging.critical "HIT ERROR:\n message: #{m},\n url: #{u},\n line: #{l}"
             fc.logger.sendError
                message: m
                url: u

@@ -111,12 +111,86 @@
          font-size: 11px
          color:#bbb
          text-align:center
-      .pages
+
+      .page-controls
          height: 64px
          background: url(../images/connect/huddle/SliderMiddleSliver@2x.png)
          background-size: 2px 64px
          margin-top:-14px
          position: relative
+         .current-page
+            position:absolute
+            top:14px
+            height: 50px
+            text-align: center
+            font-family: JerseyM54
+            font-size: 22px
+            line-height: 50px
+            width: 100%
+            .slash
+               font-family: Helvetica,Arial,sans-serif
+               display: inline-block
+               margin: 0 2px
+         .first
+         .prev
+         .next
+         .last
+            position:absolute
+            cursor:pointer
+            top:14px
+            width:50px
+            height:50px
+            z-index:10
+            background-size: 50px 50px
+            .arrow
+               position:absolute
+               height: 18px
+               left: 10px
+               top: 17px
+         .first
+         .prev
+            background-image: url(../images/connect/huddle/LeftSliderBox.png)
+            .arrow
+               left: 12px
+         .next
+         .last
+            background-image: url(../images/connect/huddle/RightSliderBox.png)
+            .arrow
+               left: 19px
+         .first
+            left: 0
+            .arrow
+               background-image: url(../images/connect/huddle/first_Active@2x.png)
+               background-size: 18px 18px 
+               width: 18px
+         .prev
+            left: 48px
+            .arrow
+               background-image: url(../images/connect/huddle/previous_Inactive@2x.png)
+               background-size: 19px 18px 
+               width: 19px
+               &.active
+                  background-image: url(../images/connect/huddle/previous_Active@2x.png)
+                  background-size: 20px 18px
+                  width: 20px
+         .next
+            right: 48px
+            .arrow
+               background-image: url(../images/connect/huddle/next_Inactive@2x.png)
+               background-size: 19px 18px 
+               width: 19px
+               &.active
+                  background-image: url(../images/connect/huddle/next_Active@2x.png)
+                  background-size: 20px 18px 
+                  width: 20px
+         .last
+            right: 0
+            .arrow
+               background-image: url(../images/connect/huddle/last_Active@2x.png)
+               background-size: 18px 18px 
+               width: 18px
+               
+
 
 .huddles
    margin-top: 0 !important

@@ -81,7 +81,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          
       onPageHide: () => $(window).unbind("scroll.connectpage")
       selectUser: (data) -> $.mobile.changePage "profile-other.html?team_profile_id=#{data._id}", transition:"slide"
-      rightButtonClick: () -> $.mobile.changePage "share.html", transition: "slide"
       shareViaTwitter: () -> fc.share.viaTwitter()
       shareViaEmail: () -> fc.share.viaEmail()
       shareViaSMS: () -> fc.share.viaSMS()

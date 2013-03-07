@@ -98,21 +98,15 @@ window.fannect.pages =
    # Connect
    ###
    "connect-page":
-      buttons: [
-         {
-            position: "right"
-            text: "Share"
-         }
-      ]
       classes: ["light-background"]
-      auto_scroll: true
-
+      
    "connect-roster-page":
       vm: vm.Connect.Roster
       buttons: [
          {
             position: "right"
             text: "Share"
+            click: -> $.mobile.changePage "share.html", transition:"slide"
          }
       ]
       classes: ["light-background"]

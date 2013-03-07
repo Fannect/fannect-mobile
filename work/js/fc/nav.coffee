@@ -223,6 +223,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       page = fc.pages[$page.attr("id")]
       vm = cachedVMs[id]
 
+
       # start any scrollers on the page
       $(".scrolling-text", $page).scroller("start") if page.scroller 
 
@@ -251,7 +252,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       fc.tutorial.autoShow()
 
       # scroll to previous position
-      if page.auto_scroll
+      if page.auto_scroll and vm
          $.mobile.silentScroll(vm.prev_scroll_top) if vm?.prev_scroll_top
 
    pageBeforeHide = () ->

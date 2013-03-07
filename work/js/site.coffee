@@ -9,6 +9,7 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       return false
 
    setup = () ->
+      fc.logger.setup()
 
       # disable all transitions for better faster Android experience
       $.mobile.pushStateEnabled = false
@@ -58,13 +59,13 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
             startTimedEvent: () ->
             endTimedEvent: () ->
 
-      fc.nav.setup()
-      fc.mobile.createButtons()
-
+      
       if fc.isSlow() 
          $("html").addClass("speed-up")
          $.mobile.defaultPageTransition = "none"
 
+      fc.nav.setup()
+      fc.mobile.createButtons()
       fc.push.setup()
 
       # force page removal of first page from DOM

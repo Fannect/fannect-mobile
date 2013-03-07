@@ -185,29 +185,27 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.team.updateActive(profile_image_url: "images/profile/LoadingProfileImage@2x.png")
 
          fc.images.uploadProfile file, (err, data) ->
-            forge.logging.critical "PROFILE IMAGE: #{JSON.stringify(data)}"
             return fc.msg.show("Unable to upload your image at this time!") if err
-            
+            fc.team.updateActive(profile_image_url: data.url)
             fc.ajax 
                url: "#{fc.getResourceURL()}/v1/images/me/update"
                type: "POST"
                data: { image_url: data.url }
-            , (err, resp) ->
-               if err or data?.status == "error"
-                  return fc.msg.show("Unable to upload your image at this time!")
-               fc.team.updateActive(profile_image_url: data.url)
             
       _uploadTeamImage: (file) =>
          file.name = "image"
          fc.team.updateActive(team_image_url: "images/profile/LoadingTeamImage@2x.png")
-         
+      
          fc.team.getActive (err, profile) ->
-            fc.ajax 
-               url: "#{fc.getResourceURL()}/v1/images/me/#{profile._id}/update"
-               type: "POST"
-               data: { image_url: data.url }
-            , (err, resp) ->
-               if err or data?.status == "error"
-                  return fc.msg.show("Unable to upload your image at this time!")
-               fc.team.updateActive(team_image_url: data.url)
+            profile_id = profile._id      
+           
+            fc.images.uploadProfile file, (err, data) ->
+               return fc.msg.show("Unable to upload your image at this time!") if err
+               
+               # Only change the 
+               fc.team.updateTeam(profile_id, team_image_url: data.url)
+               fc.ajax 
+                  url: "#{fc.getResourceURL()}/v1/images/me/#{profile_id}/update"
+                  type: "POST"
+                  data: { image_url: data.url }
                
