@@ -118,6 +118,7 @@ window.fannect.pages =
          {
             position: "right"
             text: "New"
+            click: -> $.mobile.changePage "connect-huddle-newTopic.html", transition: "slideup"
          }
       ]
       classes: ["light-background"]
@@ -125,12 +126,13 @@ window.fannect.pages =
 
    "connect-huddle-newTopic-page":
       vm: vm.Connect.Huddle.NewTopic
-      # buttons: [
-      #    {
-      #       position: "right"
-      #       text: "New"
-      #    }
-      # ]
+      buttons: [
+         {
+            position: "right"
+            text: "Huddle Up"
+            tint: [193, 39, 45, 160]
+         }
+      ]
       classes: ["light-background"] 
 
    "connect-huddle-newReply-page":

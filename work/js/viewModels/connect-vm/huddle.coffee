@@ -89,8 +89,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @loadHuddles()
          
       onPageHide: () => $(window).unbind("scroll.huddlepage")
-      
-
+   
       addDateTime: (huddle) ->
          now = new Date()
          date = new Date(huddle.last_reply_time)

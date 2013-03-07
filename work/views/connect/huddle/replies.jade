@@ -15,8 +15,8 @@ block content
       .page-controls
          .current-page(data-bind="html: current_page_text")
          .first(data-bind="click: firstPage"): .arrow
-         .prev(data-bind="click: prevPage, css:{'active': current_page() != 0}"): .arrow
-         .next(data-bind="click: nextPage, css:{'active': current_page() != page_count()}"): .arrow
+         .prev(data-bind="click: prevPage, css:{'inactive': current_page() == 1}"): .arrow
+         .next(data-bind="click: nextPage, css:{'inactive': current_page() == page_count()}"): .arrow
          .last(data-bind="click: lastPage"): .arrow
 
    ul.pattern-bg(data-role="listview", data-bind="foreach: replies, listviewUpdate: replies, visible: replies().length > 0").replies
@@ -28,3 +28,10 @@ block content
             | <span class="day" data-bind="text: date"></span> at <span data-bind="text: time"></span>
 
    .loading-more-indicator(data-bind="visible: loading_more", style="display:none;")
+
+   .page-controls.bottom(data-bind="visible: replies().length > 5")
+      .current-page(data-bind="html: current_page_text")
+      .first(data-bind="click: firstPage"): .arrow
+      .prev(data-bind="click: prevPage, css:{'inactive': current_page() == 1}"): .arrow
+      .next(data-bind="click: nextPage, css:{'inactive': current_page() == page_count()}"): .arrow
+      .last(data-bind="click: lastPage"): .arrow

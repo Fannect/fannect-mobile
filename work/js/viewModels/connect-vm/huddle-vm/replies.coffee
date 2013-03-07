@@ -20,40 +20,39 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @current_page.subscribe () => @loadReplies()
 
       loadReplies: () =>
-         @replies.removeAll()
+         @replies([])
 
-         if @replies_pages[@current_page()-1]
+         if @replies_pages[@current_page()-1]?.length > 0
             @replies(@replies_pages[@current_page()-1])
          else
             page = @current_page()
             @loading_more(true)
             fc.ajax 
-               url: "#{fc.getResourceURL()}/v1/huddles/#{@huddle._id}/replies?limit=#{@limit}&#{@limit*(page-1)}"
+               url: "#{fc.getResourceURL()}/v1/huddles/#{@huddle._id}/replies?limit=#{@limit}&skip=#{@limit*(page-1)}"
                type: "GET"
             , (err, data) =>
                @loading_more(false)
                if err and page == @current_page()
                   fc.msg.show("Unable to load replies!") 
-                  setTimeout (-> fc.nav.goBack()), 1000
                   return 
 
                @addDateTime(reply) for reply in data.replies
                   
                # check if still on the same page   
-               @replies(data.replies) if page != @current_page()
+               @replies(data.replies) if page == @current_page()
                @replies_pages[page-1] = data.replies
 
       load: () =>
          return fc.nav.backToRoot("connect") unless @params.huddle_id
          if @params.huddle_id != @huddle?._id
             @huddle = null
-            @page_count = null
+            @page_count(0)
             @loading_more(true)
-            @replies.removeAll
+            @replies([])
             @current_page(1)
             
             fc.ajax 
-               url: "#{fc.getResourceURL()}/v1/huddles/#{@params.huddle_id}"
+               url: "#{fc.getResourceURL()}/v1/huddles/#{@params.huddle_id}?limit=#{@limit}"
                type: "GET"
             , (err, huddle) =>
                @loading_more(false)
@@ -61,7 +60,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @huddle = huddle
                @topic(huddle.topic)
                @owner(huddle.owner_name)
-               @page_count = Math.ceil(@huddle.reply_count / @limit)
+               @page_count(Math.ceil(@huddle.reply_count / @limit))
                @addDateTime(reply) for reply in huddle.replies
                if @current_page() == 1
                   @replies(huddle.replies)
@@ -72,7 +71,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             if @replies_pages[@current_page()-1].length >= @limit
                # add a page
                @replies_pages.push([reply])
-               # move to next page
+               @page_count(@page_count() + 1)
+               @current_page(@current_page() + 1)
             else
                # append to page
                @replies_pages[@current_page()-1].push(reply)
@@ -82,10 +82,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          $.mobile.changePage "connect-huddle-newReply.html?huddle_id=#{@params.huddle_id}", transition: "slide"
 
       firstPage: () =>
-         @current_page(0) if @current_page() != 0
+         @current_page(1) if @current_page() != 1
 
       prevPage: () =>
-         if (curr = @current_page()) > 0
+         if (curr = @current_page()) > 1
             @current_page(curr - 1)
 
       nextPage: () =>
