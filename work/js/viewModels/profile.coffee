@@ -186,27 +186,28 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          fc.images.uploadProfile file, (err, data) ->
             forge.logging.critical "PROFILE IMAGE: #{JSON.stringify(data)}"
-
-         # fc.ajax 
-         #    url: "#{fc.getResourceURL()}/v1/images/me"
-         #    type: "POST"
-         #    files: [file]
-         #    timeout: 120000
-         # , (err, data) ->
-         #    return fc.msg.show("Unable to upload your image at this time!") if err
-         #    fc.team.updateActive(data) if data.profile_image_url
-
+            return fc.msg.show("Unable to upload your image at this time!") if err
+            
+            fc.ajax 
+               url: "#{fc.getResourceURL()}/v1/images/me/update"
+               type: "POST"
+               data: { image_url: data.url }
+            , (err, resp) ->
+               if err or data?.status == "error"
+                  return fc.msg.show("Unable to upload your image at this time!")
+               fc.team.updateActive(profile_image_url: data.url)
+            
       _uploadTeamImage: (file) =>
          file.name = "image"
          fc.team.updateActive(team_image_url: "images/profile/LoadingTeamImage@2x.png")
-
-         fc.team.getActive (err, profile) =>
+         
+         fc.team.getActive (err, profile) ->
             fc.ajax 
-               url: "#{fc.getResourceURL()}/v1/images/me/#{profile._id}"
+               url: "#{fc.getResourceURL()}/v1/images/me/#{profile._id}/update"
                type: "POST"
-               files: [file]
-               timeout: 120000
-            , (err, data) ->
-               return fc.msg.show("Unable to upload your image at this time!")
-               fc.team.updateActive(data) if data.team_image_url
+               data: { image_url: data.url }
+            , (err, resp) ->
+               if err or data?.status == "error"
+                  return fc.msg.show("Unable to upload your image at this time!")
+               fc.team.updateActive(team_image_url: data.url)
                
