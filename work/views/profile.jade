@@ -38,9 +38,11 @@ block content
 
    .name(data-bind="html: name")
 
-   a.team-name-wrap(data-bind="click: selectTeam")
-      .team(data-bind="text: team_name")
-      .icon(data-bind="visible: isEditable()")
+   a.team-name-wrap(data-bind="click: selectTeam, css:{'editable':isEditable()}")
+      .table-wrap
+         .team
+            |<span data-bind="text: team_name"></span><span class="hint">Tap to Change</span>
+      .icon
 
    .score-wrap
       .score.roster

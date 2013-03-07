@@ -9,6 +9,7 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       return false
 
    setup = () ->
+      fc.logger.setup()
 
       # disable all transitions for better faster Android experience
       $.mobile.pushStateEnabled = false

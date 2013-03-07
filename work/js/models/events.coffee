@@ -57,21 +57,30 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @load() if load_now
 
       setup: (profile_id, name) =>
-         @profile_id = profile_id
-         @name = name or "You"
-         @load(true) if @_load_waiting or @_has_loaded
-         @_load_waiting = false
+         if @profile_id != profile_id
+            @profile_id = profile_id
+            @name = name or "You"
+            @empty()
+            @load() if @_load_waiting or @_has_loaded
+            @_load_waiting = false
 
-      load: (reset) =>
+      reset: () =>
+         @profile_id = null
+         @name = null
+         @empty()
+
+      empty: () =>
+         @events.removeAll()
+         @_has_loaded = false
+         @skip = 0
+         @has_more(true)
+         @is_loading(true)
+
+      load: () =>
          return unless @has_more()
          return @_load_waiting = true unless @profile_id 
 
-         if reset == true
-            @events.removeAll()
-            @skip = 0
-
          @is_loading(true)
-
          fc.ajax
             url: "#{fc.getResourceURL()}/v1/teamprofiles/#{@profile_id}/events?skip=#{@skip}&limit=#{@limit}"
          , (err, events) =>

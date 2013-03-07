@@ -94,20 +94,25 @@
       text-shadow: 0 2px 2px #000
 
    .team-name-wrap
-      display: table
+      display:block
       position: relative
-      width: 302px 
-      height: 66px
-      margin: 8px auto
-      background: url(../images/profile/Profile_GlassMarquee.png) 
-      background-size:302px 66px
+      width: 318px 
+      height: 80px
+      margin: 2px auto -18px
+      background: url(../images/profile/smaller_TeamGlass.png) 50% 0 no-repeat
+      background-size: 318px 80px
       text-transform: uppercase
       text-decoration: none
+      .table-wrap
+         position:absolute
+         display: table
+         width: 100%
+         top: 5px
       .team
          display: table-cell
          vertical-align: middle
          width: 222px
-         height: 55px
+         height: 66px
          line-height: 1.3em
          color: color-light-gray
          text-align: center
@@ -117,20 +122,41 @@
          text-decoration: none
          font-weight: normal
          text-shadow: 0 2px 2px #000
+         color: #fff
       .icon
-         position: absolute
-         top: 26px
-         right: 18px
-         width: 13px
-         height: 15px
-         background: url(../images/profile/Profile_TeamArrows.png) no-repeat
-         background-size: 31px 15px 
+      .hint
+         display:none
+      &.editable
+         background-image: url(../images/profile/larger_TeamGlass.png) 
+         background-size:318px 90px
+         height: 90px
+         .table-wrap
+            top: 8px
+            .team
+               height: 66px
+         .icon
+            display:block
+            position: absolute
+            top: 33px
+            right: 22px
+            width: 13px
+            height: 15px
+            background: url(../images/profile/Profile_TeamArrows.png) no-repeat
+            background-size: 31px 15px 
+         .hint
+            display:block
+            width:100%
+            color: #777
+            font-size: 10px
+            font-weight:lighter
+            text-align:center
+            line-height:20px
 
    .score-wrap
       position: relative
       width: 302px
       height: 36px
-      margin: 8px auto
+      margin: 6px auto 6px
       background: url(../images/profile/Profile_ScoreDisplay-iPhone.png) 
       background-size:302px 36px
       .score
@@ -565,7 +591,9 @@
       .team-hint
          background-image: url(../images/profile/Profile_tapToAddTeamPhoto@2x.png)!important
       .team-name-wrap
-         background-image: url(../images/profile/Profile_GlassMarquee@2x.png)!important
+         background-image: url(../images/profile/smaller_TeamGlass@2x.png)!important
+         &.editable
+            background-image: url(../images/profile/larger_TeamGlass@2x.png)!important
       .score-wrap
          background-image: url(../images/profile/Profile_ScoreDisplay-iPhone@2x.png)!important
       .fan-dna-separator
