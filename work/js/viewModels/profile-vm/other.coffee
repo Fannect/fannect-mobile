@@ -97,5 +97,5 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       onPageHide: () =>
          @updateProfile({})
-         @events = new fc.models.Events()
+         @events.reset()
         
