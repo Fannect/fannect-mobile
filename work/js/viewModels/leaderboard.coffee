@@ -2,7 +2,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
    class fc.viewModels.Leaderboard extends fc.viewModels.Base 
       constructor: () ->
-         @league_text = ko.observable()
+         @league_text = ko.observable("League Standings")
          
          super
 
