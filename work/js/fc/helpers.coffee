@@ -67,3 +67,33 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
          done null, data
 
       img.src = file
+
+   class fc.AlphaTable
+      constructor: () ->
+         @data = []
+
+      load: (field, data) =>
+         data._id = data[field].toLowerCase()
+         index = data._id.charCodeAt(0) - 48
+         @data[index] = [] unless @data[index] 
+         @data[index].push(data)
+
+      loadArray: (field, array) =>
+         @load(field, data) for data in array
+         
+      search: (term) =>
+         lower = term.toLowerCase()
+         regex = new RegExp("^#{term}.*")
+         index = lower.charCodeAt(0) - 48
+         return unless @data[index]?.length > 0
+         
+         results = []
+         for data in @data[index]
+            results.push(data) if regex.test(data._id)
+
+         return results
+
+      empty: () =>
+         return unless @data?.length > 0
+         array?.length = 0 for array in @data
+         @data.length = 0

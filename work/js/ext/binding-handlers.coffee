@@ -217,9 +217,9 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
          options = ko.utils.unwrapObservable valueAccessor()
          $el = $(element) 
         
-         if (source = ko.utils.unwrapObservable(options.source)) and source.length > 0 and not $el.data("textToken-init")
+         if options.source and not $el.data("textToken-init")
             $el.data("textToken-init", true)
-            $el.tokenInput source,
+            $el.tokenInput options.source,
                onAdd: () -> options.value($el.tokenInput("get"))
                hintText: false
                searchingText: false

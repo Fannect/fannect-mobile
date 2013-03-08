@@ -6,38 +6,37 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       constructor: () ->
          super
          @selected_contacts = ko.observable()
-         @contacts = ko.observableArray()
-         # @contacts([{id: "1", displayName: "Blake VanLan"}, {id: "2", displayName: "Blake VanLandingham"}, {id: "2", displayName: "Bla VanLandingham"}])
+         @contacts = new fc.AlphaTable()
+         @cachedContacts = {}
+         # @contacts.loadArray("displayName", [{id: "1", displayName: "Blake VanLan"}, {id: "2", displayName: "Blake VanLandingham"}, {id: "2", displayName: "Bla VanLandingham"}])
 
       load: () =>
          forge.contact.selectAll (contacts) =>
-            @contacts(contacts)
-            # console.log "ARRAY: #{JSON.stringify(@contacts())}"
-            # console.log "CONTACT #{JSON.stringify(contact)}"
+            @contacts.loadArray("displayName", contacts)
          , (err) ->
             forge.msg.show("Failed to access contacts!")
 
-      # getContactInfo: () =>
-      filterContact: (contact, cb) =>
+      filterContact: (index, contact, cb) =>
+         return cb(@cachedContacts[contact.id]) if @cachedContacts[contact.id]
          forge.contact.selectById contact.id, (contact) =>
             return cb([]) if contact.phoneNumbers.length == 0 
 
-            # results = []
+            results = []
 
-            # for phone in contact.phoneNumbers
+            for phone in contact.phoneNumbers
                # {
                #    "value": "+447554639203",
                #    "type": "work",
                #    "pref": false
                #  }
 
-               # results.push {
-               #    displayName: "#{contact.displayName} (#{phone.type})"
-               #    phoneNumber: phone.value
-               # }
+               results.push {
+                  displayName: "#{contact.displayName} (#{phone.type})"
+                  phoneNumber: phone.value
+               }
 
-               # cb(results)
-            cb([contact])
+            @cachedContacts[contact.id] = results
+            cb(results)
 
          , (err) ->
             cb([])
@@ -49,6 +48,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          for contact in @selected_contacts()
             contact.phoneNumbers
 
+      onPageHide: () =>
+         # Clear up memory, hopefully
+         @contacts.empty()
+         delete @cachedContacts[k] for k, v of @cachedContacts
 
       onPageShow: () =>
          super

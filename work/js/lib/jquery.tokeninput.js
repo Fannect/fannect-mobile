@@ -16,7 +16,7 @@ var DEFAULT_SETTINGS = {
     contentType: "json",
     queryParam: "q",
     searchDelay: 300,
-    minChars: 1,
+    minChars: 3,
     propertyToSearch: "displayName",
     jsonContainer: null,
 
@@ -196,10 +196,10 @@ $.TokenList = function (input, url_or_data, settings) {
                 show_dropdown_hint();
             }
         })
-        .blur(function () {
-            hide_dropdown();
-            $(this).val("");
-        })
+        // .blur(function () {
+        //     hide_dropdown();
+        //     $(this).val("");
+        // })
         .bind("keyup keydown blur update", resize_input)
         .keydown(function (event) {
             var previous_token;
@@ -805,9 +805,7 @@ $.TokenList = function (input, url_or_data, settings) {
                 $.ajax(ajax_params);
             } else if(settings.local_data) {
                 // Do the search through local data
-                var results = $.grep(settings.local_data, function (row) {
-                    return row[settings.propertyToSearch].toLowerCase().indexOf(query.toLowerCase()) > -1;
-                });
+                var results = settings.local_data.search(query);
 
                 if($.isFunction(settings.onResult)) {
                     results = settings.onResult.call(hidden_input, results);
@@ -818,12 +816,12 @@ $.TokenList = function (input, url_or_data, settings) {
                 for (var i = results.length - 1; i >= 0; i--) {
                     (function (index) {
                         count++
-                        settings.resultsFilter(results[index], function (items) {
+                        settings.resultsFilter(index, results[index], function (items) {
                             if (items.length > 0)
                                 for (var i = items.length - 1; i >= 0; i--) {
                                     filteredResults.push(items[i]);
                                 };
-                            if (--count == 0 && i == 0) {
+                            if (--count == 0 && (!(i) || i == -1)) {
                                 cache.add(cache_key, filteredResults);
                                 populate_dropdown(query, filteredResults);
                             }
