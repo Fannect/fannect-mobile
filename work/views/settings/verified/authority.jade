@@ -6,12 +6,12 @@ block header
 
 block content
 
-   form.input-container(data-bind="submit: send", data-ajax="false")
+   .input-container
       .explanation
          | Tell us a little about yourself
         
       input(type="text", name="company", data-bind="value: company", placeholder="company or employer")
       input(type="text", name="description", data-bind="value: description", placeholder="brief description")
-      input(type="text", name="link_to_work", data-bind="value: link_to_work", placeholder="link to work (optional)")
+      input(type="text", name="link_to_work", data-bind="value: link_to_work, onEnter: send", placeholder="link to work (optional)")
       
-      button(data-role="button", type="submit") Send
+      button(data-role="button", type="submit", data-bind="click: send") Send

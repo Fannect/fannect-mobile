@@ -7,11 +7,11 @@ block content
    .logo
 
    .input-container
-      
-      form(data-bind="submit: login", data-ajax="false") 
-         input(type="email", pattern="[^ @]*@[^ @]*", name="email", id="email", data-bind="valueWithInit: email", placeholder="email")
-         input(type="password", name="password", id="password", data-bind="valueWithInit: password", placeholder="password")
-         button(data-role="button", type="submit", data-theme="a", aria-disabled="false") Login
+   
+      input(type="email", pattern="[^ @]*@[^ @]*", name="email", id="email", data-bind="valueWithInit: email", placeholder="email")
+      input(type="password", name="password", id="password", data-bind="valueWithInit: password, onEnter: login", placeholder="password")
+      .button-wrap
+         button(data-role="button", type="submit", data-theme="a", aria-disabled="false", data-bind="click: login") Login
       
       .or-separator
 
@@ -19,6 +19,4 @@ block content
          a(href="createAccount.html", data-role="button", data-transition="slide", data-theme="b", data-mini="true") Create Account
          a(href="resetPassword.html", data-role="button", data-transition="slide", data-theme="b", data-mini="true") Reset Password
     
-      
-
-block footer
+   

@@ -6,10 +6,10 @@ block header
 
 block content
    
-   form.input-container(data-bind="submit: send", data-ajax="false")
+   .input-container
       .explanation
          | Tell us a little about yourself
       input(type="text", name="sport", data-bind="value: sport", placeholder="sport")
-      input(type="text", name="teams", data-bind="value: teams", placeholder="teams you've played for")
+      input(type="text", name="teams", data-bind="value: teams, onEnter: send", placeholder="teams you've played for")
       
-      button(data-role="button", type="submit") Send
+      button(data-role="button", type="submit", data-bind="click: send, showClick: true") Send

@@ -9,7 +9,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       go: (transition, reverse) =>
          $changePage @path, {transition: transition or @transition_to, reverse:reverse}
       back: (transition) =>
-         # $.mobile.activePage.height(@height) if @height > 0
          $changePage @path, { transition: transition or @transition_back, reverse: true }
 
    class HistoryPath 
@@ -55,10 +54,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          $.mobile.back = fc.nav.goBack
          $.mobile.changePage = (toPage, options = {}) ->
             # Add to history if not silent
-
             if not options.silent and historyPaths[activeHistoryPath] and typeof toPage == "string" and options.role != "popup" and options.transition != "pop"
                entry = new HistoryEntry(toPage, options.transition)
-               historyPaths[activeHistoryPath].push(entry)
+               historyPaths[activeHistoryPath]?.push(entry)
 
             $changePage.apply(this, arguments) 
                
@@ -105,7 +103,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       changeActiveHistory: (name, options = {}) ->
          historyPaths[name].empty() if options.empty
-         if activeHistoryPath != name or historyPaths[name].hasBack()
+         if activeHistoryPath != name or historyPaths[name]?.hasBack()
             entry = historyPaths[name].current()
             entry.go(options.transition or "none")
          activeHistoryPath = name
@@ -171,7 +169,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
    pageInit = () ->
       $page = $(@)
       id = $page.attr("id")
-      page = fc.pages[$page.attr("id")]
+      page = fc.pages[$page.attr("id")] or {}   
 
       # apply page classes
       if page.classes?
