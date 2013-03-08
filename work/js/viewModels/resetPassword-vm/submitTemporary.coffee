@@ -31,5 +31,5 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       onPageShow: () =>
          super
-         unless @params.email
+         unless @params?.email
             fc.nav.changeActiveHistory("none", empty: true)
