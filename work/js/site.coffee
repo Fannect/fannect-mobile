@@ -1,5 +1,7 @@
 do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
 
+   ranSetup = false
+
    $(document).ready () ->
       setup()
 
@@ -9,6 +11,10 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       return false
 
    setup = () ->
+      # Make sure this is only run once
+      return if ranSetup
+      ranSetup = true
+
       fc.logger.setup()
 
       # disable all transitions for better faster Android experience
@@ -68,13 +74,8 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
 
       fc.push.setup()
 
-      # force page removal of first page from DOM
-      $(document).bind "pagechange.firstpageremove", (toPage, info) ->
-         if ($.mobile.firstPage and info.options.fromPage and ($.mobile.firstPage == info.options.fromPage))
-            $.mobile.firstPage.remove()
-
-            # We only need to remove 1 time from DOM, so unbind the unused event
-            $(document).unbind("pagechange.firstpageremove")
-        
-
-      
+      # Remove button styling to avoid double styling
+      $("#index-page").live "pagehide", () ->
+         $("button", @).detach().appendTo(".button-wrap", @)
+         $("div.ui-btn", @).remove()
+         
