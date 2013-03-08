@@ -54,20 +54,22 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
          forge.ajax(options)
 
-      logout: (done) ->
+      logout: () ->
          fc.auth._refresh_token = null
          fc.team._curr = null
          fc.user._curr = null
-         forge.prefs.set "user_id", null
-         forge.prefs.set "team_profile_id", null
-         forge.prefs.set "twitter_active", null
-         forge.prefs.set "refresh_token", null, fc.auth.redirectToLogin, fc.auth.redirectToLogin
+         forge.prefs.clear "user_id"
+         forge.prefs.clear "team_profile_id"
+         forge.prefs.clear "twitter_active"
+         forge.prefs.clear "refresh_token", (-> fc.auth.redirectToLogin())
+            , ((err) -> fc.auth.redirectToLogin() if err)
         
          # Clear profile viewmodel
          fc.nav.getVM("profile-page")?.updateProfile({})
 
          if forge.is.mobile()
             forge.partners.parse.push.subscribedChannels (channels) ->
+               return unless channels?.length > 0
                forge.partners.parse.push.unsubscribe(channel) for channel in channels
                   
       hasAccessToken: () ->
@@ -149,7 +151,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             done null, (token?.length > 0) if done
 
       redirectToLogin: () ->
-
          noAuth = [
             "index-page", 
             "createAccount-page", 
@@ -157,7 +158,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             "resetPassword-submitTemporary-page"
          ]
          
-         if not ($.mobile.activePage.attr("id") in noAuth)
+         if not ($.mobile.activePage?.attr("id") in noAuth)
             fc.nav.changeActiveHistory("none", transition: "slidedown", empty:true)
+            return true
          else 
             return false

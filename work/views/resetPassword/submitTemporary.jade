@@ -6,12 +6,12 @@ block header
 
 block content
 
-   form.input-container(data-bind="submit: submitTemporary", data-ajax="false")
+   .input-container
       
       .explanation
          | A password reset code has been emailed to you. Please check your email and input the provided code.
 
-      input(type="text", name="password", id="password", data-bind="value: password", placeholder="code")
-      button(data-role="button", type="submit") Submit
+      input(type="text", name="password", id="password", data-bind="value: password, onEnter: submitTemporary", placeholder="code")
+      button(data-role="button", type="submit", data-bind="click: submitTemporary") Submit
 
 block footer

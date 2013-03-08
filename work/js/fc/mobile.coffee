@@ -45,7 +45,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             else fc.mobile._waiting_to_activate = name
 
          else
-            forge.tabbar.hide () -> $.mobile.activePage.css("min-height", $("body").height())
+            forge.tabbar.hide () -> $.mobile.activePage?.css("min-height", $("body").height())
 
       setHeaderText: () ->
          if forge.is.mobile()

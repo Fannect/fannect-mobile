@@ -6,11 +6,11 @@ block header
    h1(data-menu-root="profile") Account
 block content
    
-   form.input-container(data-bind="submit: update", data-ajax="false")
+   .input-container
       input(type="text", name="firstname", data-bind="value: first_name", placeholder="fist name")
       input(type="text", name="lastname", data-bind="value: last_name", placeholder="last name")
       input(type="text", name="email", data-bind="value: email", placeholder="email")
       input(type="password", name="password", data-bind="value: password", placeholder="new password")
-      input(type="password", name="password", data-bind="value: confirm_password", placeholder="confirm")
+      input(type="password", name="password", data-bind="value: confirm_password, onEnter: update", placeholder="confirm")
       
-      button(data-role="button", type="submit") Update
+      button(data-role="button", type="submit", data-bind="click: update") Update

@@ -10,7 +10,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       
          if (error?.status == 401 or error?.statusCode?.toString() == "401")
             if options.second_try
-               fc.logger.sendLog("Forced logout (401)")
                fc.auth.logout()
             else
                fc.auth.getNewAccessToken (err, token) ->
