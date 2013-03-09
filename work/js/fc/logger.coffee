@@ -21,9 +21,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       flurry: (key, params) ->
          params = params or { show: true }
+         fc.logger.log(key)
          forge.flurry.customEvent(key, params)
 
-      sendError: (log) ->
+      sendError: (log = {}) ->
          log.type = "error"
          fc.logger._send(log)  
 
@@ -32,13 +33,13 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             forge.topbar.removeButtons()
             window.location = "profile.html?reset=true" 
          
-      sendLog: (log) ->
+      sendLog: (log = {}) ->
          if typeof log == "string"
             log = { message: log }
          log.type = "log"
          fc.logger._send(log)  
 
-      _send: (log) ->
+      _send: (log = {}) ->
          log.page = $.mobile?.activePage?.attr("id")
          log.history = JSON.stringify(history)
          forge.ajax
