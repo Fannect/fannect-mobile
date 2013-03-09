@@ -129,7 +129,7 @@ window.fannect.pages =
       vm: vm.Games.GuessTheScore
       buttons: [
          {
-            icon: "images/mobile/InfoButton@2x.png"
+            text: "Rules"
             position: "right"
             click: () -> window.fannect.tutorial.show()
          }
@@ -141,7 +141,7 @@ window.fannect.pages =
       vm: vm.Games.GameFace
       buttons: [
          {
-            icon: "images/mobile/InfoButton@2x.png"
+            text: "Rules"
             position: "right"
             click: () -> window.fannect.tutorial.show()
          }
@@ -153,7 +153,7 @@ window.fannect.pages =
       vm: vm.Games.AttendanceStreak
       buttons: [
          {
-            icon: "images/mobile/InfoButton@2x.png"
+            text: "Rules"
             position: "right"
             click: () -> window.fannect.tutorial.show()
          }
