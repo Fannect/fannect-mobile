@@ -270,18 +270,45 @@
       resize: vertical
 
 #connect-huddle-newTopic-page
+   .tag-teams-button
+      float:left
+
+#connect-huddle-newTopic-page
 #connect-huddle-newReply-page
    .message
       min-height: 130px
-      
+   .camera-button
+      float: right
+
+.tag-teams-button
+   background: url(../images/connect/huddle/Button_TagTeams.png) no-repeat
+   background-size: 237px 40px
+   width: 116px
+   height: 40px
+   cursor: pointer
+   &.ui-btn-active   
+      background-position: -121px 0
+      border: 0
+
+.camera-button
+   background: url(../images/connect/huddle/Button_Camera.png) no-repeat
+   background-size: 127px 40px
+   width: 61px
+   height: 40px
+   cursor: pointer
+   &.ui-btn-active
+      background-position: -66px 0
+      border: 0
+   
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
    #connect-huddle-page
       .header-section
          background-image: url(../images/Tilable-Background03@2x.png)
-   .ios
-      #connect-huddle-page
-         .header-section
-            background-image: url(../images/Background_PerforatedMetal@2x.png)
+      
+   .camera-button
+      background-image: url(../images/connect/huddle/Button_Camera@2x.png) !important
+   .tag-teams-button
+      background-image: url(../images/connect/huddle/Button_TagTeams@2x.png) !important
    
    #connect-huddle-page
       .next

@@ -8,3 +8,5 @@ block header
 block content
    input.inset-input.topic(type="text", data-bind="value: topic, valueUpdate: ['afterkeydown']", placeholder="Enter your topic")
    textarea.inset-input.message(data-bind="value: message, valueUpdate: ['afterkeydown']", placeholder="Enter your message")
+   .camera-button(data-bind="click: selectImage, showClick: true")
+   .tag-teams-button(data-bind="click: selectTeams, showClick: true")

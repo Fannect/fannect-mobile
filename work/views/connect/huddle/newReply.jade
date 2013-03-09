@@ -11,3 +11,4 @@ block content
       | Started by <span data-bind="text: owner"></span>
 
    textarea.inset-input.message(data-bind="value: message, valueUpdate: ['afterkeydown']", placeholder="Enter your reply")
+   .camera-button(data-bind="click: selectImage, showClick: true")

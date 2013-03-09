@@ -25,6 +25,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   return unless huddle_id == @huddle_id
                   @topic(huddle.topic)
                   @owner(huddle.owner_name)
+
+      selectImage: () =>
                   
       rightButtonClick: () =>
          return fc.msg.show("Enter a message!") if @message().length == 0

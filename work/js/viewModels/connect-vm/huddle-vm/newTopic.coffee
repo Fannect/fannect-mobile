@@ -7,6 +7,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @topic = ko.observable("")
          @message = ko.observable("")
 
+      selectImage: () =>
+      selectTeams: () =>
+
       rightButtonClick: () =>
          return fc.msg.show("Enter a topic!") if @topic().length == 0
          return fc.msg.show("Enter a message!") if @message().length == 0

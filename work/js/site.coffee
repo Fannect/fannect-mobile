@@ -1,4 +1,4 @@
-ddo ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
+do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
 
    ranSetup = false
 
