@@ -25,22 +25,26 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
             button.onPressed.addListener () ->
                forge.flurry.customEvent("#{text} Menu", show: true)
-               fc.nav.changeActiveHistoryOrBack(historyPath)
+               fc.nav.changeActiveHistoryOrBack(historyPath)   
 
       createButtons: () -> 
          return if fc.mobile._header_added
          fc.mobile._header_added = true
          forge.tabbar.removeButtons () ->
+            forge.logging.critical("CREATE BUTTONS --------------------------")
             fc.mobile._addButton 0, "Profile", "images/mobile/TabBar_Profile.png", "profile"
             fc.mobile._addButton 1, "Games", "images/mobile/TabBar_Games.png", "games"
             fc.mobile._addButton 2, (if forge.is.android() then "Leaders" else "Leaderboard"), "images/mobile/TabBar_Leaderboard.png", "leaderboard"
             fc.mobile._addButton 3, "Connect", "images/mobile/TabBar_Connect.png", "connect"
+            forge.tabbar.show()
+
+      clearBottomButtons: () ->
+         fc.mobile._buttons = {}
          
       setActiveMenu: (name) ->
          if name and name != "none"
             name = name.toLowerCase()
             forge.tabbar.show()
-            
             if fc.mobile._buttons[name] then fc.mobile._buttons[name].setActive()
             else fc.mobile._waiting_to_activate = name
 

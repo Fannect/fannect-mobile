@@ -14,7 +14,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @meta?.face_on = true
 
             fc.team.getActive (err, profile) =>
-               forge.flurry.customEvent("Play Gameface", {face_on: true})
+               fc.logger.flurry("Play Gameface")
                fc.ajax
                   url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace"
                   type: "POST"
@@ -26,7 +26,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       load: () =>
          fc.team.getActive (err, profile) =>
             return fc.msg.show("Unable to load game information!") if err
-            
             fc.ajax 
                url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace"
                type: "GET"
