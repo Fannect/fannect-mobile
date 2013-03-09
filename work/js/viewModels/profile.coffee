@@ -47,7 +47,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @points profile.points?.overall or 0
          @rank profile.rank or 0
          @verified profile.verified or ""
-         @shout profile.shouts?[0]?.text or "...silence..."
+         @shout profile.shouts?[0]?.text or "Shout something!"
         
          if profile.shouts?[0]?._id
             # Check if the person just shouted
