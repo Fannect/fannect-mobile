@@ -90,6 +90,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             fc.team.refreshActive()
             @_addHeaderButtons() if forge.is.mobile()
 
+         fc.mobile.setActiveMenu("profile")
+         fc.logger.shouldReset(true)
+
       selectTeam: () -> $.mobile.changePage "profile-selectTeam.html", fc.transition("slide")
       changeUserImage: () => @editing_image "profile"
       changeTeamImage: () => @editing_image "team"

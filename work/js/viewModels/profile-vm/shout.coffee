@@ -28,8 +28,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @shout("")
 
             fc.team.updateActive({shouts: [{_id: new Date(), text: shout_text}]})
-            forge.flurry.customEvent("Shouting", {shouting: true})
-
+            fc.logger.flurry("Shouting")
             fc.team.getActive (err, profile) =>
                fc.ajax
                   url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/shouts"

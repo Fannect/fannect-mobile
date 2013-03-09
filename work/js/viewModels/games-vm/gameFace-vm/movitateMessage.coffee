@@ -15,8 +15,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          
       rightButtonClick: () =>
          if @chars_remaining() >= 0 and @chars_remaining() < 140
-            forge.flurry.customEvent("Motivating", {shouting: true})
-
+            fc.logger.flurry("Motivating")
             
       onPageShow: () =>
          super

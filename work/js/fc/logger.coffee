@@ -1,4 +1,8 @@
 do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect) ->
+
+   history = []
+   shouldReset = false
+
    fc.logger =
       setup: () ->
          window.onerror = (m, u, l) ->
@@ -8,9 +12,25 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                url: u
                line: l
 
+      shouldReset: (value) ->
+         shouldReset = value
+
+      log: (value) ->
+         history.push(value)
+         history.shift() if history.length > 50
+
+      flurry: (key, params) ->
+         params = params or { show: true }
+         forge.flurry.customEvent(key, params)
+
       sendError: (log) ->
          log.type = "error"
          fc.logger._send(log)  
+
+         if shouldReset
+            fc.mobile.clearBottomButtons()
+            forge.topbar.removeButtons()
+            window.location = "profile.html?reset=true" 
          
       sendLog: (log) ->
          if typeof log == "string"
@@ -20,6 +40,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       _send: (log) ->
          log.page = $.mobile?.activePage?.attr("id")
+         log.history = JSON.stringify(history)
          forge.ajax
             url: forge.config.modules.parameters.loggly_server
             type: "POST"

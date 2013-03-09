@@ -73,7 +73,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          if not @is_friend()
             fc.user.get (err, user) =>
                @_hideRightButton()
-               forge.flurry.customEvent("Send Invite", {sendInvite: true})
+               fc.logger.flurry("Send Invite")
                fc.ajax
                   url: "#{fc.getResourceURL()}/v1/users/#{@params.user_id}/invite"
                   type: "POST"

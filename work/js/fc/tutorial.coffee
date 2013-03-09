@@ -18,8 +18,12 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                forge.prefs.set "tutorial_shown", shown
 
       show: () ->
-         $tutorial = $(".tutorial", $.mobile.activePage).fadeIn(400)
+         $tutorial = $(".tutorial", $.mobile.activePage)
          
+         # Hide if tutorial is already visible
+         return $tutorial.fadeOut(400) if $tutorial.is(":visible")
+         $tutorial.fadeIn(400)
+
          unless $tutorial.data("tutorial_is_init")
             if $tutorial.children(".tutorial-slider.one").length < 1
                tutorial = $tutorial.get(0)
