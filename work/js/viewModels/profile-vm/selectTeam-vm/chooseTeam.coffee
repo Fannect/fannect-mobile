@@ -30,7 +30,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             
       selectTeam: (data) -> 
          fc.msg.loading("Creating profile...")
-
+         fc.logger.log("Creating team profile: #{data?._id}")
+         return unless data?._id
+         
          fc.team.create data._id, (err) ->
             fc.msg.hide()
             if err?.reason == "duplicate"

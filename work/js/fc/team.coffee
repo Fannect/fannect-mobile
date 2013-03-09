@@ -96,13 +96,15 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          notifyTeamUpdated(fc.team._teams[fc.team._curr])
 
       create: (team_id, done) ->
-         forge.flurry.customEvent("Create Profile", {team_id: team_id})
+         fc.logger.flurry("Create Profile", {team_id: team_id})
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/me/teams"
             type: "POST"
             data: team_id: team_id
          , (err, team) ->
-            return done(err) if err and done
+            if err
+               done(err) if done
+               return
             fc.team._teams[team._id] = team
             fc.team.setActive team._id
             notifyTeamUpdated(team)

@@ -154,8 +154,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       id = $page.attr("id")
       page = fc.pages[$page.attr("id")] or {}   
 
-      fc.logger.log("pageInit: #{id}")
-
       # apply page classes
       if page.classes?
          $page.addClass(c) for c in page.classes
@@ -171,6 +169,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       if vm?
          vm.url = $page.data("url")
          vm.params = fc.nav.parseQueryString(vm.url)
+
+         fc.logger.log("pageInit: #{id}, params: #{JSON.stringify(vm.params)}")
          ko.applyBindings vm, @
          fc.logger.log("before load: #{id}")
          vm.load()
