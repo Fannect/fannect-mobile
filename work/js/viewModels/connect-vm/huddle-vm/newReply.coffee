@@ -6,7 +6,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super
          @huddle_id = null
          @message = ko.observable()
-         @topic = ko.observable("HEY")
+         @topic = ko.observable()
          @owner = ko.observable()
          
       load: () =>

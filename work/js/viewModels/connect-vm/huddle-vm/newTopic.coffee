@@ -31,4 +31,4 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      @topic("")
                      @message("")
                   ), 200
-                  fc.nav.goBack("flip")
+                  fc.nav.goBack("flip", { new_huddle: true })

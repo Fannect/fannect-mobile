@@ -20,13 +20,16 @@ block content
          .last(data-bind="click: lastPage"): .arrow
 
    ul.pattern-bg(data-role="listview", data-bind="foreach: replies, listviewUpdate: replies, visible: replies().length > 0").replies
-      li.reply
+      li.reply(data-bind="click: $parent.toggleVoting")
          .verified-icon(data-bind="setClass: $data.owner_verified")
          .content(data-bind="text: content")
          .owner(data-bind="text: owner_name")
          .date
             | <span class="day" data-bind="text: date"></span> at <span data-bind="text: time"></span>
-         
+      li.voting(data-bind="slideInOut: show_voting", style="display:none;")
+         .vote-up Up
+         .vote-down Down
+
 
    .loading-more-indicator(data-bind="visible: loading_more", style="display:none;")
 

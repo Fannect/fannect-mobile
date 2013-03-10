@@ -26,7 +26,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          # reload results if team profile changes
          fc.team.onActiveChanged (profile) =>
             @previous_scroll_top = 0
-            @team_id(profile.team_id)
+            @team_id = profile.team_id
             @team_name(profile.team_name)
             @reloadHuddles()
 
@@ -52,7 +52,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @huddles.push(@addDateTime(huddle)) for huddle in huddles
 
       load: () =>
-         
+         @reloadHuddles() if @params.new_huddle
+            
       onPageHide: () =>
 
       sortByOldest: () => @sort_by("oldest")

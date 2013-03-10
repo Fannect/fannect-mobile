@@ -7,6 +7,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @limit = 10
          @replies_pages = []
          @huddle = null
+         @selected_reply = -1
          
          @topic = ko.observable()
          @owner = ko.observable()
@@ -20,6 +21,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @current_page.subscribe () => @loadReplies()
 
       loadReplies: () =>
+         r.show_voting(false) for r in @replies()
          @replies([])
 
          if @replies_pages[@current_page()-1]?.length > 0
@@ -36,7 +38,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   fc.msg.show("Unable to load replies!") 
                   return 
 
-               @addDateTime(reply) for reply in data.replies
+               @prepReply(reply) for reply in data.replies
                   
                # check if still on the same page   
                @replies(data.replies) if page == @current_page()
@@ -61,13 +63,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @topic(huddle.topic)
                @owner(huddle.owner_name)
                @page_count(Math.ceil(@huddle.reply_count / @limit))
-               @addDateTime(reply) for reply in huddle.replies
+               @prepReply(reply) for reply in huddle.replies
                if @current_page() == 1
                   @replies(huddle.replies)
                @replies_pages[0] = huddle.replies
          else if @params.new_reply
             # update with newly created reply
-            reply = @addDateTime(@params.new_reply)
+            reply = @prepReply(@params.new_reply)
             if @replies_pages[@current_page()-1].length >= @limit
                # add a page
                @replies_pages.push([reply])
@@ -94,6 +96,37 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       lastPage: () =>
          @current_page(@page_count()) if @current_page() != @page_count()
+
+      toggleVoting: (reply) =>
+         return if reply.is_owner
+         val = not reply.show_voting()
+         (r.show_voting(false) unless r == reply) for r in @replies()
+         reply.show_voting(val)
+
+      upVote: (reply) => 
+         return if reply.has_voted() or reply.is_owner
+         @_vote(reply, "up")
+         reply.up_votes(reply.up_votes() + 1)
+
+      downVote: (reply) =>
+         return if reply.has_voted() or reply.is_owner
+         @_vote(reply, "down")
+         reply.down_votes(reply.down_votes() + 1)
+
+      vote: (reply, vote) =>
+         reply.has_voted(true)
+         fc.ajax 
+            url: "#{fc.getResourceURL()}/v1/huddles/#{@params.huddle_id}/replies/#{reply._id}/vote"
+            type: "POST"
+            data: { vote: vote }
+
+      prepReply: (reply) =>
+         reply.has_voted = ko.observable(reply.has_voted)
+         reply.down_votes = ko.observable(reply.down_votes)
+         reply.up_votes = ko.observable(reply.up_votes)
+         reply.show_voting = ko.observable(false)
+
+         return @addDateTime(reply)
 
       addDateTime: (reply) ->
          now = new Date()
