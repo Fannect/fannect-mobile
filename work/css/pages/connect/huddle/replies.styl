@@ -1,0 +1,152 @@
+@import "../lib/variables"
+@import "../lib/mixins"
+
+#connect-huddle-replies-page
+   .header-section
+      .topic
+         padding: 8px 0 4px
+         font-size: 18px
+         color:#fff
+         text-align:center
+         font-weight:bold
+      .owner
+         padding-bottom: 8px
+         font-size: 11px
+         color:#bbb
+         text-align:center
+
+   .page-controls
+      height: 64px
+      background: url(../images/connect/huddle/SliderMiddleSliver@2x.png)
+      background-size: 2px 64px
+      margin-top:-14px
+      position: relative
+      &.bottom
+         margin: 5px -15px -15px -15px
+
+      .current-page
+         position:absolute
+         top:14px
+         height: 50px
+         text-align: center
+         font-family: JerseyM54
+         font-size: 22px
+         line-height: 50px
+         width: 100%
+         .slash
+            font-family: Helvetica,Arial,sans-serif
+            display: inline-block
+            margin: 0 2px
+      .first
+      .prev
+      .next
+      .last
+         position:absolute
+         cursor:pointer
+         top:14px
+         width:50px
+         height:50px
+         z-index:10
+         background-size: 50px 50px
+         .arrow
+            position:absolute
+            height: 18px
+            left: 10px
+            top: 17px
+      .first
+      .prev
+         background-image: url(../images/connect/huddle/LeftSliderBox.png)
+         .arrow
+            left: 12px
+      .next
+      .last
+         background-image: url(../images/connect/huddle/RightSliderBox.png)
+         .arrow
+            left: 19px
+      .first
+         left: 0
+         .arrow
+            background-image: url(../images/connect/huddle/first_Active@2x.png)
+            background-size: 18px 18px 
+            width: 18px
+      .prev
+         left: 48px
+         .arrow
+            background-image: url(../images/connect/huddle/previous_Active@2x.png)
+            background-size: 20px 18px
+            width: 20px
+         &.inactive
+            .arrow
+               background-image: url(../images/connect/huddle/previous_Inactive@2x.png)
+               background-size: 19px 18px 
+               width: 19px
+      .next
+         right: 48px
+         .arrow
+            background-image: url(../images/connect/huddle/next_Active@2x.png)
+            background-size: 20px 18px 
+            width: 20px
+         &.inactive
+            .arrow
+               background-image: url(../images/connect/huddle/next_Inactive@2x.png)
+               background-size: 19px 18px 
+               width: 19px
+      .last
+         right: 0
+         .arrow
+            background-image: url(../images/connect/huddle/last_Active@2x.png)
+            background-size: 18px 18px 
+            width: 18px
+
+   .replies
+      margin-top: 0 !important
+   .reply
+      position: relative
+      .content-wrap
+         .content
+            white-space: normal
+         img
+            margin-top: 15px
+            border-radius: 10px
+            dropshadow: inset 1px 2px 3px rgba(0,0,0,0.6), 0 1px 2px rgba(255, 255, 255, 0.8), 0 -1px 1px rgba(0, 0, 0, 0.8)
+      .meta-wrap
+         border-top: #aaa 1px solid
+         dropshadow: inset 0 1px 2px #fff
+         margin-bottom: 0 
+         padding: 5px 0 
+         .owner
+            position:absolute
+            left: 15px
+            bottom: 8px
+            color: #141b1e
+            font-size: 11px
+            font-weight: lighter
+         .date
+            position:absolute
+            right: 15px
+            bottom: 8px
+            color: #c1272d
+            font-size: 11px
+            font-weight: lighter
+            .day
+               font-weight: bold
+               color: #c1272d
+         .voting-graph
+            background: url(../images/connect/huddle/BooCheerGraphButton.png) no-repeat
+            background-size: 127px 39px
+            width: 61px
+            height: 39px
+            float: right
+            &.has-voted
+               background: transparent
+            // .graph-wrap
+            //    .boos
+            //    .separator
+            //    .cheers
+   .voting
+      height: 30px
+      .vote-up
+      .vote-down
+         width: 120px
+         height: 30px
+         float: left
