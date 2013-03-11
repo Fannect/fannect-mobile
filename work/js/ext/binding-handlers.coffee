@@ -179,6 +179,11 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
          c = ko.utils.unwrapObservable valueAccessor()
          $(element).addClass(c?.replace(/_/g,"-"))
 
+   ko.bindingHandlers.percentage = 
+      update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
+         $(element).css("width", valueUnwrapped + "%")
+
    ko.bindingHandlers.thumbnailSrc =
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          img = ko.utils.unwrapObservable valueAccessor()

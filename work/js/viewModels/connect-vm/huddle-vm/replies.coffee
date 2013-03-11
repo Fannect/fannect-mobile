@@ -125,7 +125,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          reply.down_votes = ko.observable(reply.down_votes)
          reply.up_votes = ko.observable(reply.up_votes)
          reply.show_voting = ko.observable(false)
-
+         reply.up_vote_percent = ko.computed () -> reply.up_votes() / (reply.down_votes() + reply.up_votes()) * 100
+         reply.down_vote_percent = ko.computed () -> reply.down_votes() / (reply.down_votes() + reply.up_votes()) * 100
          return @addDateTime(reply)
 
       addDateTime: (reply) ->
