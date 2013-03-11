@@ -54,6 +54,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       logout: () ->
          fc.auth._refresh_token = null
+         fc.auth._access_token = null
          fc.team._curr = null
          fc.user._curr = null
          forge.prefs.clear "user_id"

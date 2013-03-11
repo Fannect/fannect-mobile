@@ -98,7 +98,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @current_page(@page_count()) if @current_page() != @page_count()
 
       toggleVoting: (reply) =>
-         return if reply.is_owner
+         return if reply.is_owner or reply.has_voted()
          val = not reply.show_voting()
          (r.show_voting(false) unless r == reply) for r in @replies()
          reply.show_voting(val)
@@ -113,20 +113,26 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @_vote(reply, "down")
          reply.down_votes(reply.down_votes() + 1)
 
-      vote: (reply, vote) =>
+      _vote: (reply, vote) =>
          reply.has_voted(true)
+         reply.show_voting(false)
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/huddles/#{@params.huddle_id}/replies/#{reply._id}/vote"
             type: "POST"
             data: { vote: vote }
 
       prepReply: (reply) =>
-         reply.has_voted = ko.observable(reply.has_voted)
-         reply.down_votes = ko.observable(reply.down_votes)
-         reply.up_votes = ko.observable(reply.up_votes)
+         reply.image_url = reply.image_url or ""
+         reply.has_voted = ko.observable(reply.has_voted or false)
+         reply.down_votes = ko.observable(reply.down_votes or 0)
+         reply.up_votes = ko.observable(reply.up_votes or 0)
          reply.show_voting = ko.observable(false)
-         reply.up_vote_percent = ko.computed () -> reply.up_votes() / (reply.down_votes() + reply.up_votes()) * 100
-         reply.down_vote_percent = ko.computed () -> reply.down_votes() / (reply.down_votes() + reply.up_votes()) * 100
+         reply.up_vote_percent = ko.computed () -> 
+            return 50 if (total = reply.down_votes() + reply.up_votes()) == 0 or isNaN(total)
+            return reply.up_votes() / total * 100
+         reply.down_vote_percent = ko.computed () -> 
+            return 50 if (total = reply.down_votes() + reply.up_votes()) == 0 or isNaN(total)
+            return reply.down_votes() / total * 100
          return @addDateTime(reply)
 
       addDateTime: (reply) ->

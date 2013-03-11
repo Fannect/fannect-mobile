@@ -137,22 +137,23 @@ window.fannect.pages =
 
    "connect-huddle-newReply-page":
       vm: vm.Connect.Huddle.NewReply
-      # buttons: [
-      #    {
-      #       position: "right"
-      #       text: "New"
-      #    }
-      # ]
+      buttons: [
+         {
+            position: "right"
+            text: "Post"
+            tint: [193, 39, 45, 160]
+         }
+      ]
       classes: ["light-background"] 
 
    "connect-huddle-replies-page":
       vm: vm.Connect.Huddle.Replies
-      # buttons: [
-      #    {
-      #       position: "right"
-      #       text: "New"
-      #    }
-      # ]
+      buttons: [
+         {
+            position: "right"
+            text: "New"
+         }
+      ]
       classes: ["light-background"] 
       auto_scroll: true
 

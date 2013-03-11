@@ -15,9 +15,9 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
       init: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
          if valueUnwrapped
-            $(element).show()
+            $(element).stop().show()
          else
-            $(element).hide()
+            $(element).stop().hide()
 
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
@@ -182,6 +182,7 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
    ko.bindingHandlers.percentage = 
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
+         console.log "percent", valueUnwrapped
          $(element).css("width", valueUnwrapped + "%")
 
    ko.bindingHandlers.thumbnailSrc =

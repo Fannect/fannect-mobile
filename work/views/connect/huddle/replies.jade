@@ -23,23 +23,27 @@ block content
       li.reply
          .content-wrap
             .content(data-bind="text: content")
-            img(data-bind="visible: $data.image_url && $data.image_url.length > 0")
+            img(data-bind="visible: image_url.length > 0, attr:{'src': image_url}")
          .meta-wrap
             .image-wrap
                img.profile-image(data-bind="thumbnailSrc: owner_profile_image_url")
                .cover
-               .verified-icon(data-bind="setClass: $data.verified")
+               .verified-icon(data-bind="setClass: $data.owner_verified")
             .owner(data-bind="text: owner_name")
             .date
                | <span class="day" data-bind="text: date"></span> at <span data-bind="text: time"></span>
-            .voting-graph(data-bind="css:{'has-voted':has_voted}, click: $parent.toggleVoting, showClick: true")
+            .voting-graph(data-bind="css:{'has-voted':has_voted,'ui-btn-active':show_voting}, click: $parent.toggleVoting")
                .graph-wrap
-                  .boos(data-bind="percentage: down_vote_percent")
-                  .separator
-                  .cheers(data-bind="percentage: up_vote_percent")
+                  .up-label
+                     | +<span data-bind="text: up_votes"></span>
+                  .down-label
+                     | -<span data-bind="text: down_votes"></span>
+                  .bar
+                     .downs(data-bind="percentage: down_vote_percent")
+                     .ups(data-bind="percentage: up_vote_percent")
       li.voting(data-bind="slideInOut: show_voting", style="display:none;")
-         .vote-up(data-bind="click: upVote, showClick:true") Up
-         .vote-down(data-bind="click: downVote, showClick:true") Down
+         .vote-up(data-bind="click: $parent.upVote, showClick:true")
+         .vote-down(data-bind="click: $parent.downVote, showClick:true")
 
    .loading-more-indicator(data-bind="visible: loading_more", style="display:none;")
 
