@@ -11,6 +11,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          
          @topic = ko.observable()
          @owner = ko.observable()
+         @team_name = ko.observable()
          @loading_more = ko.observable(false)
          @replies = ko.observableArray()
          @current_page = ko.observable(1)
@@ -62,6 +63,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @huddle = huddle
                @topic(huddle.topic)
                @owner(huddle.owner_name)
+               @team_name(huddle.team_name)
                @page_count(Math.ceil(@huddle.reply_count / @limit))
                @prepReply(reply) for reply in huddle.replies
                if @current_page() == 1

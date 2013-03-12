@@ -11,7 +11,7 @@ block content
       .topic(data-bind="text: topic")
       .owner
          | Started by <span data-bind="text: owner"></span>
-
+      .owner-team(data-bind="text: team_name")
       .page-controls
          .current-page(data-bind="html: current_page_text")
          .first(data-bind="click: firstPage"): .arrow
