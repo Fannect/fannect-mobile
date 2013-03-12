@@ -66,6 +66,7 @@
 #= require "viewModels/connect-vm/huddle-vm/newTopic.coffee"
 #= require "viewModels/connect-vm/huddle-vm/newReply.coffee"
 #= require "viewModels/connect-vm/huddle-vm/replies.coffee"
+#= require "viewModels/connect-vm/huddle-vm/tagTeams.coffee"
 
 #= require "viewModels/games-vm/gameFace-vm/motivateSelect.coffee"
 

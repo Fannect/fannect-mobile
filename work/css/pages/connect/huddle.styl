@@ -139,8 +139,6 @@
       font-weight: lighter
       text-shadow: 0 1px 0 #fff
       margin-bottom: 15px
-   .message
-      resize: vertical
 
 #connect-huddle-newTopic-page
    .tag-teams-button
@@ -150,9 +148,9 @@
 #connect-huddle-newTopic-page
 #connect-huddle-newReply-page
    .message-wrap 
-      padding:1px
+      padding:2px
       position:relative
-      dropshadow: inset 0 2px 4px rgba(0,0,0,0.4), 0 1px 2px #fff !important
+      dropshadow: inset 0 1px 2px rgba(0,0,0,0.4), 0 1px 2px #fff !important
       border-radius: .4em
       background: #fff
    .message
@@ -163,6 +161,8 @@
       color: #000
       text-shadow: none
       margin: 0
+      resize: vertical
+      dropshadow:none
       &.has-image
          padding-bottom: 55px
    .attached-image
@@ -222,3 +222,4 @@
                background-image: url(../images/profile/leftArrow_Inactive@2x.png) !important
 
 @import "./huddle/replies"
+@import "./huddle/tagTeams"

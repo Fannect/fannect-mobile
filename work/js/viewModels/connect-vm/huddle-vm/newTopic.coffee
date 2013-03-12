@@ -9,7 +9,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @message = ko.observable("")
          @image_url = ko.observable("")
 
-      chooseTeams: () =>
+      chooseTaggedTeams: () =>
+         $.mobile.changePage "connect-huddle-tagTeams.html", transition: "slidedown"
 
       chooseImage: () =>
          forge.file.getImage null, (file) =>

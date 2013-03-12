@@ -135,6 +135,17 @@ window.fannect.pages =
       ]
       classes: ["light-background"] 
 
+   "connect-huddle-tagTeams-page":
+      vm: vm.Connect.Huddle.TagTeams
+      buttons: [
+         {
+            position: "right"
+            text: "Huddle Up"
+            tint: [193, 39, 45, 160]
+         }
+      ]
+      classes: ["dark-background"] 
+
    "connect-huddle-newReply-page":
       vm: vm.Connect.Huddle.NewReply
       buttons: [
