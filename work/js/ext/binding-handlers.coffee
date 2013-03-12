@@ -182,7 +182,6 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
    ko.bindingHandlers.percentage = 
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
-         console.log "percent", valueUnwrapped
          $(element).css("width", valueUnwrapped + "%")
 
    ko.bindingHandlers.thumbnailSrc =
@@ -234,12 +233,12 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
    ko.bindingHandlers.swipe = 
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
          options = ko.utils.unwrapObservable valueAccessor()
-
+         console.log options
          setup = () ->
             unless $(element).is(":visible")
                return setTimeout(setup, 10) 
 
-            index = 0
+            index = options.start or 0
             
             next = $(".next", element).click (e) ->
                if slider.getPos() < options.count - 1
@@ -283,6 +282,7 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
                   next.removeClass("inactive")
 
             slider = new Swipe sliderElement.get(0), 
+               startSlide: options.start or 0
                speed: 500 
                callback: onSlideEnd
                onSlideStart: () ->

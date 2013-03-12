@@ -12,7 +12,7 @@ block content
       .team_name(data-bind="text: team_name")
       .sort-by
          .oldest(data-bind="css:{'active':sort_by()=='oldest'}, click: sortByOldest") Oldest
-         .most-active(data-bind="css:{'active':sort_by()=='most_active'}, click: sortByMostActive") Most Active
+         .most-active(data-bind="css:{'active':sort_by()=='most_active'}, click: sortByMostActive") Latest Activity
          .newest(data-bind="css:{'active':sort_by()=='newest'}, click: sortByNewest") Newest
 
       .categories.swipe-slider(data-bind="swipe: sliderOptions()")
@@ -20,10 +20,10 @@ block content
          .next: .arrow
          .swipe-wrap
             .swipe-content
-               .swipe-item All Huddles
-               .swipe-item Team Huddles
-               .swipe-item Roster Huddles
-               .swipe-item My Huddles
+               .swipe-item Huddles by Everyone
+               .swipe-item Huddles by My Team
+               .swipe-item Huddles by My Roster 
+               .swipe-item My Huddle Feed
 
    ul.pattern-bg(data-role="listview", data-bind="foreach: huddles, listviewUpdate: huddles, visible: huddles().length > 0").huddles
       li.huddle
@@ -38,5 +38,10 @@ block content
                .stars
             .date
                | Last Comment <span class="day" data-bind="text: date"></span> at <span data-bind="text: time"></span>
+
+   .no-results-wrap(data-bind="fadeIn: !loading_more() && huddles().length == 0, hideInstant: true")
+      .title No Results.
+      .subtitle Start the conversation!
+      a.createHuddle(href="connect-huddle-newTopic.html", data-transition="slidedown", data-bind="showClick: true")
 
    .loading-more-indicator(data-bind="visible: loading_more", style="display:none;")

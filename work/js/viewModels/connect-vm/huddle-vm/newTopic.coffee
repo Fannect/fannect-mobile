@@ -8,9 +8,17 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @topic = ko.observable("")
          @message = ko.observable("")
          @image_url = ko.observable("")
+         @tagged = null
+
+      load: () =>
+         if @params?.tagged
+            @tagged = {}
+            @tagged.include_teams = (t for t in @params.tagged.include_teams)
+            @tagged.include_conference = @params.tagged.include_conference
+            @tagged.include_league = @params.tagged.include_league
 
       chooseTaggedTeams: () =>
-         $.mobile.changePage "connect-huddle-tagTeams.html", transition: "slidedown"
+         $.mobile.changePage "connect-huddle-tagTeams.html", { transition: "slidedown", params: tagged: @tagged }
 
       chooseImage: () =>
          forge.file.getImage null, (file) =>
@@ -28,6 +36,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          send = () =>
             fc.msg.loading("Creating huddle...")
             fc.team.getActive (err, profile) =>
+
+               if @tagged?.include_teams
+                  include_teams = (t._id for t in @tagged.include_teams)
+
                fc.ajax 
                   url: "#{fc.getResourceURL()}/v1/teams/#{profile.team_id}/huddles"
                   type: "POST"
@@ -36,6 +48,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      topic: @topic()
                      content: @message()
                      image_url: @image_url()
+                     include_teams: include_teams
+                     include_league: @tagged?.include_league
+                     include_conference: @tagged?.include_conference
                , (err, resp) =>
                   fc.msg.hide()
                   if err or resp.status == "error"
@@ -46,6 +61,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                         @topic("")
                         @message("")
                         @image_url("")
+                        @tagged = null
                      ), 200
                      fc.nav.goBack("flip", { new_huddle: true })
 

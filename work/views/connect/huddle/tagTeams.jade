@@ -7,9 +7,9 @@ block header
    
 block content
 
-   input(type="search", data-bind="value: query, valueUpdate: ['afterkeydown'], onEnterOrBlur: androidSearch")
+   .separator Default
 
-   ul.dark-pattern-bg.has-search.standard(data-role="listview", data-theme="b")
+   ul.dark-pattern-bg.standard(data-role="listview", data-theme="b")
       li.selected
          a(data-bind="text: team_name")
       li(data-bind="visible: is_college, css:{'selected':include_conference}")
@@ -17,11 +17,17 @@ block content
       li(data-bind="css:{'selected':include_league}")
          a(data-bind="click: toggleLeague, text: league_name")
 
+   .separator(data-bind="slideInOut: selected_teams().length > 0") Tagged Teams
+
    ul.dark-pattern-bg.tagged(data-role="listview", data-theme="b", data-bind="template: { foreach: selected_teams, afterAdd: showSelected, beforeRemove: removeSelected }, listviewUpdate: selected_teams")
       li(data-bind="css:{'selected':selected}").newly-added
          a(data-bind="click: $parent.deselectTeam, text: full_name")
 
-   ul.dark-pattern-bg.searched(data-role="listview", data-theme="b", data-bind="foreach: searched_teams, listviewUpdate: searched_teams")
+   .separator Search to Tag
+
+   input(type="search", data-bind="value: query, valueUpdate: ['afterkeydown'], onEnterOrBlur: androidSearch")
+
+   ul.dark-pattern-bg.has-search.searched(data-role="listview", data-theme="b", data-bind="foreach: searched_teams, listviewUpdate: searched_teams")
       li(data-bind="css:{'selected':selected}, slideInOut: !selected()")
          a(data-bind="click: $parent.selectTeam, text: full_name")
    

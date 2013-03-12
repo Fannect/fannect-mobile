@@ -95,6 +95,30 @@
             text-align:center
             font-size:22px
 
+   .no-results-wrap
+      text-align:center
+      text-shadow: 0 1px 2px #fff
+      .title 
+         color: #888
+         font-size: 20px
+         margin-top: 25px
+         font-weight: bold
+      .subtitle
+         color: #aaa
+         font-size: 16px
+         margin-top: 5px
+         font-weight: lighter
+      .createHuddle
+         display:block
+         background: url(../images/connect/huddle/Button_CreateNewTopic.png)
+         background-size: 437px 40px
+         width: 216px
+         height: 40px
+         margin: 25px auto 0
+         &.ui-btn-active
+            border:0
+            background-position: -221px 0
+
 .huddles
    margin-top: 0 !important
    .huddle
@@ -157,18 +181,18 @@
       min-height: 80px
       background: #fff
       border: none
-      font-size: .9em
+      font-size: 16px
       color: #000
       text-shadow: none
       margin: 0
       resize: vertical
       dropshadow:none
       &.has-image
-         padding-bottom: 55px
+         padding-bottom: 85px
    .attached-image
       position: absolute
       bottom: 8px
-      height: 45px
+      height: 70px
       left: 8px
       border-radius: 5px
    .camera-button
@@ -198,14 +222,9 @@
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
    #connect-huddle-page
       .header-section
-         background-image: url(../images/Tilable-Background03@2x.png)
-      
-   .camera-button
-      background-image: url(../images/connect/huddle/Button_Camera@2x.png) !important
-   .tag-teams-button
-      background-image: url(../images/connect/huddle/Button_TagTeams@2x.png) !important
-   
-   #connect-huddle-page
+         background-image: url(../images/Tilable-Background03@2x.png) !important
+      .createHuddle
+         background-image: url(../images/connect/huddle/Button_CreateNewTopic@2x.png) !important
       .next
          background-image: url(../images/connect/huddle/RightSliderBox@2x.png) !important
          .arrow
@@ -220,6 +239,11 @@
           &.inactive
             .arrow
                background-image: url(../images/profile/leftArrow_Inactive@2x.png) !important
-
+      
+   .camera-button
+      background-image: url(../images/connect/huddle/Button_Camera@2x.png) !important
+   .tag-teams-button
+      background-image: url(../images/connect/huddle/Button_TagTeams@2x.png) !important
+   
 @import "./huddle/replies"
 @import "./huddle/tagTeams"

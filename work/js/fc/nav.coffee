@@ -57,7 +57,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             if not options.silent and historyPaths[activeHistoryPath] and typeof toPage == "string" and options.role != "popup" and options.transition != "pop"
                entry = new HistoryEntry(toPage, options.transition)
                historyPaths[activeHistoryPath]?.push(entry)
-
+               fc.nav.pushCachedParams(toPage, options.params) if options?.params
+               
             $changePage.apply(this, arguments) 
                
       # History Management
@@ -143,9 +144,15 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       pushCachedParams: (url, params) ->
          parsed = $.mobile.path.parseUrl(url)
-         cachedParams[parsed.pathname+parsed.search] = params
+         url = parsed.pathname+parsed.search
+         url = url.substring(1) if url[0] == "/"
+         cachedParams[url] = params
 
       popCachedParams: (url, extend = {}) ->
+         parsed = $.mobile.path.parseUrl(url)
+         url = parsed.pathname + parsed.search
+         url = url.substring(1) if url[0] == "/"
+
          params = cachedParams[url]
          return unless params
          extend[k] = v for k, v of params

@@ -118,7 +118,7 @@ window.fannect.pages =
          {
             position: "right"
             text: "New"
-            click: -> $.mobile.changePage "connect-huddle-newTopic.html", transition: "slideup"
+            click: -> $.mobile.changePage "connect-huddle-newTopic.html", transition: "slidedown"
          }
       ]
       classes: ["light-background"]

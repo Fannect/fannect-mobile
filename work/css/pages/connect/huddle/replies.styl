@@ -108,11 +108,23 @@
          .content
             white-space: normal
             margin-bottom: 10px
-         img
-            border-radius: 10px
-            dropshadow: inset 1px 2px 3px rgba(0,0,0,0.6), 0 1px 2px rgba(255, 255, 255, 0.8), 0 -1px 1px rgba(0, 0, 0, 0.8)
+         .reply-image-wrap
+            position:relative
             margin-bottom: 10px
-            width: 100%
+            overflow: visible
+            img
+               display:block
+               border-radius: 10px
+               width: 100%
+            .cover
+               position: absolute
+               top: 0
+               right: 0
+               left: 0
+               bottom:0
+               border-radius: 10px
+               dropshadow: inset 2px 2px 3px rgba(0,0,0,0.6), 2px 2px 3px rgba(255,255,255,0.8), 0 -1px 1px rgba(0,0,0,0.8)
+               
       .meta-wrap
          position:relative
          // border-top: #ccc 1px solid

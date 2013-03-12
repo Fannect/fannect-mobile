@@ -23,7 +23,9 @@ block content
       li.reply
          .content-wrap
             .content(data-bind="text: content")
-            img(data-bind="visible: image_url.length > 0, attr:{'src': image_url}")
+            .reply-image-wrap(data-bind="visible: image_url.length > 0")
+               img(data-bind="attr:{'src': image_url}")
+               .cover
          .meta-wrap
             .image-wrap
                img.profile-image(data-bind="thumbnailSrc: owner_profile_image_url")

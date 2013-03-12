@@ -62,10 +62,16 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       # HANDLING SLIDER
       sliderOptions: () =>
+         if @created_by == "team" then start = 1
+         else if @created_by == "roster" then start = 2
+         else if @created_by == "me" then start = 3
+         else start = 0 
+
          return { 
             hide: @sliderHide 
             show: @sliderShow 
             count: 4
+            start: start
          }
          
       sliderHide: (index) =>

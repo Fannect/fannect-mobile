@@ -8,6 +8,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @query = ko.observable("")
          @teams = ko.observableArray []
          @loading_more = ko.observable false
+         @has_more = true
 
          if not forge.is.android()
             @query.subscribe () =>
@@ -20,6 +21,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       androidSearch: () => @search() if forge.is.android()  
       search: () =>
          @skip = 0
+         @has_more = true
          @teams.removeAll()
          @loadTeams()
 
@@ -35,12 +37,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             return fc.msg.show("Unable to load teams!") if err
             return if query != @query()
             @skip += @limit
+            @has_more = fans.length == @limit
             @teams.push t for t in teams
 
       onPageShow: () =>
          super
          $window = $(window).bind "scroll.searchTeams", () =>
-            if not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
+            if not @loading_more() and @has_more and $window.scrollTop() > $(document).height() - $window.height() - 150
                @loadTeams()
          
       onPageHide: () =>
