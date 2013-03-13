@@ -47,7 +47,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @points profile.points?.overall or 0
          @rank profile.rank or 0
          @verified profile.verified or ""
-         @shout profile.shouts?[0]?.text or "...silence..."
+         @shout profile.shouts?[0]?.text or "Shout something!"
         
          if profile.shouts?[0]?._id
             # Check if the person just shouted
@@ -89,6 +89,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                ), 200
             fc.team.refreshActive()
             @_addHeaderButtons() if forge.is.mobile()
+
+         fc.mobile.setActiveMenu("profile")
+         fc.logger.shouldReset(true)
 
       selectTeam: () -> $.mobile.changePage "profile-selectTeam.html", fc.transition("slide")
       changeUserImage: () => @editing_image "profile"

@@ -194,8 +194,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          vm.url = $page.data("url")
          vm.params = fc.nav.parseQueryString(vm.url)
          fc.nav.popCachedParams(vm.url, vm.params)
+         fc.logger.log("pageInit: #{id}, params: #{JSON.stringify(vm.params)}")
          ko.applyBindings vm, @
+         fc.logger.log("before load: #{id}")
          vm.load()
+         fc.logger.log("after load: #{id}")
 
       # create page scrollers
       $(".scrolling-text", $page).scroller() if page.scroller 
@@ -205,6 +208,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       id = $page.attr("id")
       page = fc.pages[$page.attr("id")]
       vm = cachedVMs[id]
+
+      fc.logger.log("pageBeforeShow: #{id}")
 
       # check if logged in and redirect if not
       fc.auth.isLoggedIn() unless id == "index-page"
@@ -233,7 +238,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       $(".scrolling-text", $page).scroller("start") if page.scroller 
 
       # send flurry event
-      forge.flurry.customEvent("#{id} Page", {show: true})
+      fc.logger.flurry("#{id} Page")
 
       # add buttons to native header if mobile
       if forge.is.mobile()

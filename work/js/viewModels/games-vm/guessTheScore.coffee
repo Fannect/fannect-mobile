@@ -21,8 +21,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
                @home_score(@home_score() or 0)
                @away_score(@away_score() or 0)
-               forge.flurry.customEvent("Play Guess the Score", {picked: true})
-
+               fc.logger.flurry("Play Guess the Score")
                fc.ajax
                   url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/guessTheScore"
                   type: "POST"
