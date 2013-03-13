@@ -7,7 +7,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @limit = 20
          @skip = 0
          @has_more = false
-         @created_by = "team"
+         @created_by = "any"
          @sort_by = ko.observable("most_active")
          @team_name = ko.observable()
          @team_id = null
