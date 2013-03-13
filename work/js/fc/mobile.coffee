@@ -31,7 +31,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          return if fc.mobile._header_added
          fc.mobile._header_added = true
          forge.tabbar.removeButtons () ->
-            forge.logging.critical("CREATE BUTTONS --------------------------")
             fc.mobile._addButton 0, "Profile", "images/mobile/TabBar_Profile.png", "profile"
             fc.mobile._addButton 1, "Games", "images/mobile/TabBar_Games.png", "games"
             fc.mobile._addButton 2, (if forge.is.android() then "Leaders" else "Leaderboard"), "images/mobile/TabBar_Leaderboard.png", "leaderboard"

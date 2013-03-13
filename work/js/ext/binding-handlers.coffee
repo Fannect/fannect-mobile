@@ -30,6 +30,36 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
          else
             $(element).slideUp duration
 
+   ko.bindingHandlers.slideInOutHorz = 
+      init: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
+         if valueUnwrapped
+            $(element).stop().show()
+         else
+            $(element).stop().hide()
+
+      update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
+         allBindings = allBindingAccessor()
+         duration = allBindings.duration or 400
+         $el = $(element).stop()
+         if valueUnwrapped
+            $el.animate {width: "show"}, duration
+         else
+            $el.animate {width: "hide"}, duration
+
+   ko.bindingHandlers.clickOff = 
+      init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
+         value = valueAccessor()
+
+         handler = (event) ->
+            if not ko.utils.unwrapObservable(viewModel.is_showing)
+               $("body").off("click.clickOff", handler)
+            else if not $(event.target).closest(element).length
+               value(false)
+
+         $("body").on "click.clickOff", handler
+            
    ko.bindingHandlers.href = 
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          options = ko.utils.unwrapObservable valueAccessor()
@@ -235,7 +265,6 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
    ko.bindingHandlers.swipe = 
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
          options = ko.utils.unwrapObservable valueAccessor()
-         console.log options
          setup = () ->
             unless $(element).is(":visible")
                return setTimeout(setup, 10) 

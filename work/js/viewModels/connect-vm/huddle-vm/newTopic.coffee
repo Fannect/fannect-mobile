@@ -9,6 +9,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @message = ko.observable("")
          @image_url = ko.observable("")
          # @image_url = ko.observable("http://res.cloudinary.com/fannect-dev/image/upload/q_100,w_376,h_376/ihjsx2c4ipyhg06kadrb.jpg")
+         @show_remove_image = ko.observable(false)
          @tagged = null
 
       load: () =>
@@ -27,6 +28,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @image = file
                @image_url(url)
             , (err) -> fc.msg.show("Failed to get image!") if err
+
+      removeImage: () => 
+         @image = null
+         @image_url("")
+      showRemoveImage: () => @show_remove_image(not @show_remove_image())
 
       rightButtonClick: () =>
          return fc.msg.show("Enter a topic!") if @topic().length == 0

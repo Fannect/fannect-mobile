@@ -4,23 +4,28 @@
 #connect-huddle-replies-page
    .header-section
       .topic
-         padding: 8px 0 4px
          font-size: 18px
          color:#fff
          text-align:center
          font-weight:bold
-      .owner
-         padding-bottom: 2px
-         font-size: 11px
-         color:#bbb
-         text-align:center
-         font-weight: lighter
-      .owner-team
-         padding-bottom: 8px
-         font-size: 11px
-         color:#bbb
-         text-align:center
-         font-weight: lighter
+         line-height: 20px
+         padding: 6px 0 4px
+      .created_by
+         background: url(../images/connect/huddle/HeaderShadow.png) 50% 0 repeat-y
+         background-size: 320px 32px
+         padding: 3px
+         .owner
+            font-size: 11px
+            color:#bbb
+            text-align:center
+            font-weight: lighter
+            width: 100%
+            white-space: normal
+         .owner-team
+            font-size: 11px
+            color:#bbb
+            text-align:center
+            font-weight: lighter
 
    .page-controls
       height: 64px
@@ -37,7 +42,7 @@
          height: 50px
          text-align: center
          font-family: JerseyM54
-         font-size: 22px
+         font-size: 20px
          line-height: 50px
          width: 100%
          .slash
@@ -142,14 +147,22 @@
          .owner
             position:absolute
             left: 72px
-            top: 12px
+            top: 6px
             color: #141b1e
             font-size: 11px
             font-weight: lighter
+         .team
+            position:absolute
+            left: 72px
+            top: 21px
+            color: #7b7b7b
+            font-size: 11px
+            font-weight: lighter
+            
          .date
             position:absolute
             left: 72px
-            top: 30px
+            top: 36px
             color: #c1272d
             font-size: 11px
             font-weight: lighter

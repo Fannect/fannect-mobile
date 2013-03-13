@@ -6,12 +6,21 @@ block header
 
 block content
 
-   ul.pattern-bg(data-role="listview")
-      li
-         a(href="connect-roster.html", data-transition="slide")
-            .inner
-               span.label Roster
-      li
-         a(href="connect-huddle.html", data-transition="slide")
-            .inner
-               span.label Huddle
+   a.roster-icon-wrap(href="connect-roster.html", data-transition="slide")
+      span.icon-connect.roster
+      span.label Roster
+
+   a.huddle-icon-wrap(href="connect-huddle.html", data-transition="slide")
+      span.icon-connect.huddle
+      span.label Huddle
+   
+
+   //- ul.pattern-bg(data-role="listview")
+   //-    li
+   //-       a(href="connect-roster.html", data-transition="slide")
+   //-          .inner
+   //-             span.label Roster
+   //-    li
+   //-       a(href="connect-huddle.html", data-transition="slide")
+   //-          .inner
+   //-             span.label Huddle

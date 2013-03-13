@@ -5,21 +5,21 @@
 #connect-huddle-replies-page
    .header-section
       margin: -15px -15px 0 -15px
-      background: url(../images/Tilable-Background03.png) 50% 0
-      background-size: 500px 50px
-     
+      background: url(../images/Tilable-Background03.png) 50% 0 
+      background-size: 500px 50px 
+
 #connect-huddle-page
    .team_name
       color: #fff
-      font-size: 28px
+      font-size: 18px
       font-weight:bold
-      height: 38px
-      line-height: 38px
-      white-space: nowrap
+      line-height: 20px
       text-align: center
-      padding-top:4px
+      padding: 6px 0 4px
    .sort-by
       position:relative
+      background: url(../images/connect/huddle/HeaderShadow.png) 50% 0 no-repeat
+      background-size: 320px 32px
       width: 320px
       height: 32px
       line-height: 32px
@@ -93,7 +93,7 @@
             line-height:50px
             font-family:JerseyM54
             text-align:center
-            font-size:22px
+            font-size:20px
 
    .no-results-wrap
       text-align:center
@@ -194,7 +194,28 @@
       bottom: 8px
       height: 70px
       left: 8px
-      border-radius: 5px
+      img
+         position:relative
+         height: 100%
+         border-radius: 5px
+         z-index: 10
+      &.selected
+         border-radius: 5px
+         dropshadow: 1px 1px 2px rgba(0,0,0,.8)
+   .remove-attached-image
+      position: absolute
+      height: 40px
+      margin-top: -15px
+      top: 50%
+      left: 100%
+      width: 100px
+      background: #c1272d
+      border: 1px #8c1d21 solid
+      border-radius: 0 5px 5px 0
+      line-height: 40px
+      text-align:center
+      dropshadow: inset 1px 1px 2px rgba(0,0,0,.6), 1px 1px 2px rgba(0,0,0,.8)
+
    .camera-button
       margin-top: 8px
       float: right
@@ -221,8 +242,12 @@
    
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
    #connect-huddle-page
+   #connect-huddle-replies-page
       .header-section
          background-image: url(../images/Tilable-Background03@2x.png) !important
+   #connect-huddle-page
+      .sort-by
+         background-image: url(../images/connect/huddle/HeaderShadow@2x.png) !important
       .createHuddle
          background-image: url(../images/connect/huddle/Button_CreateNewTopic@2x.png) !important
       .next

@@ -10,6 +10,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @topic = ko.observable()
          @image_url = ko.observable("")
          @owner = ko.observable()
+         @show_remove_image = ko.observable(false)
          
       load: () =>
          return fc.nav.backToRoot("connect") unless @params.huddle_id
@@ -19,6 +20,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @image = null
             @topic("")
             @owner("")
+            # @image_url("http://res.cloudinary.com/fannect-dev/image/upload/q_100,w_376,h_376/ihjsx2c4ipyhg06kadrb.jpg")
             @image_url("")
             @message("")
             fc.team.getActive (err, profile) =>
@@ -37,6 +39,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @image = file
                @image_url(url)
             , (err) -> fc.msg.show("Failed to get image!") if err
+
+      removeImage: () => 
+         @image = null
+         @image_url("")
+
+      showRemoveImage: () => @show_remove_image(not @show_remove_image())
 
       rightButtonClick: () =>
          return fc.msg.show("Enter a message!") if @message().length == 0
@@ -73,5 +81,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                uploaded_image_url = data?.url
                send()
          else
+            uploaded_image_url = @image_url()
             send()
             
