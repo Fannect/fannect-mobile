@@ -35,6 +35,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       leaderboard: new HistoryPath("leaderboard.html")
       connect: new HistoryPath("connect.html")
 
+   cachedParams = {}
+
    fc.nav =
       setup: () ->
          # Loop through all of the pages and attach handlers
@@ -55,19 +57,21 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             if not options.silent and historyPaths[activeHistoryPath] and typeof toPage == "string" and options.role != "popup" and options.transition != "pop"
                entry = new HistoryEntry(toPage, options.transition)
                historyPaths[activeHistoryPath]?.push(entry)
-
+               fc.nav.pushCachedParams(toPage, options.params) if options?.params
+               
             $changePage.apply(this, arguments) 
                
       # History Management
       HistoryEntry: HistoryEntry
 
       hasBack: () -> return historyPaths[activeHistoryPath].hasBack()
-      goBack: (transition) ->
+      goBack: (transition, params) ->
          if window.location.href?.indexOf("ui-state=dialog") != -1
             window.location.href = window.location.href.replace("ui-state=dialog", "")
             return historyPaths[activeHistoryPath].current().go("pop")
             
          entry = historyPaths[activeHistoryPath].getBack()
+         fc.nav.pushCachedParams(entry.path, params)
          entry.back(transition) 
 
       getActiveHistoryName: () -> return activeHistoryPath
@@ -137,6 +141,26 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          return obj
 
       getVM: (id) -> cachedVMs[id]
+
+      pushCachedParams: (url, params) ->
+         parsed = $.mobile.path.parseUrl(url)
+         url = parsed.pathname+parsed.search
+         url = url.substring(1) if url[0] == "/"
+         cachedParams[url] = params
+
+      popCachedParams: (url, extend = {}) ->
+         parsed = $.mobile.path.parseUrl(url)
+         url = parsed.pathname + parsed.search
+         url = url.substring(1) if url[0] == "/"
+
+         params = cachedParams[url]
+         return unless params
+         extend[k] = v for k, v of params
+         delete cachedParams[url]
+         return extend
+
+      peekCachedParams: (url) ->
+         return cachedParams[url]
          
    # hold a reference to all viewmodels
    # - required so that memory does not leak as new viewmodels are 
@@ -169,7 +193,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       if vm?
          vm.url = $page.data("url")
          vm.params = fc.nav.parseQueryString(vm.url)
-
+         fc.nav.popCachedParams(vm.url, vm.params)
          fc.logger.log("pageInit: #{id}, params: #{JSON.stringify(vm.params)}")
          ko.applyBindings vm, @
          fc.logger.log("before load: #{id}")
@@ -209,6 +233,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       page = fc.pages[$page.attr("id")]
       vm = cachedVMs[id]
 
+
       # start any scrollers on the page
       $(".scrolling-text", $page).scroller("start") if page.scroller 
 
@@ -237,7 +262,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       fc.tutorial.autoShow()
 
       # scroll to previous position
-      if page.auto_scroll
+      if page.auto_scroll and vm
          $.mobile.silentScroll(vm.prev_scroll_top) if vm?.prev_scroll_top
 
    pageBeforeHide = () ->

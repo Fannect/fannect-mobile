@@ -6,16 +6,12 @@ block header
 
 block content
 
-   input(type="search", data-bind="value: query, valueUpdate: ['afterkeydown'], onEnterOrBlur: androidSearch")
-
-   .my-roster-title(data-bind="slideInOut: show_roster_title") My Roster
-   .my-roster-title(data-bind="slideInOut: show_roster_empty") Your Roster is Empty
-
-   ul.pattern-bg.has-search(data-role="listview", data-bind="template: { name:'connect-fan-template', foreach: fans }, listviewUpdate: fans, visible: fans().length > 0").fans
-   .loading-more-indicator(data-bind="visible: loading_more", style="display:none;")
-
-   .share-wrap(data-bind="fadeIn: show_sharing", style="display:none;")
-      .sub-title Recruit More Fans!
-      .share-button.twitter(data-bind="showClick: true, click: shareViaTwitter")
-      .share-button.email(data-bind="showClick: true, click: shareViaEmail")
-      //- .share-button.sms(data-bind="showClick: true, click: shareViaSMS, visible: forge.is.ios()")
+   ul.pattern-bg(data-role="listview")
+      li
+         a(href="connect-roster.html", data-transition="slide")
+            .inner
+               span.label Roster
+      li
+         a(href="connect-huddle.html", data-transition="slide")
+            .inner
+               span.label Huddle

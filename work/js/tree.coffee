@@ -37,7 +37,6 @@
 #= require "viewModels/profile.coffee"
 #= require "viewModels/leaderboard.coffee"
 #= require "viewModels/games.coffee"
-#= require "viewModels/connect.coffee"
 #= require "viewModels/share.coffee"
 
 #= require "viewModels/profile-vm/invites.coffee"
@@ -61,6 +60,13 @@
 #= require "viewModels/games-vm/attendanceStreak.coffee"
 #= require "viewModels/games-vm/gameFace.coffee"
 #= require "viewModels/games-vm/guessTheScore.coffee"
+
+#= require "viewModels/connect-vm/roster.coffee"
+#= require "viewModels/connect-vm/huddle.coffee"
+#= require "viewModels/connect-vm/huddle-vm/newTopic.coffee"
+#= require "viewModels/connect-vm/huddle-vm/newReply.coffee"
+#= require "viewModels/connect-vm/huddle-vm/replies.coffee"
+#= require "viewModels/connect-vm/huddle-vm/tagTeams.coffee"
 
 #= require "viewModels/games-vm/gameFace-vm/motivateSelect.coffee"
 

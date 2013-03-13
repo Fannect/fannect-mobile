@@ -1,0 +1,14 @@
+extend ../../layout
+
+block header
+   h1(data-menu-root="connect") New Topic
+   a(href="connect-huddle.html", data-icon="back", data-rel="back", data-theme="b") Back
+   a.ui-btn-right(data-bind="click: rightButtonClick", data-role="button", data-theme="b") Huddle Up
+
+block content
+   input.inset-input.topic(type="text", data-bind="value: topic, valueUpdate: ['afterkeydown']", placeholder="Enter your topic")
+   .message-wrap
+      textarea.message(data-bind="value: message, valueUpdate: ['afterkeydown'], css:{'has-image':image_url().length > 0}", placeholder="Enter your reply")
+      img.attached-image(data-bind="attr:{src:image_url},visible:image_url().length > 0")
+   .camera-button(data-bind="click: chooseImage, showClick: true")
+   .tag-teams-button(data-bind="click: chooseTaggedTeams, showClick: true")

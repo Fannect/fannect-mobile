@@ -1,0 +1,22 @@
+extend ../layout
+
+block header
+   h1(data-menu-root="connect") Roster
+   a(href="connect.html", data-icon="back", data-rel="back", data-theme="b") Back
+   a.ui-btn-right(href="share.html", data-role="button", data-theme="b", data-transition="slide") Share
+
+block content
+
+   input(type="search", data-bind="value: query, valueUpdate: ['afterkeydown'], onEnterOrBlur: androidSearch")
+
+   .my-roster-title(data-bind="slideInOut: show_roster_title") My Roster
+   .my-roster-title(data-bind="slideInOut: show_roster_empty") Your Roster is Empty
+
+   ul.pattern-bg.has-search(data-role="listview", data-bind="template: { name:'connect-fan-template', foreach: fans }, listviewUpdate: fans, visible: fans().length > 0").fans
+   .loading-more-indicator(data-bind="visible: loading_more", style="display:none;")
+
+   .share-wrap(data-bind="fadeIn: show_sharing", style="display:none;")
+      .sub-title Recruit More Fans!
+      .share-button.twitter(data-bind="showClick: true, click: shareViaTwitter")
+      .share-button.email(data-bind="showClick: true, click: shareViaEmail")
+      //- .share-button.sms(data-bind="showClick: true, click: shareViaSMS")

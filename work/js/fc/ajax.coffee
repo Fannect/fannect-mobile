@@ -1,4 +1,7 @@
 do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect) ->
+
+   timeoutMessageShowing = false
+
    fc.ajax = (options, done) ->
       done = done or options.success
       options.cache = options.cache or false
@@ -24,8 +27,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             fc.msg.loading("Request timeout! Retrying...")
             fc.logger.sendError(error)
             setTimeout (() ->
-               fc.ajax(options, done)
-            ), 5000
+               fc.ajax options, () ->
+                  fc.msg.hide()
+                  done?.apply(this, arguments)
+            ), 1000
          else if options.retry == "forever"
             setTimeout (-> fc.ajax(options, done)), 4000
          else

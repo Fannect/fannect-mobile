@@ -1,0 +1,49 @@
+@import "../lib/variables"
+@import "../lib/mixins"
+
+#connect-huddle-tagTeams-page
+   .content
+      padding-top: 0
+
+   .dark-pattern-bg.standard
+      margin-top: 0
+      margin-bottom: 5px
+
+   .dark-pattern-bg.tagged
+      margin-top: 0
+      margin-bottom: 12px
+
+   .dark-pattern-bg.searched
+      margin-top: 8px
+      .newly-added
+         display:none
+
+   .separator
+      text-align: center
+      margin: 8px 0
+      color: #c1272d
+
+   .ui-input-search
+      margin-top: 0
+
+   .dark-pattern-bg
+      li
+         height: 41px
+         .ui-icon-arrow-r
+            background: url(../images/connect/huddle/TeamCheckBox.png) no-repeat
+            background-size: 71px 33px
+            width: 33px
+            height: 33px
+            margin-top: -17px
+         a
+            padding-right: 55px
+         &.selected
+            .ui-icon-arrow-r
+               background-position: -38px 0
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5)
+   #connect-huddle-tagTeams-page
+      .dark-pattern-bg
+         li
+            .ui-icon-arrow-r
+               background-image: url(../images/connect/huddle/TeamCheckBox@2x.png)

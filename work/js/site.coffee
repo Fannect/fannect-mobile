@@ -65,13 +65,13 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
             startTimedEvent: () ->
             endTimedEvent: () ->
 
-      fc.nav.setup()
-      fc.mobile.createButtons()
-
+      
       if fc.isSlow() 
          $("html").addClass("speed-up")
          $.mobile.defaultPageTransition = "none"
 
+      fc.nav.setup()
+      fc.mobile.createButtons()
       fc.push.setup()
 
       # Remove button styling to avoid double styling

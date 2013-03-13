@@ -8,10 +8,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
    checkingForTeams = false
    waitingForTeamsFn = []
 
-   doneFetching = (teamProfileId, team) ->
+   doneFetching = (teamProfileId, team, err) ->
       fetching[teamProfileId] = false
       if waitingFn[teamProfileId]?.length > 0
-         d(null, team) for d in waitingFn[teamProfileId]
+         d(err, team) for d in waitingFn[teamProfileId]
          waitingFn[teamProfileId].length = 0
 
    notifyTeamUpdated = (team) -> 
@@ -54,7 +54,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                # Redirect to select team if 404 
                if err?.status == 404 or err?.statusCode?.toString() == "404"
                   return fc.team.redirectToSelect() 
-               
+               else if err
+                  return fc.msg.show("Failed to load profile!")
+
                addToChannel(team.team_id)
                fc.team._teams[teamProfileId] = team
                notifyTeamUpdated(team) if fc.team._curr == team._id
@@ -90,6 +92,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          else
             fc.team.getActive(done)
 
+      updateTeam: (teamProfileId, update) ->
+         $.extend true, fc.team._teams[teamProfileId], update
+         if teamProfileId == fc.team._curr
+            notifyTeamUpdated(fc.team._teams[fc.team._curr])
+
       updateActive: (update) ->
          throw "Cannot update team before it has been fetched" unless fc.team._curr
          $.extend true, fc.team._teams[fc.team._curr], update
@@ -104,7 +111,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          , (err, team) ->
             if err
                done(err) if done
-               return
+               return 
+
             fc.team._teams[team._id] = team
             fc.team.setActive team._id
             notifyTeamUpdated(team)
@@ -145,7 +153,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          , (err, teams) =>
             checkingForTeams = false
 
-            if teams.length > 0 and not err
+            if not err and teams?.length > 0
                fc.team.setActive teams[0]._id, (err, profile) ->
                   if waitingForTeamsFn.length > 0
                      fn(err, profile) for fn in waitingForTeamsFn 

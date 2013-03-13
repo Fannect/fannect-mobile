@@ -1,0 +1,256 @@
+@import "../lib/variables"
+@import "../lib/mixins"
+
+#connect-huddle-replies-page
+   .header-section
+      .topic
+         padding: 8px 0 4px
+         font-size: 18px
+         color:#fff
+         text-align:center
+         font-weight:bold
+      .owner
+         padding-bottom: 2px
+         font-size: 11px
+         color:#bbb
+         text-align:center
+         font-weight: lighter
+      .owner-team
+         padding-bottom: 8px
+         font-size: 11px
+         color:#bbb
+         text-align:center
+         font-weight: lighter
+
+   .page-controls
+      height: 64px
+      background: url(../images/connect/huddle/SliderMiddleSliver@2x.png)
+      background-size: 2px 64px
+      margin-top:-14px
+      position: relative
+      &.bottom
+         margin: 5px -15px -15px -15px
+
+      .current-page
+         position:absolute
+         top:14px
+         height: 50px
+         text-align: center
+         font-family: JerseyM54
+         font-size: 22px
+         line-height: 50px
+         width: 100%
+         .slash
+            font-family: Helvetica,Arial,sans-serif
+            display: inline-block
+            margin: 0 2px
+      .first
+      .prev
+      .next
+      .last
+         position:absolute
+         cursor:pointer
+         top:14px
+         width:50px
+         height:50px
+         z-index:10
+         background-size: 50px 50px
+         .arrow
+            position:absolute
+            height: 18px
+            left: 10px
+            top: 17px
+      .first
+      .prev
+         background-image: url(../images/connect/huddle/LeftSliderBox.png)
+         .arrow
+            left: 12px
+      .next
+      .last
+         background-image: url(../images/connect/huddle/RightSliderBox.png)
+         .arrow
+            left: 19px
+      .first
+         left: 0
+         .arrow
+            background-image: url(../images/connect/huddle/first_Active@2x.png)
+            background-size: 18px 18px 
+            width: 18px
+      .prev
+         left: 48px
+         .arrow
+            background-image: url(../images/connect/huddle/previous_Active@2x.png)
+            background-size: 20px 18px
+            width: 20px
+         &.inactive
+            .arrow
+               background-image: url(../images/connect/huddle/previous_Inactive@2x.png)
+               background-size: 19px 18px 
+               width: 19px
+      .next
+         right: 48px
+         .arrow
+            background-image: url(../images/connect/huddle/next_Active@2x.png)
+            background-size: 20px 18px 
+            width: 20px
+         &.inactive
+            .arrow
+               background-image: url(../images/connect/huddle/next_Inactive@2x.png)
+               background-size: 19px 18px 
+               width: 19px
+      .last
+         right: 0
+         .arrow
+            background-image: url(../images/connect/huddle/last_Active@2x.png)
+            background-size: 18px 18px 
+            width: 18px
+
+   .replies
+      margin-top: 0 !important
+   .reply
+      position: relative
+      overflow: hidden
+      dropshadow: inset 0 1px 2px #fff
+      .content-wrap
+         .content
+            white-space: normal
+            margin-bottom: 10px
+         .reply-image-wrap
+            position:relative
+            margin-bottom: 10px
+            overflow: visible
+            img
+               display:block
+               border-radius: 10px
+               width: 100%
+            .cover
+               position: absolute
+               top: 0
+               right: 0
+               left: 0
+               bottom:0
+               border-radius: 10px
+               dropshadow: inset 2px 2px 3px rgba(0,0,0,0.6), 2px 2px 3px rgba(255,255,255,0.8), 0 -1px 1px rgba(0,0,0,0.8)
+               
+      .meta-wrap
+         position:relative
+         // border-top: #ccc 1px solid
+         // dropshadow: inset 0 1px 2px #fff
+         margin: -4px -15px -10px -15px 
+         padding: 0 15px 
+         height: 54px
+         .owner
+            position:absolute
+            left: 72px
+            top: 12px
+            color: #141b1e
+            font-size: 11px
+            font-weight: lighter
+         .date
+            position:absolute
+            left: 72px
+            top: 30px
+            color: #c1272d
+            font-size: 11px
+            font-weight: lighter
+            .day
+               font-weight: bold
+               color: #c1272d
+         .voting-graph
+            background: url(../images/connect/huddle/BooCheerGraphButton.png) no-repeat
+            background-size: 147px 39px
+            width: 71px
+            height: 39px
+            margin-top: -19px
+            top: 50%
+            position: absolute
+            right: 15px
+            font-size: 12px
+            &.ui-btn-active
+               background-position: -76px 0 
+               border: 0
+               .down-label
+               .up-label
+                  text-shadow: 0 1px 0 #fff
+            &.has-voted
+               background: none !important
+            &.has-voted.ui-btn-active
+               text-shadow: 0 1px 0 #fff
+            .graph-wrap
+               position:relative
+               margin: 8px 8px 0
+               .down-label
+                  position: absolute
+                  top: 0
+                  left: 0
+                  color: #e01c1c
+               .up-label
+                  position: absolute
+                  top: 0
+                  right: 0
+                  color: #00b213
+               .bar
+                  position:absolute
+                  top: 15px
+                  height: 5px
+                  width: 100%
+                  dropshadow: 0 1px 2px #fff
+                  .downs
+                  .ups
+                     height: 100%
+                     position: absolute
+                     max-width: 95%
+                     min-width: 5%
+                  .downs
+                     background: #e01c1c
+                     left: 0
+                     border-right: 1px #fff solid
+                  .ups
+                     background: #00b213
+                     border-left: 1px #fff solid
+                     right: 0
+   .voting
+      background: url(../images/connect/huddle/CheerBooBase.png) 50% 50%
+      background-size: 320px 61px
+      padding: 5px 15px
+      height: 40px
+      .vote-up
+         background: url(../images/connect/huddle/CheerButton.png) no-repeat
+         background-size: 257px 40px
+         width: 126px
+         height: 40px
+         float: right
+         &.ui-btn-active
+            border:0
+            background-position: -131px 0
+      .vote-down
+         background: url(../images/connect/huddle/BooButton.png) no-repeat
+         background-size: 257px 40px
+         width: 126px
+         height: 40px
+         float: left
+         &.ui-btn-active
+            border:0
+            background-position: -131px 0
+
+   .refresh-button
+      display:block
+      background: url(../images/connect/huddle/Button_RefreshPage.png)
+      background-size: 216px 40px
+      width: 216px
+      height: 40px
+      margin: 25px auto 5px
+ 
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5)
+      
+   #connect-huddle-replies-page
+      .voting
+         background-image: url(../images/connect/huddle/CheerBooBase@2x.png) !important
+      .vote-up
+         background-image: url(../images/connect/huddle/CheerButton@2x.png) !important
+      .vote-down
+         background-image: url(../images/connect/huddle/BooButton@2x.png) !important
+      .voting-graph
+         background-image: url(../images/connect/huddle/BooCheerGraphButton@2x.png) !important
+      .refresh-button
+         background-image: url(../images/connect/huddle/Button_RefreshPage@2x.png) !important

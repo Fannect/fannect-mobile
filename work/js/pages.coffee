@@ -98,25 +98,75 @@ window.fannect.pages =
    # Connect
    ###
    "connect-page":
-      vm: vm.Connect
+      classes: ["light-background"]
+      
+   "connect-roster-page":
+      vm: vm.Connect.Roster
       buttons: [
          {
             position: "right"
             text: "Share"
+            click: -> $.mobile.changePage "share.html", transition:"slide"
          }
       ]
       classes: ["light-background"]
       auto_scroll: true
 
-   "connect-connectProfile-page":
-      vm: vm.Connect.ConnectProfile
+   "connect-huddle-page":
+      vm: vm.Connect.Huddle
       buttons: [
          {
             position: "right"
-            text: "Add"
+            text: "New"
+            click: -> $.mobile.changePage "connect-huddle-newTopic.html", transition: "slidedown"
          }
       ]
-      classes: ["no-padding"]      
+      classes: ["light-background"]
+      auto_scroll: true
+
+   "connect-huddle-newTopic-page":
+      vm: vm.Connect.Huddle.NewTopic
+      buttons: [
+         {
+            position: "right"
+            text: "Huddle Up"
+            tint: [193, 39, 45, 160]
+         }
+      ]
+      classes: ["light-background"] 
+
+   "connect-huddle-tagTeams-page":
+      vm: vm.Connect.Huddle.TagTeams
+      buttons: [
+         {
+            position: "right"
+            text: "Huddle Up"
+            tint: [193, 39, 45, 160]
+         }
+      ]
+      classes: ["dark-background"] 
+
+   "connect-huddle-newReply-page":
+      vm: vm.Connect.Huddle.NewReply
+      buttons: [
+         {
+            position: "right"
+            text: "Post"
+            tint: [193, 39, 45, 160]
+         }
+      ]
+      classes: ["light-background"] 
+
+   "connect-huddle-replies-page":
+      vm: vm.Connect.Huddle.Replies
+      buttons: [
+         {
+            position: "right"
+            text: "New"
+         }
+      ]
+      classes: ["light-background"] 
+      auto_scroll: true
 
    ###
    # Games
