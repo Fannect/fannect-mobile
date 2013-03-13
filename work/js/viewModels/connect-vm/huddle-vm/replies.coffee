@@ -19,12 +19,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @current_page_text = ko.computed () => 
             return "Page #{@current_page()}<span class='slash'>/</span>#{@page_count()}"
 
-         @current_page.subscribe () => @loadReplies()
+         @current_page.subscribe () => 
+            r.show_voting(false) for r in @replies()
+            @replies([])
+            @loadReplies()
 
       loadReplies: () =>
-         r.show_voting(false) for r in @replies()
-         @replies([])
-
          if @replies_pages[@current_page()-1]?.length > 0
             @replies(@replies_pages[@current_page()-1])
          else
@@ -40,6 +40,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   return 
 
                @prepReply(reply) for reply in data.replies
+               @page_count(Math.ceil(data.meta.count / @limit))
+               console.log @page_count
                   
                # check if still on the same page   
                @replies(data.replies) if page == @current_page()
@@ -122,6 +124,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             url: "#{fc.getResourceURL()}/v1/huddles/#{@params.huddle_id}/replies/#{reply._id}/vote"
             type: "POST"
             data: { vote: vote }
+
+      refresh: () => 
+         @replies_pages = []
+         @loadReplies()
 
       prepReply: (reply) =>
          reply.image_url = reply.image_url or ""

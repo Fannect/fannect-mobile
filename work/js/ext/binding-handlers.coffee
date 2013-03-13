@@ -6,10 +6,12 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
          duration = allBindings.duration or 400
          hideInstant = allBindings.hideInstant or false
          if valueUnwrapped
-            $(element).fadeIn duration
+            $(element).stop().fadeIn duration
          else
-            if hideInstant then $(element).hide()
-            else $(element).fadeOut duration
+            if hideInstant
+               $(element).stop().hide()
+            else
+               $(element).stop().fadeOut duration
 
    ko.bindingHandlers.slideInOut = 
       init: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
