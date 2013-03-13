@@ -151,6 +151,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          if forge.is.mobile() and (i = url.indexOf("/src/")) != -1
             url = url.substring(i + 5) 
 
+         # console.log "PUSH URL: #{url} ----------------------------"
          cachedParams[url] = params
          
       popCachedParams: (url, extend = {}) ->
@@ -159,9 +160,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          url = url.substring(1) if url[0] == "/"
 
          # Parse url for mobile
-         if forge.is.mobile() and (i = url.indexOf("/src/")) != -1
-            url = url.substring(i + 5) 
+         if forge.is.mobile() and (i = url.indexOf("src/")) != -1
+            url = url.substring(i + 4) 
 
+         # console.log "POP URL: #{url} ----------------------------"
          params = cachedParams[url]
 
          return unless params
@@ -274,6 +276,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       # scroll to previous position
       if page.auto_scroll and vm
          $.mobile.silentScroll(vm.prev_scroll_top) if vm?.prev_scroll_top
+      else
+         # Force window to be at the very top
+         window.scrollTo(0)
+
 
    pageBeforeHide = () ->
       $page = $(@)
@@ -283,6 +289,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       # save position of window
       vm.prev_scroll_top = $(window).scrollTop() if vm
+
+      # Force window to be at the very top
+      window.scrollTo(0)
 
       # stop all scrollers
       $(".scrolling-text", $page).scroller("start") if page.scroller 
