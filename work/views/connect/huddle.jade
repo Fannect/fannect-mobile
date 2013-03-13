@@ -28,10 +28,11 @@ block content
    ul.pattern-bg(data-role="listview", data-bind="foreach: huddles, listviewUpdate: huddles, visible: huddles().length > 0").huddles
       li.huddle
          a(href="connect-huddle-replies.html", data-bind="params:{'huddle_id': _id}, showListviewClick: true", data-transition="slide")
-            .verified-icon(data-bind="setClass: $data.owner_verified")
+            
             .topic(data-bind="text: topic")
             .owner 
                | Started by <span data-bind="text: owner_name"></span>
+               //- | <span class="verified-icon" data-bind="setClass: $data.owner_verified"></span>
             .meta
                span.count
                   | <span data-bind="text: (reply_count == 1 ? 'No Replies' : (reply_count - 1) + (reply_count > 2 ? ' Replies' : ' Reply')) "></span>
