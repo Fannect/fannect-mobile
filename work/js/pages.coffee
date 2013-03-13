@@ -97,8 +97,8 @@ window.fannect.pages =
    ###
    # Connect
    ###
-   "connect-page":
-      classes: ["light-background"]
+   "connect-page": {}
+      # classes: ["light-background"]
       
    "connect-roster-page":
       vm: vm.Connect.Roster
@@ -140,8 +140,8 @@ window.fannect.pages =
       buttons: [
          {
             position: "right"
-            text: "Huddle Up"
-            tint: [193, 39, 45, 160]
+            text: "Tag"
+            # tint: [193, 39, 45, 160]
          }
       ]
       classes: ["dark-background"] 

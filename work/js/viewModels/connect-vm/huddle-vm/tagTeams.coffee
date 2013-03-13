@@ -43,8 +43,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @conference_name(team.conference_name)
                @is_college(team.is_college or false)
 
-         console.log "TAG PARAMS", @params
-
          if @params?.tagged
             @include_league(@params.tagged.include_league or false)
             @include_conference(@params.tagged.include_conference or false)

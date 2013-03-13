@@ -34,7 +34,7 @@ block content
                | Started by <span data-bind="text: owner_name"></span>
             .meta
                span.count
-                  | <span data-bind="text: reply_count + (reply_count > 1 ? ' Replies' : ' Reply') "></span>
+                  | <span data-bind="text: (reply_count == 1 ? 'No Replies' : (reply_count - 1) + (reply_count > 2 ? ' Replies' : ' Reply')) "></span>
                .stars
             .date
                | Last Comment <span class="day" data-bind="text: date"></span> at <span data-bind="text: time"></span>
@@ -44,4 +44,4 @@ block content
       .subtitle Start the conversation!
       a.createHuddle(href="connect-huddle-newTopic.html", data-transition="slidedown", data-bind="showClick: true")
 
-   .loading-more-indicator(data-bind="visible: loading_more", style="display:none;")
+   .loading-more-indicator-text(data-bind="visible: loading_more", style="display:none;") Loading...

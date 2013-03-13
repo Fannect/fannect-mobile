@@ -146,14 +146,24 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          parsed = $.mobile.path.parseUrl(url)
          url = parsed.pathname+parsed.search
          url = url.substring(1) if url[0] == "/"
-         cachedParams[url] = params
 
+         # Parse url for mobile
+         if forge.is.mobile() and (i = url.indexOf("/src/")) != -1
+            url = url.substring(i + 5) 
+
+         cachedParams[url] = params
+         
       popCachedParams: (url, extend = {}) ->
          parsed = $.mobile.path.parseUrl(url)
          url = parsed.pathname + parsed.search
          url = url.substring(1) if url[0] == "/"
 
+         # Parse url for mobile
+         if forge.is.mobile() and (i = url.indexOf("/src/")) != -1
+            url = url.substring(i + 5) 
+
          params = cachedParams[url]
+
          return unless params
          extend[k] = v for k, v of params
          delete cachedParams[url]
