@@ -74,7 +74,8 @@
         }, 
         "requirements": {
             "android": {
-                "minimum_version": "5"
+                "minimum_version": "5",
+                "disable_ics_acceleration": true
             }, 
             "ios": {
                 "device_family": "iphone", 
