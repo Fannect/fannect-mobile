@@ -48,9 +48,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          ajax = 
             url: "#{fc.getResourceURL()}/v1/images/signature"
             type: "POST"
+            data: {}
 
          ajax.data = { transformation: transforms } if transforms
-
+         
          fc.ajax ajax, (err, data) =>
             return done(err) if err
             return done(data) if data?.status == "error"
