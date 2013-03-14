@@ -148,10 +148,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          url = url.substring(1) if url[0] == "/"
 
          # Parse url for mobile
-         if forge.is.mobile() and (i = url.indexOf("/src/")) != -1
-            url = url.substring(i + 5) 
+         if forge.is.mobile() and (i = url.indexOf("src/")) != -1
+            url = url.substring(i + 4) 
 
-         # console.log "PUSH URL: #{url} ----------------------------"
+         console.log "PUSH URL: #{url} ----------------------------"
          cachedParams[url] = params
          
       popCachedParams: (url, extend = {}) ->
@@ -163,7 +163,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          if forge.is.mobile() and (i = url.indexOf("src/")) != -1
             url = url.substring(i + 4) 
 
-         # console.log "POP URL: #{url} ----------------------------"
+         console.log "POP URL: #{url} ----------------------------"
          params = cachedParams[url]
 
          return unless params

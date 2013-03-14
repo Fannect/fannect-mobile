@@ -17,6 +17,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @current_page = ko.observable(1)
          @page_count = ko.observable(1)
          @current_page_text = ko.computed () => 
+            return "" if @page_count() == 0
+
             return "Page #{@current_page()}<span class='slash'>/</span>#{@page_count()}"
 
          @current_page.subscribe () => 
@@ -41,7 +43,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
                @prepReply(reply) for reply in data.replies
                @page_count(Math.ceil(data.meta.count / @limit))
-               console.log @page_count
                   
                # check if still on the same page   
                @replies(data.replies) if page == @current_page()

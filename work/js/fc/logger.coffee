@@ -6,7 +6,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
    fc.logger =
       setup: () ->
          window.onerror = (m, u, l) ->
-            forge.logging.critical "HIT ERROR:\n message: #{m},\n url: #{u},\n line: #{l}"
+            forge.logging.critical "HIT ERROR:\n message: #{m},\n url: #{u},\n line: #{l}, history: #{JSON.stringify(history)}"
             fc.logger.sendError
                message: m
                url: u
@@ -28,7 +28,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          log.type = "error"
          fc.logger._send(log)  
 
-         if shouldReset
+         if shouldReset and forge.is.mobile()
             fc.mobile.clearBottomButtons()
             forge.topbar.removeButtons()
             window.location = "profile.html?reset=true" 
