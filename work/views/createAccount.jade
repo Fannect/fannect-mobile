@@ -12,6 +12,6 @@ block content
       input(type="password", name="password", data-bind="value: password", placeholder="password")
       input(type="password", name="password", data-bind="value: confirm_password, onEnter: createAccount", placeholder="confirm")
       
-      button(data-role="button", data-bind="click: createAccount") Create Account
+      a(data-role="button", data-bind="click: createAccount, showClick: true") Create Account
 
 block footer

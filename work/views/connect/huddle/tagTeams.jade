@@ -27,7 +27,7 @@ block content
 
    input(type="search", data-bind="value: query, valueUpdate: ['afterkeydown'], onEnterOrBlur: androidSearch")
 
-   ul.dark-pattern-bg.has-search.searched(data-role="listview", data-theme="b", data-bind="foreach: searched_teams, listviewUpdate: searched_teams")
+   ul.dark-pattern-bg.has-search.searched(data-role="listview", data-theme="b", data-bind="template: { foreach: searched_teams }, listviewUpdate: searched_teams")
       li(data-bind="css:{'selected':selected}, visible: !selected()")
          a(data-bind="click: $parent.selectTeam, text: full_name")
    

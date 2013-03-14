@@ -1,7 +1,7 @@
 extend layout
 
 block header
-   h1 Sign In
+   h1(data-menu-root="none") Sign In
    
 block content
    .logo
@@ -11,7 +11,7 @@ block content
       input(type="email", pattern="[^ @]*@[^ @]*", name="email", id="email", data-bind="valueWithInit: email", placeholder="email")
       input(type="password", name="password", id="password", data-bind="valueWithInit: password, onEnter: login", placeholder="password")
       .button-wrap
-         button(data-role="button", type="submit", data-theme="a", aria-disabled="false", data-bind="click: login") Login
+         a(data-role="button", type="submit", data-theme="a", aria-disabled="false", data-bind="click: login, showClick:true") Login
       
       .or-separator
 
@@ -19,4 +19,4 @@ block content
          a(href="createAccount.html", data-role="button", data-transition="slide", data-theme="b", data-mini="true") Create Account
          a(href="resetPassword.html", data-role="button", data-transition="slide", data-theme="b", data-mini="true") Reset Password
     
-   
+block footer

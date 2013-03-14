@@ -10,4 +10,5 @@ block content
    ul.dark-pattern-bg.has-search(data-role="listview", data-theme="b", data-filter-theme="b", data-bind="foreach: teams, listviewUpdate: teams")
       li
          a(data-bind="click: $parent.selectTeam, text: full_name, showListviewClick: true")
-     
+   
+   .loading-more-indicator(data-bind="visible: has_more() && teams().length > 0 || loading_more()", style="display:none;")

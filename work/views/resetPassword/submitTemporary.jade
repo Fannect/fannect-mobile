@@ -12,6 +12,6 @@ block content
          | A password reset code has been emailed to you. Please check your email and input the provided code.
 
       input(type="text", name="password", id="password", data-bind="value: password, onEnter: submitTemporary", placeholder="code")
-      button(data-role="button", type="submit", data-bind="click: submitTemporary") Submit
+      a(data-role="button", type="submit", data-bind="click: submitTemporary, showClick: true") Submit
 
 block footer

@@ -5,7 +5,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super 
          @limit = 20
          @skip = 0
-         @has_more = true
+         @has_more(true)
          @selected_fans = []
          @query = ko.observable("")
          @fans = ko.observableArray()
@@ -26,7 +26,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       androidSearch: () => @search() if forge.is.android()
       search: () =>
          @skip = 0
-         @has_more = true
+         @has_more(true)
          @fans.removeAll()
          @loadFans()
 
@@ -48,7 +48,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   @loading_more false
                , 200
 
-               @has_more = fans.length == @limit
+               @has_more(fans.length == @limit)
                @skip += @limit
                for fan in fans
                   fan.has_motivator = fan.motivator?
@@ -58,7 +58,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       onPageShow: () =>
          super
          $window = $(window).bind "scroll.motivateSelect", () =>
-            if not @loading_more() and @has_more and $window.scrollTop() > $(document).height() - $window.height() - 150
+            if not @loading_more() and @has_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
                @loading_more true
                @loadFans()
 

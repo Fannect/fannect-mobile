@@ -27,3 +27,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   fc.msg.show("Incorrect username or password!")
          else
             fc.msg.show("We need your email and password to log you in!")
+
+      onPageShow: () =>
+         super
+         fc.mobile.setActiveMenu("none")
+         setTimeout (->$.mobile.activePage?.css("min-height", $(window).height())), 150

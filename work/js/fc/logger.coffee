@@ -28,6 +28,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          log.type = "error"
          fc.logger._send(log)  
 
+         forge.logging.critical "RESETTING?: #{shouldReset}"
+
          if shouldReset and forge.is.mobile()
             fc.mobile.clearBottomButtons()
             forge.topbar.removeButtons()

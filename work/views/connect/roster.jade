@@ -13,7 +13,7 @@ block content
    .my-roster-title(data-bind="slideInOut: show_roster_empty") Your Roster is Empty
 
    ul.pattern-bg.has-search(data-role="listview", data-bind="template: { name:'connect-fan-template', foreach: fans }, listviewUpdate: fans, visible: fans().length > 0").fans
-   .loading-more-indicator(data-bind="visible: loading_more", style="display:none;")
+   .loading-more-indicator(data-bind="visible: has_more", style="display:none;")
 
    .share-wrap(data-bind="fadeIn: show_sharing", style="display:none;")
       .sub-title Recruit More Fans!

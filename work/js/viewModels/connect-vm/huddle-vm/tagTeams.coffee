@@ -6,7 +6,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super
          @skip = 0
          @limit = 20
-         @has_more = true
 
          @team_name = ko.observable()
          @league_name = ko.observable()
@@ -14,6 +13,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @is_college = ko.observable()
          @query = ko.observable()
          @loading_more = ko.observable()
+         @has_more = ko.observable(true)
          
          @include_conference = ko.observable(false)
          @include_league = ko.observable(false)
@@ -44,8 +44,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @is_college(team.is_college or false)
 
          if @params?.tagged
-            @include_league(@params.tagged.include_league or false)
-            @include_conference(@params.tagged.include_conference or false)
+            @include_league(if @params.tagged?.include_league then true else false)
+            @include_conference(if @params.tagged?.include_conference then true else false)
             @selected_teams([]) 
             if @params.tagged.include_teams
                for t in @params.tagged.include_teams
@@ -73,9 +73,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       androidSearch: () => @search() if forge.is.android()  
       search: () =>
          @skip = 0
-         @has_more = true
+         @has_more(true)
          @searched_teams.removeAll()
          @loadTeams()
+
+         forge.logging.critical "body: #{$('body').height()} -----------------------"
 
       loadTeams: () =>
          return unless @query()?.length > 0
@@ -90,7 +92,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                return fc.msg.show("Unable to load teams!") if err
                return if query != @query()
                @skip += @limit
-               @has_more = teams.length == @limit
+               @has_more(teams.length == @limit)
 
                for team in teams
                   is_selected = false
@@ -101,11 +103,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                         break
                   team.selected = ko.observable(false) unless is_selected
                   @searched_teams.push(team)
+                  setTimeout (->forge.logging.critical "body: #{$('body').height()} -----------------------"), 10
 
       onPageShow: () =>
          super
          $window = $(window).bind "scroll.tagTeams", () =>
-            if not @loading_more() and @has_more and $window.scrollTop() > $(document).height() - $window.height() - 150
+            if not @loading_more() and @has_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
                @loadTeams()
          
       onPageHide: () =>
@@ -115,8 +118,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       rightButtonClick: () =>
          tagged =
-            include_league: @include_league() or false
-            include_conference: @include_conference() or false
+            include_league: if @include_league() then @league_name() else false
+            include_conference: if @include_conference() then @conference_name() else false
             include_teams: @selected_teams()
 
          fc.nav.goBack(null, tagged: tagged)

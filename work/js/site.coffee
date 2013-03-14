@@ -36,6 +36,7 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       
       if forge.is.mobile()
          $("html").addClass("is-mobile")
+         # $("#index-page .header, #index-page .footer").remove()
 
          forge.reload.updateReady.addListener () ->
             dialog = $(".updatePopup", $.mobile.activePage).first()
@@ -76,6 +77,6 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
 
       # Remove button styling to avoid double styling
       $("#index-page").live "pagehide", () ->
-         $("button", @).detach().appendTo(".button-wrap", @)
+         $(".button-wrap a", @).detach().appendTo(".button-wrap", @)
          $("div.ui-btn", @).remove()
          

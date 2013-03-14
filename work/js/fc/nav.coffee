@@ -113,11 +113,12 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       setActiveMenu: (hide) ->
          menu = if hide then "none" else activeHistoryPath 
+         console.log "MENU", menu
          if forge.is.web()
             $(".footer .ui-btn-active").removeClass("ui-btn-active").removeClass("ui-btn-persist")
             $(".footer ." + menu + "-menu").addClass("ui-btn-active").addClass("ui-btn-persist")
          else
-            fc.mobile.setActiveMenu menu
+            fc.mobile.setActiveMenu(menu)
 
       closePopup: () ->
          historyPaths[activeHistoryPath].current().go("pop")
@@ -183,7 +184,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       if forge.is.mobile()
          # Hide header and footer for mobile
          $(".header", @).removeAttr("data-role data-position data-tap-toggle").css(display: "none")
-         $(".footer", @).removeAttr("data-role data-position data-tap-toggle").css(display: "none")
+         $(".footer", @).remove()
 
    pageInit = () ->
       $page = $(@)
@@ -232,6 +233,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       # Add text to native header
       fc.mobile.setHeaderText()
 
+      # make sure height is at least height of the window
+      if forge.is.mobile()
+         $page.css("min-height", $(window).height())
+
       # scroll to previous position
       # if page.auto_scroll and vm?.prev_scroll_top
       #    $page.height($(window).height() + vm?.prev_scroll_top)
@@ -248,6 +253,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       # start any scrollers on the page
       $(".scrolling-text", $page).scroller("start") if page.scroller 
+      $page.css({position: "relative"})
 
       # send flurry event
       fc.logger.flurry("#{id} Page")

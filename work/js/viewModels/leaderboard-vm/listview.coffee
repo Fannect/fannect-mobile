@@ -5,18 +5,18 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super
          @limit = 20
          @skip = 0
-         @no_more_results = false
          @track_scrolling = true
 
          @items = ko.observableArray()
-         @loading_more = ko.observable false
+         @loading_more = ko.observable(false)
+         @has_more = ko.observable(true)
    
          # reload results if team profile changes
          fc.team.onActiveChanged () =>
             @previous_scroll_top = 0
             @items.removeAll()
             @skip = 0
-            @no_more_results = false
+            @has_more(true)
             @loadFans()
          
          # Load immediately
@@ -29,7 +29,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       extractList: (data) -> return data
       
       loadFans: () =>
-         return if @no_more_results
+         return unless @has_more()
          @loading_more(true)
          @getUrl (url) =>
             fc.ajax 
@@ -41,17 +41,15 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                
                items = @extractList(result)
 
-               if items.length > 0
-                  @no_more_results = items.length < @limit
-                  @skip += @limit
-                  @items.push team for team in items
-               else
-                  @no_more_results = true
-            return true
+               @has_more(items.length == @limit)
+               @skip += @limit
+               @items.push team for team in items
+
+               return true
 
       onPageShow: () ->
          $window = $(window).bind "scroll.leaderboard", () =>
-            if not @loading_more() and not @no_more_results and $window.scrollTop() > $(document).height() - $window.height() - 150
+            if not @loading_more() and @has_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
                @loadFans()
 
       onPageHide: () => $(window).unbind("scroll.leaderboard")

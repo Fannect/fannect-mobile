@@ -6,7 +6,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super
          @limit = 20
          @skip = 0
-         @has_more = false
+         @has_more = ko.observable(false)
          @created_by = "any"
          @sort_by = ko.observable("most_active")
          @team_name = ko.observable()
@@ -48,7 +48,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             return fc.msg.show("Failed to load huddles..") if err
             return unless (sort_by == @sort_by() and created_by == @created_by)
             @skip += @limit
-            @has_more = huddles.length == @limit
+            @has_more(huddles.length == @limit)
             @huddles.push(@addDateTime(huddle)) for huddle in huddles
 
       load: () =>
@@ -92,7 +92,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       onPageShow: () =>
          $window = $(window).bind "scroll.huddlepage", () =>
-            if not @loading_more() and @has_more and $window.scrollTop() > $(document).height() - $window.height() - 150
+            if not @loading_more() and @has_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
                @loadHuddles()
          
       onPageHide: () => $(window).unbind("scroll.huddlepage")
