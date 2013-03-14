@@ -86,7 +86,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @replies(@replies_pages[@current_page()-1])
 
       rightButtonClick: () =>
-         $.mobile.changePage "connect-huddle-newReply.html?huddle_id=#{@params.huddle_id}", transition: "slide"
+         $.mobile.changePage "connect-huddle-newReply.html?huddle_id=#{@params.huddle_id}&owner=#{@huddle.owner_name}&topic=#{@huddle.topic}", transition: "slide"
 
       firstPage: () =>
          @current_page(1) if @current_page() != 1
