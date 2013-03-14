@@ -60,53 +60,53 @@ html
                      li: a.leaderboard-menu(href="javascript:fannect.nav.changeActiveHistoryOrBack('leaderboard')", data-icon="custom") Leaderboard
                      li: a.connect-menu(href="javascript:fannect.nav.changeActiveHistoryOrBack('connect')", data-icon="custom") Connect
                  
-      script(id="connect-fan-template", type="text/html")
-         li.fan
-            a(data-bind="click: $parent.selectUser, showListviewClick: true")
-               .image-wrap
-                  img.profile-image(data-bind="thumbnailSrc: profile_image_url")
-                  .cover
-                  .verified-icon(data-bind="setClass: $data.verified")
-               .text-wrapper
-                  .fan-name(data-bind="text: name")
-
-      script(id="motivate-fan-template", type="text/html")
-         li.fan(data-bind="css:{'selected':selected,'face-on':gameface_on,'face-off':has_motivator}")
-            a(data-bind="click: $parent.selectUser")
-               .image-wrap
-                  img.profile-image(data-bind="thumbnailSrc: profile_image_url")
-                  .cover
-                  .verified-icon(data-bind="setClass: $data.verified")
-               .text-wrapper
-                  .fan-name(data-bind="text: name")
-
-      script(id="invite-fan-template", type="text/html")
-         li.invite-item(data-icon="false")
-            a(data-bind="click: $parent.selectUser, showListviewClick: true")
-               .left-icon.cancel(data-bind="click: $parent.removeInvite, clickBubble: false")
-               .image-wrap
-                  img.profile-image(data-bind="thumbnailSrc: profile_image_url")
-                  .cover
-                  .verified-icon(data-bind="setClass: $data.verified")
+   script(id="connect-fan-template", type="text/html")
+      li.fan
+         a(data-bind="click: $parent.selectUser, showListviewClick: true")
+            .image-wrap
+               img.profile-image(data-bind="thumbnailSrc: profile_image_url")
+               .cover
+               .verified-icon(data-bind="setClass: $data.verified")
+            .text-wrapper
                .fan-name(data-bind="text: name")
-               .teams(data-bind="html: teams_text")
-               .right-icon.accept(data-bind="showClick: true, click: $parent.acceptInvite, clickBubble: false")
 
-      script(id="leaderboard-fan-template", type="text/html")
-         li.fan(data-icon="false")
-            a(data-bind="click: $parent.selectUser, showListviewClick: true")
-               .image-wrap
-                  img.profile-image(data-bind="thumbnailSrc: profile_image_url")
-                  .cover
-                  .verified-icon(data-bind="setClass: $data.verified")
-               .text-wrapper
-                  .fan-name(data-bind="text: name")
-               .right-icon.rank(data-bind="text: $index() + 1")
+   script(id="motivate-fan-template", type="text/html")
+      li.fan(data-bind="css:{'selected':selected,'face-on':gameface_on,'face-off':has_motivator}")
+         a(data-bind="click: $parent.selectUser")
+            .image-wrap
+               img.profile-image(data-bind="thumbnailSrc: profile_image_url")
+               .cover
+               .verified-icon(data-bind="setClass: $data.verified")
+            .text-wrapper
+               .fan-name(data-bind="text: name")
 
-      script(id="leaderboard-team-template", type="text/html")
-         li.team-item(data-icon="false")
-            a(data-bind="click: $parent.selectTeam, showListviewClick: true")
-               .team-name(data-bind="text: full_name")
-               .right-icon.rank(data-bind="text: $index() + 1")
-      
-      script(src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA-5MPSqCyP-AUbG9NeKBEr5FBs4xz28s0&libraries=geometry&sensor=false&callback=mapsInitialized")
+   script(id="invite-fan-template", type="text/html")
+      li.invite-item(data-icon="false")
+         a(data-bind="click: $parent.selectUser, showListviewClick: true")
+            .left-icon.cancel(data-bind="click: $parent.removeInvite, clickBubble: false")
+            .image-wrap
+               img.profile-image(data-bind="thumbnailSrc: profile_image_url")
+               .cover
+               .verified-icon(data-bind="setClass: $data.verified")
+            .fan-name(data-bind="text: name")
+            .teams(data-bind="html: teams_text")
+            .right-icon.accept(data-bind="showClick: true, click: $parent.acceptInvite, clickBubble: false")
+
+   script(id="leaderboard-fan-template", type="text/html")
+      li.fan(data-icon="false")
+         a(data-bind="click: $parent.selectUser, showListviewClick: true")
+            .image-wrap
+               img.profile-image(data-bind="thumbnailSrc: profile_image_url")
+               .cover
+               .verified-icon(data-bind="setClass: $data.verified")
+            .text-wrapper
+               .fan-name(data-bind="text: name")
+            .right-icon.rank(data-bind="text: $index() + 1")
+
+   script(id="leaderboard-team-template", type="text/html")
+      li.team-item(data-icon="false")
+         a(data-bind="click: $parent.selectTeam, showListviewClick: true")
+            .team-name(data-bind="text: full_name")
+            .right-icon.rank(data-bind="text: $index() + 1")
+   
+   script(src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA-5MPSqCyP-AUbG9NeKBEr5FBs4xz28s0&libraries=geometry&sensor=false&callback=mapsInitialized")

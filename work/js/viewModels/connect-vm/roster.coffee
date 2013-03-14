@@ -13,7 +13,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @show_sharing = ko.observable false
          @show_roster_title = ko.observable(true)
          @show_roster_empty = ko.observable(false)
-         @has_more = true
+         @has_more = ko.observable(true)
 
          # set up instant search for everything but Androids
          if not forge.is.android()
@@ -37,7 +37,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       androidSearch: () => @search() if forge.is.android()
       search: () =>
-         @has_more = true
+         @has_more(true)
          @skip = 0
          @fans.removeAll()
          @loadFans()
@@ -57,7 +57,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @show_sharing(@fans().length == 0 and cached_query.length > 0)
             , 200
 
-            @has_more = fans.length == @limit
+            @has_more(fans.length == @limit)
             @skip += @limit
             @fans.push fan for fan in fans
             
@@ -75,7 +75,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       onPageShow: () =>
          $window = $(window).bind "scroll.connectpage", () =>
-            if not @loading_more() and @has_more and $window.scrollTop() > $(document).height() - $window.height() - 150
+            if not @loading_more() and @has_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
                @loading_more true
                @loadFans()
          

@@ -18,6 +18,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          , (button) ->
             name = text.toLowerCase()
             fc.mobile._buttons[name] = button
+            $.mobile.activePage?.css("min-height", $("body").height())
             
             if fc.mobile._waiting_to_activate == name
                button.setActive()
@@ -46,7 +47,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             if fc.mobile._buttons[name] then fc.mobile._buttons[name].setActive()
             else fc.mobile._waiting_to_activate = name
          else
-            forge.tabbar.hide () -> $.mobile.activePage?.css("min-height", $("body").height())
+            forge.tabbar.hide () -> $.mobile.activePage?.css("min-height", $(window).height())
 
       setHeaderText: () ->
          if forge.is.mobile()

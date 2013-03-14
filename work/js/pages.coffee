@@ -97,7 +97,8 @@ window.fannect.pages =
    ###
    # Connect
    ###
-   "connect-page": {}
+   "connect-page":
+      vm: vm.Base
       # classes: ["light-background"]
       
    "connect-roster-page":

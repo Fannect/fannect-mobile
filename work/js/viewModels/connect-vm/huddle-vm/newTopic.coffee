@@ -10,6 +10,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @image_url = ko.observable("")
          # @image_url = ko.observable("http://res.cloudinary.com/fannect-dev/image/upload/q_100,w_376,h_376/ihjsx2c4ipyhg06kadrb.jpg")
          @show_remove_image = ko.observable(false)
+         @tagged_teams_text = ko.observable("")
          @tagged = null
 
       load: () =>
@@ -19,8 +20,16 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @tagged.include_conference = @params.tagged.include_conference
             @tagged.include_league = @params.tagged.include_league
 
+         if @tagged?.include_teams? or @tagged?.include_conference or @tagged?.include_league
+            names = []
+            names.push(@tagged.include_league) if @tagged.include_league
+            names.push(@tagged.include_conference) if @tagged.include_conference
+            names.push(t.full_name) for t in @tagged.include_teams if @tagged.include_teams
+            if names.length > 0 then @tagged_teams_text("+ #{names.join(', ')}")
+            else @tagged_teams_text("")
+
       chooseTaggedTeams: () =>
-         $.mobile.changePage "connect-huddle-tagTeams.html", { transition: "slidedown", params: tagged: @tagged }
+         $.mobile.changePage "connect-huddle-tagTeams.html", { transition: "none", params: tagged: @tagged }
 
       chooseImage: () =>
          forge.file.getImage null, (file) =>
@@ -47,6 +56,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                if @tagged?.include_teams
                   include_teams = (t._id for t in @tagged.include_teams)
 
+               include_league = if @tagged?.include_league then true else false
+               include_conference = if @tagged?.include_conference then true else false
+
                fc.ajax 
                   url: "#{fc.getResourceURL()}/v1/teams/#{profile.team_id}/huddles"
                   type: "POST"
@@ -54,10 +66,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      team_profile_id: profile._id
                      topic: @topic()
                      content: @message()
-                     image_url: @image_url()
+                     image_url: uploaded_image_url
                      include_teams: include_teams
-                     include_league: @tagged?.include_league
-                     include_conference: @tagged?.include_conference
+                     include_league: include_league
+                     include_conference: include_conference
                , (err, resp) =>
                   fc.msg.hide()
                   if err or resp.status == "error"
@@ -80,4 +92,5 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                uploaded_image_url = data?.url
                send()
          else
+            uploaded_image_url = @image_url()
             send()

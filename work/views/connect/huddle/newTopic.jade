@@ -8,9 +8,10 @@ block header
 block content
    input.inset-input.topic(type="text", data-bind="value: topic, valueUpdate: ['afterkeydown']", placeholder="Enter your topic")
    .message-wrap
-      textarea.message(data-bind="value: message, valueUpdate: ['afterkeydown'], css:{'has-image':image_url().length > 0}", placeholder="Enter your reply")
+      textarea.message(data-bind="value: message, valueUpdate: ['afterkeydown'], css:{'has-image':image_url().length > 0}", placeholder="Enter your post")
       .attached-image(data-bind="visible:image_url().length > 0, click: showRemoveImage, clickBubble:false, css:{'selected':show_remove_image}")
          img(data-bind="attr:{src:image_url}")
          .remove-attached-image(data-bind="clickOff: show_remove_image, click: removeImage, slideInOutHorz: show_remove_image") Remove
    .camera-button(data-bind="click: chooseImage, showClick: true")
    .tag-teams-button(data-bind="click: chooseTaggedTeams, showClick: true")
+   .tagged-teams(data-bind="text: tagged_teams_text")

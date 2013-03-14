@@ -18,6 +18,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       load: () =>
          @selected = false
          @query("")
+         @skip = 0
          @images.removeAll()
 
       search: () =>
@@ -41,7 +42,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/images/bing?q=#{escape(query)}&limit=#{@limit}&skip=#{@skip}"
             type: "GET"
-         , (error, data) =>
+         , (err, data) =>
+            return fc.msg.show("Failed to search images!") if err or data?.status == "fail"
             if query == @query()
                setTimeout (() => @loading_more(false)), 200 # wait for images to load fully
                @has_searched = true

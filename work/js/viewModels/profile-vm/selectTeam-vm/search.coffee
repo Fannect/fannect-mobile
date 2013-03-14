@@ -8,7 +8,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @query = ko.observable("")
          @teams = ko.observableArray []
          @loading_more = ko.observable false
-         @has_more = true
+         @has_more = ko.observable true
 
          if not forge.is.android()
             @query.subscribe () =>
@@ -21,35 +21,37 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       androidSearch: () => @search() if forge.is.android()  
       search: () =>
          @skip = 0
-         @has_more = true
+         @has_more(true)
          @teams.removeAll()
          @loadTeams()
 
       loadTeams: () =>
          return unless @query()?.length > 0
-         @loading_more true
+         @loading_more(true)
          query = @query()
 
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/sports/#{@params.sport_key}/teams?limit=#{@limit}&skip=#{@skip}&q=#{escape(query)}"
             type: "GET"
          , (err, teams) =>
+            @loading_more(false)
             return fc.msg.show("Unable to load teams!") if err
             return if query != @query()
             @skip += @limit
-            @has_more = fans.length == @limit
+            @has_more(teams.length == @limit)
             @teams.push t for t in teams
 
       onPageShow: () =>
          super
          $window = $(window).bind "scroll.searchTeams", () =>
-            if not @loading_more() and @has_more and $window.scrollTop() > $(document).height() - $window.height() - 150
+            if not @loading_more() and @has_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
                @loadTeams()
          
       onPageHide: () =>
          super
          $(window).unbind("scroll.searchTeams")
          @query("")
+         @skip = 0
 
       selectTeam: (data) -> 
          fc.msg.loading("Creating profile...")
@@ -58,6 +60,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             if err?.reason == "duplicate"
                fc.msg.show("You're already a commit fan of #{data.full_name}!")
             else
-               fc.nav.changeActiveHistoryOrBack("profile", transition:"slidedown")
+               fc.nav.changeActiveHistoryOrBack("profile", transition:"slidedown", reverse: true)
 
             
