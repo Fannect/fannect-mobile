@@ -13,25 +13,31 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @show_remove_image = ko.observable(false)
          
       load: () =>
-         return fc.nav.backToRoot("connect") unless @params.huddle_id
-         huddle_id = @params.huddle_id
+         return fc.nav.backToRoot("connect") unless @params?.huddle_id
+
          if @huddle_id != @params.huddle_id
             @huddle_id = @params.huddle_id
             @image = null
-            @topic("")
-            @owner("")
-            # @image_url("http://res.cloudinary.com/fannect-dev/image/upload/q_100,w_376,h_376/ihjsx2c4ipyhg06kadrb.jpg")
+
             @image_url("")
             @message("")
-            fc.team.getActive (err, profile) =>
-               fc.ajax
-                  url: "#{fc.getResourceURL()}/v1/huddles/#{@params.huddle_id}"
-                  type: "GET"
-               , (err, huddle) =>
-                  return fc.msg.show("Unable to load huddle information") if err or huddle?.status == "fail"
-                  return unless huddle_id == @huddle_id
-                  @topic(huddle.topic)
-                  @owner(huddle.owner_name)
+
+            if @params.topic?.length > 0 and @params.owner?.length > 1
+               @topic(@params.topic)
+               @owner(@params.owner)
+            else
+               @topic("")
+               @owner("")
+               # @image_url("http://res.cloudinary.com/fannect-dev/image/upload/q_100,w_376,h_376/ihjsx2c4ipyhg06kadrb.jpg")
+               fc.team.getActive (err, profile) =>
+                  fc.ajax
+                     url: "#{fc.getResourceURL()}/v1/huddles/#{@params.huddle_id}"
+                     type: "GET"
+                  , (err, huddle) =>
+                     return fc.msg.show("Unable to load huddle information") if err or huddle?.status == "fail"
+                     return unless huddle_id == @huddle_id
+                     @topic(huddle.topic)
+                     @owner(huddle.owner_name)
 
       chooseImage: () =>
          forge.file.getImage null, (file) =>
