@@ -6,7 +6,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
    fc.logger =
       setup: () ->
          window.onerror = (m, u, l) ->
-            forge.logging.critical "HIT ERROR:\n message: #{m},\n url: #{u},\n line: #{l}"
+            forge.logging.critical "HIT ERROR:\n message: #{m},\n url: #{u},\n line: #{l}, history: #{JSON.stringify(history)}"
             fc.logger.sendError
                message: m
                url: u
@@ -21,24 +21,25 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       flurry: (key, params) ->
          params = params or { show: true }
+         fc.logger.log(key)
          forge.flurry.customEvent(key, params)
 
-      sendError: (log) ->
+      sendError: (log = {}) ->
          log.type = "error"
          fc.logger._send(log)  
 
-         if shouldReset
+         if shouldReset and forge.is.mobile()
             fc.mobile.clearBottomButtons()
             forge.topbar.removeButtons()
             window.location = "profile.html?reset=true" 
          
-      sendLog: (log) ->
+      sendLog: (log = {}) ->
          if typeof log == "string"
             log = { message: log }
          log.type = "log"
          fc.logger._send(log)  
 
-      _send: (log) ->
+      _send: (log = {}) ->
          log.page = $.mobile?.activePage?.attr("id")
          log.history = JSON.stringify(history)
          forge.ajax

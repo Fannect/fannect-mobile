@@ -21,7 +21,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             else loadedInvites = invs
 
       selectUser: (data) -> 
-         $.mobile.changePage "profile-other.html?user_id=#{data._id}&action=accept"
+         $.mobile.changePage "profile-other.html?user_id=#{data._id}&action=accept", transition: "slide"
       hideInvite: (element) -> $el = $(element).slideUp 400, () -> $el.remove()
       removeInvite: (data) =>
          @invites.remove(data)
