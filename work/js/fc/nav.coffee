@@ -113,7 +113,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       setActiveMenu: (hide) ->
          menu = if hide then "none" else activeHistoryPath 
-         console.log "MENU", menu
          if forge.is.web()
             $(".footer .ui-btn-active").removeClass("ui-btn-active").removeClass("ui-btn-persist")
             $(".footer ." + menu + "-menu").addClass("ui-btn-active").addClass("ui-btn-persist")
