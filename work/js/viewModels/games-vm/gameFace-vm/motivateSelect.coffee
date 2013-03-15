@@ -5,7 +5,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super 
          @limit = 20
          @skip = 0
-         @has_more(true)
+         @has_more = ko.observable(true)
          @selected_fans = []
          @query = ko.observable("")
          @fans = ko.observableArray()

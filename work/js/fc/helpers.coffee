@@ -6,16 +6,16 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
       viewModels: {}
 
    fc.getResourceURL = () ->
-      # "http://api.fannect.me"
+      "http://api.fannect.me"
       # return "http://192.168.2.11:2100"
       # return "http://192.168.0.24:2100"
-      return if forge.is.web() then "http://localhost:2100" else "http://api.fannect.me"
+      # return if forge.is.web() then "http://localhost:2100" else "http://api.fannect.me"
 
    fc.getLoginURL = () ->
-      # "https://fannect-login.herokuapp.com"
+      "https://fannect-login.herokuapp.com"
       # return "http://192.168.2.11:2200"
       # return "http://192.168.0.24:2200"
-      return if forge.is.web() then "http://localhost:2200" else "https://fannect-login.herokuapp.com"
+      # return if forge.is.web() then "http://localhost:2200" else "https://fannect-login.herokuapp.com"
 
    fc.getMenuRoot = (page) -> return $(".header h1", page)?.first()?.attr("data-menu-root")
    fc.getHeaderText = (page) -> return $(".header h1", page).text()
