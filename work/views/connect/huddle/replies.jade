@@ -25,7 +25,7 @@ block content
          .content-wrap
             .content(data-bind="text: content")
             .reply-image-wrap(data-bind="visible: image_url.length > 0")
-               img(data-bind="attr:{'src': image_url}")
+               img(data-bind="getWidestSrc: image_url")
                .cover
          .meta-wrap
             a.image-wrap(href="profile-other.html", data-bind="params:{team_profile_id:owner_id}", data-transition="slide")

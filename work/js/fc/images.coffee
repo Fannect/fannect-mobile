@@ -69,6 +69,15 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                return done(data) if data?.error
                done(null, data)
 
+      getWidestUrl: (url) ->
+         return "" if url == "" 
+         return url unless url.indexOf("cloudinary") >= 0 
+         
+         ratio = window.devicePixelRatio or 1
+         parsed = url.split("/")
+         parsed[parsed.length - 2] = "q_100,w_#{Math.ceil($(window).width()*ratio)}"
+         return parsed.join("/")
+
    getUrl = (url, w, h, quality = 100) ->
       return "" if url == "" 
       return url unless url.indexOf("cloudinary") >= 0 
@@ -77,5 +86,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       parsed = url.split("/")
       parsed[parsed.length - 2] = "q_100,w_#{Math.ceil(w*ratio)},h_#{Math.ceil(h*ratio)}"
       return parsed.join("/")
+
 
      
