@@ -21,8 +21,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                no_access_token: true
             , (err, user) =>
                fc.msg.hide()
-               if err
-                  fc.msg.show("Unexpected failure.. :(")
+               if err or user?.status == "error"
+                  fc.msg.show("Invalid reset code!")
                else
                   fc.user.update(user)  
                   $.mobile.changePage "resetPassword-setPassword.html", transition: "slide"
