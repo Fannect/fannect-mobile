@@ -24,7 +24,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   fc.ajax(options, done)
 
          else if (error?.status == 0 or error.statusText == "timeout" or error?.type == "UNEXPECTED_FAILURE")
-            fc.msg.loading("Request timeout! Retrying...")
+            # Disabled because of poor experience. Often showing up on the wrong page
+            # fc.msg.loading("Request timeout! Retrying...")
             fc.logger.sendError(error)
             setTimeout (() ->
                fc.ajax options, () ->
