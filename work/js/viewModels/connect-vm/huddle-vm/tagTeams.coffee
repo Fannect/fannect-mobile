@@ -7,9 +7,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @skip = 0
          @limit = 20
 
-         @team_name = ko.observable()
-         @league_name = ko.observable()
-         @conference_name = ko.observable()
+         @team_name = ko.observable("Loading...")
+         @league_name = ko.observable("Loading...")
+         @conference_name = ko.observable("Loading...")
          @is_college = ko.observable()
          @query = ko.observable()
          @loading_more = ko.observable()
@@ -77,8 +77,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @searched_teams.removeAll()
          @loadTeams()
 
-         forge.logging.critical "body: #{$('body').height()} -----------------------"
-
       loadTeams: () =>
          return unless @query()?.length > 0
          @loading_more true
@@ -103,8 +101,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                         break
                   team.selected = ko.observable(false) unless is_selected
                   @searched_teams.push(team)
-                  setTimeout (->forge.logging.critical "body: #{$('body').height()} -----------------------"), 10
-
+                  
       onPageShow: () =>
          super
          $window = $(window).bind "scroll.tagTeams", () =>
