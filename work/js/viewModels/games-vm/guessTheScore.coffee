@@ -44,12 +44,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             , (error, data) =>
                return fc.msg.show("Unable to load game information!") if error
                
+
                @game_data.set(data)
                @picked_at_load(data.meta?.picked or false)
                @pick_set(data.meta?.picked or false)
 
-               @home_score if @picked_at_load() then data.meta.home_score else null
-               @away_score if @picked_at_load() then data.meta.away_score else null
+               @home_score(if @picked_at_load() then data.meta.home_score else null)
+               @away_score(if @picked_at_load() then data.meta.away_score else null)
 
                if not data.available
                   @picked_at_load(true)

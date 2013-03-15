@@ -5,21 +5,22 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
          allBindings = allBindingAccessor()
          duration = allBindings.duration or 400
          hideInstant = allBindings.hideInstant or false
+         $el = $(element).stop(true, true)
          if valueUnwrapped
-            $(element).stop().fadeIn duration
+            $el.fadeIn duration
          else
             if hideInstant
-               $(element).stop().hide()
+               $el.hide()
             else
-               $(element).stop().fadeOut duration
+               $el.fadeOut duration
 
    ko.bindingHandlers.slideInOut = 
       init: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
          if valueUnwrapped
-            $(element).stop().show()
+            $(element).show()
          else
-            $(element).stop().hide()
+            $(element).hide()
 
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
@@ -33,16 +34,17 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
    ko.bindingHandlers.slideInOutHorz = 
       init: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
+         $el = $(element).stop(true, true)
          if valueUnwrapped
-            $(element).stop().show()
+            $el.show()
          else
-            $(element).stop().hide()
+            $el.hide()
 
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
          allBindings = allBindingAccessor()
          duration = allBindings.duration or 400
-         $el = $(element).stop()
+         $el = $(element).stop(true, true)
          if valueUnwrapped
             $el.animate {width: "show"}, duration
          else
@@ -302,7 +304,7 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
                
                # Change title
                if options.titles
-                  title.text(options.titles[index]).stop().fadeIn({ opacity: 1 }, 300)
+                  title.text(options.titles[index]).stop(true, true).fadeIn({ opacity: 1 }, 300)
 
                if prevIndex != index
                   options.hide(prevIndex)

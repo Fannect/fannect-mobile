@@ -24,7 +24,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          fc.logger.log(key)
          forge.flurry.customEvent(key, params)
 
-      sendError: (log = {}) ->
+      sendError: (log = {}, reset = false) ->
          log.type = "error"
          fc.logger._send(log)  
 
