@@ -30,7 +30,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
          forge.logging.critical "RESETTING?: #{shouldReset}"
 
-         if shouldReset and forge.is.mobile()
+         if shouldReset and not forge.is.web()
             fc.mobile.clearBottomButtons()
             forge.topbar.removeButtons()
             window.location = "profile.html?reset=true" 
