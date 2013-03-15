@@ -216,6 +216,11 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
          valueUnwrapped = ko.utils.unwrapObservable valueAccessor()
          $(element).css("width", valueUnwrapped + "%")
 
+   ko.bindingHandlers.getWidestSrc =
+      update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
+         img = ko.utils.unwrapObservable valueAccessor()
+         $(element).attr("src", fc.images.getWidestUrl(img))
+
    ko.bindingHandlers.thumbnailSrc =
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->
          img = ko.utils.unwrapObservable valueAccessor()
