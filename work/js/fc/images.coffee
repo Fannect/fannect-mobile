@@ -45,6 +45,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             done = transforms
             transforms = null
 
+
          ajax = 
             url: "#{fc.getResourceURL()}/v1/images/signature"
             type: "POST"
@@ -55,7 +56,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          fc.ajax ajax, (err, data) =>
             return done(err) if err
             return done(data) if data?.status == "error"
-
+            
             # use the information for the server to send image
             file.name = "file"
             fc.ajax
@@ -64,6 +65,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                files: [file]
                data: data.params
                timeout: 120000
+               no_access_token: true
             , (err, data) ->
                return done(err) if err
                return done(data) if data?.error
