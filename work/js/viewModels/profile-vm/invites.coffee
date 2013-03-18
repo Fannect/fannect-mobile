@@ -62,7 +62,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       _setInvites: (teams, invites) =>
          if invites.length > 0
-            text = []
             for inv in invites
                # Check if invite is already listed
                skip = false
@@ -72,6 +71,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      break
 
                continue if skip
+
+               console.log "INVITE:", inv.teams 
+               console.log "TEAMS:", teams
+               text = []
 
                for t in inv.teams
                   if t in teams
