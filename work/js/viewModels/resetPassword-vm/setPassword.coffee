@@ -24,7 +24,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   if err or not (result?.status == "success")
                      fc.msg.show("Unable to update password. :(")
                   else
-                     fc.auth.updateRefreshToken(result.refresh_token)
+                     fc.auth.updateTokens(result.refresh_token, result.access_token)
                      fc.nav.changeActiveHistory("profile", {transition: "slideup", empty:true})
          else
             fc.msg.show("Your passwords don't match!")

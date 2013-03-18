@@ -31,6 +31,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                fc.msg.show("#{@email()} already registered!")
             else if err
                fc.msg.show("Failed to create an account...")
-               fc.logger.sendError(err)
+               fc.logger.sendLog(err)
             else
                $.mobile.changePage "linkAccounts.html", transition:"slide"

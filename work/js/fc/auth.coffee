@@ -20,9 +20,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   fc.msg.show("Invalid username and password!")
                   done(null, false)
                else if (err?.status == 0 or err.statusText == "timeout")
-                  fc.logger.sendError(err)
+                  fc.logger.sendLog(err)
+                  fc.auth.login(email, pw, done)
                else
-                  fc.logger.sendError(err)
+                  fc.logger.sendLog(err)
                   done(err)
 
          forge.ajax(options)
@@ -36,6 +37,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       updateRefreshToken: (refresh_token) ->
          fc.auth._refresh_token = refresh_token
          forge.prefs.set "refresh_token", refresh_token
+
+      updateTokens: (refresh_token, access_token) ->
+         fc.auth.updateRefreshToken(refresh_token)
+         fc.auth._access_token = access_token
 
       createAccount: (user, done) ->
          options = 
