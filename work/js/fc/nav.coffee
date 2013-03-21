@@ -6,10 +6,18 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          @height = 0
          @transition_to = transition_to or "slide"
          @transition_back = transition_back or transition_to or "slide"
-      go: (transition, reverse) =>
-         $changePage @path, {transition: transition or @transition_to, reverse:reverse}
-      back: (transition) =>
-         $changePage @path, { transition: transition or @transition_back, reverse: true }
+      go: (options = {}) =>
+         options = transition: options if typeof options == "string"
+         options.reverse = arguments[1] if arguments.length == 2
+         options.transition = options.transition or @transition_to
+         pageChanging()
+         $changePage @path, options
+      back: (options = {}) =>
+         options = transition: options if typeof options == "string"
+         options.transition = options.transition or @transition_back
+         options.reverse = true
+         pageChanging()
+         $changePage @path, options
 
    class HistoryPath 
       constructor: (root) -> @history = [new HistoryEntry(root, "none")]
@@ -37,6 +45,14 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
    cachedParams = {}
 
+   # manages when to remove the timeout for the button handler
+   removingButtonsTimeoutId = null
+   pageChanging = () ->
+      if removingButtonsTimeoutId
+         clearTimeout(removingButtonsTimeoutId)
+         removingButtonsTimeoutId = null
+   
+
    fc.nav =
       setup: () ->
          # Loop through all of the pages and attach handlers
@@ -53,12 +69,14 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          $changePage = $.mobile.changePage
          $.mobile.back = fc.nav.goBack
          $.mobile.changePage = (toPage, options = {}) ->
+            
             # Add to history if not silent
             if not options.silent and historyPaths[activeHistoryPath] and typeof toPage == "string" and options.role != "popup" and options.transition != "pop"
                entry = new HistoryEntry(toPage, options.transition)
                historyPaths[activeHistoryPath]?.push(entry)
                fc.nav.pushCachedParams(toPage, options.params) if options?.params
-               
+               pageChanging()
+
             $changePage.apply(this, arguments) 
                
       # History Management
@@ -68,11 +86,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       goBack: (transition, params) ->
          if window.location.href?.indexOf("ui-state=dialog") != -1
             window.location.href = window.location.href.replace("ui-state=dialog", "")
-            return historyPaths[activeHistoryPath].current().go("pop")
+            return historyPaths[activeHistoryPath].current().go(transition: "pop")
             
          entry = historyPaths[activeHistoryPath].getBack()
          fc.nav.pushCachedParams(entry.path, params)
-         entry.back(transition) 
+         entry.back(transition: transition) 
 
       getActiveHistoryName: () -> return activeHistoryPath
       
@@ -82,32 +100,44 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       #    entry.transition_to = options.transition or "none"
       #    entry.go()
 
+      getRootPaths: () ->
+         return (history.history[0].path for key, history of historyPaths)
+            
+      getActivePath: () ->
+         return historyPaths[activeHistoryPath].current().path
+
       buildHistory: (name, entries, transition) ->
          activeHistoryPath = name
          history = historyPaths[activeHistoryPath]
          history.empty()
          history.push(entry) for entry in entries
-         history.current().go(transition or "slidedown")
+         history.current().go(transition: transition or "slidedown")
 
       backToRoot: (options = {}) ->
          historyPaths[activeHistoryPath].empty()
          entry = historyPaths[activeHistoryPath].current()
-         entry.go(options.transition or "none", options.reverse or false)
+         options.transition = options.transition or "none"
+         options.silent = true
+         entry.go(options)
          
       changeActiveHistoryOrBack: (name, options = {}) ->
          if activeHistoryPath == name
             historyPaths[activeHistoryPath].empty()
             entry = historyPaths[activeHistoryPath].current()
-            entry.back(options.transition)
+            options.silent == true
+            entry.back(options)
          else
             fc.nav.changeActiveHistory(name, options)
 
       changeActiveHistory: (name, options = {}) ->
-         historyPaths[name].empty() if options.empty
-         if activeHistoryPath != name or historyPaths[name]?.hasBack()
-            entry = historyPaths[name].current()
-            entry.go(options.transition or "none")
+         prev = activeHistoryPath
          activeHistoryPath = name
+         historyPaths[name].empty() if options.empty
+         if activeHistoryPath != prev or historyPaths[activeHistoryPath]?.hasBack()
+            entry = historyPaths[name].current()
+            options.transition = options.transition or "none"
+            options.silent = true
+            entry.go(options)
 
       clearHistory: () -> v.empty() for k, v of historyPaths
 
@@ -140,9 +170,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
          return obj
 
-      getVM: (id) -> cachedVMs[id]
-
-      pushCachedParams: (url, params) ->
+      parseRelativePath: (url) ->
          parsed = $.mobile.path.parseUrl(url)
          url = parsed.pathname+parsed.search
          url = url.substring(1) if url[0] == "/"
@@ -151,17 +179,16 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          if forge.is.mobile() and (i = url.indexOf("src/")) != -1
             url = url.substring(i + 4) 
 
+         return url
+
+      getVM: (id) -> cachedVMs[id]
+
+      pushCachedParams: (url, params) ->
          # console.log "PUSH URL: #{url} ----------------------------"
-         cachedParams[url] = params
+         cachedParams[fc.nav.parseRelativePath(url)] = params
          
       popCachedParams: (url, extend = {}) ->
-         parsed = $.mobile.path.parseUrl(url)
-         url = parsed.pathname + parsed.search
-         url = url.substring(1) if url[0] == "/"
-
-         # Parse url for mobile
-         if forge.is.mobile() and (i = url.indexOf("src/")) != -1
-            url = url.substring(i + 4) 
+         url = fc.nav.parseRelativePath(url)
 
          # console.log "POP URL: #{url} ----------------------------"
          params = cachedParams[url]
@@ -173,7 +200,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       peekCachedParams: (url) ->
          return cachedParams[url]
-         
+      
    # hold a reference to all viewmodels
    # - required so that memory does not leak as new viewmodels are 
    #   created and old ones still have references
@@ -236,19 +263,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       if forge.is.mobile()
          $page.css("min-height", $(window).height())
 
-      # scroll to previous position
-      # if page.auto_scroll and vm?.prev_scroll_top
-      #    $page.height($(window).height() + vm?.prev_scroll_top)
-      #    # console.log "SCROLLING TO", vm.prev_scroll_top
-      #    $.mobile.silentScroll(vm.prev_scroll_top)
-
-
    pageShow = () ->
       $page = $(@)
       id = $page.attr("id")
       page = fc.pages[$page.attr("id")]
       vm = cachedVMs[id]
-
 
       # start any scrollers on the page
       $(".scrolling-text", $page).scroller("start") if page.scroller 
@@ -258,10 +277,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       fc.logger.flurry("#{id} Page")
 
       # add buttons to native header if mobile
-      if forge.is.mobile()
+      if forge.is.mobile() and id == $.mobile.activePage.attr("id")
 
          # add back buttons if exist on page
-         fc.mobile.setBackButton() unless vm?.params?.hide_back
+         hasBack = fc.mobile.setBackButton() unless vm?.params?.hide_back
 
          # add buttons from configuration
          if page.buttons?.length > 0
@@ -272,6 +291,14 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   else 
                      button.click = vm.rightButtonClick
                fc.mobile.addHeaderButton button
+         else if not hasBack and not page.custom_buttons
+            # This is to solve the issue of quickly changing the page and buttons
+            # not being removed. This is not a problem if the new page has header
+            # buttons because of the auto retry after failure, but without header
+            # buttons there is no retrying
+            fc.mobile.clearButtons()
+            setTimeout fc.mobile.removeButtons, 50
+            # removingButtonsTimeoutId = setTimeout fc.mobile.removeButtons, 100
 
       vm.onPageShow() if vm
 

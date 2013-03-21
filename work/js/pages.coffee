@@ -32,10 +32,12 @@ window.fannect.pages =
    "profile-page": 
       vm: vm.Profile
       classes: ["no-padding"]
+      custom_buttons: true
 
    "profile-other-page":
       vm: vm.Profile.Other
       classes: ["no-padding"]
+      custom_buttons: true
 
    "profile-invites-page":
       vm: vm.Profile.Invites

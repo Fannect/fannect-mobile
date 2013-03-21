@@ -64,31 +64,36 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   position: "left"
                   style: "back"
                   click: () -> fc.mobile.clearButtons -> fc.nav.goBack()
+               return true
+
+            return false
                      
       clearButtons: (done) ->
          leftHeaderButton = null
          rightHeaderButton = null
+         fc.mobile.removeButtons(done)
 
+      removeButtons: (done) ->
          waitingForClear.push(done) if done
          return if removingButtons
          
          removingButtons = true
          forge.topbar.removeButtons () ->
+            removingButtons = false
             fn() for fn in waitingForClear   
             waitingForClear.length = 0
-            removingButtons = false
             fc.mobile.addHeaderButton leftHeaderButton if leftHeaderButton
             fc.mobile.addHeaderButton rightHeaderButton if rightHeaderButton
          , (err) ->
-            if err
-               fn() for fn in waitingForClear   
-               waitingForClear.length = 0
-               fc.mobile.clearButtons()
+            removingButtons = false
+            fc.mobile.removeButtons()
 
       addHeaderButton: (options, click) ->
+
          if forge.is.mobile()
             options.click = click or options.click
             
+         
             leftHeaderButton = options if options.position == "left"
             rightHeaderButton = options if options.position == "right"
 
