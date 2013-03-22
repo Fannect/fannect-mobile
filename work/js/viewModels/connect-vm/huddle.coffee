@@ -6,7 +6,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          super
          @limit = 20
          @skip = 0
-         @has_more = ko.observable(false)
+         @has_more = ko.observable(true)
          @created_by = "any"
          @sort_by = ko.observable("most_active")
          @team_name = ko.observable()
@@ -33,7 +33,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       reloadHuddles: () =>
          @huddles.removeAll()
          @skip = 0
-         @no_more_results = false
+         @has_more(true)
          @loadHuddles()
       
       loadHuddles: () =>

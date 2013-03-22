@@ -13,7 +13,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          
       getThumbnailUrl: (url) -> 
          if not url?.length > 0 then return "images/fannect_UserPlaceholderPic@2x.png"
-         getUrl(url, 43, 43, 90)
+         getUrl(url, 43, 43)
 
       uploadProfile: (file, done) ->
          transform = [
@@ -71,22 +71,22 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                return done(data) if data?.error
                done(null, data)
 
-      getWidestUrl: (url) ->
+      getWidestUrl: (url, quality = 85) ->
          return "" if url == "" 
          return url unless url.indexOf("cloudinary") >= 0 
          
          ratio = window.devicePixelRatio or 1
          parsed = url.split("/")
-         parsed[parsed.length - 2] = "q_100,w_#{Math.ceil($(window).width()*ratio)}"
+         parsed[parsed.length - 2] = "q_#{quality},w_#{Math.ceil(($(window).width() - 30)*ratio)}"
          return parsed.join("/")
 
-   getUrl = (url, w, h, quality = 100) ->
+   getUrl = (url, w, h, quality = 85) ->
       return "" if url == "" 
       return url unless url.indexOf("cloudinary") >= 0 
       
       ratio = window.devicePixelRatio or 1
       parsed = url.split("/")
-      parsed[parsed.length - 2] = "q_100,w_#{Math.ceil(w*ratio)},h_#{Math.ceil(h*ratio)}"
+      parsed[parsed.length - 2] = "q_#{quality},w_#{Math.ceil(w*ratio)},h_#{Math.ceil(h*ratio)}"
       return parsed.join("/")
 
 
