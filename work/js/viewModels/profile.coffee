@@ -71,14 +71,15 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       _addHeaderButtons: () ->
          fc.user.get (err, user) ->
-            fc.mobile.addHeaderButton
-               position: "right"
-               icon: "images/profile/settingsIcon@2x.png"
-               click: -> $.mobile.changePage "settings.html", fc.transition("slidedown")
-            fc.mobile.addHeaderButton
-               position: "left"
-               icon: if (user?.invites?.length > 0) then "images/mobile/rosterInviteActiveIcon.png" else "images/mobile/rosterInviteIcon.png"
-               click: -> $.mobile.changePage "profile-invites.html", fc.transition("slidedown")
+            if fc.nav.getActivePath() == "profile.html"
+               fc.mobile.addHeaderButton
+                  position: "right"
+                  icon: "images/profile/settingsIcon@2x.png"
+                  click: -> $.mobile.changePage "settings.html", fc.transition("slidedown")
+               fc.mobile.addHeaderButton
+                  position: "left"
+                  icon: if (user?.invites?.length > 0) then "images/mobile/rosterInviteActiveIcon.png" else "images/mobile/rosterInviteIcon.png"
+                  click: -> $.mobile.changePage "profile-invites.html", fc.transition("slidedown")
 
       onPageShow: () => 
          super
