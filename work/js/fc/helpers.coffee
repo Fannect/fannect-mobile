@@ -43,7 +43,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
       else
          $.mobile.loading "hide"
 
-   $(".ui-page").live "pageshow", () -> if showLoading then fc.loading "show"
+   $(document).on "pageshow", ".ui-page", () -> if showLoading then fc.loading "show"
 
    fc.parseId = (_id) ->
       return new Date(parseInt(_id.substring(0,8), 16) * 1000)
