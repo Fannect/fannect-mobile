@@ -9,4 +9,9 @@ block content
    a(data-bind="showClick: true, click: linkTwitter, visible: !twitter_linked()", data-role="button") Link Twitter
    a(data-bind="showClick: true, click: unlinkTwitter, visible: twitter_linked", data-role="button") Unlink Twitter
    
-block footer
+   a(data-bind="showClick: true, click: linkInstagram, visible: !instagram_linked()", data-role="button") Link Instagram
+   a(data-bind="showClick: true, click: unlinkInstagram, visible: instagram_linked", data-role="button") Unlink Instagram
+   
+   a(data-bind="showClick: true, click: linkFacebook, visible: !facebook_linked()", data-role="button") Link Facebook
+   a(data-bind="showClick: true, click: unlinkFacebook, visible: facebook_linked", data-role="button") Unlink Facebook
+   

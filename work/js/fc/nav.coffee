@@ -233,12 +233,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          vm.url = $page.data("url")
          vm.params = fc.nav.parseQueryString(vm.url)
          fc.nav.popCachedParams(vm.url, vm.params)
-         fc.logger.log("pageInit: #{id}, params: #{JSON.stringify(vm.params)}")
-         ko.applyBindings vm, @
          fc.logger.log("before load: #{id}")
          vm.load()
-         fc.logger.log("after load: #{id}")
-
+         fc.logger.log("before apply: #{id}")
+         ko.applyBindings vm, @
+         
       # create page scrollers
       $(".scrolling-text", $page).scroller() if page.scroller 
 
