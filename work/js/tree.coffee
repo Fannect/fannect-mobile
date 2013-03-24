@@ -1,4 +1,4 @@
-#= require "lib/jquery-1.8.2.js"
+#= require "lib/jquery-1.9.1.js"
 #= require "lib/knockout.js"
 #= require "lib/swipe.js"
 #= require "lib/ua-parser.js"
@@ -89,4 +89,4 @@
 
 #= require "pages.coffee"
 #= require "site.coffee"
-#= require "lib/jquerymobile-1.2.0.js"
+#= require "lib/jquerymobile-1.3.0.js"

@@ -158,7 +158,7 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
    ko.bindingHandlers.onEnter = 
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
          allBindings = allBindingsAccessor()
-         $el = $(element).live "keypress", (e) ->
+         $el = $(element).on "keypress", (e) ->
             keyCode = if e.which then e.which else e.keyCode
             if (keyCode == 13)
                $el.blur()
@@ -169,14 +169,14 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
    ko.bindingHandlers.onEnterOrBlur = 
       init: (element, valueAccessor, allBindingsAccessor, viewModel) ->
          allBindings = allBindingsAccessor()
-         $el = $(element).live "keypress", (e) ->
+         $el = $(element).on "keypress", (e) ->
             keyCode = if e.which then e.which else e.keyCode
             if (keyCode == 13)
                $el.blur()
                return false
             return true
 
-         $el = $el.live "blur", () ->
+         $el = $el.on "blur", () ->
             allBindings.onEnterOrBlur.call(viewModel)
 
    ko.bindingHandlers.chart = 
