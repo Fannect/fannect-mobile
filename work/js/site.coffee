@@ -79,4 +79,6 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       $(document).on "pagehide", "#index-page", () ->
          $(".button-wrap a", @).detach().appendTo(".button-wrap", @)
          $("div.ui-btn", @).remove()
-         
+
+         $("input", @).detach().appendTo(".input-wrap", @)
+         $("div.ui-input-text", @).remove()
