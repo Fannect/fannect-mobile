@@ -31,5 +31,10 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       viaSMS: (done) ->
          forge.flurry.customEvent("SMS Share", {show: true})
-         $.mobile.changePage "share-sms.html", transition: "slide"
-            
+         forge.sms.send
+            body: "Download the Fannect app and add me to your roster! http://fannect.me"
+            to: []
+         , () -> 
+            done() if done
+         , (err) -> 
+            done(err) if done
