@@ -126,13 +126,18 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             permissions = [ "user_location", "user_birthday" ]
             forge.facebook.authorize permissions
             , (data) ->
-               forge.logging.critical("FB: #{JSON.stringify(data)} ----------------------------------------")
+               # if user.facebook?.linked
+               fc.user.update({facebook: {linked: true, access_token: data.access_token} })
+               forge.logging.critical("USER: #{JSON.stringify(user)} ======================================")
+               return done(null, true)
+
                fc.ajax
+                  url: "#{fc.getLoginURL()}/v1/facebook"
                   type: "POST"
                   data: { facebook_access_token: data.access_token }
                , (err, result) ->
                   if result?.status == "success"
-                     fc.user.update(facebook: true)
+                     fc.user.update({facebook: {linked: true, access_token: data.access_token} })
                      done(null, true) if done
                   else
                      done(null, false) if done
@@ -150,6 +155,18 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             return done() if err
             fc.user.update(facebook: false)
             done(null, true)
+
+      getFacebookAccessToken: (done) ->
+         fc.user.get (err, user) ->
+            return done(err) if err
+            if user.facebook?.access_token
+               done null, user.facebook?.access_token
+            else
+               fc.user.linkFacebook (err, result) ->
+                  forge.logging.critical("MADE IT HERE: #{JSON.stringify(user)} ======================================")
+                  return done(err) if err
+                  return done(false, false) unless result
+                  return done(null, user.facebook?.access_token)
 
       _addToChannel: (user_id) ->
          if forge.is.mobile()
