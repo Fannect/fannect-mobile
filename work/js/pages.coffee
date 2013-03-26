@@ -117,6 +117,12 @@ window.fannect.pages =
  
    "connect-roster-facebookFriends-page":
       vm: vm.Connect.Roster.FacebookFriends
+      buttons: [
+         {
+            position: "right"
+            text: "Send"   
+         }
+      ]
       classes: ["dark-background"]
       
    "connect-huddle-page":

@@ -126,10 +126,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             permissions = [ "user_location", "user_birthday" ]
             forge.facebook.authorize permissions
             , (data) ->
-               # if user.facebook?.linked
-               fc.user.update({facebook: {linked: true, access_token: data.access_token} })
-               forge.logging.critical("USER: #{JSON.stringify(user)} ======================================")
-               return done(null, true)
+               if user.facebook = true or user.facebook?.linked
+                  fc.user.update({facebook: {linked: true, access_token: data.access_token} })
+                  return done(null, true)
 
                fc.ajax
                   url: "#{fc.getLoginURL()}/v1/facebook"
@@ -163,7 +162,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                done null, user.facebook?.access_token
             else
                fc.user.linkFacebook (err, result) ->
-                  forge.logging.critical("MADE IT HERE: #{JSON.stringify(user)} ======================================")
                   return done(err) if err
                   return done(false, false) unless result
                   return done(null, user.facebook?.access_token)
