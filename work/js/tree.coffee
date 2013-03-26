@@ -62,6 +62,8 @@
 #= require "viewModels/games-vm/guessTheScore.coffee"
 
 #= require "viewModels/connect-vm/roster.coffee"
+#= require "viewModels/connect-vm/roster-vm/facebookFriends.coffee"
+
 #= require "viewModels/connect-vm/huddle.coffee"
 #= require "viewModels/connect-vm/huddle-vm/newTopic.coffee"
 #= require "viewModels/connect-vm/huddle-vm/newReply.coffee"
