@@ -35,6 +35,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          @y = d3.scale.linear().domain(@_getDomain(@data)).rangeRound([0, @h])
 
          @bar_width = (@w / @data.length) - (10 * (@data.length - 1))
+         @bar_width = 0 if @bar_width < 0
 
          if @use_svg
             type = "svg"

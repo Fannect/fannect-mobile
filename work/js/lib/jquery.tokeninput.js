@@ -16,7 +16,7 @@ var DEFAULT_SETTINGS = {
     contentType: "json",
     queryParam: "q",
     searchDelay: 300,
-    minChars: 3,
+    minChars: 2,
     propertyToSearch: "displayName",
     jsonContainer: null,
 
@@ -45,7 +45,7 @@ var DEFAULT_SETTINGS = {
    // Formatters
     resultsFormatter: function(item){ return "<div class='item'>" + item[this.propertyToSearch]+ "</div>" },
     tokenFormatter: function(item) { return "<div class='token'><p>" + item[this.propertyToSearch] + "</p></div>" },
-    resultsFilter: function(item, cb) { cb(item); },
+    resultsFilter: function(index, item, cb) { cb(item); },
 
    // Callbacks
     onResult: null,
@@ -817,10 +817,15 @@ $.TokenList = function (input, url_or_data, settings) {
                     (function (index) {
                         count++
                         settings.resultsFilter(index, results[index], function (items) {
-                            if (items.length > 0)
+                            if (items.length && items.length > 0) {
                                 for (var i = items.length - 1; i >= 0; i--) {
                                     filteredResults.push(items[i]);
                                 };
+                            }
+                            else {
+                                filteredResults.push(items);
+                            } 
+                            
                             if (--count == 0 && (!(i) || i == -1)) {
                                 cache.add(cache_key, filteredResults);
                                 populate_dropdown(query, filteredResults);

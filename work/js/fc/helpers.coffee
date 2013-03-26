@@ -72,17 +72,35 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
       img.src = file
 
    class fc.AlphaTable
-      constructor: () ->
+      constructor: (@options = {}) ->
+         @options.merge = @options.merge or false
          @data = []
 
-      load: (field, data) =>
-         data._id = data[field].toLowerCase()
-         index = data._id.charCodeAt(0) - 48
+      load: (field, item) =>
+         item._id = item[field].toLowerCase()
+         index = item._id.charCodeAt(0) - 48
          @data[index] = [] unless @data[index] 
-         @data[index].push(data)
+
+         skip = false
+
+         if @options.merge
+            for curr in @data[index]
+               if curr[field] == item[field]
+                  for key, val of item
+                     continue if key == field
+                     if curr[key] instanceof Array 
+                        curr[key].push(item[key])
+                     else 
+                        console.log [ curr[key], item[key] ]
+                        curr[key] = [ curr[key], item[key] ]
+                  
+                  skip = true
+                  break
+
+         @data[index].push(item) unless skip
 
       loadArray: (field, array) =>
-         @load(field, data) for data in array
+         @load(field, item) for item in array
          
       search: (term) =>
          lower = term.toLowerCase()
