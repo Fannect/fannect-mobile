@@ -5,7 +5,7 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
    $(document).ready () ->
       setup()
 
-   $(".tutorial-link").live "click", (e) ->
+   $(document).on "click", ".tutorial-link", (e) ->
       e.stopPropagation()
       fc.tutorial.show()
       return false
@@ -76,7 +76,9 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
       fc.push.setup()
 
       # Remove button styling to avoid double styling
-      $("#index-page").live "pagehide", () ->
+      $(document).on "pagehide", "#index-page", () ->
          $(".button-wrap a", @).detach().appendTo(".button-wrap", @)
          $("div.ui-btn", @).remove()
-         
+
+         $("input", @).detach().appendTo(".input-wrap", @)
+         $("div.ui-input-text", @).remove()

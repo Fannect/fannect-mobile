@@ -8,8 +8,9 @@ block content
 
    .input-container
    
-      input(type="email", pattern="[^ @]*@[^ @]*", name="email", id="email", data-bind="valueWithInit: email", placeholder="email")
-      input(type="password", name="password", id="password", data-bind="valueWithInit: password, onEnter: login", placeholder="password")
+      .input-wrap
+         input(type="email", pattern="[^ @]*@[^ @]*", name="email", id="email", data-bind="valueWithInit: email", placeholder="email")
+         input(type="password", name="password", id="password", data-bind="valueWithInit: password, onEnter: login", placeholder="password")
       .button-wrap
          a(data-role="button", type="submit", data-theme="a", aria-disabled="false", data-bind="click: login, showClick:true") Login
       

@@ -39,17 +39,17 @@ html
             block header
 
          .content(data-role="content")
+            .updatePopup(id="#{pageId + '-updatePopup'}", data-role="popup", style="width:260px; text-align: center;", class="ui-corner-all", data-overlay-theme="a", data-theme="a")
+               .ui-corner-top(data-role="header", data-theme="b")
+                  h1 Update
+               .ui-corner-bottom.ui-content(data-role="content", data-theme="a", style)
+                  p An Auto-Update is available! Minimize and reopen the app! No need to go to the App Store. Changes might be subtle.
+                  a(data-role="button", href="javascript:fannect.nav.closePopup()", data-bind="showClick:true", data-theme="c") Ok
             block content
 
          .tutorial
             block tutorial
 
-         .updatePopup(id="#{pageId + '-updatePopup'}", data-role="popup", style="width:260px; text-align: center;", class="ui-corner-all", data-overlay-theme="a", data-theme="a")
-            .ui-corner-top(data-role="header", data-theme="b")
-               h1 Update
-            .ui-corner-bottom.ui-content(data-role="content", data-theme="a", style)
-               p An Auto-Update is available! Minimize and reopen the app! No need to go to the App Store. Changes might be subtle.
-               a(data-role="button", href="javascript:fannect.nav.closePopup()", data-bind="showClick:true", data-theme="c") Ok
 
          .footer(data-role="footer", data-id="footer", data-position="fixed", data-tap-toggle="false")
             block footer

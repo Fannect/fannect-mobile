@@ -57,13 +57,13 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       setup: () ->
          # Loop through all of the pages and attach handlers
          for id, page of window.fannect.pages
-            $("##{id}")
-            .live("pagecreate", pageCreate)
-            .live("pageinit", pageInit)
-            .live("pagebeforeshow", pageBeforeShow)
-            .live("pageshow", pageShow)
-            .live("pagebeforehide", pageBeforeHide)
-            .live("pagehide", pageHide)
+            $(document)
+            .on("pagecreate", "##{id}", pageCreate)
+            .on("pageinit", "##{id}", pageInit)
+            .on("pagebeforeshow", "##{id}", pageBeforeShow)
+            .on("pageshow", "##{id}", pageShow)
+            .on("pagebeforehide", "##{id}", pageBeforeHide)
+            .on("pagehide", "##{id}", pageHide)
          
          # intercept changePage 
          $changePage = $.mobile.changePage
