@@ -83,7 +83,6 @@ div.token-input-dropdown {
     position: absolute;
     left: 0;
     right: 0;
-    padding-top: 10px;
     overflow: hidden;
     cursor: default;
     font-size: 17px;
@@ -95,7 +94,7 @@ div.token-input-dropdown {
 
 div.token-input-dropdown p {
     margin: 0;
-    padding: 12px 8px;
+    padding: 12px 15px;
     font-weight: bold;
 }
 
@@ -112,7 +111,7 @@ div.token-input-dropdown .listview {
 
 div.token-input-dropdown .listview .item {
     /*background-color: #fff;*/
-    padding: 10px 3px;
+    padding: 10px 15px;
     margin: 0;
     list-style-type: none;
     border-bottom: 1px solid #ccc;
