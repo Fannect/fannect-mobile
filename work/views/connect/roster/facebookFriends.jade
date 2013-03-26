@@ -7,11 +7,17 @@ block header
 
 block content
 
-   ul.dark-pattern-bg(data-role="listview", data-bind="template: { name:'connect-fan-template', foreach: friends }, listviewUpdate: friends, visible: friends().length > 0").friends
+   ul.dark-pattern-bg.checkbox(data-role="listview", data-theme="b", data-bind="foreach: friends, listviewUpdate: friends, visible: friends().length > 0").friends
+      li(data-bind="css:{'selected':selected}")
+         a(data-bind="click: $parent.selectUser, text:name")
    .loading-more-indicator(data-bind="visible: loading", style="display:none;")
 
-   //- .share-wrap(data-bind="fadeIn: show_sharing", style="display:none;")
-   //-    .sub-title Recruit More Fans!
-   //-    .share-button.twitter(data-bind="showClick: true, click: shareViaTwitter")
-   //-    .share-button.email(data-bind="showClick: true, click: shareViaEmail")
+   .failed-wrap(data-bind="fadeIn: failed")
+      .title Something went wrong!
+      .sub-title Couldn't retrieve your friends from Facebook at this time!
+
+   .share-wrap(data-bind="fadeIn: show_sharing", style="display:none;")
+      .sub-title Recruit More Fans!
+      .share-button.twitter(data-bind="showClick: true, click: shareViaTwitter")
+      .share-button.email(data-bind="showClick: true, click: shareViaEmail")
       //- .share-button.sms(data-bind="showClick: true, click: shareViaSMS")

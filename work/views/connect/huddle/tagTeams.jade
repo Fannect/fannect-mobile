@@ -9,7 +9,7 @@ block content
 
    .separator Default
 
-   ul.dark-pattern-bg.standard(data-role="listview", data-theme="b")
+   ul.dark-pattern-bg.checkbox.standard(data-role="listview", data-theme="b")
       li.selected
          a(data-bind="text: team_name")
       li(data-bind="visible: is_college, css:{'selected':include_conference}")
@@ -19,7 +19,7 @@ block content
 
    .separator(data-bind="visible: selected_teams().length > 0") Tagged Teams
 
-   ul.dark-pattern-bg.tagged(data-role="listview", data-theme="b", data-bind="template: { foreach: selected_teams }, listviewUpdate: selected_teams")
+   ul.dark-pattern-bg.checkbox.tagged(data-role="listview", data-theme="b", data-bind="template: { foreach: selected_teams }, listviewUpdate: selected_teams")
       li(data-bind="css:{'selected':selected}").newly-added
          a(data-bind="click: $parent.deselectTeam, text: full_name")
 
@@ -27,7 +27,7 @@ block content
 
    input(type="search", data-bind="value: query, valueUpdate: ['afterkeydown'], onEnterOrBlur: androidSearch")
 
-   ul.dark-pattern-bg.has-search.searched(data-role="listview", data-theme="b", data-bind="template: { foreach: searched_teams }, listviewUpdate: searched_teams")
+   ul.dark-pattern-bg.checkbox.has-search.searched(data-role="listview", data-theme="b", data-bind="template: { foreach: searched_teams }, listviewUpdate: searched_teams")
       li(data-bind="css:{'selected':selected}, visible: !selected()")
          a(data-bind="click: $parent.selectTeam, text: full_name")
    

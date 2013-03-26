@@ -284,8 +284,20 @@ div.token-input-dropdown
          background-size: 10px 14px
          dropshadow: none
 
-div.token-input-dropdown .listview .item
-   background-highlight()
+.dark-pattern-bg.checkbox
+   li
+      height: 41px
+      .ui-icon-arrow-r
+         background: url(../images/DarkCheckBox.png) no-repeat
+         background-size: 71px 33px
+         width: 33px
+         height: 33px
+         margin-top: -17px
+      a
+         padding-right: 55px
+      &.selected
+         .ui-icon-arrow-r
+            background-position: -38px 0
 
 .loading-more-indicator
    background: #000 url("../images/icons/ajax-loader.gif") 50% 50% no-repeat
@@ -495,7 +507,8 @@ div.token-input-dropdown .listview .item
       background-image: url(../images/Pattern_FabricKnit_Dark@2x.png)
       .ui-icon-arrow-r
          background-image: url(../images/icons/UITeamNext@2x.png)
-
+   .dark-pattern-bg.checkbox li.ui-li .ui-icon-arrow-r
+      background-image: url(../images/DarkCheckBox@2x.png) !important
    .icon.gamecell
       background-image: url(../images/icons/icons-gamecell@2x.png)
 
@@ -530,6 +543,7 @@ div.token-input-dropdown .listview .item
 @import "pages/leaderboard"
 @import "pages/connect"
 @import "pages/connect/huddle"
+@import "pages/connect/roster"
 @import "pages/settings"
 @import "pages/share"
 

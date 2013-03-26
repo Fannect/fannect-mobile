@@ -4,14 +4,16 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       constructor: () ->
          super 
          @friends = ko.observableArray()
-         @loading = ko.observable(true)
+         @loading = ko.observable(false)
          @failed = ko.observable(false)
-         @loadFriends()
+         @show_sharing = ko.observable(false)
+
+      load: () => @loadFriends()
 
       loadFriends: () =>
          @failed(false)
+         @friends([])
          fc.user.getFacebookAccessToken (err, token) =>
-            forge.logging.critical("TOKEN: #{token} ---------------------------------")
             return @failed(true) if err or not token
                
             @loading(true)
@@ -20,9 +22,31 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             , (err, friends) =>
                @loading(false)
                return @failed(true) if err
-               @friends(friends or [])
 
-      selectUser: (data) -> $.mobile.changePage "profile-other.html?team_profile_id=#{data._id}", transition:"slide"
+               if friends?.length > 0
+                  friend.selected = ko.observable(false) for friend in friends
+                  @friends(friends or [])
+               else
+                  @show_sharing(true)
+
+      selectUser: (friend) -> friend.selected(not friend.selected())
+
+      rightButtonClick: () =>
+         selected = []
+
+         for friend in @friends()
+            selected.push(friend.id) if friend.selected()
+         
+         fc.msg.loading("Sending Roster Requests...")
+         fc.ajax
+            url: "#{fc.getResourceURL()}/v1/me/facebook/invite"
+            type: "POST"
+            data: { facebook_user_ids: selected }
+         , (err, body) =>
+            fc.msg.hide()
+            if body?.status == "success" then fc.nav.goBack("flip")
+            else fc.msg.show("Failed to send Roster Requests! Try again later.")
+
       shareViaTwitter: () -> fc.share.viaTwitter()
       shareViaEmail: () -> fc.share.viaEmail()
       shareViaSMS: () -> fc.share.viaSMS()
