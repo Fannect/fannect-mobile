@@ -1,0 +1,17 @@
+extend ../../layout
+
+block header
+   h1(data-menu-root="connect") Friends
+   a(href="connect.html", data-icon="back", data-rel="back", data-theme="b") Back
+   a.ui-btn-right(href="connect-roster-facebookFriends.html", data-role="button", data-theme="b", data-transition="slide") Find
+
+block content
+
+   ul.dark-pattern-bg(data-role="listview", data-bind="template: { name:'connect-fan-template', foreach: friends }, listviewUpdate: friends, visible: friends().length > 0").friends
+   .loading-more-indicator(data-bind="visible: loading", style="display:none;")
+
+   //- .share-wrap(data-bind="fadeIn: show_sharing", style="display:none;")
+   //-    .sub-title Recruit More Fans!
+   //-    .share-button.twitter(data-bind="showClick: true, click: shareViaTwitter")
+   //-    .share-button.email(data-bind="showClick: true, click: shareViaEmail")
+      //- .share-button.sms(data-bind="showClick: true, click: shareViaSMS")

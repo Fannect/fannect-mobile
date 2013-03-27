@@ -81,6 +81,93 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             forge.prefs.set "twitter_active", false
             done(null, true)
 
+      linkInstagram: (done) ->
+         fc.user.get (err, user) ->
+            if not forge.is.mobile() or user.instagram 
+               done() if done
+               return
+
+            link = () ->
+               forge.tabs.openWithOptions
+                  url: "#{fc.getLoginURL()}/v1/instagram?access_token=#{fc.auth.getAccessToken()}"
+                  pattern: "*://*/v1/instagram/done*"
+                  title: "Link Instagram"
+               , (data) ->
+                  if data.url.indexOf("status=success") >= 0
+                     fc.user.update(instagram: true)
+                     done(null, true) if done
+                  else
+                     done(null, false) if done
+                  
+            if fc.auth.hasAccessToken() then link()
+            else fc.auth.getNewAccessToken (err, token) ->
+               if err then done() if done
+               else link()
+
+      unlinkInstagram: (done) ->
+         fc.msg.loading("Unlinking Instagram account...")
+         fc.ajax
+            url: "#{fc.getLoginURL()}/v1/instagram/delete"
+            type: "POST"
+            data: "delete": true
+         , (err, data) ->
+            fc.msg.hide()
+            return done() if err
+            fc.msg.show("Instagram account has been unlinked")
+            fc.user.update(instagram: false)
+            done(null, true)
+
+      linkFacebook: (done) ->
+         fc.user.get (err, user) ->
+            if not forge.is.mobile() or user.facebook 
+               done() if done
+               return
+
+            permissions = [ "user_location", "user_birthday" ]
+            forge.facebook.authorize permissions
+            , (data) ->
+               # if user.facebook?.linked
+               fc.user.update({facebook: {linked: true, access_token: data.access_token} })
+               forge.logging.critical("USER: #{JSON.stringify(user)} ======================================")
+               return done(null, true)
+
+               fc.ajax
+                  url: "#{fc.getLoginURL()}/v1/facebook"
+                  type: "POST"
+                  data: { facebook_access_token: data.access_token }
+               , (err, result) ->
+                  if result?.status == "success"
+                     fc.user.update({facebook: {linked: true, access_token: data.access_token} })
+                     done(null, true) if done
+                  else
+                     done(null, false) if done
+            , (err) ->
+               done(null, false) if err
+
+      unlinkFacebook: (done) ->
+         fc.msg.loading("Unlinking Facebook account...")
+         fc.ajax
+            url: "#{fc.getLoginURL()}/v1/facebook/delete"
+            type: "POST"
+            data: "delete": true
+         , (err, data) ->
+            fc.msg.hide()
+            return done() if err
+            fc.user.update(facebook: false)
+            done(null, true)
+
+      getFacebookAccessToken: (done) ->
+         fc.user.get (err, user) ->
+            return done(err) if err
+            if user.facebook?.access_token
+               done null, user.facebook?.access_token
+            else
+               fc.user.linkFacebook (err, result) ->
+                  forge.logging.critical("MADE IT HERE: #{JSON.stringify(user)} ======================================")
+                  return done(err) if err
+                  return done(false, false) unless result
+                  return done(null, user.facebook?.access_token)
+
       _addToChannel: (user_id) ->
          if forge.is.mobile()
             forge.partners.parse.push.subscribedChannels (channels) ->

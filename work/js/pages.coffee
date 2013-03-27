@@ -115,13 +115,17 @@ window.fannect.pages =
       buttons: [
          {
             position: "right"
-            text: "Share"
-            click: -> $.mobile.changePage "share.html", transition:"slide"
+            text: "Find"
+            click: -> $.mobile.changePage "connect-roster-facebookFriends.html", transition:"slide"
          }
       ]
       classes: ["light-background"]
       auto_scroll: true
-
+ 
+   "connect-roster-facebookFriends-page":
+      vm: vm.Connect.Roster.FacebookFriends
+      classes: ["dark-background"]
+      
    "connect-huddle-page":
       vm: vm.Connect.Huddle
       buttons: [
