@@ -4,6 +4,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       
       constructor: () ->
          @twitter_linked = ko.observable(false)
+         @instagram_linked = ko.observable(false)
+         @facebook_linked = ko.observable(false)
          super
 
       load: () ->
@@ -16,3 +18,19 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       unlinkTwitter: () =>
          fc.user.unlinkTwitter (err, success) =>
             @twitter_linked(false) unless err
+
+      linkInstagram: () =>
+         fc.user.linkInstagram (err, success) =>
+            @instagram_linked(success or false)
+
+      unlinkInstagram: () =>
+         fc.user.unlinkInstagram (err, success) =>
+            @instagram_linked(false) unless err
+
+      linkFacebook: () =>
+         fc.user.linkFacebook (err, success) =>
+            @facebook_linked(success or false)
+
+      unlinkFacebook: () =>
+         fc.user.unlinkFacebook (err, success) =>
+            @facebook_linked(false) unless err

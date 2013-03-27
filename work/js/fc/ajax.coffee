@@ -18,9 +18,13 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                fc.auth.getNewAccessToken (err, token) ->
                   options.second_try = true
                   
-                  # Change access_token in url 
-                  if options.url.indexOf("access_token")
-                     options.url = options.url.replace(/access_token=.+/, "access_token=#{fc.auth.getAccessToken()}")
+                  # Change access_token in url, must do this because a query 
+                  # parameter might have 'access_token' embedded in it
+                  if options.url.indexOf("?access_token")
+                     options.url = options.url.replace(/\?access_token=.+/, "?access_token=#{fc.auth.getAccessToken()}")
+                  if options.url.indexOf("&access_token")
+                     options.url = options.url.replace(/&access_token=.+/, "&access_token=#{fc.auth.getAccessToken()}")
+                  
                   fc.ajax(options, done)
 
          else if (error?.status == 0 or error.statusText == "timeout" or error?.type == "UNEXPECTED_FAILURE")
@@ -51,7 +55,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             fc.ajax(options, done)
 
       # Append access_token on to querystring
-      if not options.no_access_token and options.url.indexOf("access_token") < 0
+      if not options.no_access_token and options.url.indexOf("?access_token") == -1 and options.url.indexOf("&access_token") == -1
          if options.url.indexOf("?") > 0
             options.url += "&access_token=#{fc.auth.getAccessToken()}"
          else
