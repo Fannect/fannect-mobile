@@ -1,0 +1,67 @@
+extend ../layout
+
+block header
+   h1(data-menu-root="connect") Fan Highlights
+   a(href="connect.html", data-icon="back", data-rel="back", data-theme="b") Back
+   //- a.ui-btn-right(href="connect-huddle-newTopic.html", data-role="button", data-theme="b", data-transition="slideup") New Topic
+
+   
+block content
+
+   .header-section
+      .sort-by
+         .oldest(data-bind="css:{'active':sort_by()=='oldest'}, click: sortByOldest") Oldest
+         .most-active(data-bind="css:{'active':sort_by()=='most_active'}, click: sortByMostActive") Latest Activity
+         .newest(data-bind="css:{'active':sort_by()=='newest'}, click: sortByNewest") Newest
+
+      .categories.swipe-slider(data-bind="swipe: sliderOptions()")
+         .prev: .arrow
+         .next: .arrow
+         .swipe-wrap
+            .swipe-content
+               .swipe-item Spirit Wear
+               .swipe-item Photo Challenge
+               .swipe-item Gameday Pics
+               .swipe-item Picture with a Player
+
+   ul.pattern-bg(data-role="listview", data-bind="foreach: highlights, listviewUpdate: highlights, visible: highlights().length > 0").highlights
+      li.highlight
+         //- a(href="connect-highlights-comments.html", data-bind="params:{'highlight_id': _id}, showListviewClick: true", data-transition="slide")
+         .meta-wrap
+            a.image-wrap(href="profile-other.html", data-bind="params:{team_profile_id:owner_id}", data-transition="slide")
+               img.profile-image(data-bind="thumbnailSrc: owner_profile_image_url")
+               .cover
+               .verified-icon(data-bind="setClass: $data.owner_verified")
+            .owner(data-bind="text: owner_name")
+            .team(data-bind="text: team_name")
+
+         .image-border
+            .image-container
+               img.highlight-image(data-bind="getWidestSrc: image_url")
+            .caption(data-bind="text: caption")
+            .date(data-bind="text: date_text")
+
+         .voting-wrap(data-bind="visible: show_voting")
+            .up-vote-button(data-bind="click: $parent.upVote, css:{'active':current_vote() == 'up'}")
+            .graph-wrap
+               .up-label
+                  | +<span data-bind="text: up_votes"></span>
+               .down-label
+                  | -<span data-bind="text: down_votes"></span>
+               .bar
+                  .downs(data-bind="percentage: down_vote_percent")
+                  .ups(data-bind="percentage: up_vote_percent")
+            .down-vote-button(data-bind="click: $parent.downVote, css:{'active':current_vote() == 'up'}")
+
+         .comments(data-bind="text: comment_text")
+         
+         .actions-wrap
+            a.share-button(href="connect-highlights-share.html", data-bind="params:{'highlight_id': _id}", data-transition="slide")
+            a.comment-button(href="connect-highlights-comments.html", data-bind="params:{'highlight_id': _id}", data-transition="slide")
+
+   .no-results-wrap(data-bind="fadeIn: !loading_more() && highlights().length == 0, hideInstant: true")
+      .title No Results.
+      .subtitle Start the conversation!
+      a.createHuddle(href="connect-huddle-newTopic.html", data-transition="slidedown", data-bind="showClick: true")
+
+   .loading-more-indicator-text(data-bind="visible: has_more", style="display:none;") Loading...

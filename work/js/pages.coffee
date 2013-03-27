@@ -181,6 +181,10 @@ window.fannect.pages =
       classes: ["light-background"] 
       auto_scroll: true
 
+   "connect-highlights-page": 
+      vm: vm.Connect.Highlights
+      classes: ["light-background"]
+
    ###
    # Games
    ###

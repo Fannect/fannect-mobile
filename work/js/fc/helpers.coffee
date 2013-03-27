@@ -14,8 +14,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
 
    fc.getLoginURL = () ->
       # "https://fannect-login.herokuapp.com"
-      # "https://fannect-login-dev.herokuapp.com"
-      return "http://192.168.2.6:2200"
+      "https://fannect-login-dev.herokuapp.com"
+      # return "http://192.168.2.6:2200"
       # return "http://192.168.0.24:2200"
       # return if forge.is.web() then "http://localhost:2200" else "https://fannect-login.herokuapp.com"
 

@@ -1,0 +1,107 @@
+@import "../lib/variables"
+@import "../lib/mixins"
+
+// .highlights
+//    .highlight
+
+#connect-highlights-page
+   .header-section
+      margin: -15px -15px 0 -15px
+
+.highlights
+   margin-top: 0px !important
+.highlight
+   .image-wrap
+      float: left
+      position: relative
+      margin: 0
+   .owner
+      margin: 0 0 0 55px
+      font-weight: bold
+      font-size: 14px
+      padding: 6px 0
+   .team
+      margin: 4px 0 0 55px
+      color: #c1272d
+      font-weight: lighter
+      font-size: 10px
+
+   .image-border
+      margin-top: 16px
+      padding: 8px
+      border: #ddd 1px solid
+      dropshadow: 1px 1px 4px rgba(0,0,0,.3), -1px 1px 4px rgba(0,0,0,.3)
+      background: #fff
+
+      .image-container
+         padding-bottom: 8px
+         img
+            width: 100%
+
+   .date
+      color: #c1272d
+      font-size: 11px
+      font-weight: lighter
+      padding-top: 2px
+
+   .voting-wrap
+      height: 32px
+      margin-top: 8px
+      .down-vote-button
+         float: left
+         background: url(../images/connect/highlights/BooButton.png) no-repeat
+         background-size: 99px 31px
+         width: 47px
+         height: 31px
+      .up-vote-button
+         float:right
+         background: url(../images/connect/highlights/CheerButton.png) no-repeat
+         background-size: 99px 31px
+         width: 47px
+         height: 31px
+      .down-vote-button
+      .up-vote-button
+         &.active
+            background-position: -52px 0
+      .graph-wrap
+         margin: 0 47px
+
+   .comments
+      font-size: 10px
+      color: #777
+      padding: 8px 0 0 3px
+      text-shadow: 0 1px 1px #fff
+
+   .actions-wrap
+      margin-top: 8px
+      height: 34px
+   .comment-button
+      float: left
+      background: url(../images/connect/highlights/CommentButton.png) no-repeat
+      background-size: 231px 34px
+      width: 113px
+      height: 34px
+      .ui-btn-active
+         border: 0
+         background-position: -118px 0
+   .share-button
+      float: right
+      background: url(../images/connect/highlights/ShareButton.png) no-repeat
+      background-size: 189px 34px
+      width: 92px
+      height: 34px
+      .ui-btn-active
+         border: 0
+         background-position: -97px 0
+
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5)
+   #connect-highlights-page
+      .down-vote-button
+         background-image: url(../images/connect/highlights/BooButton@2x.png) !important
+      .up-vote-button
+         background-image: url(../images/connect/highlights/CheerButton@2x.png) !important
+      .comment-button
+         background-image: url(../images/connect/highlights/CommentButton@2x.png) !important
+      .share-button
+         background-image: url(../images/connect/highlights/ShareButton@2x.png) !important

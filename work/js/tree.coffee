@@ -70,6 +70,8 @@
 #= require "viewModels/connect-vm/huddle-vm/replies.coffee"
 #= require "viewModels/connect-vm/huddle-vm/tagTeams.coffee"
 
+#= require "viewModels/connect-vm/highlights.coffee"
+
 #= require "viewModels/games-vm/gameFace-vm/motivateSelect.coffee"
 
 #= require "viewModels/leaderboard-vm/listview.coffee"
