@@ -1,6 +1,6 @@
 do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect) ->
    twitterText = "Just got the @Fannect sports app. Go download it and add me to your [insert team here] roster!"
-   twitterLink = "http://www.fannect.me"
+   twitterLink = "http://get.fannect.me"
 
    fc.share =
       viaTwitter: (done) ->
