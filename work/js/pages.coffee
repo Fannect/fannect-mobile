@@ -165,7 +165,7 @@ window.fannect.pages =
       buttons: [
          {
             position: "right"
-            text: "New"
+            text: "Reply"
          }
       ]
       classes: ["light-background"] 
