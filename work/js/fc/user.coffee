@@ -30,7 +30,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
          fc.user._curr = {} unless fc.user._curr
 
-         $.extend true, fc.user._curr, user
+         $.extend fc.user._curr, user
          fc.user.updateInvites(user.invites)
          fc.user._notify()
 
