@@ -8,14 +8,17 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          if fc.user._curr 
             done null, fc.user._curr
          else
-            fc.ajax 
-               url: "#{fc.getResourceURL()}/v1/me"
-               type: "GET"
-            , (error, user) ->
-               fc.user._curr = user
-               fc.user._addToChannel(user._id)
-
-               done error, user
+            if fc.auth._getting_access_token
+               fc.auth.getNewAccessToken (err) ->
+                  return if err
+                  done null, fc.user._curr
+            else
+               fc.ajax 
+                  url: "#{fc.getResourceURL()}/v1/me"
+                  type: "GET"
+               , (error, user) ->
+                  fc.user.update(user)
+                  done error, user
 
       update: (user) ->
          if not fc.user._curr then fc.user._curr = {}
@@ -24,6 +27,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          if user._id != fc.user._curr?._id
             fc.user._addToChannel(user._id) 
             forge.flurry.setDemographics(user_id: user._id)
+
+         fc.user._curr = {} unless fc.user._curr
 
          $.extend true, fc.user._curr, user
          fc.user.updateInvites(user.invites)
@@ -126,7 +131,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             permissions = [ "user_location", "user_birthday" ]
             forge.facebook.authorize permissions
             , (data) ->
-               if user.facebook = true or user.facebook?.linked
+               if user.facebook == true or user.facebook?.linked
                   fc.user.update({facebook: {linked: true, access_token: data.access_token} })
                   return done(null, true)
 

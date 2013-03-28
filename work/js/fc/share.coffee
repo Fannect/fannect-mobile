@@ -38,3 +38,15 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             done() if done
          , (err) -> 
             done(err) if done
+
+      viaFacebook: (done) ->
+         forge.facebook.ui
+            method: "feed"
+            name: "Download Fannect!"
+            description: "I'm on the new Fannect sports app that proves which teams have the best fans. Go download it and add me to your Roster!"
+            link: "http://get.fannect.me"
+            picture: "http://www.fannect.me/wp-content/uploads/2013/03/Fannect_Icon512droid.png"
+         , () ->
+            done() if done
+         , (err) ->
+            done(err) if done
