@@ -19,6 +19,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @selected = false
          @query("")
          @skip = 0
+         @has_searched = false
          @images.removeAll()
 
       search: () =>

@@ -98,7 +98,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       changeUserImage: () => @editing_image "profile"
       changeTeamImage: () => @editing_image "team"
       cancelImagePicking: () => @editing_image "none"
-      chooseWebImage: () => @editing_image "none"
+      chooseWebImage: () => 
+         @editing_image("none")
+         $.mobile.changePage "profile-chooseWebImage.html", transition: "slide"
+
       isEditable: () -> return true
 
       startShouting: () =>
