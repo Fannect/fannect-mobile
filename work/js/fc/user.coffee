@@ -124,7 +124,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       linkFacebook: (done) ->
          fc.user.get (err, user) ->
-            if not forge.is.mobile() or user.facebook 
+            if not forge.is.mobile() or user?.facebook?.linked 
                done() if done
                return
 
@@ -168,8 +168,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             else
                fc.user.linkFacebook (err, result) ->
                   return done(err) if err
-                  return done(false, false) unless result
-                  return done(null, user.facebook?.access_token)
+                  return done(null, user.facebook?.access_token or false)
 
       _addToChannel: (user_id) ->
          if forge.is.mobile()
