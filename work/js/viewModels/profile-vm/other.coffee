@@ -27,12 +27,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             profile.team_image_url = "images/fannect_TeamPlaceholderPic@2x.png" unless profile.team_image_url?.length > 2
 
             fc.user.get (err, user) =>
-               forge.logging.critical("USER: #{JSON.stringify(user)} --------------------------")
                profile.is_friend = true if profile.user_id == user._id
                @updateProfile(profile)
-
-               forge.logging.critical("USER: #{user.invites} ------------------")
-               forge.logging.critical("PROFILE: #{JSON.stringify(profile)} ------------------")
 
                if user.invites and (profile.user_id in user.invites)
                   @params.action = "accept"
