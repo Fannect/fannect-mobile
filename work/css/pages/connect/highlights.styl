@@ -8,23 +8,27 @@
    .header-section
       margin: -15px -15px 0 -15px
 
-.highlights
-   margin-top: 0px !important
+#connect-highlights-page
+   .highlights
+      margin-top: 0px !important
+
 .highlight
-   .image-wrap
-      float: left
-      position: relative
-      margin: 0
-   .owner
-      margin: 0 0 0 55px
-      font-weight: bold
-      font-size: 14px
-      padding: 6px 0
-   .team
-      margin: 4px 0 0 55px
-      color: #c1272d
-      font-weight: lighter
-      font-size: 10px
+   background-highlight()
+   .meta-wrap
+      .image-wrap
+         float: left
+         position: relative
+         margin: 0
+      .owner
+         margin: 0 0 0 55px
+         font-weight: bold
+         font-size: 14px
+         padding: 6px 0 0
+      .team
+         margin: 4px 0 0 55px
+         color: #c1272d
+         font-weight: lighter
+         font-size: 10px
 
    .image-border
       margin-top: 16px
@@ -38,11 +42,12 @@
          img
             width: 100%
 
-   .date
-      color: #c1272d
-      font-size: 11px
-      font-weight: lighter
-      padding-top: 2px
+      .owner-name
+      .date
+         color: #c1272d
+         font-size: 11px
+         font-weight: lighter
+         padding-top: 2px
 
    .voting-wrap
       height: 32px
@@ -105,3 +110,5 @@
          background-image: url(../images/connect/highlights/CommentButton@2x.png) !important
       .share-button
          background-image: url(../images/connect/highlights/ShareButton@2x.png) !important
+
+@import "./highlights/share"

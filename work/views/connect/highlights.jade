@@ -51,13 +51,13 @@ block content
                .bar
                   .downs(data-bind="percentage: down_vote_percent")
                   .ups(data-bind="percentage: up_vote_percent")
-            .down-vote-button(data-bind="click: $parent.downVote, css:{'active':current_vote() == 'up'}")
+            .down-vote-button(data-bind="click: $parent.downVote, css:{'active':current_vote() == 'down'}")
 
          .comments(data-bind="text: comment_text")
          
          .actions-wrap
-            a.share-button(href="connect-highlights-share.html", data-bind="params:{'highlight_id': _id}", data-transition="slide")
-            a.comment-button(href="connect-highlights-comments.html", data-bind="params:{'highlight_id': _id}", data-transition="slide")
+            a.share-button(data-bind="click: $parent.highlightShare", data-transition="slide")
+            a.comment-button(data-bind="click: $parent.highlightComment", data-transition="slide")
 
    .no-results-wrap(data-bind="fadeIn: !loading_more() && highlights().length == 0, hideInstant: true")
       .title No Results.

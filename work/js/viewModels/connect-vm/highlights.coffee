@@ -94,8 +94,18 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          
       onPageHide: () => $(window).unbind("scroll.highlightspage")
    
+      highlightComments: (highlight) =>
+         $.mobile.changePage "connect-highlights-comments.html", 
+            params: { highlight: highlight }
+            transition: "slide"
+
+      highlightShare: (highlight) =>
+         $.mobile.changePage "connect-highlights-share.html", 
+            params: { highlight: highlight }
+            transition: "slide"
+
       upVote: (highlight) =>
-         # return if highlight.current_vote() == "owner"
+         return if highlight.current_vote() == "owner"
 
          if highlight.current_vote() == "up"
             highlight.up_votes(highlight.up_votes() - 1)
@@ -103,19 +113,19 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @sendVote(highlight._id, "none")
          else
             highlight.up_votes(highlight.up_votes() + 1)
-            highlight.up_votes(highlight.down_votes() - 1) if highlight.current_vote() == "down"
+            highlight.down_votes(highlight.down_votes() - 1) if highlight.current_vote() == "down"
             highlight.current_vote("up")
             @sendVote(highlight._id, "up")
 
       downVote: (highlight) =>
-         # return if highlight.current_vote() == "owner"
+         return if highlight.current_vote() == "owner"
 
          if highlight.current_vote() == "down"
-            highlight.up_votes(highlight.down_votes() - 1)
+            highlight.down_votes(highlight.down_votes() - 1)
             highlight.current_vote("none")
             @sendVote(highlight._id, "none")
          else
-            highlight.up_votes(highlight.down_votes() + 1)
+            highlight.down_votes(highlight.down_votes() + 1)
             highlight.up_votes(highlight.up_votes() - 1) if highlight.current_vote() == "up"
             highlight.current_vote("down")
             @sendVote(highlight._id, "down")

@@ -26,7 +26,22 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
          if user._id != fc.user._curr?._id
             fc.user._addToChannel(user._id) 
-            forge.flurry.setDemographics(user_id: user._id)
+            
+            demographics = { user_id: user._id }
+            demographics.gender = "m" if user.gender[0].toLowerCase() == "m"
+            demographics.gender = "f" if user.gender[0].toLowerCase() == "f"
+
+            # Try and parse birthday
+            try
+               if user.birthday
+                  year = 3.15569e10
+                  now = new Date() / 1
+                  birth = new Date(user.birthday) / 1
+                  demographics.age = Math.floor((now - birth) / year)
+            catch e
+               console.log("Failed to set age: #{JSON.stringify(e)}")
+             
+            forge.flurry.setDemographics(demographics)
 
          fc.user._curr = {} unless fc.user._curr
 
