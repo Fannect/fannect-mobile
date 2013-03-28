@@ -17,6 +17,7 @@ block content
 
    .share-wrap(data-bind="fadeIn: show_sharing", style="display:none;")
       .sub-title Recruit More Fans!
+      .share-button.facebook(data-bind="showClick: true, click: shareViaFacebook")
       .share-button.twitter(data-bind="showClick: true, click: shareViaTwitter")
+      .share-button.sms(data-bind="showClick: true, click: shareViaSMS")
       .share-button.email(data-bind="showClick: true, click: shareViaEmail")
-      //- .share-button.sms(data-bind="showClick: true, click: shareViaSMS")

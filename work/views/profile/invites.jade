@@ -12,6 +12,7 @@ block content
       p Looks like no one's trying to recruit you. Get out and get noticed!
       .share-wrap
          .sub-title Recruit More Fans!
+         .share-button.facebook(data-bind="showClick: true, click: shareViaFacebook")
          .share-button.twitter(data-bind="showClick: true, click: shareViaTwitter")
+         .share-button.sms(data-bind="showClick: true, click: shareViaSMS")
          .share-button.email(data-bind="showClick: true, click: shareViaEmail")
-         //- .share-button.sms(data-bind="showClick: true, click: shareViaSMS")

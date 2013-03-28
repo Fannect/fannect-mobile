@@ -4,6 +4,7 @@
     "description": "Does your team have the best fans? Of course they do! But wait... how do you prove it?  Fannect proves which teams have the best fans by quantifying what is means to be a sports fan. How? Great question.   At the core of the Fannect sports app are Fannect Games. Each of our games measure a fan\u2019s passion, dedication or knowledge.  In Fannect you can... Compete for your team alongside fellow fans by playing Fannect Games Measure your Passion, Dedication and Knowledge of your favorite teams Compare your team\u2019s fans to your rival\u2019s fans... and many others. Interact with other passionate sports fans  The Fannect Leaderboard finally answers the critical questions... Who is the top fan of your team and also amongst your roster (friends) Which team has the best fan base as a whole And much more", 
     "homepage": "http://fannect.me", 
     "modules": {
+        "contact": true, 
         "display": {
             "orientations": {
                 "android": "portrait", 
@@ -80,6 +81,7 @@
                 "minimum_version": "4.0"
             }
         }, 
+        "sms": true, 
         "tabbar": true, 
         "tabs": true, 
         "tools": true, 
@@ -92,6 +94,6 @@
             "clientKey": "crkhhKCtiP0qPbsUc89hU6X5UaoXKih43HiDptIM"
         }
     }, 
-    "platform_version": "v1.4.29", 
-    "version": "1.0"
+    "platform_version": "v1.4.30", 
+    "version": "1.1"
 }

@@ -101,6 +101,13 @@ window.fannect.pages =
    ###
    "connect-page":
       vm: vm.Base
+      buttons: [
+         {
+            position: "right"
+            text: "Share"
+            click: -> $.mobile.changePage "share.html", transition:"slide"
+         }
+      ]
       # classes: ["light-background"]
       
    "connect-roster-page":
@@ -108,7 +115,8 @@ window.fannect.pages =
       buttons: [
          {
             position: "right"
-            text: "Find"
+            text: "FB Friends"
+            # icon: "images/icons/find_FacebookIcon@2x.png"
             click: -> $.mobile.changePage "connect-roster-facebookFriends.html", transition:"slide"
          }
       ]
@@ -175,7 +183,7 @@ window.fannect.pages =
       buttons: [
          {
             position: "right"
-            text: "New"
+            text: "Reply"
          }
       ]
       classes: ["light-background"] 
@@ -318,8 +326,4 @@ window.fannect.pages =
       classes: ["light-background"]
 
    "share-email-page":
-      classes: ["light-background"]
-
-   "share-sms-page":
-      vm: vm.Share.SMS
       classes: ["light-background"]

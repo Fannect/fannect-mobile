@@ -23,7 +23,15 @@ block header
       .ui-corner-top(data-role="header", data-theme="b")
          h1 Accepted!
       .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
-         h3.ui-title(data-bind="html: 'You are now friends with ' + name() + ' !'") 
+         h3.ui-title(data-bind="html: 'You are now friends with ' + name() + '!'") 
          a(data-role="button", data-theme="c", data-bind="click: closePopup, showClick: true") Done
    
-         
+   #confirmRemovePopup(data-role="popup", data-bind="showPopup: showConfirmRemovePopup", style="max-width:400px;", class="ui-corner-all", data-overlay-theme="a", data-theme="a")
+      .ui-corner-top(data-role="header", data-theme="b")
+         h1 Unfriend
+      .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
+         h3.ui-title(data-bind="html: 'Are you sure you want to remove ' + name() + ' from your Roster?'") 
+         a(data-role="button", data-theme="c", data-bind="click: removeFriend, showClick: true") Remove
+         a(data-role="button", data-theme="c", data-bind="click: closePopup, showClick: true") Don't Remove
+   
+               

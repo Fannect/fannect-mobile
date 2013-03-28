@@ -1,6 +1,6 @@
 do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect) ->
    twitterText = "Just got the @Fannect sports app. Go download it and add me to your [insert team here] roster!"
-   twitterLink = "http://www.fannect.me"
+   twitterLink = "http://get.fannect.me"
 
    fc.share =
       viaTwitter: (done) ->
@@ -31,5 +31,22 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       viaSMS: (done) ->
          forge.flurry.customEvent("SMS Share", {show: true})
-         $.mobile.changePage "share-sms.html", transition: "slide"
-            
+         forge.sms.send
+            body: "Download the Fannect app and add me to your roster! http://get.fannect.me"
+            to: []
+         , () -> 
+            done() if done
+         , (err) -> 
+            done(err) if done
+
+      viaFacebook: (done) ->
+         forge.facebook.ui
+            method: "feed"
+            name: "Download Fannect!"
+            description: "I'm on the new Fannect sports app that proves which teams have the best fans. Go download it and add me to your Roster!"
+            link: "http://get.fannect.me"
+            picture: "http://www.fannect.me/wp-content/uploads/2013/03/Fannect_Icon512droid.png"
+         , () ->
+            done() if done
+         , (err) ->
+            done(err) if done

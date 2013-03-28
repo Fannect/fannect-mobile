@@ -8,14 +8,17 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          if fc.user._curr 
             done null, fc.user._curr
          else
-            fc.ajax 
-               url: "#{fc.getResourceURL()}/v1/me"
-               type: "GET"
-            , (error, user) ->
-               fc.user._curr = user
-               fc.user._addToChannel(user._id)
-
-               done error, user
+            if fc.auth._getting_access_token
+               fc.auth.getNewAccessToken (err) ->
+                  return if err
+                  done null, fc.user._curr
+            else
+               fc.ajax 
+                  url: "#{fc.getResourceURL()}/v1/me"
+                  type: "GET"
+               , (error, user) ->
+                  fc.user.update(user)
+                  done error, user
 
       update: (user) ->
          if not fc.user._curr then fc.user._curr = {}
@@ -25,7 +28,9 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             fc.user._addToChannel(user._id) 
             forge.flurry.setDemographics(user_id: user._id)
 
-         $.extend true, fc.user._curr, user
+         fc.user._curr = {} unless fc.user._curr
+
+         $.extend fc.user._curr, user
          fc.user.updateInvites(user.invites)
          fc.user._notify()
 
@@ -119,14 +124,14 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       linkFacebook: (done) ->
          fc.user.get (err, user) ->
-            if not forge.is.mobile() or user.facebook 
+            if not forge.is.mobile() or user?.facebook?.linked 
                done() if done
                return
 
             permissions = [ "user_location", "user_birthday" ]
             forge.facebook.authorize permissions
             , (data) ->
-               if user.facebook = true or user.facebook?.linked
+               if user.facebook == true or user.facebook?.linked
                   fc.user.update({facebook: {linked: true, access_token: data.access_token} })
                   return done(null, true)
 
@@ -163,8 +168,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             else
                fc.user.linkFacebook (err, result) ->
                   return done(err) if err
-                  return done(false, false) unless result
-                  return done(null, user.facebook?.access_token)
+                  return done(null, user.facebook?.access_token or false)
 
       _addToChannel: (user_id) ->
          if forge.is.mobile()

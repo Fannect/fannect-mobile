@@ -5,3 +5,4 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       shareViaTwitter: () -> fc.share.viaTwitter()
       shareViaEmail: () -> fc.share.viaEmail()
       shareViaSMS: () -> fc.share.viaSMS()
+      shareViaFacebook: () -> fc.share.viaFacebook()

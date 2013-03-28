@@ -6,15 +6,15 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
       viewModels: {}
 
    fc.getResourceURL = () ->
-      # "http://api.fannect.me"
+      "http://api.fannect.me"
       # "https://fannect-api-dev.herokuapp.com"
-      return "http://192.168.2.6:2100"
+      # return "http://192.168.2.6:2100"
       # return "http://192.168.0.24:2100"
       # return if forge.is.web() then "http://localhost:2100" else "http://api.fannect.me"
 
    fc.getLoginURL = () ->
-      # "https://fannect-login.herokuapp.com"
-      "https://fannect-login-dev.herokuapp.com"
+      "https://fannect-login.herokuapp.com"
+      # "https://fannect-login-dev.herokuapp.com"
       # return "http://192.168.2.6:2200"
       # return "http://192.168.0.24:2200"
       # return if forge.is.web() then "http://localhost:2200" else "https://fannect-login.herokuapp.com"
@@ -48,25 +48,73 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
    fc.parseId = (_id) ->
       return new Date(parseInt(_id.substring(0,8), 16) * 1000)
 
-   fc.getDataURL = (file, max_width, max_height, done) ->
-      canvas = document.createElement("canvas")
-      context = canvas.getContext("2d")
-      img = new Image()
-      img.onload = () ->
-         w = img.width
-         h = img.height
+   # fc.getDataURL = (file, max_width, max_height, done) ->
+   #    canvas = document.createElement("canvas")
+   #    context = canvas.getContext("2d")
+   #    img = new Image()
+   #    img.onload = () ->
+   #       w = img.width
+   #       h = img.height
 
-         if w > h
-            if w > max_width
-               h *= max_width / w
-               w = max_width
-         else
-            if h > max_height
-               w *= max_height / h
-               h = max_height
+   #       if w > h
+   #          if w > max_width
+   #             h *= max_width / w
+   #             w = max_width
+   #       else
+   #          if h > max_height
+   #             w *= max_height / h
+   #             h = max_height
 
-         context.drawImage(img, 0, 0, w, h)
-         data = canvas.toDataURL()
-         done null, data
+   #       context.drawImage(img, 0, 0, w, h)
+   #       data = canvas.toDataURL()
+   #       done null, data
 
-      img.src = file
+   #    img.src = file
+
+   class fc.AlphaTable
+      constructor: (@options = {}) ->
+         @options.merge = @options.merge or false
+         @data = []
+
+      load: (field, item) =>
+         item._id = item[field].toLowerCase()
+         index = item._id.charCodeAt(0) - 48
+         @data[index] = [] unless @data[index] 
+
+         skip = false
+
+         if @options.merge
+            for curr in @data[index]
+               if curr[field] == item[field]
+                  for key, val of item
+                     continue if key == field
+                     if curr[key] instanceof Array 
+                        curr[key].push(item[key])
+                     else 
+                        console.log [ curr[key], item[key] ]
+                        curr[key] = [ curr[key], item[key] ]
+                  
+                  skip = true
+                  break
+
+         @data[index].push(item) unless skip
+
+      loadArray: (field, array) =>
+         @load(field, item) for item in array
+         
+      search: (term) =>
+         lower = term.toLowerCase()
+         regex = new RegExp("^#{term}.*")
+         index = lower.charCodeAt(0) - 48
+         return unless @data[index]?.length > 0
+         
+         results = []
+         for data in @data[index]
+            results.push(data) if regex.test(data._id)
+
+         return results
+
+      empty: () =>
+         return unless @data?.length > 0
+         array?.length = 0 for array in @data
+         @data.length = 0

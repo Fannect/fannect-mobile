@@ -3,7 +3,6 @@
 #= require "lib/swipe.js"
 #= require "lib/ua-parser.js"
 #= require "lib/date.js"
-#= require "lib/jquery.tokeninput.js"
 
 #= require "fc/helpers.coffee"
 #= require "fc/ajax.coffee"
@@ -88,8 +87,6 @@
 #= require "viewModels/settings-vm/verified-vm/player.coffee"
 #= require "viewModels/settings-vm/verified-vm/coach.coffee"
 #= require "viewModels/settings-vm/verified-vm/authority.coffee"
-
-#= require "viewModels/share-vm/sms.coffee"
 
 #= require "pages.coffee"
 #= require "site.coffee"

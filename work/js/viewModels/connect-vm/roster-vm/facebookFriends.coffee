@@ -6,12 +6,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @friends = ko.observableArray()
          @loading = ko.observable(false)
          @failed = ko.observable(false)
-         @show_sharing = ko.observable(false)
+         @show_no_results = ko.observable(false)
 
-      load: () => @loadFriends()
+      load: () => 
+         @loadFriends()
 
       loadFriends: () =>
          @failed(false)
+         @show_no_results(false)
          @friends([])
          fc.user.getFacebookAccessToken (err, token) =>
             return @failed(true) if err or not token
@@ -27,7 +29,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   friend.selected = ko.observable(false) for friend in friends
                   @friends(friends or [])
                else
-                  @show_sharing(true)
+                  @show_no_results(true)
 
       selectUser: (friend) -> friend.selected(not friend.selected())
 
@@ -36,7 +38,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          for friend in @friends()
             selected.push(friend.id) if friend.selected()
-         
+       
+         if selected.length == 0
+            return fc.msg.show("No friends selected!")
+
          fc.msg.loading("Sending Roster Requests...")
          fc.ajax
             url: "#{fc.getResourceURL()}/v1/me/facebook/invite"

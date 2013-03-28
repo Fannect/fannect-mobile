@@ -81,6 +81,7 @@ body
       padding-left: 0
       padding-right: 0
    
+div.token-input-dropdown
 .light-background
    background: url(../images/Pattern_FabricKnit.png) !important
    background-size: 4px 4px !important
@@ -298,7 +299,6 @@ body
          .ui-icon-arrow-r
             background-position: -38px 0
 
-
 .loading-more-indicator
    background: #000 url("../images/icons/ajax-loader.gif") 50% 50% no-repeat
    background-size: 36px 36px
@@ -422,7 +422,7 @@ body
          background: url(../images/icons/Tablecell_greenCheckmark.png) 50% 50% no-repeat
          background-size: 30px 30px
          &.ui-btn-active
-            background: url(../images/icons/Tablecell_blueCheckmark.png) 50% 50% no-repeat
+            background-image: url(../images/icons/Tablecell_blueCheckmark.png)
             border: 0
    .active
       .right-icon.accept
@@ -449,34 +449,38 @@ body
 
 .share-wrap
    margin: 20px auto 0
-   width: 274px
+   width: 293px
    text-shadow: 0 2px 1px #fff
    color: #888
    font-size: 18px
    text-align: center
-
+   
    .sub-title
       font-size: 28px
    .share-button
       background: url(../images/ShareButtons.png) no-repeat
-      background-size: 553px 186px
-      width: 275px
-      height: 62px
+      background-size: 591px 175px
+      width: 293px
+      height: 40px
       margin: 6px 0
       border: 0
       cursor: pointer
-      &.sms
+      &.email
          background-position: 0 0
          &.ui-btn-active
-            background-position: -279px 0
-      &.email
-         background-position: 0 -62px
+            background-position: -298px 0
+      &.facebook
+         background-position: 0 -45px
          &.ui-btn-active
-            background-position: -279px -62px
+            background-position: -298px -45px
+      &.sms
+         background-position: 0 -90px
+         &.ui-btn-active
+            background-position: -298px -90px
       &.twitter
-         background-position: 0 -124px
+         background-position: 0 -135px
          &.ui-btn-active
-            background-position: -279px -124px
+            background-position: -298px -135px
 
    p
       margin-top: 15px
@@ -580,6 +584,7 @@ body
       background-image: url(../images/Overlay_ScrollBarBase@2x.png)
       .cover
          background-image: url(../images/Overlay_ScrollBarFrame_iPhone@2x.png)
+   div.token-input-dropdown
    .light-background
       background-image: url(../images/Pattern_FabricKnit@2x.png)
    .pattern-bg li.ui-li
@@ -612,7 +617,7 @@ body
       .active .accept
          background-image: url(../images/icons/Tablecell_blueCheckmark@2x.png)!important
    .share-button
-      background-image: url(../images/ShareButtons@2x.png)!important
+      background-image: url(../images/ShareButtons@2x.png) !important
 
    .categories
       .next
@@ -647,7 +652,10 @@ body
 @import "pages/connect"
 @import "pages/connect/huddle"
 @import "pages/connect/roster"
+<<<<<<< HEAD
 @import "pages/connect/highlights"
+=======
+>>>>>>> master
 @import "pages/settings"
 @import "pages/share"
 
