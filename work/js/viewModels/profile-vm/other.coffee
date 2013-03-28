@@ -3,9 +3,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
    class fc.viewModels.Profile.Other extends fc.viewModels.Profile
       constructor: () ->
          @is_friend = ko.observable(false)
+         @is_me = ko.observable(false)
          @showSentPopup = ko.observable(false)
          @showAcceptedPopup = ko.observable(false)
          @showAlreadySentPopup = ko.observable(false)
+         @showConfirmRemovePopup = ko.observable(false)
          super
 
       setup: () =>
@@ -14,6 +16,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @showSentPopup(false)
          @showAcceptedPopup(false)
          @showAlreadySentPopup(false)
+         @showConfirmRemovePopup(false)
 
          finish = (err, profile) =>
             throw err if err
@@ -30,12 +33,17 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                if (profile.user_id in user.invites)
                   @params.action = "accept"
 
-               unless (profile.is_friend or profile.is_invited)
+               # Add right button
+               if @params.action then buttonText = "Accept"
+               if profile.is_friend then buttonText = "Remove"
+               else buttonText = "Add"
+
+               unless profile.is_invited
                   fc.mobile.addHeaderButton
                      position: "right"
-                     text: if @params.action == "accept" then "Accept" else "Add"
+                     text: buttonText
                      click: @rightButtonClick
-
+               
          fc.team.getActive (err, profile) =>
             if @params.user_id 
                fc.ajax
@@ -43,7 +51,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   type: "GET"
                , finish
             else
-               if @params.team_profile_id == profile._id then @is_friend(true)
+               if @params.team_profile_id == profile._id then @is_me(true)
                fc.ajax 
                   url: "#{fc.getResourceURL()}/v1/teamprofiles/#{@params.team_profile_id}?is_friend_of=#{profile._id}"
                   type: "GET"
@@ -55,10 +63,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       changeTeamImage: () -> return false
 
       rightButtonClick: () =>
-         if @params.action == "accept"
-            @_acceptInvite()
-         else
-            @_sendInvite()
+         if @params.action == "accept" then @_acceptInvite()
+         else if @is_friend() then @_confirmRemove()
+         else @_sendInvite()
 
       _acceptInvite: () =>
          @_hideRightButton()
@@ -82,10 +89,23 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                   return @showAlreadySentPopup(true) if err
                   @showSentPopup(true) if data?.status == "success" 
 
+      _confirmRemove: () =>
+         @showConfirmRemovePopup(true)
+
+      removeFriend: () =>
+         @showConfirmRemovePopup(false)
+         if @is_friend()
+            @_hideRightButton()
+            fc.ajax
+               url: "#{fc.getResourceURL()}/v1/me/friends/#{@params.user_id}/delete"
+               type: "POST"
+               data: { "delete": true }
+
       closePopup: () =>
          @showSentPopup(false) if @showSentPopup()
          @showAcceptedPopup(false) if @showAcceptedPopup()
          @showAlreadySentPopup(false) if @showAlreadySentPopup()
+         @showConfirmRemovePopup(false) if @showConfirmRemovePopup()
                
       _hideRightButton: () =>
          forge.topbar.removeButtons () ->
