@@ -74,11 +74,12 @@
         }, 
         "requirements": {
             "android": {
-                "minimum_version": "5"
+                "disable_ics_acceleration": true, 
+                "minimum_version": "9"
             }, 
             "ios": {
                 "device_family": "iphone", 
-                "minimum_version": "4.0"
+                "minimum_version": "5.0"
             }
         }, 
         "sms": true, 
@@ -94,6 +95,6 @@
             "clientKey": "crkhhKCtiP0qPbsUc89hU6X5UaoXKih43HiDptIM"
         }
     }, 
-    "platform_version": "v1.4.30", 
-    "version": "1.1"
+    "platform_version": "v1.4.34", 
+    "version": "1.2"
 }
