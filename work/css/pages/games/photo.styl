@@ -110,6 +110,36 @@
    img.picture
       background: url(../images/games/photos/PicPlayerPlaceholder.png) no-repeat 50% 50%
       background-size: 160px 162px
+
+#games-photo-chooseInstagram-page
+   .instagram-images
+      margin-left: -2px
+   .instagram-image-column-left
+   .instagram-image-column-right
+      float: left
+      width: 50%
+   .instagram-image-column-left
+      .instagram-image-wrap
+         margin-right: 6px
+   .instagram-image-column-right
+      .instagram-image-wrap
+         margin-left: 6px
+   .instagram-image
+      width: 100%
+      margin-bottom: 6px
+      border: 1px #ccc solid
+      &.active
+         border: 2px #c1272d solid
+         dropshadow: 0 4px 10px rgba(0,0,0,.6)
+         margin-left: -1px
+         margin-top: -2px
+   .instagram-image-disclaimer
+      margin-top: 12px
+      font-size: .8em
+      text-align: center
+      text-shadow: 0 1px 1px #fff
+      color: #bbb
+      clear: both
    
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)               
    .photo-base

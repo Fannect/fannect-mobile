@@ -61,6 +61,7 @@
 #= require "viewModels/games-vm/photo-vm/spiritWear.coffee"
 #= require "viewModels/games-vm/photo-vm/photoChallenge.coffee"
 #= require "viewModels/games-vm/photo-vm/pictureWithPlayer.coffee"
+#= require "viewModels/games-vm/photo-vm/chooseInstagram.coffee"
 
 #= require "viewModels/connect-vm/roster.coffee"
 #= require "viewModels/connect-vm/roster-vm/facebookFriends.coffee"

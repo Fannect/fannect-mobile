@@ -4,7 +4,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       constructor: () ->
          super
          @limit = 20
-         @skip = 0
+         @max_id = null
          @selected = false
          @has_more = ko.observable(true)
          
@@ -12,52 +12,48 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @images = ko.observableArray []
          
       load: () =>
-         @selected = false
          @has_more(true)
-         @skip = 0
+         @selected = false
+         @max_id = null
          @images.removeAll()
 
+         fc.user.get (err, user) =>
+            if user.instagram
+               @loadImages()
+            else
+               fc.user.linkInstagram (err, success) =>
+                  if success then @loadImages()
+                  else fc.nav.goBack()
+
       onPageShow: () =>
-         $window = $(window).bind "scroll.chooseWebImage", () =>
+         $window = $(window).bind "scroll.chooseInstagram", () =>
             if @has_searched and not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
-               @loadImages @query()
+               @loadImages()
 
       onPageHide: () =>
-         $(window).unbind("scroll.chooseWebImage")
+         $(window).unbind("scroll.chooseInstagram")
 
       loadImages: () ->
          @loading_more true
-
+         url = "#{fc.getResourceURL()}/v1/images/instagram?limit=#{@limit}"
+         url += "&max_id=#{@max_id}" if @max_id
          fc.ajax 
-            url: "#{fc.getResourceURL()}/v1/images/instagram?limit=#{@limit}&skip=#{@skip}"
+            url: url
             type: "GET"
-         , (err, images) =>
-            return fc.msg.show("Failed to load Instagram images!") if err or images?.status == "fail"
-            @has_more(images.length == @limit)
-            @skip += @limit
-            for image in data
+         , (err, data) =>
+            if err or data?.status == "fail"
+               fc.user.update({ instagram: false })
+               return fc.msg.show("Failed to load Instagram images!") 
+            
+            @loading_more(false)
+            @has_more(data.length == @limit and data.meta.max_id)
+            @max_id = data.meta.max_id
+            for image in data.images
                image.selected = ko.observable(false)
                @images.push image 
 
-      select: (data, event) =>
+      select: (data) =>
          if not @selected
             @selected = true
             @images()[@images.indexOf(data)].selected(true)
-            
-            fc.nav.goBack(null, instagram_url: @image)
-
-            fc.team.getActive (err, profile) =>
-               fc.ajax 
-                  url: "#{fc.getResourceURL()}/v1/images/me/#{profile._id}"
-                  type: "POST"
-                  data: image_url: data.url
-               , (err, data) =>
-                  fc.msg.hide()
-
-                  if err
-                     fc.msg.show("Unable to upload image due to copyright.")
-                     @selected = false
-                     @images()[@images.indexOf(data)].selected(false)
-                  else
-                     fc.team.updateActive(data)
-                     fc.nav.goBack()
+            fc.nav.goBack("flip", picture_url: data.url)

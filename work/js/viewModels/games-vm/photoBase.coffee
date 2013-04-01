@@ -11,6 +11,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @game_type = null
       
       load: () =>
+         if @params.picture_url
+            @picture_url(@params.picture_url)
+            @picture = null
 
       submit: () =>
          throw new Error("game_type must be set") unless @game_type
@@ -18,7 +21,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          fc.logger.flurry("Play #{@game_type}")
          
-         image_url = @picture_url
+         image_url = @picture_url()
          fc.msg.loading("Uploading picture...")
 
          send = () =>
@@ -32,9 +35,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      caption: @caption()
                      game_type: @game_type
                , (err, resp) =>
-                  forge.logging.critical("RESPONSE: #{JSON.stringify(resp)} -----------------------------")
-                  # $.mobile.changePage.
                   fc.msg.hide()
+                  # forge.logging.critical("RESPONSE: #{JSON.stringify(resp)} -----------------------------")
+                  # $.mobile.changePage.
 
          if @picture
             fc.images.uploadImage @picture, (err, data) =>
@@ -64,5 +67,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             , (err) -> fc.msg.show("Failed to get picture!") if err
 
       chooseInstagram: () =>
-
+         @hidePopup()
+         $.mobile.changePage "games-photo-chooseInstagram.html", transition: "slide"
 
