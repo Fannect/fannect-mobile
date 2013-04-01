@@ -1,0 +1,84 @@
+#connect-highlights-comments-page
+   .content
+      overflow-y: hidden
+   .highlights
+      margin-bottom: 0
+
+   .new-comment-text-wrap
+      padding:2px
+      position:relative
+      dropshadow: inset 0 1px 2px rgba(0,0,0,0.4), 0 1px 2px #fff !important
+      border-radius: .4em
+      background: #fff
+   .new-comment-text
+      min-height: 60px
+      background: #fff
+      border: none
+      font-size: 16px
+      color: #000
+      text-shadow: none
+      margin: 0
+      resize: vertical
+      dropshadow:none
+   .highlight
+      .caption
+         margin-right: 66px
+      .share-photo-button
+         float:right
+         display: block
+         background: url(../images/connect/highlights/SharePhotoButton.png) 0 50% no-repeat
+         background-size: 123px 29px
+         width: 59px
+         height: 29px
+         &.ui-btn-active
+            border: 0
+            background-position: -64px 50%
+   .actions-wrap
+      height: 34px
+      margin-top: 15px
+      .submit-comment-button
+         float:right
+         display: block
+         background: url(../images/connect/highlights/SubmitCommentButton.png)
+         background-size: 195px 34px
+         width: 95px
+         height: 34px
+         &.ui-btn-active
+            border: 0
+            background-position: -100px 0
+
+   .comments
+      margin-top: 0
+      li.ui-li:first-child
+         border-top: 0
+
+   .comment
+      background-highlight()
+      .image-wrap
+         float: left
+         position: relative
+         margin: 0
+      .content-wrap
+         margin: 0 0 0 57px
+
+         .date
+            float: right         
+            color: #c1272d
+            font-size: 11px
+            font-weight: lighter
+
+         .owner
+            font-weight: bold
+            font-size: 13px
+
+         .content
+            margin-top: 4px
+            font-weight: lighter
+            font-size: 11px
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5)
+   .share-photo-button
+      background-image: url(../images/connect/highlights/SharePhotoButton@2x.png) !important
+   .actions-wrap
+      .submit-comment-button
+         background-image: url(../images/connect/highlights/SubmitCommentButton@2x.png) !important

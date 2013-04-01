@@ -52,7 +52,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          clearTimeout(removingButtonsTimeoutId)
          removingButtonsTimeoutId = null
    
-
    fc.nav =
       setup: () ->
          # Loop through all of the pages and attach handlers

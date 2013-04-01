@@ -252,7 +252,7 @@ div.token-input-dropdown
       &.ui-btn-active
          border-color: #ccc
          .ui-btn-inner
-            background: rgba(0,0,0,.2)
+            background: rgba(0,0,0,.2) !important
       .ui-icon-arrow-r
          background: url(../images/icons/TableCell_TableNext.png) 50% 50% no-repeat
          background-size: 10px 14px
@@ -278,7 +278,7 @@ div.token-input-dropdown
       &.ui-btn-active
          border: none
          .ui-btn-inner
-            background: rgba(0,0,0,.2)
+            background: rgba(0,0,0,.2) !important
       .ui-icon-arrow-r
          background: url(../images/icons/UITeamNext.png) 50% 50% no-repeat
          background-size: 10px 14px
@@ -648,6 +648,7 @@ div.token-input-dropdown
 @import "pages/games/attendanceStreak"
 @import "pages/games/gameFace"
 @import "pages/games/guessTheScore"
+@import "pages/games/photo"
 @import "pages/leaderboard"
 @import "pages/connect"
 @import "pages/connect/huddle"
@@ -656,5 +657,5 @@ div.token-input-dropdown
 @import "pages/settings"
 @import "pages/share"
 
-
 @import "lib/fixes"
+@import "elements/preload"

@@ -208,6 +208,7 @@ window.fannect.pages =
    "games-page":
       vm: vm.Games
       classes: ["light-background"]
+      auto_scroll: true
 
    "games-guessTheScore-page":
       vm: vm.Games.GuessTheScore
@@ -256,9 +257,21 @@ window.fannect.pages =
       ]
       classes: ["light-background"]
 
-   # "games-gameFace-motivateMessage-page":
-   #    vm: vm.Games.GameFace.MotivateMessage
-   #    classes: ["light-background"]
+   "games-photo-gamedayPics-page":
+      vm: vm.Games.GamedayPics
+      classes: ["photo-base"]
+
+   "games-photo-photoChallenge-page":
+      vm: vm.Games.PhotoChallenge
+      classes: ["photo-base"]
+
+   "games-photo-spiritWear-page":
+      vm: vm.Games.SpiritWear
+      classes: ["photo-base"]
+
+   "games-photo-pictureWithPlayer-page":
+      vm: vm.Games.PictureWithPlayer
+      classes: ["photo-base"]
 
    ###
    # Leaderboard

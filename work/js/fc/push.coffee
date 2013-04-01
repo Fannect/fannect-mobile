@@ -22,6 +22,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                      fc.nav.buildHistory("games", [  
                         new fc.nav.HistoryEntry("games-gameFace.html", "slide")
                      ], "slidedown")
+               # else if message.event == "gameday"
                      
                if waiting and isActive
                   forge.launchimage.hide() if forge.is.mobile()

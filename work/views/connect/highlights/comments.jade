@@ -1,7 +1,7 @@
 extend ../../layout
    
 block header
-   h1(data-menu-root="connect") Fan Highlights
+   h1(data-menu-root="connect") Comments
    a(href="connect.html", data-icon="back", data-rel="back", data-theme="b") Back
    //- a.ui-btn-right(href="connect-huddle-newTopic.html", data-role="button", data-theme="b", data-transition="slideup") New Topic
 
@@ -20,13 +20,26 @@ block content
          .image-border
             .image-container
                img.highlight-image(data-bind="getWidestSrc: image_url")
-            .caption(data-bind="text: caption")
+            a.share-photo-button(data-bind="showClick: true, click: $parent.shareHighlight", data-transition="slide")
+            .caption(data-bind="text: caption || '[no caption]'")
             .date(data-bind="text: date_text")
-
-         .share-message Share this photo via:
       
-      li.share-options
-         .share-option.twitter
-         .share-option.facebook
-         .share-option.instagram
-         .share-option.email
+      li.new-comment
+         .new-comment-text-wrap
+            textarea.new-comment-text(data-bind="value: new_comment, valueUpdate: ['afterkeydown']", placeholder="Enter your comment")
+         .actions-wrap
+            a.submit-comment-button(data-bind="showClick: true, click: submitComment", data-transition="slide")
+
+   ul.pattern-bg(data-role="listview", data-theme="a", data-icon="false", data-bind="template:{foreach: comments, afterAdd: fadeInComment }, listviewUpdate: comments").comments
+      li.comment
+         div
+            a.image-wrap(href="profile-other.html", data-bind="params:{team_profile_id:owner_id}", data-transition="slide")
+               img.profile-image(data-bind="thumbnailSrc: owner_profile_image_url")
+               .cover
+               .verified-icon(data-bind="setClass: $data.owner_verified")
+            .content-wrap
+               .date(data-bind="text: date_text")
+               .owner(data-bind="text: owner_name")
+               p.content(data-bind="text: content")
+
+   .loading-more-indicator-text(data-bind="visible: has_more", style="display:none;") Loading...

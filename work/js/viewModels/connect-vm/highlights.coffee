@@ -41,54 +41,62 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             type: "GET"
          , (err, highlights) =>
             @loading_more(false)
-            return fc.msg.show("Failed to load highlights..") if err
             return unless (sort_by == @sort_by() and created_by == @created_by)
+            if err
+               @has_more(false)
+               return fc.msg.show("Failed to load highlights..")
+           
             @skip += @limit
             @has_more(highlights.length == @limit)
-            console.log highlights
             @highlights.push(@prepHighlight(highlight)) for highlight in highlights
 
-      # load: () =>
+      load: () =>
+         # console.log @highlights()
+         # console.log "CREATED_BY", @created_by
       #    @reloadHuddles() if @params.new_huddle
             
       sortByOldest: () => @sort_by("oldest")
-      sortByMostActive: () => @sort_by("most_active")
+      sortByMostPopular: () => @sort_by("most_popular")
       sortByNewest: () => @sort_by("newest")
 
       # HANDLING SLIDER
       sliderOptions: () =>
          switch @created_by
-            when "spirit_wear" then start = 1
-            when "photo_challenge" then start = 2
-            when "gameday_pics" then start = 3
-            when "picture_with_a_player" then start = 4
+            when "spirit_wear" then start = 0
+            when "photo_challenge" then start = 1
+            when "gameday_pics" then start = 2
+            when "picture_with_a_player" then start = 3
+            when "any" then start = 4
             else start = 0 
             
          return { 
             hide: @sliderHide 
             show: @sliderShow 
-            count: 4
+            count: 5
             start: start
          }
          
       sliderHide: (index) =>
 
       sliderShow: (index) =>
-         if index == 0 and @created_by != "any"
+         if index == 0 and @created_by != "spirit_wear"
+            @created_by = "spirit_wear"
+            @reloadHighlights()
+         else if index == 1 and @created_by != "photo_challenge"
+            @created_by = "photo_challenge"
+            @reloadHighlights()
+         else if index == 2 and @created_by != "gameday_pics"
+            @created_by = "gameday_pics"
+            @reloadHighlights()
+         else if index == 3 and @created_by != "picture_with_a_player"
+            @created_by = "picture_with_a_player"
+            @reloadHighlights()
+         else if index == 4 and @created_by != "any"
             @created_by = "any"
-            @reloadHighlights()
-         else if index == 1 and @created_by != "team"
-            @created_by = "team"
-            @reloadHighlights()
-         else if index == 2 and @created_by != "roster"
-            @created_by = "roster"
-            @reloadHighlights()
-         else if index == 3 and @created_by != "me"
-            @created_by = "me"
             @reloadHighlights()
 
       onPageShow: () =>
-         $window = $(window).bind "scroll.highlightpage", () =>
+         $window = $(window).bind "scroll.highlightspage", () =>
             if not @loading_more() and @has_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
                @loadHighlights()
          
@@ -171,9 +179,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          highlight.down_vote_percent = ko.computed () -> 
             return 50 if (total = highlight.down_votes() + highlight.up_votes()) == 0 or isNaN(total)
             return highlight.down_votes() / total * 100
-
-
-         console.log highlight
 
          return highlight
          

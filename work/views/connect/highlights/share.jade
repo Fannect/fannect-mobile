@@ -1,7 +1,7 @@
 extend ../../layout
    
 block header
-   h1(data-menu-root="connect") Fan Highlights
+   h1(data-menu-root="connect") Share
    a(href="connect.html", data-icon="back", data-rel="back", data-theme="b") Back
    //- a.ui-btn-right(href="connect-huddle-newTopic.html", data-role="button", data-theme="b", data-transition="slideup") New Topic
 
@@ -12,13 +12,14 @@ block content
          .image-border
             .image-container
                img.highlight-image(data-bind="getWidestSrc: image_url")
-            .caption(data-bind="text: caption")
+            .caption(data-bind="text: caption || '[no caption]'")
             .owner-name(data-bind="text: owner_name")
 
          .share-message Share this photo via:
       
-      li.photo-share-options
-         .photo-share-option.twitter(data-bind="showClick: true, click: shareViaTwitter")
-         .photo-share-option.facebook(data-bind="showClick: true, click: shareViaFacebook")
-         //- .photo-share-option.instagram(data-bind="showClick: true, click: shareViaInstagram")
-         .photo-share-option.email(data-bind="showClick: true, click: shareViaEmail")
+      li.share-container
+         .photo-share-options
+            .photo-share-option.twitter(data-bind="showClick: true, click: shareViaTwitter")
+            .photo-share-option.facebook(data-bind="showClick: true, click: shareViaFacebook")
+            //- .photo-share-option.instagram(data-bind="showClick: true, click: shareViaInstagram")
+            .photo-share-option.email(data-bind="showClick: true, click: shareViaEmail")

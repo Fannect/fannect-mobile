@@ -40,9 +40,6 @@
 
 #= require "viewModels/profile-vm/invites.coffee"
 #= require "viewModels/profile-vm/chooseWebImage.coffee"
-#= require "viewModels/profile-vm/editBio.coffee"
-#= require "viewModels/profile-vm/editGameDaySpot.coffee"
-#= require "viewModels/profile-vm/editBraggingRights.coffee"
 #= require "viewModels/profile-vm/selectTeam.coffee"
 #= require "viewModels/profile-vm/other.coffee"
 #= require "viewModels/profile-vm/shout.coffee"
@@ -59,6 +56,11 @@
 #= require "viewModels/games-vm/attendanceStreak.coffee"
 #= require "viewModels/games-vm/gameFace.coffee"
 #= require "viewModels/games-vm/guessTheScore.coffee"
+#= require "viewModels/games-vm/photoBase.coffee"
+#= require "viewModels/games-vm/photo-vm/gamedayPics.coffee"
+#= require "viewModels/games-vm/photo-vm/spiritWear.coffee"
+#= require "viewModels/games-vm/photo-vm/photoChallenge.coffee"
+#= require "viewModels/games-vm/photo-vm/pictureWithPlayer.coffee"
 
 #= require "viewModels/connect-vm/roster.coffee"
 #= require "viewModels/connect-vm/roster-vm/facebookFriends.coffee"

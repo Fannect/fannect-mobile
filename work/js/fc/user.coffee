@@ -28,8 +28,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             fc.user._addToChannel(user._id) 
             
             demographics = { user_id: user._id }
-            demographics.gender = "m" if user.gender[0].toLowerCase() == "m"
-            demographics.gender = "f" if user.gender[0].toLowerCase() == "f"
+            demographics.gender = "m" if user.gender?[0].toLowerCase() == "m"
+            demographics.gender = "f" if user.gender?[0].toLowerCase() == "f"
 
             # Try and parse birthday
             try

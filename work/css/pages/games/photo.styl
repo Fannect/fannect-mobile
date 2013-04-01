@@ -1,0 +1,147 @@
+.photo-base
+   background: url(../images/games/photos/CorkBoardBackground.png) 50% 0
+   background-size: 500px 600px !important
+
+   .content
+      padding: 0
+
+   .title-wrap
+      position: relative
+      background: url(../images/games/photos/GameTitleBar.png) 50% 50%
+      background-size: 100% 63px
+      height: 39px
+      padding: 8px 8px 16px 8px
+      z-index: 20
+
+   .background
+      background: url(../images/games/photos/WhitePicBackground.png) no-repeat
+      background-size: 320px 100%
+      min-height: 281px
+      padding: 15px 15px 27px 15px 
+      width: 290px
+      margin: 0 auto
+      position: relative
+      .left-tape
+         background: url(../images/games/photos/TapeLeft.png) no-repeat   
+         left: -18px
+      .right-tape
+         background: url(../images/games/photos/TapeRight.png) no-repeat
+         right: -18px
+      .left-tape
+      .right-tape
+         position: absolute
+         background-size: 74px 76px
+         height: 76px
+         width: 74px
+         top: -12px
+         z-index: 10
+      .picture-wrap.is-empty
+         background: url(../images/games/photos/EmptyPictureBackground@2x.png) no-repeat
+         background-size: 293px 211px
+         
+      img.picture
+         display: block
+         width: 100%
+         min-height: 211px
+
+   .caption-wrap
+      div.ui-input-text
+         background: #fff
+         dropshadow: inset 0 1px 2px rgba(0,0,0,0.4), 0 1px 2px #fff !important
+         border: none
+         font-size: .9em
+         color: #000
+         text-shadow: none
+         input
+            text-shadow: none
+            color: #000
+
+   .action-wrap
+      height: 39px
+      position: relative
+      .share-photo-button
+         position: absolute
+         background: url(../images/games/photos/ShareButton.png) no-repeat
+         background-size: 167px 39px
+         width: 81px
+         height: 39px
+         left: 0
+         &.ui-btn-active
+            background-position: -86px 0
+            border: 0
+      .choose-picture-button
+         position: absolute
+         background: url(../images/games/photos/CameraButton.png) no-repeat
+         background-size: 127px 39px
+         width: 61px
+         height: 39px
+         left: 50%
+         margin-left: -30px
+         &.ui-btn-active
+            background-position: -66px 0
+            border: 0
+      .submit-picture-button
+         position: absolute
+         background: url(../images/games/photos/SubmitButton.png) no-repeat
+         background-size: 167px 39px
+         width: 81px
+         height: 39px
+         right: 0
+         &.ui-btn-active
+            background-position: -86px 0
+            border: 0
+
+#games-photo-spiritWear-page
+   img.picture
+      background: url(../images/games/photos/SpiritWearPlaceholder.png) no-repeat 50% 50%
+      background-size: 160px 162px
+
+#games-photo-photoChallenge-page
+   img.picture
+      background: url(../images/games/photos/PhotoChallengePlaceholder.png) no-repeat 50% 50%
+      background-size: 160px 162px
+
+#games-photo-gamedayPics-page
+   img.picture
+      background: url(../images/games/photos/GamedayPicPlaceholder.png) no-repeat 50% 50%
+      background-size: 160px 162px
+
+#games-photo-pictureWithPlayer-page
+   img.picture
+      background: url(../images/games/photos/PicPlayerPlaceholder.png) no-repeat 50% 50%
+      background-size: 160px 162px
+   
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5)               
+   .photo-base
+      background-image: url(../images/games/photos/CorkBoardBackground@2x.png) !important
+      .title-wrap
+         background-image: url(../images/games/photos/GameTitleBar@2x.png) !important
+      .background
+         background-image: url(../images/games/photos/WhitePicBackground@2x.png) !important
+         .left-tape
+            background-image: url(../images/games/photos/TapeLeft@2x.png) !important
+         .right-tape
+            background-image: url(../images/games/photos/TapeRight@2x.png) !important
+         .share-photo-button
+            background-image: url(../images/games/photos/ShareButton@2x.png) !important
+         .choose-picture-button
+            background-image: url(../images/games/photos/CameraButton@2x.png) !important
+         .submit-picture-button
+            background-image: url(../images/games/photos/SubmitButton@2x.png) !important
+
+   #games-photo-spiritWear-page
+      img.picture
+         background-image: url(../images/games/photos/SpiritWearPlaceholder@2x.png)
+   
+   #games-photo-photoChallenge-page
+      img.picture
+         background-image: url(../images/games/photos/PhotoChallengePlaceholder@2x.png)
+
+   #games-photo-gamedayPics-page
+      img.picture
+         background-image: url(../images/games/photos/GamedayPicPlaceholder@2x.png)
+
+   #games-photo-pictureWithPlayer-page
+      img.picture
+         background-image: url(../images/games/photos/PicPlayerPlaceholder@2x.png)
+

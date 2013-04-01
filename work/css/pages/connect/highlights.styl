@@ -9,11 +9,33 @@
       margin: -15px -15px 0 -15px
 
 #connect-highlights-page
+   .content
+      overflow-y: hidden
    .highlights
       margin-top: 0px !important
 
+   .no-results-wrap
+      text-align:center
+      text-shadow: 0 1px 2px #fff
+      .title 
+         color: #888
+         font-size: 20px
+         margin-top: 25px
+         font-weight: bold
+      .subtitle
+         color: #aaa
+         font-size: 16px
+         margin-top: 5px
+         font-weight: lighter
+
 .highlight
+   box-shadow: inset 0 1px 2px #fff
    background-highlight()
+   border-right: 0
+   border-left: 0
+   border-top:0
+   &:first-child
+      border-top: 1px solid #ccc
    .meta-wrap
       .image-wrap
          float: left
@@ -33,48 +55,64 @@
    .image-border
       margin-top: 16px
       padding: 8px
-      border: #ddd 1px solid
       dropshadow: 1px 1px 4px rgba(0,0,0,.3), -1px 1px 4px rgba(0,0,0,.3)
       background: #fff
 
       .image-container
          padding-bottom: 8px
          img
+            display: block
             width: 100%
+            min-height: 100px
 
       .owner-name
       .date
          color: #c1272d
          font-size: 11px
          font-weight: lighter
-         padding-top: 2px
+         padding-top: 3px
 
    .voting-wrap
-      height: 32px
+      height: 34px
       margin-top: 8px
       .down-vote-button
          float: left
          background: url(../images/connect/highlights/BooButton.png) no-repeat
-         background-size: 99px 31px
-         width: 47px
-         height: 31px
+         background-size: 102px 34px
+         width: 49px
+         height: 34px
       .up-vote-button
          float:right
          background: url(../images/connect/highlights/CheerButton.png) no-repeat
-         background-size: 99px 31px
-         width: 47px
-         height: 31px
+         background-size: 102px 34px
+         width: 49px
+         height: 34px
       .down-vote-button
       .up-vote-button
          &.active
-            background-position: -52px 0
+            background-position: -54px 0
       .graph-wrap
-         margin: 0 47px
+         background: url(../images/connect/highlights/GraphSlice@2x.png) repeat-x
+         background-size: 2px 34px
+         margin: 0 48px
+         height: 34px
+         .up-label
+         .down-label
+            top: 4px
+         .bar
+         .up-label
+            right: 6px
+         .bar
+         .down-label
+            left: 6px
+         .bar
+            top: 19px
+            width: auto
 
    .comments
       font-size: 10px
       color: #777
-      padding: 8px 0 0 3px
+      padding: 6px 0 0 3px
       text-shadow: 0 1px 1px #fff
 
    .actions-wrap
@@ -86,7 +124,7 @@
       background-size: 231px 34px
       width: 113px
       height: 34px
-      .ui-btn-active
+      &.ui-btn-active
          border: 0
          background-position: -118px 0
    .share-button
@@ -95,7 +133,7 @@
       background-size: 189px 34px
       width: 92px
       height: 34px
-      .ui-btn-active
+      &.ui-btn-active
          border: 0
          background-position: -97px 0
 
@@ -111,4 +149,5 @@
       .share-button
          background-image: url(../images/connect/highlights/ShareButton@2x.png) !important
 
+@import "./highlights/comments"
 @import "./highlights/share"

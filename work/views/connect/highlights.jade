@@ -11,7 +11,7 @@ block content
    .header-section
       .sort-by
          .oldest(data-bind="css:{'active':sort_by()=='oldest'}, click: sortByOldest") Oldest
-         .most-active(data-bind="css:{'active':sort_by()=='most_active'}, click: sortByMostActive") Latest Activity
+         .most-popular(data-bind="css:{'active':sort_by()=='most_popular'}, click: sortByMostPopular") Most Popular
          .newest(data-bind="css:{'active':sort_by()=='newest'}, click: sortByNewest") Newest
 
       .categories.swipe-slider(data-bind="swipe: sliderOptions()")
@@ -23,8 +23,9 @@ block content
                .swipe-item Photo Challenge
                .swipe-item Gameday Pics
                .swipe-item Picture with a Player
+               .swipe-item Fannect Nation
 
-   ul.pattern-bg(data-role="listview", data-bind="foreach: highlights, listviewUpdate: highlights, visible: highlights().length > 0").highlights
+   ul.highlights(data-role="listview", data-bind="foreach: highlights, listviewUpdate: highlights, visible: highlights().length > 0")
       li.highlight
          //- a(href="connect-highlights-comments.html", data-bind="params:{'highlight_id': _id}, showListviewClick: true", data-transition="slide")
          .meta-wrap
@@ -38,11 +39,12 @@ block content
          .image-border
             .image-container
                img.highlight-image(data-bind="getWidestSrc: image_url")
-            .caption(data-bind="text: caption")
+            .caption(data-bind="text: caption || '[no caption]'")
             .date(data-bind="text: date_text")
 
          .voting-wrap(data-bind="visible: show_voting")
             .up-vote-button(data-bind="click: $parent.upVote, css:{'active':current_vote() == 'up'}")
+            .down-vote-button(data-bind="click: $parent.downVote, css:{'active':current_vote() == 'down'}")
             .graph-wrap
                .up-label
                   | +<span data-bind="text: up_votes"></span>
@@ -51,17 +53,16 @@ block content
                .bar
                   .downs(data-bind="percentage: down_vote_percent")
                   .ups(data-bind="percentage: up_vote_percent")
-            .down-vote-button(data-bind="click: $parent.downVote, css:{'active':current_vote() == 'down'}")
 
          .comments(data-bind="text: comment_text")
          
          .actions-wrap
-            a.share-button(data-bind="click: $parent.highlightShare", data-transition="slide")
-            a.comment-button(data-bind="click: $parent.highlightComment", data-transition="slide")
+            a.share-button(data-bind="showClick: true, click: $parent.highlightShare", data-transition="slide")
+            a.comment-button(data-bind="showClick: true, click: $parent.highlightComments", data-transition="slide")
 
    .no-results-wrap(data-bind="fadeIn: !loading_more() && highlights().length == 0, hideInstant: true")
       .title No Results.
-      .subtitle Start the conversation!
+      .subtitle Submit your own!
       a.createHuddle(href="connect-huddle-newTopic.html", data-transition="slidedown", data-bind="showClick: true")
 
    .loading-more-indicator-text(data-bind="visible: has_more", style="display:none;") Loading...

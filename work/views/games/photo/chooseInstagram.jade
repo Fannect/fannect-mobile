@@ -1,0 +1,21 @@
+extend ../../layout
+
+block header
+   h1(data-menu-root="profile") Instagram
+   a(href="profile.html", data-icon="back", data-rel="back", data-theme="b", data-transition="slidedown") Profile
+   
+block content
+
+   input(type="search", data-bind="value: query, valueUpdate: ['afterkeydown'], onEnterOrBlur: search")
+
+   .instagram-images
+      .instagram-image-column-left
+         .instagram-image-wrap(data-bind="foreach: images")
+            // ko if: $index() % 2 == 0 --><img class="instagram-image" data-bind="click: $parent.select, attr: { src: thumbnail.url }, css: { active: selected }" /><!-- /ko
+
+      .instagram-image-column-right
+         .instagram-image-wrap(data-bind="foreach: images")
+            // ko if: $index() % 2 == 1 --><img class="instagram-image" data-bind="click: $parent.select, attr: { src: thumbnail.url }, css: { active: selected }" /><!-- /ko
+
+      .loading-more-indicator.clear(data-bind="visible: loading_more", style="display:none;")
+      
