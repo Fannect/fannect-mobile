@@ -16,7 +16,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             fc.team.getActive (err, profile) =>
                fc.logger.flurry("Play Gameface")
                fc.ajax
-                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace"
+                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/game_face"
                   type: "POST"
                   data: { face_on: true }
                (err) ->
@@ -26,7 +26,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.team.getActive (err, profile) =>
             return fc.msg.show("Unable to load game information!") if err
             fc.ajax 
-               url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace"
+               url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/game_face"
                type: "GET"
             , (error, data) =>
                return fc.msg.show("Unable to load game information!") if error

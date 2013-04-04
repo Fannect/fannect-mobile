@@ -14,11 +14,7 @@
       z-index: 20
 
    .background
-      background: url(../images/games/photos/WhitePicBackground.png) no-repeat
-      background-size: 320px 100%
-      min-height: 281px
-      padding: 15px 15px 27px 15px 
-      width: 290px
+      width: 320px
       margin: 0 auto
       position: relative
       .left-tape
@@ -35,14 +31,33 @@
          width: 74px
          top: -12px
          z-index: 10
-      .picture-wrap.is-empty
-         background: url(../images/games/photos/EmptyPictureBackground@2x.png) no-repeat
-         background-size: 293px 211px
+      .top
+         position: relative
+         background: url(../images/games/photos/FrameTop.png) no-repeat
+         background-size: 320px 16px
+         width: 320px
+         height: 16px
          
-      img.picture
-         display: block
-         width: 100%
-         min-height: 211px
+      .middle
+         position: relative
+         background: url(../images/games/photos/FrameMiddle.png) no-repeat
+         background-size: 320px 100%
+         width: 290px
+         padding: 0 15px
+         z-index: 0
+         .picture-wrap.is-empty
+            background: url(../images/games/photos/EmptyPictureBackground@2x.png) no-repeat
+            background-size: 293px 211px   
+         img.picture
+            display: block
+            width: 100%
+            min-height: 211px
+            
+      .bottom
+         width: 320px
+         height: 26px
+         background: url(../images/games/photos/FrameBottom.png) no-repeat
+         background-size: 320px 26px
 
    .caption-wrap
       div.ui-input-text
@@ -147,11 +162,16 @@
       .title-wrap
          background-image: url(../images/games/photos/GameTitleBar@2x.png) !important
       .background
-         background-image: url(../images/games/photos/WhitePicBackground@2x.png) !important
          .left-tape
             background-image: url(../images/games/photos/TapeLeft@2x.png) !important
          .right-tape
             background-image: url(../images/games/photos/TapeRight@2x.png) !important
+         .top
+            background-image: url(../images/games/photos/FrameTop@2x.png) !important
+         .middle
+            background-image: url(../images/games/photos/FrameMiddle@2x.png) !important
+         .bottom
+            background-image: url(../images/games/photos/FrameBottom@2x.png) !important
          .share-photo-button
             background-image: url(../images/games/photos/ShareButton@2x.png) !important
          .choose-picture-button

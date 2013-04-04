@@ -76,8 +76,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   pattern: "*://*/v1/twitter/done*"
                   title: "Link Twitter"
                , (data) ->
-                  if data.url.indexOf("status=success") >= 0 #and not data.userCancelled
-                     fc.user.update(twitter: true)
+                  if data?.url?.indexOf("status=success") >= 0 #and not data.userCancelled
+                     fc.user.update({ twitter: true })
                      done(null, true) if done
                   else
                      done(null, false) if done
@@ -113,7 +113,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   pattern: "*://*/v1/instagram/done*"
                   title: "Link Instagram"
                , (data) ->
-                  if data.url.indexOf("status=success") >= 0
+                  if data?.url?.indexOf("status=success") >= 0
                      fc.user.update(instagram: true)
                      done(null, true) if done
                   else

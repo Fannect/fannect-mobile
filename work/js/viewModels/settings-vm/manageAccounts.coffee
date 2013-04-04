@@ -11,6 +11,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       load: () =>
          fc.user.get (err, user) => 
             @twitter_linked(user.twitter)
+            @instagram_linked(user.instagram)
             @facebook_linked(user.facebook)
 
       linkTwitter: () =>

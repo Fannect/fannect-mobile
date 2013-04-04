@@ -22,7 +22,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             fc.logger.flurry("Play Attendance Streak")
             fc.team.getActive (err, profile) =>
                fc.ajax
-                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/attendanceStreak"
+                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/attendance_streak"
                   type: "POST"
                   data:
                      lat: @user_center?.lat()
@@ -37,7 +37,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                return fc.msg.show("Unable to load game information!") if err
 
                fc.ajax 
-                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/attendanceStreak"
+                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/attendance_streak"
                   type: "GET"
                , (error, data) =>
                   return fc.msg.show("Unable to load game information!") if error

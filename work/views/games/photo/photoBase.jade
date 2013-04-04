@@ -20,15 +20,18 @@ block content
       block title
 
    .background 
+      .top
       .left-tape
       .right-tape
-      .picture-wrap(data-bind="css: { 'is-empty': !has_picture() }, click: showPopup")
-         img.picture(data-bind="attr: { 'src': picture_url }")
-      
-      .caption-wrap
-         input(data-bind="value: caption, valueUpdate: ['afterkeydown']", placeholder="Enter a caption")
-      
-      .action-wrap
-         .share-photo-button(data-bind="fadeIn: has_picture, showClick: true", style="display:none;")
-         .choose-picture-button(data-bind="showClick: true, click: showPopup")
-         .submit-picture-button(data-bind="fadeIn: has_picture, showClick: true, click: submit", style="display:none;")
+      .middle
+         .picture-wrap(data-bind="css: { 'is-empty': !has_picture() }, click: showPopup")
+            img.picture(data-bind="attr: { 'src': picture_url }")
+         
+         .caption-wrap
+            input(data-bind="value: caption, valueUpdate: ['afterkeydown']", placeholder="Enter a caption")
+         
+         .action-wrap
+            .share-photo-button(data-bind="fadeIn: has_picture, showClick: true", style="display:none;")
+            .choose-picture-button(data-bind="showClick: true, click: showPopup")
+            .submit-picture-button(data-bind="fadeIn: has_picture, showClick: true, click: submit", style="display:none;")
+      .bottom
