@@ -32,6 +32,22 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             e.summary = "#{name} scored <b>#{e.points} Points</b> by turning on 
                GameFace for #{e.meta.team_name} vs #{e.meta.opponent}!"
 
+      spirit_wear: (e, name) ->
+         e.summary = "#{name} scored <b>#{e.points} Points</b> by submitting a
+            Spirit Wear photo." 
+
+      gameday_pics: (e, name) ->
+         e.summary = "#{name} scored <b>#{e.points} Points</b> by submitting a
+            Gameday Pics photo." 
+
+      photo_challenge: (e, name) ->
+         e.summary = "#{name} scored <b>#{e.points} Points</b> by submitting a
+            Photo Challenge photo." 
+
+      picture_with_player: (e, name) ->
+         e.summary = "#{name} scored <b>#{e.points} Points</b> by submitting a
+            Picture with a Player photo." 
+
    eventPointsEarned = (e) ->
       for cat, points of e.points_earned
          e.points = points
@@ -93,7 +109,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
             for event in events
                # continue if there is not enough information to display event
-               continue unless event.meta.team_name?
+               continue if (not event.meta.team_name? and not event.meta?.highlight_id?)
 
                for e in @events()
                   dupl = false

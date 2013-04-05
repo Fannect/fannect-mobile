@@ -7,14 +7,17 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @limit = 20
          @skip = 0
          @has_more = ko.observable(true)
-         @created_by = "spirit_wear"
+         @created_by = ko.observable("spirit_wear")
          @sort_by = ko.observable("most_popular")
          @team_id = null
 
          @highlights = ko.observableArray()
          @loading_more = ko.observable false
          @sort_by.subscribe () => @reloadHighlights()
-   
+         @challenge_title = ko.observable("Loading...")
+         @challenge_description = ko.observable("")
+         @challenge_expiration = 0
+
          fc.team.getActive (err, profile) =>
             @team_id = profile.team_id
             # Load immediately
@@ -26,6 +29,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @team_id = profile.team_id
             @reloadHighlights()
 
+         @loadPhotoChallenge()
+
       reloadHighlights: () =>
          @highlights.removeAll()
          @skip = 0
@@ -34,14 +39,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       
       loadHighlights: () =>
          sort_by = @sort_by()
-         created_by = @created_by
+         created_by = @created_by()
          @loading_more(true)
          fc.ajax 
             url: "#{fc.getResourceURL()}/v1/teams/#{@team_id}/highlights?limit=#{@limit}&skip=#{@skip}&sort_by=#{sort_by}&created_by=#{created_by}"
             type: "GET"
          , (err, highlights) =>
             @loading_more(false)
-            return unless (sort_by == @sort_by() and created_by == @created_by)
+            return unless (sort_by == @sort_by() and created_by == @created_by())
             if err
                @has_more(false)
                return fc.msg.show("Failed to load highlights..")
@@ -51,6 +56,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @highlights.push(@prepHighlight(highlight)) for highlight in highlights
 
       load: () =>
+         if @params.created_by
+            @created_by(@params.created_by)
+            @reloadHighlights()
+
          # console.log @highlights()
          # console.log "CREATED_BY", @created_by
       #    @reloadHuddles() if @params.new_huddle
@@ -61,7 +70,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       # HANDLING SLIDER
       sliderOptions: () =>
-         switch @created_by
+         switch @created_by()
             when "spirit_wear" then start = 0
             when "photo_challenge" then start = 1
             when "gameday_pics" then start = 2
@@ -79,20 +88,21 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       sliderHide: (index) =>
 
       sliderShow: (index) =>
-         if index == 0 and @created_by != "spirit_wear"
-            @created_by = "spirit_wear"
+         if index == 0 and @created_by() != "spirit_wear"
+            @created_by("spirit_wear")
             @reloadHighlights()
-         else if index == 1 and @created_by != "photo_challenge"
-            @created_by = "photo_challenge"
+         else if index == 1 and @created_by() != "photo_challenge"
+            @created_by("photo_challenge")
             @reloadHighlights()
-         else if index == 2 and @created_by != "gameday_pics"
-            @created_by = "gameday_pics"
+            @loadPhotoChallenge()
+         else if index == 2 and @created_by() != "gameday_pics"
+            @created_by("gameday_pics")
             @reloadHighlights()
-         else if index == 3 and @created_by != "picture_with_a_player"
-            @created_by = "picture_with_a_player"
+         else if index == 3 and @created_by() != "picture_with_a_player"
+            @created_by("picture_with_a_player")
             @reloadHighlights()
-         else if index == 4 and @created_by != "any"
-            @created_by = "any"
+         else if index == 4 and @created_by() != "any"
+            @created_by("any")
             @reloadHighlights()
 
       onPageShow: () =>
@@ -144,6 +154,23 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             type: "POST"
             data: { vote: vote }
 
+      loadPhotoChallenge: () =>
+         now = new Date() / 1
+         if @challenge_expiration <= now
+            # refresh challenge
+            @challenge_expiration = now + 60000
+            fc.team.getActive (err, profile) =>
+               fc.ajax
+                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/photo_challenge"
+                  type: "GET"
+               , (err, result) ->
+                  if err or results?.status == "fail"
+                     @challenge_title(result.meta.challenge_title)
+                     @challenge_description(result.meta.challenge_description)
+                  else
+                     @challenge_title("Unknown")
+                     @challenge_description("Failed to load this weeks challenge")
+
       prepHighlight: (highlight) =>
          now = new Date()
          date = fc.parseId(highlight._id)
@@ -168,7 +195,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             else highlight.comment_text = "#{highlight.comment_count} Comments"
          
          # voting
-         highlight.show_voting = (@created_by != "any")
+         highlight.show_voting = (@created_by() != "any")
          highlight.current_vote = ko.observable(highlight.current_vote or "none")
          highlight.down_votes = ko.observable(highlight.down_votes or 0)
          highlight.up_votes = ko.observable(highlight.up_votes or 0)

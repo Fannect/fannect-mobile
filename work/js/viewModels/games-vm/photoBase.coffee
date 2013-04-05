@@ -36,9 +36,14 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      game_type: @game_type
                , (err, resp) =>
                   fc.msg.hide()
-                  # forge.logging.critical("RESPONSE: #{JSON.stringify(resp)} -----------------------------")
-                  # $.mobile.changePage.
-
+                  return fc.msg.show("Failed to upload image!") if err or resp?.status == "fail"
+                  setTimeout () =>
+                     @picture = null
+                     @caption("")
+                     @picture_url("")
+                  , 100
+                  $.mobile.changePage "games-photo-afterSubmit.html?type=#{@game_type}", transition: "flip"
+                  
          if @picture
             fc.images.uploadImage @picture, (err, data) =>
                return fc.msg.show("Failed to upload image!") if err or not data?.url?

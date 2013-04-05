@@ -1,0 +1,13 @@
+extend ../../layout
+
+block header
+   h1(data-menu-root="games") Instagram
+   a(data-icon="back", data-rel="back", data-theme="b", data-transition="slidedown") Back
+   
+block content
+
+   .title Your photo has been uploaded!
+   .sub-title Tap below to upload more photos or view the photo feed.
+
+   .upload-more-button(data-bind="showClick: true, click: uploadMore")
+   .view-all-button(data-bind="showClick: true, click: viewAll")

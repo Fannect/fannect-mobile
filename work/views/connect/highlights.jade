@@ -25,6 +25,10 @@ block content
                .swipe-item Picture with a Player
                .swipe-item Fannect Nation
 
+   ul.photo-challenge-goal(data-bind="visible: created_by() == 'photo-challenge'")
+      li
+         
+
    ul.highlights(data-role="listview", data-bind="foreach: highlights, listviewUpdate: highlights, visible: highlights().length > 0")
       li.highlight
          //- a(href="connect-highlights-comments.html", data-bind="params:{'highlight_id': _id}, showListviewClick: true", data-transition="slide")

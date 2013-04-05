@@ -277,6 +277,10 @@ window.fannect.pages =
       vm: vm.Games.ChooseInstagram
       classes: ["light-background"]
 
+   "games-photo-afterSubmit-page":
+      vm: vm.Games.AfterSubmit
+      classes: ["light-background"]
+
    ###
    # Leaderboard
    ###

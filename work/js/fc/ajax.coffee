@@ -63,4 +63,4 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       console.log "#{options.type or 'GET'}: #{options.url}"
       
-      forge.ajax(options)
+      forge.request.ajax(options)
