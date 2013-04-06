@@ -1,3 +1,17 @@
+.photo-title-icon
+   background: url(../images/games/photos/PhotoTitleIcons.png)
+   background-size: 179px 42px
+   width: 41px
+   height: 42px
+   &.spirit-wear
+      background-position: 0 0
+   &.gameday-pics
+      background-position: -46px 0
+   &.picture-with-player
+      background-position: -92px 0
+   &.photo-challenge
+      background-position: -138px 0
+
 .photo-base
    background: url(../images/games/photos/CorkBoardBackground.png) 50% 0
    background-size: 500px 600px !important
@@ -12,6 +26,22 @@
       height: 39px
       padding: 8px 8px 16px 8px
       z-index: 20
+
+      .photo-title-icon
+         position:absolute
+         top: 7px 
+         left: 10px
+
+      .title
+         text-align: center
+         margin: 2px 0
+         font-weight: bold
+         font-size: 20px
+         color: #fff
+      .sub-title
+         text-align: center
+         color: #bbb
+         font-size: 12px
 
    .background
       width: 320px
@@ -182,7 +212,9 @@
       &.ui-btn-active
          background-position: -218px 0
 
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5)               
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5)       
+   .photo-title-icon
+      background-image: url(../images/games/photos/PhotoTitleIcons@2x.png) !important        
    .photo-base
       background-image: url(../images/games/photos/CorkBoardBackground@2x.png) !important
       .title-wrap

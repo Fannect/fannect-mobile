@@ -25,9 +25,10 @@ block content
                .swipe-item Picture with a Player
                .swipe-item Fannect Nation
 
-   ul.photo-challenge-goal(data-bind="visible: created_by() == 'photo-challenge'")
-      li
-         
+   .description-bar(data-bind="visible: created_by() != 'any' && !loading_more() && highlights().length > 0")
+      .photo-title-icon(data-bind="setClass: created_by")
+      .sub-title-wrap
+         .sub-title(data-bind="text: subtitle")
 
    ul.highlights(data-role="listview", data-bind="foreach: highlights, listviewUpdate: highlights, visible: highlights().length > 0")
       li.highlight

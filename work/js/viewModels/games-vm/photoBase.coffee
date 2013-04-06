@@ -8,7 +8,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @has_picture = ko.computed () => return @picture_url()?.length > 0
          @caption = ko.observable("")
          @show_popup = ko.observable(false)
-         @game_type = null
+         @game_type = ko.observable()
       
       load: () =>
          if @params.picture_url
@@ -16,10 +16,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @picture = null
 
       submit: () =>
-         throw new Error("game_type must be set") unless @game_type
+         throw new Error("game_type must be set") unless @game_type()
          return unless @has_picture()
 
-         fc.logger.flurry("Play #{@game_type}")
+         fc.logger.flurry("Play #{@game_type()}")
          
          image_url = @picture_url()
          fc.msg.loading("Uploading picture...")
@@ -28,12 +28,12 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             fc.team.getActive (err, profile) =>
                return fc.msg.show("Failed to upload image!") if err
                fc.ajax 
-                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/#{@game_type}"
+                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/#{@game_type()}"
                   type: "POST"
                   data: 
                      image_url: image_url
                      caption: @caption()
-                     game_type: @game_type
+                     game_type: @game_type()
                , (err, resp) =>
                   fc.msg.hide()
                   return fc.msg.show("Failed to upload image!") if err or resp?.status == "fail"
@@ -42,7 +42,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      @caption("")
                      @picture_url("")
                   , 100
-                  $.mobile.changePage "games-photo-afterSubmit.html?type=#{@game_type}", transition: "flip"
+                  $.mobile.changePage "games-photo-afterSubmit.html?type=#{@game_type()}", transition: "flip"
                   
          if @picture
             fc.images.uploadImage @picture, (err, data) =>

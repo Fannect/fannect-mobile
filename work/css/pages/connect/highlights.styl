@@ -42,6 +42,27 @@
 #connect-highlights-page
    .content
       overflow-y: hidden
+
+   .description-bar
+      position: relative
+      background: url(../images/connect/highlights/DescriptionBar.png)
+      background-size: 100% 50px
+      height: 50px
+      margin: 0 -15px
+      padding: 0 15px
+      .photo-title-icon
+         position:absolute
+         top: 4px 
+         left: 15px
+      .sub-title-wrap
+         display: table
+         width: 100%
+         height: 50px
+         .sub-title
+            display: table-cell
+            vertical-align: middle
+            text-align: center
+
    .highlights
       margin-top: 0px !important
 
@@ -170,6 +191,8 @@
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
    #connect-highlights-page
+      .description-bar
+         background-image: url(../images/connect/highlights/DescriptionBar@2x.png) !important
       .header-section
          background-image: url(../images/Tilable-Background03@2x.png) !important
       .down-vote-button

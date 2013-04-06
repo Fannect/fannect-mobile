@@ -211,7 +211,11 @@ do ($ = window.jQuery, ko = window.ko, fc = window.fannect) ->
    ko.bindingHandlers.setClass = 
       update: (element, valueAccessor, allBindingsAccessor, viewModel) ->
          c = ko.utils.unwrapObservable valueAccessor()
-         $(element).addClass(c?.replace(/_/g,"-"))
+         $el = $(element)
+         prev = $el.data("koSetClass")
+         $el.removeClass(prev) if prev
+         next = c?.replace(/_/g,"-")
+         $el.addClass(next).data("koSetClass", next)
 
    ko.bindingHandlers.percentage = 
       update: (element, valueAccessor, allBindingAccessor, viewModel, bindingContext) ->

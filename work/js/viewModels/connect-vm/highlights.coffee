@@ -15,8 +15,15 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @loading_more = ko.observable false
          @sort_by.subscribe () => @reloadHighlights()
          @challenge_title = ko.observable("Loading...")
-         @challenge_description = ko.observable("")
+         @challenge_description = ko.observable("Loading...")
          @challenge_expiration = 0
+         @subtitle = ko.computed () =>
+            switch @created_by()
+               when "spirit_wear" then return "Some clever subtitle"
+               when "gameday_pics" then return "Some clever subtitle"
+               when "picture_with_player" then return "Some clever subtitle"
+               when "photo_challenge" then return @challenge_description()
+               else return ""
 
          fc.team.getActive (err, profile) =>
             @team_id = profile.team_id
@@ -59,10 +66,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          if @params.created_by
             @created_by(@params.created_by)
             @reloadHighlights()
-
-         # console.log @highlights()
-         # console.log "CREATED_BY", @created_by
-      #    @reloadHuddles() if @params.new_huddle
             
       sortByOldest: () => @sort_by("oldest")
       sortByMostPopular: () => @sort_by("most_popular")
@@ -161,15 +164,15 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @challenge_expiration = now + 60000
             fc.team.getActive (err, profile) =>
                fc.ajax
-                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/photo_challenge"
+                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/photo_challenge"
                   type: "GET"
-               , (err, result) ->
+               , (err, result) =>
                   if err or results?.status == "fail"
-                     @challenge_title(result.meta.challenge_title)
-                     @challenge_description(result.meta.challenge_description)
-                  else
                      @challenge_title("Unknown")
                      @challenge_description("Failed to load this weeks challenge")
+                  else
+                     @challenge_title(result.meta.challenge_title)
+                     @challenge_description(result.meta.challenge_description)
 
       prepHighlight: (highlight) =>
          now = new Date()

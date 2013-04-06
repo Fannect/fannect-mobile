@@ -1,4 +1,5 @@
 extend photoBase
 
 block title
-   .text Gameday Pics
+   .title(data-bind="text: challenge_title")
+   .sub-title(data-bind="text: challenge_description")
