@@ -46,7 +46,6 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       load: () =>
          return unless @has_more()
          return @_load_waiting = true unless @profile_id 
-         console.log "HIT"
          @is_loading(true)
          fc.ajax
             url: "#{fc.getResourceURL()}/v1/teamprofiles/#{@profile_id}/highlights?skip=#{@skip}&limit=#{@limit}"
@@ -74,3 +73,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @has_more(has_results and photos.length == @limit)
             @photos().sort(comparePhotos) if has_results
             @_has_loaded = true
+
+      showHighlight: (highlight) =>
+         $.mobile.changePage "connect-highlights-comments.html", 
+            params: { highlight: highlight }
+            transition: "slide"

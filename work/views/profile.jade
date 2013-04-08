@@ -101,7 +101,7 @@ block content
             .swipe-item
                .photo-stream
                   .photo-list(data-bind="foreach: photos.photos")
-                     a.photo-item(href="connect-highlights-comments.html", data-bind="params:{highlight_id: _id}", data-transition="slide")
+                     a.photo-item(data-bind="showClick: true, click: $root.photos.showHighlight")
                         img.photo(data-bind="attr:{'src': image_url}")
                         span.caption(data-bind="text: caption")
                         span.date(data-bind="text: date_text")
