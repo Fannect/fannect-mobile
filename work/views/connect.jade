@@ -6,15 +6,20 @@ block header
 
 block content
 
-   //- .icon-wrap
-   a.roster-icon-wrap(href="connect-roster.html", data-transition="slide", data-bind="showClick:true, duration: 2550")
-      span.icon-connect.roster
-      span.label Roster
+   .icon-wrap
+      a.roster-icon-wrap(href="connect-roster.html", data-transition="slide", data-bind="showClick:true, duration: 2550")
+         span.active-cover
+         span.icon-connect.roster
+         span.label Roster
 
-   a.huddle-icon-wrap(href="connect-huddle.html", data-transition="slide", data-bind="showClick:true, duration: 2550")
-      span.icon-connect.huddle
-      span.label Huddle
+      a.huddle-icon-wrap(href="connect-huddle.html", data-transition="slide", data-bind="showClick:true, duration: 2550")
+         span.active-cover
+         span.icon-connect.huddle
+         span.label Huddle
+      
+      .clear-sep
 
-   a.huddle-icon-wrap(href="connect-highlights.html", data-transition="slide", data-bind="showClick:true, duration: 2550")
-      span.icon-connect.huddle
-      span.label Highlights
+      a.highlights-icon-wrap(href="connect-highlights.html", data-transition="slide", data-bind="showClick:true, duration: 2550")
+         span.active-cover
+         span.icon-connect.highlights
+         span.label Highlights

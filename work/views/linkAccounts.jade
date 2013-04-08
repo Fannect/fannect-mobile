@@ -1,9 +1,14 @@
 extend layout
 
 block header
-   h1 Sign In
+   h1 Accounts
 
 block content
 
-   a(data-bind="showClick: true, click: linkTwitter", data-role="button") Link Twitter
-   a(data-role="button", href="profile-selectTeam-chooseSport.html?hide_back=true", data-transition="slide") Skip
+   .link-button.facebook(data-bind="showClick: true, click: linkFacebook, visible: !facebook_linked()") Link Facebook
+   .link-button.facebook(data-bind="showClick: true, click: unlinkFacebook, visible: facebook_linked") Unlink Facebook
+
+   .link-button.twitter(data-bind="showClick: true, click: linkTwitter, visible: !twitter_linked()") Link Twitter
+   .link-button.twitter(data-bind="showClick: true, click: unlinkTwitter, visible: twitter_linked") Unlink Twitter
+   
+   .link-button.continue(href="profile-selectTeam-chooseSport.html?hide_back=true", data-transition="slide") Continue

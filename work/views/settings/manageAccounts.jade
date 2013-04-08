@@ -1,17 +1,18 @@
 extend ../layout
 
 block header
-   a(href="settings.html", data-icon="back", data-rel="back") Settings
+   a(href="settings.html", data-icon="back", data-rel="back", data-theme="b") Settings
    h1(data-root-menu="profile") Accounts
 
 block content
 
-   a(data-bind="showClick: true, click: linkTwitter, visible: !twitter_linked()", data-role="button") Link Twitter
-   a(data-bind="showClick: true, click: unlinkTwitter, visible: twitter_linked", data-role="button") Unlink Twitter
+   .link-button.facebook(data-bind="showClick: true, click: linkFacebook, visible: !facebook_linked()") Link Facebook
+   .link-button.facebook(data-bind="showClick: true, click: unlinkFacebook, visible: facebook_linked") Unlink Facebook
+
+   .link-button.twitter(data-bind="showClick: true, click: linkTwitter, visible: !twitter_linked()") Link Twitter
+   .link-button.twitter(data-bind="showClick: true, click: unlinkTwitter, visible: twitter_linked") Unlink Twitter
    
-   a(data-bind="showClick: true, click: linkInstagram, visible: !instagram_linked()", data-role="button") Link Instagram
-   a(data-bind="showClick: true, click: unlinkInstagram, visible: instagram_linked", data-role="button") Unlink Instagram
+   .link-button.instagram(data-bind="showClick: true, click: linkInstagram, visible: !instagram_linked()") Link Instagram
+   .link-button.instagram(data-bind="showClick: true, click: unlinkInstagram, visible: instagram_linked") Unlink Instagram
    
-   a(data-bind="showClick: true, click: linkFacebook, visible: !facebook_linked()", data-role="button") Link Facebook
-   a(data-bind="showClick: true, click: unlinkFacebook, visible: facebook_linked", data-role="button") Unlink Facebook
    

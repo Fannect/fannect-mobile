@@ -25,6 +25,7 @@
 #= require "models/gameData.coffee"
 #= require "models/nextGame.coffee"
 #= require "models/events.coffee"
+#= require "models/photos.coffee"
 
 #= require "ext/binding-handlers.coffee"
 #= require "ext/text-scroller.coffee"

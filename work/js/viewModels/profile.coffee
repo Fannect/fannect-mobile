@@ -17,6 +17,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @shout_date = ko.observable()
          @next_game = ko.observable(new fc.models.NextGame())
          @events = new fc.models.Events()
+         @photos = new fc.models.Photos()
          
          @showProfileImagePopup = ko.computed () => @editing_image() == "profile"
          @showTeamImagePopup = ko.computed () => @editing_image() == "team"
@@ -36,8 +37,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             profile.profile_image_url = "images/profile/Profile_tapToAddProfilePhoto@2x.png" unless profile.profile_image_url?.length > 2
             profile.team_image_url = "images/profile/Profile_tapToAddTeamPhoto@2x.png" unless profile.team_image_url?.length > 2
             @events.setup(profile._id, "You")
+            @photos.setup(profile._id)
          else
             @events.setup(profile._id, profile.name)
+            @photos.setup(profile._id)
 
          @name profile.name or "&nbsp;"
          @profile_image profile.profile_image_url or ""
@@ -113,15 +116,15 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             return { 
                hide: @sliderHide, 
                show: @sliderShow, 
-               count: 3, 
-               titles: [ "Next Game", "Fan DNA", "Activity" ] 
+               count: 4, 
+               titles: [ "Next Game", "Fan DNA", "Activity", "Photos" ] 
             }
          else
             return { 
                hide: @sliderHide, 
                show: @sliderShow, 
-               count: 2, 
-               titles: [ "Fan DNA", "Activity" ] 
+               count: 3, 
+               titles: [ "Fan DNA", "Activity", "Photos" ] 
             }
 
       # HANDLING SLIDER
@@ -141,6 +144,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          if index == 2 and not has_init
             @events.load()
+
+         if index == 3 and not has_init
+            @photos.load()
 
 
       # HANDLING IMAGES

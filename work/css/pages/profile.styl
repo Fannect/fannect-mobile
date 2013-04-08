@@ -333,7 +333,9 @@
 
    .swipe-item.inactive
       .activity-list
+      .photo-list
          max-height: 200px
+         overflow: hidden
    .activity
       position: relative
       width: 265px
@@ -424,6 +426,55 @@
                font-size: 10px
                font-weight: lighter
                color: #555
+
+   .photo-stream
+      position: relative
+      width: 265px
+      margin: 10px auto 0
+      border: 2px solid #777
+      dropshadow: 0 0 5px #000
+      background: #fff url(../images/Pattern_FabricKnit.png)
+      background-size: 4px 4px
+      
+      .no-photos
+         margin: 10px
+         color: #555
+         text-align:center
+         height: 42px
+         line-height: 42px
+         font-size: 20px
+         text-shadow: 0 2px 0 #fff
+
+      .load-more
+         margin: 10px
+      
+      .loading-more-indicator
+         margin: 5px auto 5px
+
+      .photo-list
+         .photo-item
+            display:block
+            position:relative
+            background-highlight()
+            border-bottom: 1px solid #bbb
+            color: #000
+            text-shadow: 0 1px 0 #fff
+            text-decoration:none
+            padding: 10px
+            img.photo
+               display:block
+               width: 100%
+            .caption
+               display:block
+               margin-top: 2px 
+               font-weight: bold
+               color: #2f3e46
+            .date
+               display:block
+               font-size: 10px
+               font-weight: lighter
+               color: #c1272d
+
 
    .secondary-slider
       margin-top: 20px
@@ -586,6 +637,33 @@
       color: #bbb
       clear: both
 
+#settings-manageAccounts-page
+#linkAccounts-page
+   .link-button
+      background: url(../images/LinkAccountButtons.png) no-repeat
+      background-size: 591px 175px
+      width: 293px
+      height: 40px
+      line-height: 40px
+      color: #fff
+      text-shadow: 0 -1px 0 #000
+      margin: 5px auto
+      text-align: center
+      &.ui-btn-active
+         border: 0
+         background-position-x: -298px
+         font-weight: normal
+      &.facebook
+         background-position-y: 0
+      &.twitter
+         background-position-y: -45px
+      &.continue
+         background-position-y: -90px
+         color: #000
+         text-shadow: 0 1px 0 #fff
+      &.instagram
+         background-position-y: -135px
+   
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
    #profile-page
@@ -627,6 +705,7 @@
          background-image: url(../images/profile/nextGame@2x.png)!important
 
       .activity
+      .photo-stream
          background-image: url(../images/Pattern_FabricKnit@2x.png)!important
       .activity-icon
          background-image: url(../images/icons/icons-gamecell-small@2x.png)!important
@@ -668,3 +747,7 @@
       .use-twitter
          background-image: url(../images/shout/twitter_icon@2x.png)!important
    
+   #settings-manageAccounts-page
+   #linkAccounts-page
+      .link-button
+         background-image: url(../images/LinkAccountButtons@2x.png)

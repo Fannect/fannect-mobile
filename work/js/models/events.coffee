@@ -1,9 +1,9 @@
 do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
    compareEvents = (a, b) ->
-      if a.date < b.date 
+      if a.date > b.date 
          return -1
-      else if a.date > b.date
+      else if a.date < b.date
          return 1
       else
          return 0
@@ -127,4 +127,5 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
             @has_more(has_results and events.length == @limit)
             @events().sort(compareEvents) if has_results
+            @events.valueHasMutated()
             @_has_loaded = true
