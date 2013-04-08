@@ -191,6 +191,13 @@ window.fannect.pages =
 
    "connect-highlights-page": 
       vm: vm.Connect.Highlights
+      buttons: [
+         {
+            position: "right"
+            icon: "images/icons/CameraIcon@2x.png"
+            click: -> $.mobile.changePage "connect-highlights-upload.html", transition: "slidedown"
+         }
+      ]
       classes: ["light-background"]
       auto_scroll: true
 
@@ -200,6 +207,10 @@ window.fannect.pages =
 
    "connect-highlights-comments-page": 
       vm: vm.Connect.Highlights.Comments
+      classes: ["light-background"]
+
+   "connect-highlights-upload-page": 
+      vm: vm.Connect.Highlights.Upload
       classes: ["light-background"]
 
    ###

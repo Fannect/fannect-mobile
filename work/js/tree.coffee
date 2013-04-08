@@ -77,6 +77,7 @@
 #= require "viewModels/connect-vm/highlights.coffee"
 #= require "viewModels/connect-vm/highlights-vm/comments.coffee"
 #= require "viewModels/connect-vm/highlights-vm/share.coffee"
+#= require "viewModels/connect-vm/highlights-vm/upload.coffee"
 
 #= require "viewModels/games-vm/gameFace-vm/motivateSelect.coffee"
 

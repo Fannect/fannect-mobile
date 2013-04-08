@@ -91,6 +91,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          fc.nav.pushCachedParams(entry.path, params)
          entry.back(transition: transition) 
 
+      removeCurrent: () -> historyPaths[activeHistoryPath].getBack()
       getActiveHistoryName: () -> return activeHistoryPath
       
       # replacePage: (toPage, options = {}) ->
