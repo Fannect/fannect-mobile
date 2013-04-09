@@ -9,11 +9,11 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       load: () =>
          super
-         fc.team.getActive (err, profile) ->
+         fc.team.getActive (err, profile) =>
             fc.ajax
                url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/photo_challenge"
                type: "GET"
-            , (err, data) ->
+            , (err, data) =>
                return if err or data?.status == "fail"
                @challenge_title(data.meta.challenge_title)
                @challenge_description(data.meta.challenge_description)

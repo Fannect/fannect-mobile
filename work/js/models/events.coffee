@@ -32,21 +32,24 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             e.summary = "#{name} scored <b>#{e.points} Points</b> by turning on 
                GameFace for #{e.meta.team_name} vs #{e.meta.opponent}!"
 
-      spirit_wear: (e, name) ->
-         e.summary = "#{name} scored <b>#{e.points} Points</b> by submitting a
-            Spirit Wear photo." 
+      spirit_wear: (e, name) -> eventSummary.photo_game(e, name, "Spirit Wear")
+      gameday_pics: (e, name) -> eventSummary.photo_game(e, name, "Gameday Pics")
+      photo_challenge: (e, name) -> eventSummary.photo_game(e, name, "Photo Challenge")
+      picture_with_player: (e, name) -> eventSummary.photo_game(e, name, "Picture with a Player")
+      
+      photo_game: (e, name, game) ->
+         switch e.meta.rank
+            when 1 then sup = "<sup>st</sup>"
+            when 2 then sup = "<sup>nd</sup>"
+            when 3 then sup = "<sup>rd</sup>"
+            else sup = "<sup>th</sup>"
 
-      gameday_pics: (e, name) ->
-         e.summary = "#{name} scored <b>#{e.points} Points</b> by submitting a
-            Gameday Pics photo." 
-
-      photo_challenge: (e, name) ->
-         e.summary = "#{name} scored <b>#{e.points} Points</b> by submitting a
-            Photo Challenge photo." 
-
-      picture_with_player: (e, name) ->
-         e.summary = "#{name} scored <b>#{e.points} Points</b> by submitting a
-            Picture with a Player photo." 
+         if 0 < e.meta.rank < 10
+            e.summary = "#{name} scored <b>#{e.points} Points</b> for #{e.meta.rank}#{sup} 
+               place in the #{game} competition."
+         else
+            e.summary = "#{name} scored <b>#{e.points} Points</b> for participating 
+               in the #{game} competition."
 
    eventPointsEarned = (e) ->
       for cat, points of e.points_earned
@@ -108,8 +111,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             has_results = false
 
             for event in events
-               # continue if there is not enough information to display event
-               continue if (not event.meta.team_name? and not event.meta?.highlight_id?)
+               # continue if unknown game type
+               continue unless eventSummary[event.type]
 
                for e in @events()
                   dupl = false

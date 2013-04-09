@@ -56,21 +56,27 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
       hidePopup: () => @show_popup(false)
 
       takePicture: () =>
-         forge.file.getImage {source: "camera"}, (file) =>
-            @hidePopup()
-            forge.file.URL file, (url) =>
-               @picture = file
-               @picture_url(url)
-            , (err) -> fc.msg.show("Failed to get picture!") if err
+         @hidePopup()
+         width = Math.ceil(290 * (window.devicePixelRatio or 1))
+         forge.file.getImage {source: "camera", width: width}, (file) =>
+            if file
+               @picture_url("") 
+               forge.file.URL file, (url) =>
+                  @picture = file
+                  @picture_url(url)
+               , (err) -> fc.msg.show("Failed to get picture!") if err
 
       choosePicture: () =>
-         forge.file.getImage {source: "gallery"}, (file) =>
-            @hidePopup()
-            forge.file.URL file, (url) =>
-               @picture = file
-               @picture_url(url)
-            , (err) -> fc.msg.show("Failed to get picture!") if err
-
+         @hidePopup()
+         width = Math.ceil(290 * (window.devicePixelRatio or 1))
+         forge.file.getImage {source: "gallery", width: width}, (file) =>
+            if file
+               @picture_url("") 
+               forge.file.URL file, (url) =>
+                  @picture = file
+                  @picture_url(url)
+               , (err) -> fc.msg.show("Failed to get picture!") if err
+         
       chooseInstagram: () =>
          @hidePopup()
          $.mobile.changePage "games-photo-chooseInstagram.html", transition: "slide"

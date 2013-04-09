@@ -19,9 +19,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @challenge_expiration = 0
          @subtitle = ko.computed () =>
             switch @created_by()
-               when "spirit_wear" then return "Some clever subtitle"
-               when "gameday_pics" then return "Some clever subtitle"
-               when "picture_with_player" then return "Some clever subtitle"
+               when "spirit_wear" then return "Show off your gear as you rep your team"
+               when "gameday_pics" then return "Snap a pic of your Gameday festivities"
+               when "picture_with_player" then return "Snag a picture with an athlete"
                when "photo_challenge" then return @challenge_description()
                else return ""
 

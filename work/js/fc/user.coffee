@@ -67,7 +67,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       linkTwitter: (done) ->
          fc.user.get (err, user) ->
             if not forge.is.mobile() or user.twitter 
-               done() if done
+               done(null, true) if done
                return
 
             link = () ->
@@ -143,7 +143,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                done() if done
                return
 
-            permissions = [ "user_location", "user_birthday" ]
+            permissions = [ "user_location", "user_birthday", "publish_actions" ]
             forge.facebook.authorize permissions
             , (data) ->
                if user.facebook == true or user.facebook?.linked
