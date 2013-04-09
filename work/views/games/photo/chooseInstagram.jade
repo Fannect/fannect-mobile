@@ -15,5 +15,5 @@ block content
          .instagram-image-wrap(data-bind="foreach: images")
             // ko if: $index() % 2 == 1 --><img class="instagram-image" data-bind="click: $parent.select, attr: { src: thumbnail.url }, css: { active: selected }" /><!-- /ko
 
-      .loading-more-indicator.clear(data-bind="visible: loading_more", style="display:none;")
+      .loading-more-indicator.clear(data-bind="visible: has_more", style="display:none;")
       

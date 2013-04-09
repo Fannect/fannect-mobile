@@ -27,7 +27,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       onPageShow: () =>
          $window = $(window).bind "scroll.chooseInstagram", () =>
-            if @has_searched and not @loading_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
+            if not @loading_more() and @has_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
                @loadImages()
 
       onPageHide: () =>
@@ -46,8 +46,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                return fc.msg.show("Failed to load Instagram images!") 
             
             @loading_more(false)
-            @has_more(data.length == @limit and data.meta.max_id)
-            @max_id = data.meta.max_id
+            @has_more(data.images.length == @limit and data?.meta?.next_max_id)
+            @max_id = data.meta?.next_max_id
             for image in data.images
                image.selected = ko.observable(false)
                @images.push image 
