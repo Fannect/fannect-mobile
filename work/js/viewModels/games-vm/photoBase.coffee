@@ -34,15 +34,17 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                      image_url: image_url
                      caption: @caption()
                      game_type: @game_type()
-               , (err, resp) =>
+               , (err, highlight) =>
                   fc.msg.hide()
-                  return fc.msg.show("Failed to upload image!") if err or resp?.status == "fail"
+                  return fc.msg.show("Failed to upload image!") if err or highlight?.status == "fail"
                   setTimeout () =>
                      @picture = null
                      @caption("")
                      @picture_url("")
                   , 100
-                  $.mobile.changePage "games-photo-afterSubmit.html?type=#{@game_type()}", transition: "flip"
+                  $.mobile.changePage "games-photo-afterSubmit.html?type=#{@game_type()}", 
+                     transition: "flip"
+                     params: { highlight: highlight }
                   
          if @picture
             fc.images.uploadImage @picture, (err, data) =>
@@ -52,7 +54,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          else
             send()
             
-      showPopup: () => @show_popup(true)
+      showPopup: () => 
+         # cycle to make sure popup is shown
+         @show_popup(false) if @show_popup()
+         @show_popup(true)
       hidePopup: () => @show_popup(false)
 
       takePicture: () =>
