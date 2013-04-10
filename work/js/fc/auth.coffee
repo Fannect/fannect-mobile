@@ -132,7 +132,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                      console.log "Error: failed to get access_token, retrying!", err
                      fc.auth._requestAccessToken(token, true, done)
 
-         forge.ajax(options)
+         forge.request.ajax(options)
 
       getRefreshToken: (done) ->
          return done(null, fc.auth._refresh_token) if fc.auth._refresh_token 

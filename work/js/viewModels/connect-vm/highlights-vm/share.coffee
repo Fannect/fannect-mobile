@@ -16,13 +16,13 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.team.onActiveChanged () => @go_back = true
 
       load: () =>
-         return fc.nav.backToRoot("connect") unless @params?.highlight?
+         return fc.nav.backToRoot("connect") unless @params?.highlight? or @highlight?
 
          if @go_back
             @go_back = false
             return fc.nav.goBack()
 
-         @highlight(@params.highlight)
+         @highlight(@params.highlight) if @params.highlight
          
          # preset caption
          if @highlight()
@@ -36,10 +36,10 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @shared_twitter(false)
                return 
             fc.ajax
-               url: "#{fc.getResourceURL()}/v1/highlights/@highlight().id}/share"
+               url: "#{fc.getResourceURL()}/v1/highlights/#{@highlight()._id}/share"
                type: "POST"
                data: 
-                  twitter: "true"
+                  twitter: true
                   caption: @share_caption()
 
       shareViaFacebook: () =>
