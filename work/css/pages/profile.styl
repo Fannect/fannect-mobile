@@ -333,7 +333,9 @@
 
    .swipe-item.inactive
       .activity-list
+      .photo-list
          max-height: 200px
+         overflow: hidden
    .activity
       position: relative
       width: 265px
@@ -370,7 +372,7 @@
             .activity-icon
                position: absolute
                background: url(../images/icons/icons-gamecell-small.png) no-repeat
-               background-size: 202px 48px
+               background-size: 419px 48px
                height: 48px
                width: 48px
                top: 8px
@@ -378,9 +380,19 @@
                &.attendence-streak
                   background-position: 0 0
                &.game-face
-                  background-position: -52px 0
+                  background-position: -53px 0
                &.guess-the-score
-                  background-position: -102px 0
+                  background-position: -106px 0
+               &.locked
+                  background-position: -159px 0
+               &.gameday-pics
+                  background-position: -212px 0
+               &.photo-challenge
+                  background-position: -265px 0
+               &.picture-with-player
+                  background-position: -318px 0
+               &.spirit-wear
+                  background-position: -371px 0
             .points
                position:absolute
                font-size: 10px
@@ -414,6 +426,58 @@
                font-size: 10px
                font-weight: lighter
                color: #555
+
+   .photo-stream
+      position: relative
+      width: 265px
+      margin: 10px auto 0
+      border: 2px solid #777
+      dropshadow: 0 0 5px #000
+      background: #fff url(../images/Pattern_FabricKnit.png)
+      background-size: 4px 4px
+      
+      .no-photos
+         margin: 10px
+         color: #555
+         text-align:center
+         height: 42px
+         line-height: 42px
+         font-size: 20px
+         text-shadow: 0 2px 0 #fff
+
+      .load-more
+         margin: 10px
+      
+      .loading-more-indicator
+         margin: 5px auto 5px
+
+      .photo-list
+         .photo-item
+            display:block
+            position:relative
+            background-highlight()
+            border-bottom: 1px solid #bbb
+            color: #000
+            text-shadow: 0 1px 0 #fff
+            text-decoration:none
+            padding: 10px
+            &.ui-btn-active
+               background: rgba(0,0,0,.2) !important
+               border: 0
+               border-bottom: 1px solid #bbb
+            img.photo
+               display:block
+               width: 100%
+            .caption
+               display:block
+               margin-top: 2px 
+               font-weight: bold
+               color: #2f3e46
+            .date
+               display:block
+               font-size: 10px
+               font-weight: lighter
+               color: #c1272d
 
    .secondary-slider
       margin-top: 20px
@@ -464,6 +528,14 @@
       background: url(../images/tutorial/Tutorial_fannectLogo.png) 50% 0 no-repeat
       background-size: 263px 57px
       margin-top: 8px
+   .intro-paragraph
+      margin-top: 26px
+   .rule-title
+      margin: 15px 0 11px
+   .profile-picture-description
+      margin-bottom: 8px
+   .team-picture-description
+      margin-top: 6px
    .tutorial-separator
       height: 16px
       background: url(../images/tutorial/Tutorial_dividerLine.png) 50% 50% no-repeat
@@ -481,7 +553,7 @@
       height: 24px
       background: url(../images/tutorial/Tutorial_scoreBar.png) 50% 50% no-repeat
       background-size: 221px 24px
-      margin-bottom: 4px
+      margin: 15px 4px
    .tutorial-shout
    .tutorial-fan-dna
       background-size: 220px 52px
@@ -576,6 +648,44 @@
       color: #bbb
       clear: both
 
+#settings-manageAccounts-page
+#linkAccounts-page
+   p
+      width: 280px
+      margin: 18px auto
+      text-shadow: 0 1px 0 #000
+      color: #fff
+      line-height: 21px
+      font-size: 18px
+      text-align: center
+   .link-button
+      display: block
+      background: url(../images/LinkAccountButtons.png) no-repeat
+      background-size: 591px 175px
+      width: 293px
+      height: 40px
+      line-height: 40px
+      color: #fff
+      text-shadow: 0 -1px 0 #000
+      margin: 5px auto
+      text-align: center
+      text-decoration: none
+      font-weight: bold
+      &.ui-btn-active
+         border: 0
+         background-position-x: -298px
+         font-weight: bold
+      &.facebook
+         background-position-y: 0
+      &.twitter
+         background-position-y: -45px
+      &.continue
+         background-position-y: -90px
+         color: #000
+         text-shadow: 0 1px 0 #fff
+      &.instagram
+         background-position-y: -135px
+   
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
    #profile-page
@@ -617,6 +727,7 @@
          background-image: url(../images/profile/nextGame@2x.png)!important
 
       .activity
+      .photo-stream
          background-image: url(../images/Pattern_FabricKnit@2x.png)!important
       .activity-icon
          background-image: url(../images/icons/icons-gamecell-small@2x.png)!important
@@ -658,3 +769,7 @@
       .use-twitter
          background-image: url(../images/shout/twitter_icon@2x.png)!important
    
+   #settings-manageAccounts-page
+   #linkAccounts-page
+      .link-button
+         background-image: url(../images/LinkAccountButtons@2x.png)

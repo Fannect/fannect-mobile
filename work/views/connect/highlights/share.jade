@@ -1,0 +1,28 @@
+extend ../../layout
+   
+block header
+   h1(data-menu-root="connect") Share
+   a(href="connect.html", data-icon="back", data-rel="back", data-theme="b") Back
+   //- a.ui-btn-right(href="connect-huddle-newTopic.html", data-role="button", data-theme="b", data-transition="slideup") New Topic
+
+block content
+
+   ul.pattern-bg(data-role="listview").highlights
+      li.highlight(data-bind="with: highlight")
+         .image-border
+            .image-container
+               img.highlight-image(data-bind="getWidestSrc: image_url")
+            .caption(data-bind="text: caption || '[no caption]'")
+            .owner-name(data-bind="text: owner_name")
+
+         .share-message Share this photo via:
+      
+      li.share-container
+         .photo-share-options
+            .photo-share-option.twitter(data-bind="click: shareViaTwitter, css:{'ui-btn-active':shared_twitter}")
+            .photo-share-option.facebook(data-bind="click: shareViaFacebook, css:{'ui-btn-active':shared_facebook}")
+            //- .photo-share-option.instagram(data-bind="click: shareViaInstagram")
+            .photo-share-option.sms(data-bind="click: shareViaSMS, css:{'ui-btn-active':shared_sms}")
+         .share-text-wrap
+            textarea.share-text(data-bind="value: share_caption, valueUpdate: ['afterkeydown']", placeholder="Enter a caption")
+         

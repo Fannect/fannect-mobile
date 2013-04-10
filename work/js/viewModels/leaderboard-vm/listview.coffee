@@ -47,7 +47,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
                return true
 
-      onPageShow: () ->
+      onPageShow: () =>
          $window = $(window).bind "scroll.leaderboard", () =>
             if not @loading_more() and @has_more() and $window.scrollTop() > $(document).height() - $window.height() - 150
                @loadFans()

@@ -44,7 +44,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       _send: (log = {}) ->
          log.page = $.mobile?.activePage?.attr("id")
          log.history = JSON.stringify(history)
-         forge.ajax
+         forge.request.ajax
             url: forge.config.modules.parameters.loggly_server
             type: "POST"
             data: log

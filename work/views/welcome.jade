@@ -1,0 +1,9 @@
+extend layout
+
+block header
+   h1(data-menu-root="current") Welcome
+   a(data-icon="back", data-rel="back", data-theme="b") Back
+   
+block content
+   .welcome-banner
+      a.continue-button(data-bind="showClick: true", data-transition="slide", href="profile-selectTeam-chooseSport.html?hide_back=true")

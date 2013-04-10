@@ -1,0 +1,209 @@
+@import "../lib/variables"
+@import "../lib/mixins"
+
+// .highlights
+//    .highlight
+
+#connect-highlights-page
+
+   .header-section
+      margin: -15px -15px 0 -15px
+      background: url(../images/Tilable-Background03.png) 50% 0 
+      background-size: 500px 50px 
+
+      .sort-by
+         position:relative
+         background: url(../images/connect/huddle/HeaderShadow.png) 50% 0 no-repeat
+         background-size: 320px 32px
+         width: 320px
+         height: 32px
+         line-height: 32px
+         font-size: 12px
+         color: #888
+         margin: 0 auto
+         .oldest
+         .most-popular
+         .newest
+            position:absolute
+            width: 100px
+            text-align: center
+            cursor:pointer
+            z-index: 10
+         .oldest
+            left: 16px
+         .most-popular
+            margin-left: -50px
+            left: 50%
+         .newest   
+            right: 14px
+         .active
+            color: #ddd
+
+#connect-highlights-page
+   .content
+      overflow-y: hidden
+
+   .description-bar
+      position: relative
+      background: url(../images/connect/highlights/DescriptionBar.png)
+      background-size: 100% 50px
+      height: 50px
+      margin: 0 -15px
+      padding: 0 72px
+      text-shadow: 0 -1px 0 #000
+      .photo-title-icon
+         position:absolute
+         top: 4px 
+         left: 15px
+      .sub-title-wrap
+         display: table
+         width: 100%
+         height: 50px
+         .sub-title
+            display: table-cell
+            vertical-align: middle
+            text-align: center
+
+   .highlights
+      margin-top: 0px !important
+
+   .no-results-wrap
+      text-align:center
+      text-shadow: 0 1px 2px #fff
+      .title 
+         color: #888
+         font-size: 20px
+         margin-top: 25px
+         font-weight: bold
+      .subtitle
+         color: #aaa
+         font-size: 16px
+         margin-top: 5px
+         font-weight: lighter
+
+.highlight
+   box-shadow: inset 0 1px 2px #fff
+   background-highlight()
+   border-right: 0
+   border-left: 0
+   border-top:0
+   &:first-child
+      border-top: 1px solid #ccc
+   .meta-wrap
+      .image-wrap
+         float: left
+         position: relative
+         margin: 0
+      .owner
+         margin: 0 0 0 55px
+         font-weight: bold
+         font-size: 14px
+         padding: 6px 0 0
+      .team
+         margin: 4px 0 0 55px
+         color: #c1272d
+         font-weight: lighter
+         font-size: 10px
+
+   .image-border
+      margin-top: 16px
+      padding: 8px
+      dropshadow: 1px 1px 4px rgba(0,0,0,.3), -1px 1px 4px rgba(0,0,0,.3)
+      background: #fff
+
+      .image-container
+         padding-bottom: 8px
+         img
+            display: block
+            width: 100%
+            min-height: 100px
+
+      .owner-name
+      .date
+         color: #c1272d
+         font-size: 11px
+         font-weight: lighter
+         padding-top: 3px
+
+   .voting-wrap
+      height: 34px
+      margin-top: 8px
+      .down-vote-button
+         float: left
+         background: url(../images/connect/highlights/BooButton.png) no-repeat
+         background-size: 102px 34px
+         width: 49px
+         height: 34px
+      .up-vote-button
+         float:right
+         background: url(../images/connect/highlights/CheerButton.png) no-repeat
+         background-size: 102px 34px
+         width: 49px
+         height: 34px
+      .down-vote-button
+      .up-vote-button
+         &.active
+            background-position: -54px 0
+      .graph-wrap
+         background: url(../images/connect/highlights/GraphSlice@2x.png) repeat-x
+         background-size: 2px 34px
+         margin: 0 48px
+         height: 34px
+         .up-label
+         .down-label
+            top: 4px
+         .bar
+         .up-label
+            right: 6px
+         .bar
+         .down-label
+            left: 6px
+         .bar
+            top: 19px
+            width: auto
+
+   .comments
+      font-size: 10px
+      color: #777
+      padding: 6px 0 0 3px
+      text-shadow: 0 1px 1px #fff
+
+   .actions-wrap
+      margin-top: 8px
+      height: 34px
+   .comment-button
+      float: left
+      background: url(../images/connect/highlights/CommentButton.png) no-repeat
+      background-size: 231px 34px
+      width: 113px
+      height: 34px
+      &.ui-btn-active
+         border: 0
+         background-position: -118px 0
+   .share-button
+      float: right
+      background: url(../images/connect/highlights/ShareButton.png) no-repeat
+      background-size: 189px 34px
+      width: 92px
+      height: 34px
+      &.ui-btn-active
+         border: 0
+         background-position: -97px 0
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5)
+   #connect-highlights-page
+      .description-bar
+         background-image: url(../images/connect/highlights/DescriptionBar@2x.png) !important
+      .header-section
+         background-image: url(../images/Tilable-Background03@2x.png) !important
+      .down-vote-button
+         background-image: url(../images/connect/highlights/BooButton@2x.png) !important
+      .up-vote-button
+         background-image: url(../images/connect/highlights/CheerButton@2x.png) !important
+      .comment-button
+         background-image: url(../images/connect/highlights/CommentButton@2x.png) !important
+      .share-button
+         background-image: url(../images/connect/highlights/ShareButton@2x.png) !important
+
+@import "./highlights/comments"
+@import "./highlights/share"

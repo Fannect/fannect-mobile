@@ -1,0 +1,39 @@
+extend ../../layout
+
+block header
+   h1(data-menu-root="games") Photos
+   a(href="games.html", data-icon="back", data-rel="back", data-theme="b") Games
+   a.tutorial-link(href="#", data-iconpos="notext", data-icon="custom", data-theme="b")
+
+   #choosePicturePopup(data-role="popup", style="width:260px;", class="ui-corner-all", data-overlay-theme="a", data-theme="a", data-bind="showPopup: show_popup")
+      .ui-corner-top(data-role="header", data-theme="b")
+         h1 Choose Picture
+      .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
+         a(data-role="button", data-bind="click: takePicture, visible: window.forge.is.mobile(), showClick: true") Take Picture
+         a(data-role="button", data-bind="click: choosePicture, showClick: true") Choose from Library
+         a(data-role="button", data-bind="click: chooseInstagram, showClick: true") Choose from Instagram
+         a(data-role="button", data-theme="c", data-bind="click: hidePopup, showClick: true") Cancel
+
+block content
+
+   .title-wrap
+      .photo-title-icon(data-bind="setClass: game_type")
+      .title-cell
+         block title
+
+   .background 
+      .top
+      .left-tape
+      .right-tape
+      .middle
+         .picture-wrap(data-bind="css: { 'is-empty': !has_picture() }, click: showPopup")
+            .picture-placeholder
+               img.picture(data-bind="attr: { 'src': picture_url }, visible: has_picture")
+         
+         .caption-wrap
+            input(data-bind="value: caption, valueUpdate: ['afterkeydown']", placeholder="Enter a caption")
+         
+         .action-wrap
+            .choose-picture-button(data-bind="showClick: true, click: showPopup")
+            .submit-picture-button(data-bind="fadeIn: has_picture, showClick: true, click: submit", style="display:none;")
+      .bottom

@@ -3,33 +3,58 @@
 
 #connect-page
    .content
-      padding-bottom:0
+      padding: 15px 0 0
       // position: relative
-   // .icon-wrap
-   //    position:absolute
-   //    height: 338px
-   //    top: 50%
-   //    width: 140px
-   //    left: 50%
-   //    margin: -169px 0 0 -70px
+   .icon-wrap
+      width: 320px
+      margin: 0 auto
    .roster-icon-wrap
    .huddle-icon-wrap
+   .highlights-icon-wrap
+      position: relative
       width: 140px
-      display:block
+      display: block
+      float: left
       text-decoration: none
       border-radius: 21px
       padding: 5px
       text-shadow: 0 1px 3px #000
       &.ui-btn-active
-         position: relative
-         dropshadow: inset 1px 2px 6px #000, inset -1px 2px 6px #000, 0 1px 1px rgba(200,200,200,.5)
-         top: 2px
          border: 0
-
+         background: transparent
+         .active-cover
+            display:block
+         .label
+            color: #999
+         // position: relative
+         // dropshadow: inset 1px 2px 6px #000, inset -1px 2px 6px #000, 0 1px 1px rgba(200,200,200,.5)
+         // top: 2px
+         // border: 0
+   .active-cover
+      display: none
+      width: 126px
+      height: 126px
+      position: absolute
+      background: #000
+      opacity: .4
+      border-radius: 20px
+      margin-left: -63px
+      left: 50%
+      top: 9px
    .roster-icon-wrap
-      margin: -6px auto 0
-   .huddle-icon-wrap
-      margin: 0px auto 0
+      margin-left: 10px 
+   .highlights-icon-wrap
+      margin-left: 10px 
+   .clear-sep
+      clear: both
+      height: 1px
+      width: 100%
+
+
+   // .roster-icon-wrap
+   //    margin: -6px auto 0
+   // .huddle-icon-wrap
+   //    margin: 0px auto 0
    .label   
       display:block
       text-align:center
@@ -41,7 +66,7 @@
 
 .icon-connect
    background-image: url(../images/icons/icons-connect.png)
-   background-size: 285px 140px
+   background-size: 430px 140px
    width: 140px
    height: 140px
    display:block
@@ -49,6 +74,8 @@
       background-position: 0 0
    &.huddle
       background-position: -145px 0
+   &.highlights
+      background-position: -290px 0
 
 #connect-roster-page
    .my-roster-title

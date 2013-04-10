@@ -26,7 +26,22 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
          if user._id != fc.user._curr?._id
             fc.user._addToChannel(user._id) 
-            forge.flurry.setDemographics(user_id: user._id)
+            
+            demographics = { user_id: user._id }
+            demographics.gender = "m" if user.gender?[0].toLowerCase() == "m"
+            demographics.gender = "f" if user.gender?[0].toLowerCase() == "f"
+
+            # Try and parse birthday
+            try
+               if user.birthday
+                  year = 3.15569e10
+                  now = new Date() / 1
+                  birth = new Date(user.birthday) / 1
+                  demographics.age = Math.floor((now - birth) / year)
+            catch e
+               console.log("Failed to set age: #{JSON.stringify(e)}")
+             
+            forge.flurry.setDemographics(demographics)
 
          fc.user._curr = {} unless fc.user._curr
 
@@ -52,7 +67,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       linkTwitter: (done) ->
          fc.user.get (err, user) ->
             if not forge.is.mobile() or user.twitter 
-               done() if done
+               done(null, true) if done
                return
 
             link = () ->
@@ -61,8 +76,8 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   pattern: "*://*/v1/twitter/done*"
                   title: "Link Twitter"
                , (data) ->
-                  if data.url.indexOf("status=success") >= 0 #and not data.userCancelled
-                     fc.user.update(twitter: true)
+                  if data?.url?.indexOf("status=success") >= 0 #and not data.userCancelled
+                     fc.user.update({ twitter: true })
                      done(null, true) if done
                   else
                      done(null, false) if done
@@ -98,7 +113,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   pattern: "*://*/v1/instagram/done*"
                   title: "Link Instagram"
                , (data) ->
-                  if data.url.indexOf("status=success") >= 0
+                  if data?.url?.indexOf("status=success") >= 0
                      fc.user.update(instagram: true)
                      done(null, true) if done
                   else
@@ -128,7 +143,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                done() if done
                return
 
-            permissions = [ "user_location", "user_birthday" ]
+            permissions = [ "user_location", "user_birthday", "publish_actions" ]
             forge.facebook.authorize permissions
             , (data) ->
                if user.facebook == true or user.facebook?.linked

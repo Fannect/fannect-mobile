@@ -13,6 +13,9 @@ window.fannect.pages =
 
    "linkAccounts-page":
       vm: vm.LinkAccounts
+   
+   "welcome-page":
+      vm: vm.Base
 
    ##
    # Reset Password
@@ -189,12 +192,37 @@ window.fannect.pages =
       classes: ["light-background"] 
       auto_scroll: true
 
+   "connect-highlights-page": 
+      vm: vm.Connect.Highlights
+      buttons: [
+         {
+            position: "right"
+            icon: "images/icons/CameraIcon@2x.png"
+            click: -> $.mobile.changePage "connect-highlights-upload.html", transition: "slidedown"
+         }
+      ]
+      classes: ["light-background"]
+      auto_scroll: true
+
+   "connect-highlights-share-page": 
+      vm: vm.Connect.Highlights.Share
+      classes: ["light-background"]
+
+   "connect-highlights-comments-page": 
+      vm: vm.Connect.Highlights.Comments
+      classes: ["light-background"]
+
+   "connect-highlights-upload-page": 
+      vm: vm.Connect.Highlights.Upload
+      classes: ["light-background"]
+
    ###
    # Games
    ###
    "games-page":
       vm: vm.Games
       classes: ["light-background"]
+      auto_scroll: true
 
    "games-guessTheScore-page":
       vm: vm.Games.GuessTheScore
@@ -243,9 +271,57 @@ window.fannect.pages =
       ]
       classes: ["light-background"]
 
-   # "games-gameFace-motivateMessage-page":
-   #    vm: vm.Games.GameFace.MotivateMessage
-   #    classes: ["light-background"]
+   "games-photo-gamedayPics-page":
+      vm: vm.Games.GamedayPics
+      buttons: [
+         {
+            text: "Rules"
+            position: "right"
+            click: () -> window.fannect.tutorial.show()
+         }
+      ]
+      classes: ["photo-base"]
+
+   "games-photo-photoChallenge-page":
+      vm: vm.Games.PhotoChallenge
+      buttons: [
+         {
+            text: "Rules"
+            position: "right"
+            click: () -> window.fannect.tutorial.show()
+         }
+      ]
+      classes: ["photo-base"]
+
+   "games-photo-spiritWear-page":
+      vm: vm.Games.SpiritWear
+      buttons: [
+         {
+            text: "Rules"
+            position: "right"
+            click: () -> window.fannect.tutorial.show()
+         }
+      ]
+      classes: ["photo-base"]
+
+   "games-photo-pictureWithPlayer-page":
+      vm: vm.Games.PictureWithPlayer
+      buttons: [
+         {
+            text: "Rules"
+            position: "right"
+            click: () -> window.fannect.tutorial.show()
+         }
+      ]
+      classes: ["photo-base"]
+
+   "games-photo-chooseInstagram-page":
+      vm: vm.Games.ChooseInstagram
+      classes: ["light-background"]
+
+   "games-photo-afterSubmit-page":
+      vm: vm.Games.AfterSubmit
+      classes: ["light-background"]
 
    ###
    # Leaderboard

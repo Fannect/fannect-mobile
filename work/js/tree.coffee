@@ -25,6 +25,7 @@
 #= require "models/gameData.coffee"
 #= require "models/nextGame.coffee"
 #= require "models/events.coffee"
+#= require "models/photos.coffee"
 
 #= require "ext/binding-handlers.coffee"
 #= require "ext/text-scroller.coffee"
@@ -40,9 +41,6 @@
 
 #= require "viewModels/profile-vm/invites.coffee"
 #= require "viewModels/profile-vm/chooseWebImage.coffee"
-#= require "viewModels/profile-vm/editBio.coffee"
-#= require "viewModels/profile-vm/editGameDaySpot.coffee"
-#= require "viewModels/profile-vm/editBraggingRights.coffee"
 #= require "viewModels/profile-vm/selectTeam.coffee"
 #= require "viewModels/profile-vm/other.coffee"
 #= require "viewModels/profile-vm/shout.coffee"
@@ -59,6 +57,13 @@
 #= require "viewModels/games-vm/attendanceStreak.coffee"
 #= require "viewModels/games-vm/gameFace.coffee"
 #= require "viewModels/games-vm/guessTheScore.coffee"
+#= require "viewModels/games-vm/photoBase.coffee"
+#= require "viewModels/games-vm/photo-vm/gamedayPics.coffee"
+#= require "viewModels/games-vm/photo-vm/spiritWear.coffee"
+#= require "viewModels/games-vm/photo-vm/photoChallenge.coffee"
+#= require "viewModels/games-vm/photo-vm/pictureWithPlayer.coffee"
+#= require "viewModels/games-vm/photo-vm/chooseInstagram.coffee"
+#= require "viewModels/games-vm/photo-vm/afterSubmit.coffee"
 
 #= require "viewModels/connect-vm/roster.coffee"
 #= require "viewModels/connect-vm/roster-vm/facebookFriends.coffee"
@@ -68,6 +73,11 @@
 #= require "viewModels/connect-vm/huddle-vm/newReply.coffee"
 #= require "viewModels/connect-vm/huddle-vm/replies.coffee"
 #= require "viewModels/connect-vm/huddle-vm/tagTeams.coffee"
+
+#= require "viewModels/connect-vm/highlights.coffee"
+#= require "viewModels/connect-vm/highlights-vm/comments.coffee"
+#= require "viewModels/connect-vm/highlights-vm/share.coffee"
+#= require "viewModels/connect-vm/highlights-vm/upload.coffee"
 
 #= require "viewModels/games-vm/gameFace-vm/motivateSelect.coffee"
 

@@ -1,0 +1,16 @@
+extend photoBase
+
+block title
+   .title(data-bind="text: challenge_title")
+   .sub-title(data-bind="text: challenge_description")
+
+block tutorial
+   .tutorial-slider.one
+      .tutorial-item
+         .tutorial-content
+            .tutorial-close
+            .tutorial-done
+            .tutorial-title Photo Challenge
+            .line-separator
+            p Enter the Photo Challenge competition by submitting a picture that matches the weekly challenge description. There will be a awesome new challenge every week.
+            p Make sure to cheer and boo other pictures too so the best of the week rises to the top!

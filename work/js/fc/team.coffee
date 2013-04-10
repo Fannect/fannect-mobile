@@ -52,7 +52,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                type: "GET"
             , (err, team) ->
                # Redirect to select team if 404 
-               if err?.status == 404 or err?.statusCode?.toString() == "404"
+               if err?.reason == "not_found"
                   return fc.team.redirectToSelect() 
                else if err
                   return fc.msg.show("Failed to load profile!")

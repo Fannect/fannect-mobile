@@ -52,7 +52,6 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          clearTimeout(removingButtonsTimeoutId)
          removingButtonsTimeoutId = null
    
-
    fc.nav =
       setup: () ->
          # Loop through all of the pages and attach handlers
@@ -92,6 +91,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          fc.nav.pushCachedParams(entry.path, params)
          entry.back(transition: transition) 
 
+      removeCurrent: () -> historyPaths[activeHistoryPath].getBack()
       getActiveHistoryName: () -> return activeHistoryPath
       
       # replacePage: (toPage, options = {}) ->
@@ -106,12 +106,13 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
       getActivePath: () ->
          return historyPaths[activeHistoryPath].current().path
 
-      buildHistory: (name, entries, transition) ->
+      buildHistory: (name, entries, options) ->
          activeHistoryPath = name
          history = historyPaths[activeHistoryPath]
          history.empty()
          history.push(entry) for entry in entries
-         history.current().go(transition: transition or "slidedown")
+         fc.nav.pushCachedParams(history.current().path, options.params) if options.params
+         history.current().go(transition:  options.transition or "slidedown")
 
       backToRoot: (options = {}) ->
          historyPaths[activeHistoryPath].empty()
@@ -139,7 +140,11 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             options.silent = true
             entry.go(options)
 
-      clearHistory: () -> v.empty() for k, v of historyPaths
+      clearHistory: (name) -> 
+         if name 
+            historyPaths[name]?.empty()
+         else
+            v.empty() for k, v of historyPaths
 
       setActiveMenu: (hide) ->
          menu = if hide then "none" else activeHistoryPath 

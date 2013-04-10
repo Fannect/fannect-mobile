@@ -38,7 +38,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
          for friend in @friends()
             selected.push(friend.id) if friend.selected()
-         
+       
          if selected.length == 0
             return fc.msg.show("No friends selected!")
 

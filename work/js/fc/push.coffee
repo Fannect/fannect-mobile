@@ -15,13 +15,14 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   waiting = () -> 
                      fc.nav.buildHistory("profile", [  
                         new fc.nav.HistoryEntry("profile-invites.html", "slidedown")
-                     ], "slidedown")
+                     ], { transition: "slidedown" })
                else if message.event == "gameface"
                   waiting = () -> 
                      fc.team.setActive(message.profileId) if message.profileId
                      fc.nav.buildHistory("games", [  
                         new fc.nav.HistoryEntry("games-gameFace.html", "slide")
-                     ], "slidedown")
+                     ], { transition: "slidedown" })
+               # else if message.event == "gameday"
                      
                if waiting and isActive
                   forge.launchimage.hide() if forge.is.mobile()

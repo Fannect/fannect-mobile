@@ -1,9 +1,9 @@
 do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
    compareEvents = (a, b) ->
-      if a.date < b.date 
+      if a.date > b.date 
          return -1
-      else if a.date > b.date
+      else if a.date < b.date
          return 1
       else
          return 0
@@ -31,6 +31,25 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          else
             e.summary = "#{name} scored <b>#{e.points} Points</b> by turning on 
                GameFace for #{e.meta.team_name} vs #{e.meta.opponent}!"
+
+      spirit_wear: (e, name) -> eventSummary.photo_game(e, name, "Spirit Wear")
+      gameday_pics: (e, name) -> eventSummary.photo_game(e, name, "Gameday Pics")
+      photo_challenge: (e, name) -> eventSummary.photo_game(e, name, "Photo Challenge")
+      picture_with_player: (e, name) -> eventSummary.photo_game(e, name, "Picture with a Player")
+      
+      photo_game: (e, name, game) ->
+         switch e.meta.rank
+            when 1 then sup = "<sup>st</sup>"
+            when 2 then sup = "<sup>nd</sup>"
+            when 3 then sup = "<sup>rd</sup>"
+            else sup = "<sup>th</sup>"
+
+         if 0 < e.meta.rank < 10
+            e.summary = "#{name} scored <b>#{e.points} Points</b> for #{e.meta.rank}#{sup} 
+               place in the #{game} competition."
+         else
+            e.summary = "#{name} scored <b>#{e.points} Point</b> for participating 
+               in the #{game} competition."
 
    eventPointsEarned = (e) ->
       for cat, points of e.points_earned
@@ -92,8 +111,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             has_results = false
 
             for event in events
-               # continue if there is not enough information to display event
-               continue unless event.meta.team_name?
+               # continue if unknown game type
+               continue unless eventSummary[event.type]
 
                for e in @events()
                   dupl = false
@@ -111,4 +130,5 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
             @has_more(has_results and events.length == @limit)
             @events().sort(compareEvents) if has_results
+            @events.valueHasMutated()
             @_has_loaded = true

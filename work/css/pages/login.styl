@@ -18,9 +18,37 @@
    .input-container
       margin-top: 30px
 
+#welcome-page
+   .content
+      padding: 0
+   .welcome-banner
+      position: relative
+      width: 100%
+      height: 383px
+      background: url(../images/WelcomeBanner.png) no-repeat 50% 0
+      background-size: 600px 383px
+   .continue-button
+      position: absolute
+      background: url(../images/WelcomeContinueButton.png)
+      background-size: 489px 50px
+      width: 242px
+      height: 50px
+      bottom: 112px
+      margin-left: -121px
+      left: 50%
+      &.ui-btn-active
+         border: 0
+         background-position: -247px 0
+
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
    #index-page
       .logo
          background-image: url(../images/Fannect-Icon80@2x.png)!important
       .or-separator
          background-image: url(../images/LoginDivider@2x.png)!important
+
+   #welcome-page
+      .welcome-banner
+         background-image: url(../images/WelcomeBanner@2x.png)
+      .continue-button
+         background-image: url(../images/WelcomeContinueButton@2x.png)

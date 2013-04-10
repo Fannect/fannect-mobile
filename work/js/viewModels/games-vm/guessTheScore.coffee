@@ -23,7 +23,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @away_score(@away_score() or 0)
                fc.logger.flurry("Play Guess the Score")
                fc.ajax
-                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/guessTheScore"
+                  url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/guess_the_score"
                   type: "POST"
                   data:
                      home_score: @home_score()
@@ -38,7 +38,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             @sport_key(profile.sport_key) if profile?.sport_key?.length > 0
 
             fc.ajax 
-               url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/guessTheScore"
+               url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/guess_the_score"
                type: "GET"
                retry: "forever"
             , (error, data) =>

@@ -7,8 +7,8 @@
    src: url(../fonts/JerseyM54.ttf)
 
 @font-face
-   font-family: Journal
-   src: url(../fonts/Journal.ttf)
+   font-family: Chalkduster
+   src: url(../fonts/Chalkduster.ttf)
 
 html
    // -webkit-overflow-scrolling: touch
@@ -55,6 +55,9 @@ body
    .ui-icon-loading
       background-position: 50% 50%
       background-repeat: no-repeat
+      background-color: #fff
+      dropshadow: 0 1px 1px #000, inset 0 1px 2px rgba(0,0,0,.5)
+      opacity: 1
       width: 60px
       height: 60px
       border-radius: 5px
@@ -252,7 +255,7 @@ div.token-input-dropdown
       &.ui-btn-active
          border-color: #ccc
          .ui-btn-inner
-            background: rgba(0,0,0,.2)
+            background: rgba(0,0,0,.2) !important
       .ui-icon-arrow-r
          background: url(../images/icons/TableCell_TableNext.png) 50% 50% no-repeat
          background-size: 10px 14px
@@ -278,7 +281,7 @@ div.token-input-dropdown
       &.ui-btn-active
          border: none
          .ui-btn-inner
-            background: rgba(0,0,0,.2)
+            background: rgba(0,0,0,.2) !important
       .ui-icon-arrow-r
          background: url(../images/icons/UITeamNext.png) 50% 50% no-repeat
          background-size: 10px 14px
@@ -300,7 +303,7 @@ div.token-input-dropdown
             background-position: -38px 0
 
 .loading-more-indicator
-   background: #000 url("../images/icons/ajax-loader.gif") 50% 50% no-repeat
+   background: #fff url("../images/icons/ajax-loader.gif") 50% 50% no-repeat
    background-size: 36px 36px
    width: 50px
    height: 50px
@@ -308,8 +311,9 @@ div.token-input-dropdown
    -moz-border-radius: 5px
    border-radius: 5px
    border: 1px solid #333
-   opacity: 0.8
    margin: 30px auto 0
+   opacity: 1
+   dropshadow: 0 1px 1px #000, inset 0 1px 2px rgba(0,0,0,.5)
 
 .loading-more-indicator-text
    margin: 30px 0 8px
@@ -484,6 +488,93 @@ div.token-input-dropdown
 
    p
       margin-top: 15px
+
+.categories
+   height: 64px
+   background: url(../images/connect/SliderMiddleSliver@2x.png)
+   background-size: 2px 64px
+   margin-top:-14px
+   position: relative
+   .next
+   .prev
+      position:absolute
+      cursor:pointer
+      top:14px
+      width:50px
+      height:50px
+      z-index:10
+      .arrow
+         position: absolute
+         background-size: 13px 20px !important
+         width: 13px
+         height: 20px
+         top:16px
+   .next
+      background: url(../images/connect/RightSliderBox.png) 0 0 
+      background-size: 50px 50px
+      right: 0
+      .arrow
+         right:15px
+         background: url(../images/profile/rightArrow_Active.png) 50% 50% no-repeat
+      &.inactive
+         .arrow
+            background: url(../images/profile/rightArrow_Inactive.png) 50% 50% no-repeat
+   .prev
+      background: url(../images/connect/huddle/LeftSliderBox.png) 0 0 
+      background-size: 50px 50px
+      left:0
+      .arrow
+         left:15px
+         background: url(../images/profile/leftArrow_Active.png) 50% 50% no-repeat
+      &.inactive
+         .arrow
+            background: url(../images/profile/leftArrow_Inactive.png) 50% 50% no-repeat
+   .swipe-wrap
+      height:50px
+      padding-top:14px
+      width:100%
+      .swipe-item
+         height:50px
+         line-height:50px
+         font-family:JerseyM54
+         text-align:center
+         font-size:18px
+
+.graph-wrap
+   position:relative
+   margin: 8px 8px 0
+   .down-label
+      position: absolute
+      top: 0
+      left: 0
+      color: #e01c1c
+      font-size: 12px
+   .up-label
+      position: absolute
+      top: 0
+      right: 0
+      color: #00b213
+      font-size: 12px
+   .bar
+      position:absolute
+      top: 15px
+      height: 5px
+      width: 100%
+      dropshadow: 0 1px 2px #fff
+      .downs
+      .ups
+         height: 100%
+         position: absolute
+         max-width: 95%
+         min-width: 5%
+      .downs
+         background: #e01c1c
+         left: 0
+         border-right: 1px #fff solid
+      .ups
+         background: #00b213
+         border-left: 1px #fff solid
+         right: 0
       
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5)
    .ui-page
@@ -532,6 +623,23 @@ div.token-input-dropdown
    .share-button
       background-image: url(../images/ShareButtons@2x.png) !important
 
+   .categories
+      .next
+         background-image: url(../images/connect/RightSliderBox@2x.png) !important
+         .arrow
+            background-image: url(../images/profile/rightArrow_Active@2x.png) !important
+          &.inactive
+            .arrow
+               background-image: url(../images/profile/rightArrow_Inactive@2x.png) !important
+      .prev
+         background-image: url(../images/connect/LeftSliderBox@2x.png) !important
+         .arrow
+            background-image: url(../images/profile/leftArrow_Active@2x.png) !important
+          &.inactive
+            .arrow
+               background-image: url(../images/profile/leftArrow_Inactive@2x.png) !important
+      
+
 @import "elements/charts"
 @import "elements/swipeSlider"
 @import "elements/tutorial"
@@ -544,12 +652,14 @@ div.token-input-dropdown
 @import "pages/games/attendanceStreak"
 @import "pages/games/gameFace"
 @import "pages/games/guessTheScore"
+@import "pages/games/photo"
 @import "pages/leaderboard"
 @import "pages/connect"
 @import "pages/connect/huddle"
 @import "pages/connect/roster"
+@import "pages/connect/highlights"
 @import "pages/settings"
 @import "pages/share"
 
-
 @import "lib/fixes"
+@import "elements/preload"

@@ -26,7 +26,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                   fc.logger.sendLog(err)
                   done(err)
 
-         forge.ajax(options)
+         forge.request.ajax(options)
 
       _loginUser: (user) ->
          fc.auth._refresh_token = user.refresh_token
@@ -55,7 +55,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             error: (err) ->
                done(err)
 
-         forge.ajax(options)
+         forge.request.ajax(options)
 
       logout: () ->
          fc.auth._refresh_token = null

@@ -82,7 +82,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          @selected_fans = []
          fc.team.getActive (err, profile) =>
             fc.ajax
-               url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/gameFace/motivate"
+               url: "#{fc.getResourceURL()}/v1/me/teams/#{profile._id}/games/game_face/motivate"
                type: "POST"
                data: 
                   motivatees: selected_fans
