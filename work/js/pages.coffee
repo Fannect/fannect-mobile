@@ -118,7 +118,6 @@ window.fannect.pages =
       buttons: [
          {
             position: "right"
-            # text: "FB Friends"
             icon: "images/icons/find_FacebookIcon@2x.png"
             click: -> $.mobile.changePage "connect-roster-facebookFriends.html", transition:"slide"
          }
