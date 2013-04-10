@@ -1,0 +1,109 @@
+2013-04-09 22:02:01,948 [   INFO] Forge tools running at version 3.3.47
+2013-04-09 22:02:01,948 [  DEBUG] Checking for update zip...
+2013-04-09 22:02:02,077 [  DEBUG] ignoring non-target directory .DS_Store
+2013-04-09 22:02:02,077 [  DEBUG] ignoring non-target directory reload
+2013-04-09 22:02:02,077 [  DEBUG] Enabled platforms: ['ios']
+2013-04-09 22:02:02,077 [  DEBUG] Using configuration file value u'device' for ios.device
+2013-04-09 22:02:02,077 [  DEBUG] Forge build tools version: 3.3.47
+2013-04-09 22:02:02,077 [  DEBUG] main: {"server": "https://trigger.io/api/"}
+2013-04-09 22:02:02,077 [  DEBUG] port: 38394
+2013-04-09 22:02:02,077 [  DEBUG] GET https://trigger.io/api/auth/loggedin
+2013-04-09 22:02:02,502 [  DEBUG] Checking API response for success or error
+2013-04-09 22:02:02,502 [  DEBUG] already authenticated via cookie - continuing
+2013-04-09 22:02:02,502 [  DEBUG] POST https://trigger.io/api/track/
+2013-04-09 22:02:02,502 [  DEBUG] <ForgeTask (ios)> running...
+2013-04-09 22:02:02,502 [  DEBUG] <ForgeTask (ios)> script:
+[{'do': {'run_ios': (u'device',)}, 'when': {'platform_is': 'ios'}}]
+2013-04-09 22:02:02,502 [   INFO] Running on iOS device: device
+2013-04-09 22:02:02,502 [  DEBUG] Using configuration file value u'Hunter Browning (53E563684P)' for ios.profile.developer_certificate
+2013-04-09 22:02:02,503 [  DEBUG] Using configuration file value u'dev.mobileprovision' for ios.profile.provisioning_profile
+2013-04-09 22:02:02,503 [  DEBUG] Looking for apps at /Users/blakevanlandingham/ws/fannect-mobile/development/ios/device-*/
+2013-04-09 22:02:02,503 [  DEBUG] Signing /Users/blakevanlandingham/ws/fannect-mobile/development/ios/device-ios.app/
+2013-04-09 22:02:02,503 [  DEBUG] Application ID in app and provisioning profile match
+2013-04-09 22:02:02,503 [   INFO] Plist OK
+2013-04-09 22:02:02,503 [   INFO] 5 Provisioned Device(s):
+2013-04-09 22:02:02,503 [   INFO] ['dbce8b84c3141640cccfe3c1ebd103e71943fffe', 'b20dc0956025445f11bc7881eccaefb4d65a53e1', '1c39b696c0b76bb312528325ce42af980bea9ff1', '8ee80a0a526312517e9933924332667e9611a96d', '7400c0d6b9d042ac6a38c8c0edd26b2906742ac2']
+2013-04-09 22:02:02,503 [  DEBUG] Running: '/usr/bin/codesign' '--force' '--preserve-metadata' '--entitlements' '/var/folders/yc/wzrqbwzs34b3_g9j7mfk5cbc0000gn/T/tmp3YoOS8' '--sign' 'Hunter Browning (53E563684P)' '--resource-rules=/Users/blakevanlandingham/ws/fannect-mobile/development/ios/device-ios.app/ResourceRules.plist' '/Users/blakevanlandingham/ws/fannect-mobile/development/ios/device-ios.app'
+2013-04-09 22:02:02,511 [  DEBUG] Hunter Browning (53E563684P): ambiguous (matches "iPhone Developer: Hunter Browning (53E563684P)" and "iPhone Developer: Hunter Browning (53E563684P)" in /Users/blakevanlandingham/Library/Keychains/login.keychain)
+2013-04-09 22:02:02,511 [  ERROR] Failed when running /usr/bin/codesign: Hunter Browning (53E563684P): ambiguous (matches "iPhone Developer: Hunter Browning (53E563684P)" and "iPhone Developer: Hunter Browning (53E563684P)" in /Users/blakevanlandingham/Library/Keychains/login.keychain)
+
+2013-04-09 22:02:02,511 [  DEBUG] Traceback (most recent call last):
+  File "/Users/blakevanlandingham/Library/Trigger Toolkit/build-tools/forge/async.py", line 98, in run
+    result = self._target(*self._args, **self._kwargs)
+  File "/Users/blakevanlandingham/Library/Trigger Toolkit/build-tools/forge/main.py", line 438, in run
+    build_to_run=build_to_run,
+  File "/Users/blakevanlandingham/ws/fannect-mobile/.template/generate_dynamic/customer_goals.py", line 125, in run_app
+    build_to_run.run()
+  File "/Users/blakevanlandingham/ws/fannect-mobile/.template/generate_dynamic/build.py", line 337, in run
+    self._call_with_params(task_method, task_args)
+  File "/Users/blakevanlandingham/ws/fannect-mobile/.template/generate_dynamic/build.py", line 296, in _call_with_params
+    return method(self, *params)
+  File "/Users/blakevanlandingham/ws/fannect-mobile/.template/generate_dynamic/ios_tasks.py", line 695, in run_ios
+    certificate_password=certificate_password,
+  File "/Users/blakevanlandingham/ws/fannect-mobile/.template/generate_dynamic/ios_tasks.py", line 595, in run_idevice
+    entitlements_file=temp_file_path,
+  File "/Users/blakevanlandingham/ws/fannect-mobile/.template/generate_dynamic/ios_tasks.py", line 353, in _sign_app
+    path_to_app)
+  File "/Users/blakevanlandingham/ws/fannect-mobile/.template/generate_dynamic/utils.py", line 346, in run_shell
+    output=state.output.getvalue()
+ShellError: Failed when running /usr/bin/codesign: Hunter Browning (53E563684P): ambiguous (matches "iPhone Developer: Hunter Browning (53E563684P)" and "iPhone Developer: Hunter Browning (53E563684P)" in /Users/blakevanlandingham/Library/Keychains/login.keychain)
+
+
+2013-04-09 22:50:55,805 [   INFO] Forge tools running at version 3.3.47
+2013-04-09 22:50:55,805 [  DEBUG] Checking for update zip...
+2013-04-09 22:50:55,936 [  DEBUG] ignoring non-target directory .DS_Store
+2013-04-09 22:50:55,936 [  DEBUG] ignoring non-target directory reload
+2013-04-09 22:50:55,936 [  DEBUG] Enabled platforms: ['ios']
+2013-04-09 22:50:55,936 [  DEBUG] Using configuration file value u'device' for ios.device
+2013-04-09 22:50:55,936 [  DEBUG] Forge build tools version: 3.3.47
+2013-04-09 22:50:55,936 [  DEBUG] main: {"server": "https://trigger.io/api/"}
+2013-04-09 22:50:55,936 [  DEBUG] port: 38394
+2013-04-09 22:50:55,936 [  DEBUG] GET https://trigger.io/api/auth/loggedin
+2013-04-09 22:50:56,360 [  DEBUG] Checking API response for success or error
+2013-04-09 22:50:56,360 [  DEBUG] already authenticated via cookie - continuing
+2013-04-09 22:50:56,360 [  DEBUG] POST https://trigger.io/api/track/
+2013-04-09 22:50:56,361 [  DEBUG] <ForgeTask (ios)> running...
+2013-04-09 22:50:56,361 [  DEBUG] <ForgeTask (ios)> script:
+[{'do': {'run_ios': (u'device',)}, 'when': {'platform_is': 'ios'}}]
+2013-04-09 22:50:56,361 [   INFO] Running on iOS device: device
+2013-04-09 22:50:56,361 [  DEBUG] Using configuration file value u'Hunter Browning (53E563684P)' for ios.profile.developer_certificate
+2013-04-09 22:50:56,361 [  DEBUG] Using configuration file value u'dev.mobileprovision' for ios.profile.provisioning_profile
+2013-04-09 22:50:56,361 [  DEBUG] Looking for apps at /Users/blakevanlandingham/ws/fannect-mobile/development/ios/device-*/
+2013-04-09 22:50:56,361 [  DEBUG] Signing /Users/blakevanlandingham/ws/fannect-mobile/development/ios/device-ios.app/
+2013-04-09 22:50:56,361 [  DEBUG] Application ID in app and provisioning profile match
+2013-04-09 22:50:56,361 [   INFO] Plist OK
+2013-04-09 22:50:56,361 [   INFO] 5 Provisioned Device(s):
+2013-04-09 22:50:56,361 [   INFO] ['dbce8b84c3141640cccfe3c1ebd103e71943fffe', 'b20dc0956025445f11bc7881eccaefb4d65a53e1', '1c39b696c0b76bb312528325ce42af980bea9ff1', '8ee80a0a526312517e9933924332667e9611a96d', '7400c0d6b9d042ac6a38c8c0edd26b2906742ac2']
+2013-04-09 22:50:56,361 [  DEBUG] Running: '/usr/bin/codesign' '--force' '--preserve-metadata' '--entitlements' '/var/folders/yc/wzrqbwzs34b3_g9j7mfk5cbc0000gn/T/tmp75iSnc' '--sign' 'Hunter Browning (53E563684P)' '--resource-rules=/Users/blakevanlandingham/ws/fannect-mobile/development/ios/device-ios.app/ResourceRules.plist' '/Users/blakevanlandingham/ws/fannect-mobile/development/ios/device-ios.app'
+2013-04-09 22:50:56,580 [  DEBUG] File: fruitstrap, already downloaded and correct.
+2013-04-09 22:50:56,580 [   INFO] Installing app on device: is it connected?
+2013-04-09 22:50:56,581 [  DEBUG] Running: '/Users/blakevanlandingham/ws/fannect-mobile/.lib/fruitstrap' '-d' '-u' '-t' '10' '-g' '-i mi -q' '-b' '/Users/blakevanlandingham/ws/fannect-mobile/development/ios/device-ios.app/'
+2013-04-09 22:50:56,581 [   INFO] ------ Install phase ------
+2013-04-09 22:50:56,581 [   INFO] [....] Waiting for iOS device to be connected
+2013-04-09 22:50:56,581 [   INFO] [  0%] Found device (8ee80a0a526312517e9933924332667e9611a96d), beginning install
+2013-04-09 22:50:57,581 [  ERROR] Failed when running /Users/blakevanlandingham/ws/fannect-mobile/.lib/fruitstrap: ------ Install phase ------
+[....] Waiting for iOS device to be connected
+[  0%] Found device (8ee80a0a526312517e9933924332667e9611a96d), beginning install
+
+2013-04-09 22:50:57,582 [  DEBUG] Traceback (most recent call last):
+  File "/Users/blakevanlandingham/Library/Trigger Toolkit/build-tools/forge/async.py", line 98, in run
+    result = self._target(*self._args, **self._kwargs)
+  File "/Users/blakevanlandingham/Library/Trigger Toolkit/build-tools/forge/main.py", line 438, in run
+    build_to_run=build_to_run,
+  File "/Users/blakevanlandingham/ws/fannect-mobile/.template/generate_dynamic/customer_goals.py", line 125, in run_app
+    build_to_run.run()
+  File "/Users/blakevanlandingham/ws/fannect-mobile/.template/generate_dynamic/build.py", line 337, in run
+    self._call_with_params(task_method, task_args)
+  File "/Users/blakevanlandingham/ws/fannect-mobile/.template/generate_dynamic/build.py", line 296, in _call_with_params
+    return method(self, *params)
+  File "/Users/blakevanlandingham/ws/fannect-mobile/.template/generate_dynamic/ios_tasks.py", line 695, in run_ios
+    certificate_password=certificate_password,
+  File "/Users/blakevanlandingham/ws/fannect-mobile/.template/generate_dynamic/ios_tasks.py", line 607, in run_idevice
+    run_shell(*fruitstrap, fail_silently=False, command_log_level=logging.INFO, filter=lambda x: ((x.startswith('[') or x.startswith('-')) and x) or (x.startswith('@') and x[2:-6]), check_for_interrupt=True)
+  File "/Users/blakevanlandingham/ws/fannect-mobile/.template/generate_dynamic/utils.py", line 346, in run_shell
+    output=state.output.getvalue()
+ShellError: Failed when running /Users/blakevanlandingham/ws/fannect-mobile/.lib/fruitstrap: ------ Install phase ------
+[....] Waiting for iOS device to be connected
+[  0%] Found device (8ee80a0a526312517e9933924332667e9611a96d), beginning install
+
+

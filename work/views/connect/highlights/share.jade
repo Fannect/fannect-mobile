@@ -22,9 +22,7 @@ block content
             .photo-share-option.twitter(data-bind="click: shareViaTwitter, css:{'ui-btn-active':shared_twitter}")
             .photo-share-option.facebook(data-bind="click: shareViaFacebook, css:{'ui-btn-active':shared_facebook}")
             //- .photo-share-option.instagram(data-bind="click: shareViaInstagram")
-            .photo-share-option.email(data-bind="click: shareViaSMS, css:{'ui-btn-active':shared_sms}")
-
-         .explanation-message with this caption: 
+            .photo-share-option.sms(data-bind="click: shareViaSMS, css:{'ui-btn-active':shared_sms}")
          .share-text-wrap
             textarea.share-text(data-bind="value: share_caption, valueUpdate: ['afterkeydown']", placeholder="Enter a caption")
          

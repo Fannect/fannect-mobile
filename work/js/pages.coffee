@@ -13,6 +13,9 @@ window.fannect.pages =
 
    "linkAccounts-page":
       vm: vm.LinkAccounts
+   
+   "welcome-page":
+      vm: vm.Base
 
    ##
    # Reset Password
@@ -270,18 +273,46 @@ window.fannect.pages =
 
    "games-photo-gamedayPics-page":
       vm: vm.Games.GamedayPics
+      buttons: [
+         {
+            text: "Rules"
+            position: "right"
+            click: () -> window.fannect.tutorial.show()
+         }
+      ]
       classes: ["photo-base"]
 
    "games-photo-photoChallenge-page":
       vm: vm.Games.PhotoChallenge
+      buttons: [
+         {
+            text: "Rules"
+            position: "right"
+            click: () -> window.fannect.tutorial.show()
+         }
+      ]
       classes: ["photo-base"]
 
    "games-photo-spiritWear-page":
       vm: vm.Games.SpiritWear
+      buttons: [
+         {
+            text: "Rules"
+            position: "right"
+            click: () -> window.fannect.tutorial.show()
+         }
+      ]
       classes: ["photo-base"]
 
    "games-photo-pictureWithPlayer-page":
       vm: vm.Games.PictureWithPlayer
+      buttons: [
+         {
+            text: "Rules"
+            position: "right"
+            click: () -> window.fannect.tutorial.show()
+         }
+      ]
       classes: ["photo-base"]
 
    "games-photo-chooseInstagram-page":

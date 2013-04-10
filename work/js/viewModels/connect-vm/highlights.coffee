@@ -4,7 +4,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
 
       constructor: () ->
          super
-         @limit = 20
+         @limit = 10
          @skip = 0
          @has_more = ko.observable(true)
          @created_by = ko.observable("spirit_wear")
@@ -77,7 +77,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             when "spirit_wear" then start = 0
             when "photo_challenge" then start = 1
             when "gameday_pics" then start = 2
-            when "picture_with_a_player" then start = 3
+            when "picture_with_player" then start = 3
             when "any" then start = 4
             else start = 0 
             
@@ -101,8 +101,8 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          else if index == 2 and @created_by() != "gameday_pics"
             @created_by("gameday_pics")
             @reloadHighlights()
-         else if index == 3 and @created_by() != "picture_with_a_player"
-            @created_by("picture_with_a_player")
+         else if index == 3 and @created_by() != "picture_with_player"
+            @created_by("picture_with_player")
             @reloadHighlights()
          else if index == 4 and @created_by() != "any"
             @created_by("any")

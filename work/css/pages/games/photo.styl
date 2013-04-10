@@ -23,9 +23,16 @@
       position: relative
       background: url(../images/games/photos/GameTitleBar.png) 50% 50%
       background-size: 100% 63px
-      height: 39px
-      padding: 8px 8px 16px 8px
+      height: 55px
+      padding-bottom: 8px
       z-index: 20
+      width: 100%
+      display: table
+
+      .title-cell
+         vertical-align: middle
+         display: table-cell
+         padding: 0 58px
 
       .photo-title-icon
          position:absolute
@@ -34,9 +41,9 @@
 
       .title
          text-align: center
-         margin: 2px 0
+         margin-bottom: 2px
          font-weight: bold
-         font-size: 20px
+         font-size: 18px
          color: #fff
       .sub-title
          text-align: center
@@ -137,6 +144,17 @@
             background-position: -86px 0
             border: 0
 
+   .tutorial-title
+      margin-top: 12px
+   p
+      margin: 8px 0
+      font-size: 13px
+      line-height: 20px
+   .line-separator
+      background: url(../images/tutorial/Tutorial_dividerLine.png) 50% 50% no-repeat
+      background-size: 143px 8px
+      height: 16px
+
 #games-photo-spiritWear-page
    .picture-placeholder 
       background: url(../images/games/photos/SpiritWearPlaceholder.png) no-repeat 50% 50%
@@ -232,6 +250,9 @@
             background-image: url(../images/games/photos/CameraButton@2x.png) !important
          .submit-picture-button
             background-image: url(../images/games/photos/SubmitButton@2x.png) !important
+      .line-separator
+         background-image: url(../images/tutorial/Tutorial_dividerLine@2x.png) !important
+   
 
    #games-photo-spiritWear-page
       .picture-placeholder 

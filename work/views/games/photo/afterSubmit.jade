@@ -11,3 +11,10 @@ block content
 
    .upload-more-button(data-bind="showClick: true, click: uploadMore")
    .view-all-button(data-bind="showClick: true, click: viewAll")
+
+   .photo-share-options
+      p Share this photo:
+      .photo-share-option.twitter(data-bind="click: shareViaTwitter, css:{'ui-btn-active':shared_twitter}")
+      .photo-share-option.facebook(data-bind="click: shareViaFacebook, css:{'ui-btn-active':shared_facebook}")
+      .photo-share-option.sms(data-bind="click: shareViaSMS, css:{'ui-btn-active':shared_sms}")
+   

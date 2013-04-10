@@ -48,7 +48,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             e.summary = "#{name} scored <b>#{e.points} Points</b> for #{e.meta.rank}#{sup} 
                place in the #{game} competition."
          else
-            e.summary = "#{name} scored <b>#{e.points} Points</b> for participating 
+            e.summary = "#{name} scored <b>#{e.points} Point</b> for participating 
                in the #{game} competition."
 
    eventPointsEarned = (e) ->
