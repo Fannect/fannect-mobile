@@ -57,6 +57,9 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
             forge.event.backPressed.preventDefault()
          else if forge.is.ios() 
             $("html").addClass("ios")
+         
+         fc.mobile.createButtons()
+         fc.push.setup()
       else
          # stub out flurry for web
          forge.flurry =
@@ -65,15 +68,12 @@ do ($ = window.jQuery, fc = window.fannect, forge = window.forge) ->
             setLocation: () -> 
             startTimedEvent: () ->
             endTimedEvent: () ->
-
       
       if fc.isSlow() 
          $("html").addClass("speed-up")
          $.mobile.defaultPageTransition = "none"
 
       fc.nav.setup()
-      fc.mobile.createButtons()
-      fc.push.setup()
 
       # Remove button styling to avoid double styling
       $(document).on "pagehide", "#index-page", () ->

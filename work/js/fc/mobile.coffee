@@ -29,7 +29,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
                fc.nav.changeActiveHistoryOrBack(historyPath)   
 
       createButtons: () -> 
-         return if fc.mobile._header_added
+         return if fc.mobile._header_added or forge.is.web()
          fc.mobile._header_added = true
          forge.tabbar.removeButtons () ->
             fc.mobile._addButton 0, "Profile", "images/mobile/TabBar_Profile.png", "profile"
@@ -41,6 +41,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
          fc.mobile._buttons = {}
          
       setActiveMenu: (name) ->
+         return if forge.is.web()
          if name and name != "none"
             name = name.toLowerCase()
             forge.tabbar.show()
@@ -50,30 +51,32 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             forge.tabbar.hide () -> $.mobile.activePage?.css("min-height", $(window).height())
 
       setHeaderText: () ->
-         if forge.is.mobile()
-            forge.topbar.setTitle(fc.getHeaderText($.mobile.activePage))
-            fc.mobile.clearButtons()
+         return if forge.is.web()
+         forge.topbar.setTitle(fc.getHeaderText($.mobile.activePage))
+         fc.mobile.clearButtons()
 
       setBackButton: () ->
-         if forge.is.mobile()
-            leftButton = $(".header a[data-rel=back]", $.mobile.activePage)
+         return if forge.is.web()
+         leftButton = $(".header a[data-rel=back]", $.mobile.activePage)
 
-            if leftButton.length > 0
-               fc.mobile.addHeaderButton
-                  text: leftButton.text()
-                  position: "left"
-                  style: "back"
-                  click: () -> fc.mobile.clearButtons -> fc.nav.goBack()
-               return true
+         if leftButton.length > 0
+            fc.mobile.addHeaderButton
+               text: leftButton.text()
+               position: "left"
+               style: "back"
+               click: () -> fc.mobile.clearButtons -> fc.nav.goBack()
+            return true
 
-            return false
+         return false
                      
       clearButtons: (done) ->
+         return if forge.is.web()
          leftHeaderButton = null
          rightHeaderButton = null
          fc.mobile.removeButtons(done)
 
       removeButtons: (done) ->
+         return if forge.is.web()
          waitingForClear.push(done) if done
          return if removingButtons
          
@@ -89,26 +92,25 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
             fc.mobile.removeButtons()
 
       addHeaderButton: (options, click) ->
-
-         if forge.is.mobile()
-            options.click = click or options.click
-            
+         return if forge.is.web()
+         options.click = click or options.click
          
-            leftHeaderButton = options if options.position == "left"
-            rightHeaderButton = options if options.position == "right"
+      
+         leftHeaderButton = options if options.position == "left"
+         rightHeaderButton = options if options.position == "right"
 
-            return if removingButtons
+         return if removingButtons
 
-            forge.topbar.addButton options, options.click, (err) ->
-               if err
-                  setTimeout ->
-                     forge.topbar.removeButtons () ->
-                        if leftHeaderButton and not leftHeaderButton.second_try
-                           leftHeaderButton.second_try = true
-                           fc.mobile.addHeaderButton leftHeaderButton 
-                        if rightHeaderButton and not rightHeaderButton.second_try
-                           fc.mobile.addHeaderButton rightHeaderButton
-                           rightHeaderButton.second_try = true
-                  , 15
+         forge.topbar.addButton options, options.click, (err) ->
+            if err
+               setTimeout ->
+                  forge.topbar.removeButtons () ->
+                     if leftHeaderButton and not leftHeaderButton.second_try
+                        leftHeaderButton.second_try = true
+                        fc.mobile.addHeaderButton leftHeaderButton 
+                     if rightHeaderButton and not rightHeaderButton.second_try
+                        fc.mobile.addHeaderButton rightHeaderButton
+                        rightHeaderButton.second_try = true
+               , 15
 
 

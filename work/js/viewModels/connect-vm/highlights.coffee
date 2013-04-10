@@ -60,7 +60,9 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
            
             @skip += @limit
             @has_more(highlights.length == @limit)
-            return if highlights[0]?.id == @highlights()[0]?.id
+            
+            return if highlights[0]?._id == @highlights()[0]?._id
+
             @highlights.push(@prepHighlight(highlight)) for highlight in highlights
 
       load: () =>
