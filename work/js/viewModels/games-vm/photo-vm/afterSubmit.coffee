@@ -32,7 +32,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
                @shared_twitter(false)
                return 
             fc.ajax
-               url: "#{fc.getResourceURL()}/v1/highlights/@highlight.id}/share"
+               url: "#{fc.getResourceURL()}/v1/highlights/#{@highlight._id}/share"
                type: "POST"
                data: 
                   twitter: "true"
@@ -46,7 +46,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
             name: "Fan Highlight"
             description: @highlight.caption
             link: "http://fans.fannect.me/#{@highlight.short_id}"
-            picture: "#{@highlight.image_url}"
+            picture: @highlight.image_url
          , (data) =>
             @shared_facebook(false)
          , (err) =>
