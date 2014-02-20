@@ -12,6 +12,7 @@ do ($ = jQuery, ko = window.ko, fc = window.fannect) ->
          fc.auth.isLoggedIn (err, loggedIn) =>
             if loggedIn
                if not fc.push.activate()
+                  fc.survey.show()
                   fc.nav.changeActiveHistory("profile", empty: true)
             else
                forge.launchimage.hide() if forge.is.mobile()

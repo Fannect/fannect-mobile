@@ -17,6 +17,7 @@
 #= require "fc/nav.coffee"
 #= require "fc/push.coffee"
 #= require "fc/setup.coffee"
+#= require "fc/survey.coffee"
 #= require "fc/team.coffee"
 #= require "fc/tutorial.coffee"
 #= require "fc/user.coffee"

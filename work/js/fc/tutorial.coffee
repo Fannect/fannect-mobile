@@ -19,7 +19,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko, fc = window.fannect
 
       show: () ->
          $tutorial = $(".tutorial", $.mobile.activePage)
-         
+         console.log "TUTORIAL: #{JSON.stringify($tutorial)}"
          # Hide if tutorial is already visible
          return $tutorial.fadeOut(400) if $tutorial.is(":visible")
          $tutorial.fadeIn(400)

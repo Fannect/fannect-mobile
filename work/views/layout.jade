@@ -44,6 +44,28 @@ html
                .ui-corner-bottom.ui-content(data-role="content", data-theme="a", style)
                   p An Auto-Update is available! Minimize and reopen the app! No need to go to the App Store. Changes might be subtle.
                   a(data-role="button", href="javascript:fannect.nav.closePopup()", data-bind="showClick:true", data-theme="c") Ok
+            
+            .surveyPopup(id="#{pageId + '-surveyPopup'}", data-role="popup", data-dismissible="false", style="width:260px; text-align: center;", class="ui-corner-all", data-overlay-theme="a", data-theme="a")
+               .ui-corner-top(data-role="header", data-theme="b")
+                  h1 Survey
+               .ui-corner-bottom.ui-content(data-role="content", data-theme="a")
+                  div(data-bind="visible: survey_step() == 'question'")
+                     p How would you feel if you could no longer use Fannect?
+                     fieldset(data-role="controlgroup")
+                        input(type="radio", name="survey-choice", id="survey-disappointed", value="disappointed", data-bind="checked: survey_response")
+                        label(for="survey-disappointed") Very disappointed
+                        input(type="radio", name="survey-choice", id="survey-somewhat", value="somewhat disappointed", data-bind="checked: survey_response")
+                        label(for="survey-somewhat") Somewhat disappointed
+                        input(type="radio", name="survey-choice", id="survey-not", value="not disappointed", data-bind="checked: survey_response")
+                        label(for="survey-not") Not disappointed
+                     a(data-role="button", data-theme="a", data-bind="showClick:true", data-bind="click: cancelSurvey") No Thanks
+                  div(data-bind="visible: survey_step() == 'additional'")
+                     p.small 
+                        | Please help us understand why you selected "Not disappointed".
+                        | How could we make Fannect better and more useful?
+                     textarea(data-bind="value: survey_additional, valueUpdate: ['afterkeydown']", placeholder="(optional)")
+                     a.submitSurvey(data-role="button", data-bind="click: submitSurvey") Submit
+
             block content
 
          .tutorial

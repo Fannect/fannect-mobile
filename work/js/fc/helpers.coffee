@@ -6,6 +6,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
       viewModels: {}
 
    fc.getResourceURL = () ->
+      # "http://localhost:2100"
       "http://api.fannect.me"
       # "https://fannect-api-dev.herokuapp.com"
       # return "http://192.168.2.6:2100"
@@ -13,6 +14,7 @@ do ($ = window.jQuery, forge = window.forge, ko = window.ko) ->
       # return if forge.is.web() then "http://localhost:2100" else "http://api.fannect.me"
 
    fc.getLoginURL = () ->
+      # "http://localhost:2200"
       "https://fannect-login.herokuapp.com"
       # "https://fannect-login-dev.herokuapp.com"
       # return "http://192.168.2.6:2200"
